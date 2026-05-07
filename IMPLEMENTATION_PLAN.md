@@ -79,7 +79,7 @@ Entregas:
 ---
 
 ## Fase 4 — Utilitários Principais
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Entregas:
 - `src/utils/timezone.ts` — detectar fuso do navegador, converter UTC para local, listar fusos/cidades
