@@ -6,9 +6,9 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 6A — Jogos de Hoje (pt-br)
-**Próxima fase:** Fase 6B — Tabela da Copa 2026 (pt-br)
-**Aguardando:** Autorização do usuário para iniciar Fase 6B
+**Fase concluída:** Fase 6B — Tabela da Copa 2026 (pt-br)
+**Próxima fase:** Fase 6C — Página por Seleção (pt-br) — rota dinâmica SSG
+**Aguardando:** Autorização do usuário para iniciar Fase 6C
 
 ---
 
