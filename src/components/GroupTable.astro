@@ -1,0 +1,319 @@
+---
+import type { Group, StandingEntry, Team, Locale } from '../types/index.ts';
+
+interface Props {
+  group: Group;
+  standings: StandingEntry[];
+  teams: Team[];
+  locale?: Locale;
+}
+
+const {
+  group,
+  standings,
+  teams,
+  locale = 'pt-br',
+} = Astro.props;
+
+const columnLabels: Record<Locale, Record<string, string>> = {
+  'pt-br': {
+    team:   'Seleção',
+    played: 'J',
+    won:    'V',
+    drawn:  'E',
+    lost:   'D',
+    gf:     'GP',
+    ga:     'GC',
+    gd:     'SG',
+    pts:    'Pts',
+    mock:   'MOCK',
+    noData: 'Sem dados de classificação para este grupo.',
+  },
+  'en': {
+    team:   'Team',
+    played: 'P',
+    won:    'W',
+    drawn:  'D',
+    lost:   'L',
+    gf:     'GF',
+    ga:     'GA',
+    gd:     'GD',
+    pts:    'Pts',
+    mock:   'MOCK',
+    noData: 'No standings data for this group.',
+  },
+  'es': {
+    team:   'Selección',
+    played: 'PJ',
+    won:    'G',
+    drawn:  'E',
+    lost:   'P',
+    gf:     'GF',
+    ga:     'GC',
+    gd:     'DG',
+    pts:    'Pts',
+    mock:   'MOCK',
+    noData: 'Sin datos de clasificación para este grupo.',
+  },
+};
+
+const t = columnLabels[locale] ?? columnLabels['pt-br'];
+
+// Resolver nome do time pelo team_id
+function getTeamDisplayName(teamId: string): string {
+  const team = teams.find((t) => t.id === teamId);
+  if (!team) return teamId;
+  return team.name[locale] ?? team.name['en'] ?? teamId;
+}
+
+function getTeamFlag(teamId: string): string {
+  const team = teams.find((t) => t.id === teamId);
+  return team?.flag ?? '';
+}
+
+// Calcular saldo de gols (SG = GP - GC)
+function goalDifference(entry: StandingEntry): number {
+  return entry.goals_for - entry.goals_against;
+}
+
+// Ordenar: Pts desc → SG desc → GP desc
+const sortedStandings = [...standings].sort((a, b) => {
+  if (b.points !== a.points) return b.points - a.points;
+  const gdDiff = goalDifference(b) - goalDifference(a);
+  if (gdDiff !== 0) return gdDiff;
+  return b.goals_for - a.goals_for;
+});
+
+const groupName = group.name[locale] ?? group.name['en'];
+---
+
+<div class="group-table-wrapper">
+  <div class="group-table-header">
+    <h3 class="group-table-title">{groupName}</h3>
+    <span class="mock-badge" aria-label="Dados simulados">{t.mock}</span>
+  </div>
+
+  {sortedStandings.length === 0 ? (
+    <p class="group-table-empty">{t.noData}</p>
+  ) : (
+    <div class="table-wrapper">
+      <table class="group-table" aria-label={groupName}>
+        <thead>
+          <tr>
+            <th class="col-pos" scope="col" aria-label="Posição">#</th>
+            <th class="col-team" scope="col">{t.team}</th>
+            <th class="col-num" scope="col" title="Jogos disputados">{t.played}</th>
+            <th class="col-num" scope="col" title="Vitórias">{t.won}</th>
+            <th class="col-num" scope="col" title="Empates">{t.drawn}</th>
+            <th class="col-num" scope="col" title="Derrotas">{t.lost}</th>
+            <th class="col-num" scope="col" title="Gols pró">{t.gf}</th>
+            <th class="col-num" scope="col" title="Gols contra">{t.ga}</th>
+            <th class="col-num" scope="col" title="Saldo de gols">{t.gd}</th>
+            <th class="col-pts" scope="col" title="Pontos">{t.pts}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedStandings.map((entry, index) => {
+            const isLeader = index === 0;
+            const gd = goalDifference(entry);
+            const gdStr = gd > 0 ? `+${gd}` : `${gd}`;
+            const teamName = getTeamDisplayName(entry.team_id);
+            const teamFlag = getTeamFlag(entry.team_id);
+
+            return (
+              <tr class={isLeader ? 'row-leader' : ''}>
+                <td class="col-pos">{index + 1}</td>
+                <td class="col-team">
+                  {teamFlag && <span class="team-flag" aria-hidden="true">{teamFlag}</span>}
+                  <span class="team-name">{teamName}</span>
+                </td>
+                <td class="col-num">{entry.played}</td>
+                <td class="col-num">{entry.won}</td>
+                <td class="col-num">{entry.drawn}</td>
+                <td class="col-num">{entry.lost}</td>
+                <td class="col-num">{entry.goals_for}</td>
+                <td class="col-num">{entry.goals_against}</td>
+                <td class="col-num">{gdStr}</td>
+                <td class="col-pts"><strong>{entry.points}</strong></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  )}
+</div>
+
+<style>
+  .group-table-wrapper {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background-color: var(--color-bg-card);
+  }
+
+  .group-table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-primary);
+    gap: var(--space-3);
+  }
+
+  .group-table-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-inverse);
+    margin: 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .mock-badge {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    padding: 1px var(--space-2);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  .group-table-empty {
+    padding: var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Wrapper com scroll horizontal em mobile */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .group-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+    min-width: 480px; /* evita esmagamento em telas pequenas */
+  }
+
+  /* Cabeçalho */
+  .group-table thead th {
+    background-color: var(--color-bg-alt);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+  }
+
+  /* Colunas */
+  .col-pos {
+    text-align: center;
+    width: 32px;
+    padding-inline: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+  }
+
+  .col-team {
+    text-align: left;
+    min-width: 140px;
+  }
+
+  .col-num {
+    text-align: center;
+    width: 36px;
+    padding-inline: var(--space-2);
+  }
+
+  .col-pts {
+    text-align: center;
+    width: 40px;
+    padding-inline: var(--space-2);
+  }
+
+  /* Células do corpo */
+  .group-table tbody td {
+    padding: var(--space-3) var(--space-3);
+    border-bottom: 1px solid var(--color-border-light);
+    color: var(--color-text);
+    vertical-align: middle;
+  }
+
+  .group-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Linhas alternadas */
+  .group-table tbody tr:nth-child(even) {
+    background-color: var(--color-bg-alt);
+  }
+
+  /* Linha do líder — fundo levemente destacado */
+  .group-table tbody tr.row-leader {
+    background-color: #eff6ff;
+  }
+
+  .group-table tbody tr.row-leader:nth-child(even) {
+    background-color: #eff6ff;
+  }
+
+  /* Pontos em negrito e levemente maior */
+  .col-pts strong {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-base);
+    color: var(--color-primary);
+  }
+
+  /* Time: flag + nome */
+  .team-flag {
+    display: inline-block;
+    margin-right: var(--space-2);
+    font-size: var(--font-size-base);
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  .team-name {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    vertical-align: middle;
+  }
+
+  /* Responsivo: col-pos e cabeçalho menor em mobile */
+  @media (min-width: 768px) {
+    .group-table {
+      font-size: var(--font-size-base);
+      min-width: unset;
+    }
+
+    .group-table thead th {
+      font-size: var(--font-size-sm);
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .group-table tbody td {
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .col-pos {
+      width: 40px;
+    }
+
+    .col-num {
+      width: 44px;
+    }
+
+    .col-pts {
+      width: 48px;
+    }
+  }
+</style>
