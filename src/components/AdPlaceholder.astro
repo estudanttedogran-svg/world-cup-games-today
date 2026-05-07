@@ -1,0 +1,59 @@
+---
+interface Props {
+  slot?: 'top' | 'middle' | 'bottom' | 'sidebar';
+  label?: string;
+}
+
+const {
+  slot: adSlot = 'middle',
+  label = 'Anúncio',
+} = Astro.props;
+---
+
+<div class={`ad-placeholder ad-placeholder--${adSlot}`} aria-hidden="true" role="presentation">
+  <span class="ad-placeholder__label">{label}</span>
+  <span class="ad-placeholder__text">[ Espaço para anúncio ]</span>
+</div>
+
+<style>
+  .ad-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+    width: 100%;
+    min-height: 90px;
+    padding: var(--space-4);
+    background-color: #f8f9fb;
+    border: 1px dashed #c8ced9;
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .ad-placeholder--sidebar {
+    min-height: 250px;
+  }
+
+  .ad-placeholder--top,
+  .ad-placeholder--bottom {
+    min-height: 90px;
+  }
+
+  .ad-placeholder--middle {
+    min-height: 90px;
+  }
+
+  .ad-placeholder__label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .ad-placeholder__text {
+    font-size: var(--font-size-sm);
+    color: #b0b8c6;
+  }
+</style>
