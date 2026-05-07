@@ -123,3 +123,9 @@ export function filterMatchesByPhase(
 ): Match[] {
   return matches.filter((m) => m.phase === phase);
 }
+
+// TODO (fase futura): quando os dados reais incluírem vínculo explícito entre
+// partidas parciais e times (ex: campo team_ids[] nas partidas do mata-mata),
+// criar função getPartialMatchesByTeam(matches, teamSlug) que filtre apenas
+// as partidas parciais em que o time aparece como possível participante confirmado.
+// Nunca exibir partidas parciais genéricas sem esse vínculo explícito.
