@@ -64,7 +64,7 @@ Regra: todos os dados marcados claramente como `// MOCK DATA`.
 ---
 
 ## Fase 3 — Layout Base + CSS
-**Status:** PENDENTE
+**Status:** AGUARDANDO AUTORIZAÇÃO
 
 Entregas:
 - `src/layouts/BaseLayout.astro` — estrutura HTML base com head, body, slots
