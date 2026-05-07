@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" repo create world-cup-games-today --public --source=. --remote=origin --push)",
+      "Skill(update-config)"
+    ]
+  }
+}
