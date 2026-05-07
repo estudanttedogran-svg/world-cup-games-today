@@ -6,9 +6,44 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 6C — Página por Seleção (pt-br) — rota dinâmica SSG
+**Fase concluída:** Fase 6C — Página por Seleção (pt-br) — rota dinâmica SSG + correção de segurança de dados
 **Próxima fase:** Fase 6D — Página por Grupo (pt-br) — rota dinâmica SSG
 **Aguardando:** Autorização do usuário para iniciar Fase 6D
+
+---
+
+## Correção aplicada em 2026-05-07 — Página de seleção: remoção de parciais genéricos
+
+**Problema corrigido:** A seção "Fase Eliminatória — Vagas a Definir" exibia todos os jogos parciais
+do mock (`match-009`, `match-010`, `match-011`) em todas as páginas de seleção, independentemente
+de haver vínculo explícito entre o jogo parcial e aquela seleção.
+
+**Regra adotada:** Jogos parciais genéricos (com `home_team_id: null` e `away_team_id: null`)
+nunca devem ser exibidos na página de uma seleção específica. Apenas jogos com vínculo explícito
+ao time poderiam ser exibidos — e, com dados mock genéricos, esse vínculo não existe.
+
+**Solução implementada:**
+- Removida a variável `partialMatches` do frontmatter
+- Removida a importação de `sortMatchesByDate` (não mais utilizada)
+- Removida a seção condicional `{partialMatches.length > 0 && (...)}` do template
+- Substituída por bloco estático `.next-phases-info` com texto informativo apenas:
+  "Os possíveis jogos das fases eliminatórias serão exibidos quando a classificação
+  da fase de grupos estiver definida."
+- Estilos `.partial-section` e `.partial-note` substituídos por `.next-phases-info` e `.next-phases-note`
+- Referência a `.partial-section h2` no breakpoint `768px` atualizada para `.next-phases-info h2`
+
+**Arquivos alterados:**
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/pt-br/selecoes/[slug].astro` | Corrigido — parciais removidos, bloco informativo inserido |
+| `src/utils/matches.ts` | Adicionado comentário `// TODO` para função futura de parciais com vínculo explícito |
+
+**Validação:**
+- `npm run build`: 14 páginas geradas sem erros, zero TypeScript errors
+- Nenhuma página de seleção lista jogos parciais genéricos
+- Parcial nunca tratado como confirmado
+- Nenhuma seleção sugerida como classificada para fase futura sem confirmação
 
 ---
 
