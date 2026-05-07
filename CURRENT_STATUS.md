@@ -146,15 +146,54 @@
 
 ---
 
-## Próximos passos (Fase 6)
+## Planejamento da Fase 6 — Subdivisão em subfases (concluído em 2026-05-07)
 
-Fase 6 — Páginas Principais (pt-br):
-1. `src/pages/pt-br/jogos-de-hoje-copa.astro`
-2. `src/pages/pt-br/tabela-copa-2026.astro`
-3. `src/pages/pt-br/selecoes/[slug].astro` — rota dinâmica por seleção
-4. `src/pages/pt-br/grupos/[grupo].astro` — rota dinâmica por grupo
-5. `src/pages/pt-br/jogo/[id].astro` — rota dinâmica por partida
-6. `src/pages/pt-br/calendario-copa-2026.astro`
+A Fase 6 original foi subdividida em 5 subfases sequenciais para reduzir risco por sessão
+e tornar cada unidade de trabalho executável por um agente em uma única sessão.
+
+### Fase 6A — Jogos de Hoje
+- Página: `src/pages/pt-br/jogos-de-hoje-copa.astro`
+- Componentes novos: nenhum
+- Reutiliza: TodayMatches, MatchList, TimezoneSelector, ShareButtons, AdPlaceholder
+- Complexidade: baixa
+
+### Fase 6B — Tabela da Copa 2026
+- Página: `src/pages/pt-br/tabela-copa-2026.astro`
+- Componentes novos: `GroupTable.astro` (tabela de classificação por grupo)
+- Reutiliza: AdPlaceholder, ShareButtons
+- Complexidade: média
+- Nota: `GroupTable.astro` gerado aqui é pré-requisito para Fase 6D
+
+### Fase 6C — Página por Seleção
+- Página: `src/pages/pt-br/selecoes/[slug].astro` (rota dinâmica SSG)
+- Componentes novos: `TeamHeader.astro`
+- Reutiliza: MatchList, NextMatchCard, ShareButtons, AdPlaceholder
+- Complexidade: média-alta (primeira rota dinâmica do projeto)
+- Não depende de 6A nem 6B
+
+### Fase 6D — Página por Grupo
+- Página: `src/pages/pt-br/grupos/[grupo].astro` (rota dinâmica SSG)
+- Componentes novos: nenhum
+- Reutiliza: GroupTable (DE 6B), MatchList, AdPlaceholder, ShareButtons
+- Complexidade: média
+- DEPENDE DA FASE 6B (GroupTable.astro obrigatório)
+
+### Fase 6E — Página por Jogo + Calendário
+- Páginas: `src/pages/pt-br/jogo/[id].astro` + `src/pages/pt-br/calendario-copa-2026.astro`
+- Componentes novos: `MatchDetail.astro` (inclui SportsEvent JSON-LD)
+- Reutiliza: ShareButtons, MatchList, AdPlaceholder, TimezoneSelector
+- Complexidade: alta (página mais rica do projeto — schema, placar ao vivo, links cruzados)
+- Recomenda-se executar após 6C e 6D
+
+Ordem obrigatória: 6A → 6B → 6C → 6D → 6E
+
+---
+
+## Próximos passos (Fase 6A)
+
+1. Criar `src/pages/pt-br/jogos-de-hoje-copa.astro`
+2. Estrutura: hero com h1 específico para SEO, seletor de fuso, `TodayMatches`, anúncio, FAQ/texto SEO
+3. Aguardar autorização antes de iniciar
 
 ---
 
