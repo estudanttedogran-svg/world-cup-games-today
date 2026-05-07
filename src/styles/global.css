@@ -540,3 +540,81 @@ h6 {
     font-size: var(--font-size-2xl);
   }
 }
+
+/* ===== PÁGINA: JOGOS DE HOJE ===== */
+
+/* Hero de página interna (sem height mínima obrigatória) */
+.page-hero {
+  padding-block: var(--space-8) var(--space-6);
+}
+
+.page-hero h1 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-3);
+}
+
+.page-hero p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  max-width: 60ch;
+}
+
+@media (min-width: 768px) {
+  .page-hero h1 {
+    font-size: var(--font-size-3xl);
+  }
+
+  .page-hero p {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Linha do seletor de fuso */
+.timezone-row {
+  margin-bottom: var(--space-6);
+}
+
+/* Resumo do dia */
+.day-summary {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-alt);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+}
+
+.day-summary p {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+/* Seção principal de jogos do dia (na página dedicada) */
+.today-section {
+  margin-block: var(--space-6);
+}
+
+/* Seção de compartilhamento (página dedicada) */
+.share-section {
+  margin-block: var(--space-6);
+  padding: var(--space-6);
+  background-color: var(--color-bg-alt);
+  border-radius: var(--radius-lg);
+}
+
+.share-section h2 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .share-section h2 {
+    font-size: var(--font-size-2xl);
+  }
+}
