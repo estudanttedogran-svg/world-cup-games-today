@@ -6,9 +6,9 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 4 — Utilitários Principais
-**Próxima fase:** Fase 5 — Home Page (pt-br)
-**Aguardando:** Autorização do usuário para iniciar Fase 5
+**Fase concluída:** Fase 5 — Home Page (pt-br)
+**Próxima fase:** Fase 6 — Páginas Principais (pt-br)
+**Aguardando:** Autorização do usuário para iniciar Fase 6
 
 ---
 
@@ -18,69 +18,96 @@
 ### Fase 1 ✅ — Bootstrap do Projeto Astro (Astro 5.18.1)
 ### Fase 2 ✅ — Camada de Dados (Mock)
 ### Fase 3 ✅ — Layout Base + CSS
-
 ### Fase 4 ✅ — Utilitários Principais
 
-**Utilitários criados:**
+### Fase 5 ✅ — Home Page (pt-br)
 
-**`src/utils/timezone.ts`**
-- `isBrowser()` — detecta execução no navegador
-- `isValidTimezone(tz)` — valida fuso IANA via Intl.DateTimeFormat
-- `getBrowserTimezone()` — retorna fuso do navegador ou 'UTC' como fallback
-- `getTimezoneLabel(tz)` — rótulo amigável com offset calculado via Intl (ex: "São Paulo (UTC-3)")
-- `getPopularTimezones()` — lista de 70+ fusos agrupados por região (América do Sul, América do Norte, Europa, Ásia/Oceania, África, UTC)
-- Interface `TimezoneOption` exportada
-- Cobre múltiplos fusos para BR (9 fusos), US, MX, CA, AR, RU
+**Componentes criados:**
 
-**`src/utils/datetime.ts`**
-- `utcToTimezone(utcDateString, timezone)` — converte UTC string para Date
-- `formatDate(utcDateString, locale, timezone)` — data localizada via Intl.DateTimeFormat
-- `formatTime(utcDateString, locale, timezone)` — hora localizada (24h para pt-br/es, 12h para en)
-- `formatDateTime(utcDateString, locale, timezone)` — data e hora juntos ("11 jun. • 16:00")
-- `formatWeekday(utcDateString, locale, timezone)` — dia da semana localizado
-- `secondsUntil(utcDateString)` — segundos até a data alvo (negativo se passou)
-- `formatCountdown(utcDateString, locale)` — contagem regressiva legível em pt-br/en/es
-- `isToday(utcDateString, timezone)` — verifica se é hoje no fuso dado
-- `isPast(utcDateString)` — verifica se a data já passou
+**`src/components/AdPlaceholder.astro`**
+- Props: `slot` ('top' | 'middle' | 'bottom' | 'sidebar'), `label`
+- Visual: caixa com borda tracejada, fundo cinzento claro
+- Min-height: 90px mobile, 250px para sidebar
+- Nunca aparece antes do conteúdo principal
+- Usa `aria-hidden="true"` e `role="presentation"` (não é conteúdo)
 
-**`src/utils/language.ts`**
-- `detectBrowserLocale()` — detecta idioma do navegador (pt* → 'pt-br', es* → 'es', else → 'en')
-- `isValidLocale(value)` — type guard para Locale
-- `getLocaleName(locale)` — nome do idioma no próprio idioma
-- `getHtmlLang(locale)` — código HTML lang (ex: 'pt-BR')
-- `uiLabels` — labels de UI completos para pt-br/en/es (Header e Footer)
+**`src/components/TimezoneSelector.astro`**
+- Props: `currentTimezone`, `locale`, `displayLabel`
+- Exibe fuso atual com label amigável via `getTimezoneLabel()`
+- Select com todos os fusos de `getPopularTimezones()`
+- Botão "Trocar fuso" salva no localStorage (`wcgt_prefs.timezone`) e recarrega
+- Lê preferência salva ao carregar para manter seleção do usuário
+- Toda lógica de window/localStorage em `<script>` com guard `typeof window`
 
-**`src/utils/storage.ts`**
-- `savePreference(key, value)` — salva preferência específica
-- `loadPreference(key)` — lê preferência específica (null se ausente/inválida)
-- `savePreferences(prefs)` — salva várias preferências (merge)
-- `loadPreferences()` — lê todas as preferências
-- `clearPreferences()` — remove todas as preferências
-- Interface `UserPreferences` exportada
-- Chave localStorage: `'wcgt_prefs'`
-- Sanitização e validação dos dados lidos (locale e timezone validados antes de retornar)
+**`src/components/TeamSelector.astro`**
+- Props: `teams`, `selectedTeamSlug`, `locale`
+- Dropdown com todos os times + emoji de flag
+- Botão "Aplicar" salva no localStorage (`wcgt_prefs.team`) e recarrega
+- Lê preferência salva ao carregar
+- Toda lógica de window/localStorage em `<script>` com guard
 
-**`src/utils/matches.ts`**
-- `getNextConfirmedMatch(matches, teamSlug)` — próximo jogo confirmado de uma seleção
-- `getConfirmedMatchesByTeam(matches, teamSlug)` — todos os jogos confirmados de uma seleção
-- `getTodaysMatches(matches, timezone)` — jogos de hoje (qualquer tipo)
-- `getTodaysConfirmedMatches(matches, timezone)` — jogos confirmados de hoje
-- `getTeamName(teams, teamSlug, locale)` — nome localizado de uma seleção
-- `isMatchLive(matchId, liveStatuses)` — verifica se jogo está ao vivo via live-data
-- `sortMatchesByDate(matches)` — ordena por data UTC (ascending, sem mutar original)
-- `filterMatchesByPhase(matches, phase)` — filtra por fase
+**`src/components/NextMatchCard.astro`**
+- Props: `match` (Match | null), `teams`, `timezone`, `locale`
+- Quando match existe: times, data/hora no fuso, estádio/cidade, fase, contagem regressiva
+- Contagem regressiva calculada em build time (string estática)
+- Badge "MOCK DATA" discreto
+- Borda lateral colorida com `var(--color-accent)`
+- Quando null: mensagem "Nenhum jogo confirmado disponível."
 
-**`src/utils/analytics.ts`**
-- `trackEvent(eventName, params?)` — evento genérico (no-op se gtag ausente ou ID vazio)
-- `trackTimezoneChange(fromTz, toTz)` — troca de fuso
-- `trackLocaleChange(fromLocale, toLocale)` — troca de idioma
-- `trackTeamSelect(teamSlug)` — seleção de time favorito
-- `trackShareClick(method)` — clique em compartilhamento
-- `trackMatchView(matchId)` — visualização de partida
-- Script GA não carregado ainda — será feito na Fase 12
+**`src/components/MatchList.astro`**
+- Props: `matches`, `teams`, `timezone`, `locale`, `title`, `emptyMessage`
+- Filtra partidas do tipo `simulation` (nunca exibe)
+- `confirmed`: times reais, data/hora, estádio, fase, badge MOCK
+- `partial`: labels de vaga, badge "Vaga não definida" + MOCK
+- Exibe fase e grupo na header de cada item
+
+**`src/components/TodayMatches.astro`**
+- Props: `matches`, `teams`, `timezone`, `locale`
+- Filtra internamente com `getTodaysConfirmedMatches()`
+- Delega renderização para `MatchList`
+
+**`src/components/ShareButtons.astro`**
+- Props: `matchId`, `matchTitle`, `locale`
+- WhatsApp: link `wa.me/?text=` com texto pré-formatado, target="_blank" rel="noopener noreferrer"
+- Copiar link: Clipboard API com fallback para input temporário + feedback visual "Copiado!"
+- Google Calendar: link base para eventedit
+- URL do WhatsApp atualizada no cliente para refletir a URL real da página
+
+**`src/pages/pt-br/index.astro`** (reescrita completa)
+- Importa dados de `src/data/matches.json` e `src/data/teams.json`
+- Usa `getNextConfirmedMatch`, `getTodaysConfirmedMatches`, `getConfirmedMatchesByTeam`
+- Fuso padrão: `America/Sao_Paulo` (sobrescrito pelo cliente via localStorage)
+- Seleção padrão: `northland`
+- Estrutura: hero → aviso mock → seletores → próximo jogo → anúncio → jogos de hoje → jogos da seleção → compartilhar → texto SEO
+
+**`src/styles/global.css`** (atualizado)
+- `.mock-warning`: fundo amarelo claro, borda amarela
+- `.hero h1`: responsivo (2xl mobile, 3xl desktop)
+- `.selectors`: column em mobile, row em desktop
+- `.next-match`, `.today-matches`, `.team-matches`, `.share`, `.seo-text`: margin e espaçamento
 
 **Validação:**
 - `npm run build`: ✅ 4 páginas geradas sem erros, zero TypeScript errors
+- `dist/index.html` ✅
+- `dist/pt-br/index.html` ✅
+- `dist/en/index.html` ✅
+- `dist/es/index.html` ✅
+
+---
+
+## Arquivos criados/alterados na Fase 5
+
+| Arquivo | Ação |
+|---------|------|
+| `src/components/AdPlaceholder.astro` | Criado |
+| `src/components/TimezoneSelector.astro` | Criado |
+| `src/components/TeamSelector.astro` | Criado |
+| `src/components/NextMatchCard.astro` | Criado |
+| `src/components/MatchList.astro` | Criado |
+| `src/components/TodayMatches.astro` | Criado |
+| `src/components/ShareButtons.astro` | Criado |
+| `src/pages/pt-br/index.astro` | Reescrito (fase 5 completa) |
+| `src/styles/global.css` | Atualizado (estilos home page) |
 
 ---
 
@@ -118,32 +145,15 @@
 
 ---
 
-## Arquivos criados/alterados na Fase 2
+## Próximos passos (Fase 6)
 
-| Arquivo | Ação |
-|---------|------|
-| `src/types/index.ts` | Criado (atualizado na Fase 3) |
-| `src/data/teams.json` | Criado (atualizado na Fase 3) |
-| `src/data/matches.json` | Criado (atualizado na Fase 3) |
-| `src/data/groups.json` | Criado (atualizado na Fase 3) |
-| `src/data/overrides.json` | Criado |
-| `public/data/live-data.json` | Criado |
-| `public/data/live-data.example.json` | Criado |
-
----
-
-## Próximos passos (Fase 5)
-
-Fase 5 — Home Page (pt-br):
-1. `src/pages/pt-br/index.astro` — página home completa em português
-2. `src/components/TimezoneSelector.astro` — exibir fuso + botão de troca manual
-3. `src/components/TeamSelector.astro` — seleção favorita + busca
-4. `src/components/NextMatchCard.astro` — próximo jogo confirmado + contagem regressiva
-5. `src/components/MatchList.astro` — lista de jogos com horário convertido
-6. `src/components/TodayMatches.astro` — seção de jogos do dia
-7. `src/components/ShareButtons.astro` — WhatsApp, copiar link, calendário
-8. `src/components/AdPlaceholder.astro` — placeholder de anúncio
-9. Seção de texto/FAQ para SEO
+Fase 6 — Páginas Principais (pt-br):
+1. `src/pages/pt-br/jogos-de-hoje-copa.astro`
+2. `src/pages/pt-br/tabela-copa-2026.astro`
+3. `src/pages/pt-br/selecoes/[slug].astro` — rota dinâmica por seleção
+4. `src/pages/pt-br/grupos/[grupo].astro` — rota dinâmica por grupo
+5. `src/pages/pt-br/jogo/[id].astro` — rota dinâmica por partida
+6. `src/pages/pt-br/calendario-copa-2026.astro`
 
 ---
 
@@ -153,14 +163,16 @@ Fase 5 — Home Page (pt-br):
 |------|--------|
 | Dados reais da Copa 2026 | Não inseridos — aguardar fase dedicada com fontes verificadas |
 | Teams fictícios | Nomes claramente fictícios (Northland, Eastoria etc.) |
-| Slugs i18n de grupos | Slug único `m`/`n` — URL prefixo tratado pela rota da página |
+| Fuso detectado no cliente | Build estático usa `America/Sao_Paulo` — JS do cliente lê localStorage e pode sobrescrever visualmente (requer reload) |
+| Contagem regressiva em tempo real | Estática no build (aceitável no MVP) — JS dinâmico em fase futura |
 | Fallback de live-data.json | Estrutura pronta — lógica de fallback implementada na Fase 8 |
 | Domínio definitivo | Não definido — placeholder `PUBLIC_SITE_URL` |
 | Google Analytics ID | Não disponível — placeholder |
 | AdSense | Não disponível — placeholders nas fases futuras |
 | Simulador | Fora do MVP — MVP 1.5 |
-| Nav links para páginas futuras | Apontam para paths esperados (ex: /pt-br/jogos-de-hoje-copa) — páginas criadas na Fase 5/6 |
+| Nav links para páginas futuras | Apontam para paths esperados (ex: /pt-br/jogos-de-hoje-copa) — páginas criadas na Fase 6 |
 | Script GA | Não carregado — analytics.ts tem stubs prontos, script será injetado na Fase 12 |
+| GroupTable.astro | Componente não necessário na home — criar na Fase 6 (tabela por grupo) |
 
 ---
 
@@ -181,3 +193,5 @@ Fase 5 — Home Page (pt-br):
 | Nav mobile | Links em linha abaixo do header, sem hamburger (suficiente para MVP) |
 | localStorage key | `'wcgt_prefs'` (objeto JSON unificado) |
 | Fusos BR | 9 fusos cobertos: SP, Manaus, Fortaleza, Recife, Belém, Porto Velho, Boa Vista, Rio Branco, Noronha |
+| Contagem regressiva | Calculada em build time — string estática (sem setInterval no MVP) |
+| Scripts client-side | Sempre em `<script>` com guard `typeof window !== 'undefined'` |
