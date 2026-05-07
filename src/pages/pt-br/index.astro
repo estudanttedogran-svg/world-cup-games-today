@@ -1,19 +1,17 @@
 ---
-const title = "Jogos da Copa do Mundo 2026 — World Cup Games Today";
-const description = "Veja todos os jogos da Copa do Mundo 2026 no seu horário local.";
+import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-  </head>
-  <body>
-    <main>
-      <h1>Jogos da Copa do Mundo 2026</h1>
-      <p>Veja todos os jogos no seu horário local.</p>
-    </main>
-  </body>
-</html>
+
+<BaseLayout
+  title="Jogos da Copa do Mundo 2026 — World Cup Games Today"
+  description="Veja todos os jogos da Copa do Mundo 2026 no seu horário local."
+  lang="pt-BR"
+  locale="pt-br"
+>
+  <section class="container" style="padding-block: var(--space-12);">
+    <h1>Jogos da Copa do Mundo 2026</h1>
+    <p style="margin-top: var(--space-4); color: var(--color-text-muted); font-size: var(--font-size-lg);">
+      Veja todos os jogos no seu horário local.
+    </p>
+  </section>
+</BaseLayout>
