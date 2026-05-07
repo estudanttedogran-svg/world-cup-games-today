@@ -18,6 +18,48 @@
 ### Fase 1 ✅ — Bootstrap do Projeto Astro (Astro 5.18.1)
 ### Fase 2 ✅ — Camada de Dados (Mock)
 ### Fase 3 ✅ — Layout Base + CSS
+
+### Fase 6C ✅ — Página por Seleção (pt-br) — rota dinâmica SSG
+
+**Arquivo criado:**
+
+**`src/pages/pt-br/selecoes/[slug].astro`**
+- Rota dinâmica SSG com `getStaticPaths()` — primeiro uso no projeto
+- Gera uma página estática por cada time em `teams.json` (8 seleções = 8 páginas)
+- Cast correto dos dados: `(teamsData as { teams: Team[] }).teams`
+- `getStaticPaths()` retorna `{ params: { slug }, props: { team } }` por time
+- Grupo da seleção resolvido via `allGroups.find(g => g.team_ids.includes(team.slug))`
+- Nome do grupo e da seleção resolvidos no locale `pt-br` com fallback para `en`
+- Estrutura da página: hero da seleção → aviso MOCK → próximo jogo → AdPlaceholder → todos os jogos confirmados → jogos parciais (se houver) → links internos → compartilhar → texto SEO
+- `NextMatchCard` recebe `match={nextMatch}` (null seguro — trata o caso de sem próximo jogo)
+- `MatchList` de confirmados usa `getConfirmedMatchesByTeam()` — nunca inclui `partial` ou `simulation`
+- `MatchList` de parciais usa `allMatches.filter(m => m.type === 'partial')` — mostra todos os parciais com nota explicativa
+- `partialMatches` só é renderizado se `partialMatches.length > 0`
+- `AdPlaceholder` posicionado após o próximo jogo, nunca antes do conteúdo principal
+- CSS scoped na página: `.team-hero`, `.team-group`, `.next-match-section`, `.team-matches-section`, `.partial-section`, `.partial-note`, `.internal-links`, `.share-section`
+- Responsividade: breakpoints 480px (internal-links inline), 768px (h2 maior)
+- Compatível com SSG: zero API de browser no frontmatter
+- Build: 14 páginas geradas sem erros, zero TypeScript errors
+
+**Páginas de seleção geradas:**
+- `/pt-br/selecoes/northland/index.html`
+- `/pt-br/selecoes/eastoria/index.html`
+- `/pt-br/selecoes/westmark/index.html`
+- `/pt-br/selecoes/southmore/index.html`
+- `/pt-br/selecoes/highpeak/index.html`
+- `/pt-br/selecoes/lowvale/index.html`
+- `/pt-br/selecoes/bayshore/index.html`
+- `/pt-br/selecoes/ridgemont/index.html`
+
+---
+
+## Arquivos criados/alterados na Fase 6C
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/pt-br/selecoes/[slug].astro` | Criado |
+
+---
 ### Fase 4 ✅ — Utilitários Principais
 
 ### Fase 6B ✅ — Tabela da Copa 2026 (pt-br)
