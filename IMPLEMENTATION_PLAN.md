@@ -110,7 +110,7 @@ Entregas:
 ---
 
 ## Fase 6A — Jogos de Hoje (pt-br)
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Página alvo:
 - `src/pages/pt-br/jogos-de-hoje-copa.astro`
