@@ -235,7 +235,7 @@ Entregas:
 |------|------|--------|
 | 0 | Meta / Setup do Processo | CONCLUÍDA |
 | 1 | Bootstrap do Projeto Astro | CONCLUÍDA ✅ |
-| 2 | Camada de Dados (Mock) | AGUARDANDO AUTORIZAÇÃO |
+| 2 | Camada de Dados (Mock) | CONCLUÍDA ✅ |
 | 3 | Layout Base + CSS | PENDENTE |
 | 4 | Utilitários Principais | PENDENTE |
 | 5 | Home Page (pt-br) | PENDENTE |
