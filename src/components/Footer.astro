@@ -1,0 +1,81 @@
+---
+import type { Locale } from '../types/index.ts';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+
+// Links institucionais por idioma
+const footerLinks: Record<Locale, Array<{ label: string; href: string }>> = {
+  'pt-br': [
+    { label: 'Privacidade', href: '#' },
+    { label: 'Termos', href: '#' },
+    { label: 'Sobre', href: '#' },
+    { label: 'Contato', href: '#' },
+  ],
+  'en': [
+    { label: 'Privacy', href: '#' },
+    { label: 'Terms', href: '#' },
+    { label: 'About', href: '#' },
+    { label: 'Contact', href: '#' },
+  ],
+  'es': [
+    { label: 'Privacidad', href: '#' },
+    { label: 'Términos', href: '#' },
+    { label: 'Acerca de', href: '#' },
+    { label: 'Contacto', href: '#' },
+  ],
+};
+
+// Aviso legal obrigatório por idioma
+const legalNotice: Record<Locale, string> = {
+  'pt-br':
+    'World Cup Games Today é um site independente e não possui associação oficial com a FIFA ou com a organização da Copa do Mundo.',
+  'en':
+    'World Cup Games Today is an independent website and has no official association with FIFA or the World Cup organization.',
+  'es':
+    'World Cup Games Today es un sitio web independiente y no tiene ninguna asociación oficial con la FIFA ni con la organización de la Copa del Mundo.',
+};
+
+// Aviso de dados mock
+const mockNotice: Record<Locale, string> = {
+  'pt-br':
+    '⚠ Este site usa dados de demonstração. Dados reais serão inseridos em fase futura.',
+  'en':
+    '⚠ This site uses demonstration data. Real data will be added in a future phase.',
+  'es':
+    '⚠ Este sitio usa datos de demostración. Los datos reales se agregarán en una fase futura.',
+};
+
+const currentLinks = footerLinks[locale];
+const currentLegal = legalNotice[locale];
+const currentMock = mockNotice[locale];
+
+const year = 2026;
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-brand-name">World Cup Games Today</span>
+          <span class="footer-brand-year">© {year}</span>
+        </div>
+
+        <nav class="footer-links" aria-label={locale === 'pt-br' ? 'Links institucionais' : locale === 'es' ? 'Enlaces institucionales' : 'Institutional links'}>
+          {currentLinks.map((link) => (
+            <a href={link.href}>{link.label}</a>
+          ))}
+        </nav>
+      </div>
+
+      <div class="footer-legal">
+        <p class="footer-legal-text">{currentLegal}</p>
+        <p class="footer-mock-notice">{currentMock}</p>
+      </div>
+    </div>
+  </div>
+</footer>
