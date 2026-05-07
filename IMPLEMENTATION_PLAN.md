@@ -109,16 +109,133 @@ Entregas:
 
 ---
 
-## Fase 6 — Páginas Principais (pt-br)
+## Fase 6A — Jogos de Hoje (pt-br)
 **Status:** PENDENTE
 
-Entregas:
+Página alvo:
 - `src/pages/pt-br/jogos-de-hoje-copa.astro`
+
+Componentes novos esperados:
+- Nenhum — página construída inteiramente com componentes já existentes
+
+Componentes existentes reutilizados:
+- `TodayMatches.astro` — seção principal de jogos do dia
+- `MatchList.astro` — renderização de cada partida
+- `TimezoneSelector.astro` — seletor de fuso
+- `ShareButtons.astro` — compartilhamento da página
+- `AdPlaceholder.astro` — posições de anúncio
+
+Dependências de outras subfases: nenhuma
+
+Complexidade: baixa
+
+Notas: URL dedicada `/pt-br/jogos-de-hoje-copa` com SEO próprio, diferente da home.
+Lógica idêntica à seção "Jogos de hoje" da home, mas isolada em página própria.
+
+---
+
+## Fase 6B — Tabela da Copa 2026 (pt-br)
+**Status:** PENDENTE
+
+Página alvo:
 - `src/pages/pt-br/tabela-copa-2026.astro`
-- `src/pages/pt-br/selecoes/[slug].astro` — página dinâmica por seleção
-- `src/pages/pt-br/grupos/[grupo].astro` — página dinâmica por grupo
-- `src/pages/pt-br/jogo/[id].astro` — página individual por partida
-- `src/pages/pt-br/calendario-copa-2026.astro`
+
+Componentes novos esperados:
+- `GroupTable.astro` — tabela de classificação por grupo (posição, J, V, E, D, GP, GC, Pts)
+  - Props: `group` (Group), `standings` (StandingEntry[]), `teams` (Team[]), `locale`
+  - Identificado como pendente no CURRENT_STATUS.md desde a Fase 5
+
+Componentes existentes reutilizados:
+- `AdPlaceholder.astro`
+- `ShareButtons.astro`
+
+Dependências de outras subfases: nenhuma (independente de 6A)
+
+Complexidade: média
+Motivo: criação do componente `GroupTable.astro` com ordenação de classificação; dados de standings vêm de `live-data.json` (mock estático por enquanto).
+
+Notas: `GroupTable.astro` criado aqui será obrigatoriamente reutilizado na Fase 6D.
+
+---
+
+## Fase 6C — Página por Seleção (pt-br)
+**Status:** PENDENTE
+
+Página alvo:
+- `src/pages/pt-br/selecoes/[slug].astro` — rota dinâmica, uma página por time
+
+Componentes novos esperados:
+- `TeamHeader.astro` — cabeçalho com nome, flag, grupo e confederação do time
+  - Props: `team` (Team), `locale`
+
+Componentes existentes reutilizados:
+- `MatchList.astro` — lista de todos os jogos da seleção
+- `NextMatchCard.astro` — próximo jogo confirmado
+- `ShareButtons.astro` — compartilhamento da página da seleção
+- `AdPlaceholder.astro`
+
+Dependências de outras subfases: nenhuma técnica (não depende de 6A nem 6B)
+Recomenda-se executar após 6B para manter sequência crescente de complexidade.
+
+Complexidade: média-alta
+Motivo: primeira rota dinâmica do projeto — requer `getStaticPaths()` no Astro SSG,
+gerando uma página por slug de time (ex: `/pt-br/selecoes/northland`).
+O padrão Astro para SSG está bem definido, mas é a primeira vez que será aplicado neste projeto.
+
+Notas: slugs gerados a partir de `teams.json` — cada time.slug vira uma rota.
+
+---
+
+## Fase 6D — Página por Grupo (pt-br)
+**Status:** PENDENTE
+
+Página alvo:
+- `src/pages/pt-br/grupos/[grupo].astro` — rota dinâmica, uma página por grupo
+
+Componentes novos esperados:
+- Nenhum — reutiliza integralmente componentes das fases anteriores
+
+Componentes existentes reutilizados:
+- `GroupTable.astro` — CRIADO NA FASE 6B (dependência obrigatória)
+- `MatchList.astro` — jogos do grupo filtrados
+- `AdPlaceholder.astro`
+- `ShareButtons.astro`
+
+Dependências de outras subfases:
+- DEPENDE DA FASE 6B — `GroupTable.astro` deve existir antes de iniciar esta fase
+
+Complexidade: média
+Motivo: rota dinâmica (segunda do projeto, padrão já estabelecido na 6C), mas sem componentes novos.
+
+Notas: slugs gerados a partir de `groups.json` — cada group.slug vira uma rota (ex: `/pt-br/grupos/m`).
+
+---
+
+## Fase 6E — Página por Jogo + Calendário (pt-br)
+**Status:** PENDENTE
+
+Páginas alvo:
+- `src/pages/pt-br/jogo/[id].astro` — rota dinâmica, uma página por partida
+- `src/pages/pt-br/calendario-copa-2026.astro` — página estática com lista completa de partidas
+
+Componentes novos esperados:
+- `MatchDetail.astro` — exibição completa de uma partida (times, data/hora, estádio, fase, placar se disponível)
+  - Props: `match` (Match), `teams` (Team[]), `timezone`, `locale`
+  - Inclui bloco de SportsEvent JSON-LD (apenas para partidas `confirmed`)
+
+Componentes existentes reutilizados:
+- `ShareButtons.astro` — compartilhamento com contexto da partida específica
+- `MatchList.astro` — usado no calendário para listar todas as partidas agrupadas por data
+- `AdPlaceholder.astro`
+- `TimezoneSelector.astro` — no calendário, para conversão de horário
+
+Dependências de outras subfases: nenhuma técnica
+Recomenda-se executar após 6C e 6D para que o contexto da página de jogo possa linkar para seleção e grupo.
+
+Complexidade: alta
+Motivo: página de jogo é a mais rica do projeto — SportsEvent schema, placar ao vivo (via live-data.json),
+horário localizado, links cruzados (seleção, grupo). O calendário é simples (estático), mas está agrupado nesta fase
+para liberar 6B e 6C para componentes mais coesos.
 
 ---
 
