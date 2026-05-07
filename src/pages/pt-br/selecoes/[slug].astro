@@ -41,11 +41,6 @@ const confirmedMatches = getConfirmedMatchesByTeam(allMatches, team.slug);
 // Próximo jogo confirmado
 const nextMatch = getNextConfirmedMatch(allMatches, team.slug);
 
-// Jogos parciais (não confirmados, não simulação) — ordenados por data
-const partialMatches = sortMatchesByDate(
-  allMatches.filter((m) => m.type === 'partial')
-);
-
 // Grupo da seleção — groups.json usa team_ids (slugs)
 const teamGroup = allGroups.find((g) => g.team_ids.includes(team.slug));
 
