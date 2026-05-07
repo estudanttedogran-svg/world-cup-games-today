@@ -1,0 +1,264 @@
+---
+import type { Match, Team, Group, StandingEntry } from '../../types/index.ts';
+import matchesData from '../../data/matches.json';
+import teamsData from '../../data/teams.json';
+import groupsData from '../../data/groups.json';
+import { sortMatchesByDate, filterMatchesByPhase } from '../../utils/matches.ts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GroupTable from '../../components/GroupTable.astro';
+import MatchList from '../../components/MatchList.astro';
+import AdPlaceholder from '../../components/AdPlaceholder.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams   = (teamsData  as { teams:   Team[]  }).teams;
+const allGroups  = (groupsData as { groups:  Group[] }).groups;
+
+const defaultTimezone = 'America/Sao_Paulo';
+const locale = 'pt-br' as const;
+
+// Partidas da fase de grupos, ordenadas por data
+const groupStageMatches = sortMatchesByDate(
+  filterMatchesByPhase(allMatches, 'group_stage')
+);
+
+// Separar por tipo — nunca misturar
+const confirmedMatches = groupStageMatches.filter((m) => m.type === 'confirmed');
+const partialMatches   = groupStageMatches.filter((m) => m.type === 'partial');
+// type === 'simulation' nunca é passado para as listas
+
+// MOCK standings — em fase futura virão do live-data.json via fetch client-side (Fase 8)
+// Baseado nos dados de public/data/live-data.json (chave "standings")
+// Campos seguem o tipo StandingEntry: team_id, played, won, drawn, lost, goals_for, goals_against, points
+const mockStandings: Record<string, StandingEntry[]> = {
+  'm': [
+    { team_id: 'northland', played: 2, won: 1, drawn: 1, lost: 0, goals_for: 3, goals_against: 1, points: 4 },
+    { team_id: 'eastoria',  played: 2, won: 1, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 3 },
+    { team_id: 'westmark',  played: 1, won: 0, drawn: 1, lost: 0, goals_for: 0, goals_against: 0, points: 1 },
+    { team_id: 'southmore', played: 1, won: 0, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 0 },
+  ],
+  'n': [
+    { team_id: 'highpeak',  played: 1, won: 1, drawn: 0, lost: 0, goals_for: 1, goals_against: 0, points: 3 },
+    { team_id: 'lowvale',   played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+    { team_id: 'bayshore',  played: 1, won: 0, drawn: 0, lost: 1, goals_for: 0, goals_against: 1, points: 0 },
+    { team_id: 'ridgemont', played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+  ],
+};
+---
+
+<BaseLayout
+  title="Tabela da Copa do Mundo 2026 — World Cup Games Today"
+  description="Veja a tabela completa da Copa do Mundo 2026: classificação por grupo, todos os jogos e horários no seu fuso local."
+  lang="pt-BR"
+  locale="pt-br"
+>
+  <div class="container">
+
+    <!-- HERO DA PÁGINA -->
+    <section class="page-hero">
+      <h1>Tabela da Copa 2026</h1>
+      <p>Classificação por grupo e todos os jogos &mdash; horários no seu fuso local.</p>
+    </section>
+
+    <!-- AVISO DE DADOS MOCK -->
+    <div class="mock-warning" role="alert">
+      &#9888; Este site usa dados de demonstração (MOCK). Os dados exibidos são fictícios.
+    </div>
+
+    <!-- CLASSIFICAÇÃO POR GRUPOS -->
+    <section class="groups-section" aria-label="Classificação por grupo">
+      <h2>Classificação por Grupo</h2>
+
+      {allGroups.map((group) => (
+        <div class="group-block">
+          <GroupTable
+            group={group}
+            standings={mockStandings[group.slug] ?? []}
+            teams={allTeams}
+            locale="pt-br"
+          />
+        </div>
+      ))}
+    </section>
+
+    <!-- ANÚNCIO (APÓS CLASSIFICAÇÃO, ANTES DOS JOGOS) -->
+    <AdPlaceholder slot="middle" label="Anúncio" />
+
+    <!-- JOGOS CONFIRMADOS DA FASE DE GRUPOS -->
+    <section class="schedule-section" aria-label="Jogos confirmados da fase de grupos">
+      <h2>Jogos Confirmados &mdash; Fase de Grupos</h2>
+      <MatchList
+        matches={confirmedMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="pt-br"
+        emptyMessage="Nenhum jogo confirmado disponível."
+      />
+    </section>
+
+    <!-- JOGOS PARCIALMENTE DEFINIDOS (SE HOUVER) -->
+    {partialMatches.length > 0 && (
+      <section class="partial-section" aria-label="Fases eliminatórias — vagas a definir">
+        <h2>Fases Eliminatórias &mdash; Vagas a Definir</h2>
+        <p class="partial-note">
+          Os times dessas partidas serão definidos ao longo da competição.
+        </p>
+        <MatchList
+          matches={partialMatches}
+          teams={allTeams}
+          timezone={defaultTimezone}
+          locale="pt-br"
+          emptyMessage="Nenhuma partida parcial disponível."
+        />
+      </section>
+    )}
+
+    <!-- LINKS INTERNOS -->
+    <nav class="internal-links" aria-label="Navegação interna">
+      <h2>Veja também</h2>
+      <ul>
+        <li><a href="/pt-br/">Home &mdash; Copa 2026</a></li>
+        <li><a href="/pt-br/jogos-de-hoje-copa">Jogos de hoje</a></li>
+      </ul>
+    </nav>
+
+    <!-- BOTÕES DE COMPARTILHAMENTO -->
+    <section class="share-section" aria-label="Compartilhar">
+      <h2>Compartilhe a tabela</h2>
+      <ShareButtons locale="pt-br" matchTitle="Tabela da Copa do Mundo 2026" />
+    </section>
+
+    <!-- TEXTO SEO -->
+    <section class="seo-text" aria-label="Sobre a Copa do Mundo 2026">
+      <h2>Copa do Mundo 2026 &mdash; Tabela completa</h2>
+      <p>
+        A Copa do Mundo FIFA 2026 ser&aacute; sediada nos Estados Unidos, Canad&aacute; e M&eacute;xico.
+        Acompanhe a tabela de classifica&ccedil;&atilde;o de todos os grupos, resultados das partidas
+        e os hor&aacute;rios dos pr&oacute;ximos jogos &mdash; exibidos automaticamente no seu fuso hor&aacute;rio local.
+      </p>
+      <p>
+        Use o World Cup Games Today para acompanhar a tabela da Copa 2026 em tempo real,
+        sem precisar calcular o hor&aacute;rio das partidas manualmente.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* Classificação por grupos */
+  .groups-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .groups-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Separação entre grupos */
+  .group-block {
+    margin-bottom: var(--space-6);
+  }
+
+  .group-block:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Seção de calendário de jogos */
+  .schedule-section {
+    margin-block: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .schedule-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Seção de partidas parciais — fundo levemente diferente + borda tracejada */
+  .partial-section {
+    margin-block: var(--space-8);
+    padding: var(--space-6);
+    background-color: #fafbff;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .partial-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  /* Texto explicativo da seção parcial */
+  .partial-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Links internos */
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .groups-section h2,
+    .schedule-section h2,
+    .partial-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
