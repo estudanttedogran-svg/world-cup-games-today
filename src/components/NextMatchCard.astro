@@ -1,0 +1,296 @@
+---
+import type { Match, Team, Locale } from '../types/index.ts';
+import {
+  formatWeekday,
+  formatDate,
+  formatTime,
+  formatCountdown,
+} from '../utils/datetime.ts';
+import { getTeamName } from '../utils/matches.ts';
+
+interface Props {
+  match: Match | null;
+  teams: Team[];
+  timezone: string;
+  locale?: Locale;
+}
+
+const {
+  match,
+  teams,
+  timezone,
+  locale = 'pt-br',
+} = Astro.props;
+
+const phaseLabels: Record<string, Record<string, string>> = {
+  'pt-br': {
+    group_stage:   'Fase de Grupos',
+    round_of_32:   'Fase de 32',
+    round_of_16:   'Oitavas de Final',
+    quarterfinal:  'Quartas de Final',
+    semifinal:     'Semifinal',
+    third_place:   'Disputa de 3º Lugar',
+    final:         'Final',
+  },
+  'en': {
+    group_stage:   'Group Stage',
+    round_of_32:   'Round of 32',
+    round_of_16:   'Round of 16',
+    quarterfinal:  'Quarter-final',
+    semifinal:     'Semi-final',
+    third_place:   'Third Place',
+    final:         'Final',
+  },
+  'es': {
+    group_stage:   'Fase de Grupos',
+    round_of_32:   'Ronda de 32',
+    round_of_16:   'Octavos de Final',
+    quarterfinal:  'Cuartos de Final',
+    semifinal:     'Semifinal',
+    third_place:   '3er Lugar',
+    final:         'Final',
+  },
+};
+
+const ui: Record<string, Record<string, string>> = {
+  'pt-br': {
+    nextMatch: 'Próximo jogo:',
+    noMatch: 'Nenhum jogo confirmado disponível.',
+    round: 'Rodada',
+    group: 'Grupo',
+    stadium: 'Estádio',
+    countdown: 'em',
+    mockBadge: 'MOCK DATA',
+    vs: 'vs',
+  },
+  'en': {
+    nextMatch: 'Next match:',
+    noMatch: 'No confirmed match available.',
+    round: 'Round',
+    group: 'Group',
+    stadium: 'Stadium',
+    countdown: 'in',
+    mockBadge: 'MOCK DATA',
+    vs: 'vs',
+  },
+  'es': {
+    nextMatch: 'Próximo partido:',
+    noMatch: 'No hay partido confirmado disponible.',
+    round: 'Ronda',
+    group: 'Grupo',
+    stadium: 'Estadio',
+    countdown: 'en',
+    mockBadge: 'MOCK DATA',
+    vs: 'vs',
+  },
+};
+
+const t = ui[locale] ?? ui['pt-br'];
+const phases = phaseLabels[locale] ?? phaseLabels['pt-br'];
+
+let homeTeamName = '';
+let awayTeamName = '';
+let weekday = '';
+let dateStr = '';
+let timeStr = '';
+let stadiumStr = '';
+let cityStr = '';
+let phaseLabel = '';
+let roundInfo = '';
+let countdown = '';
+
+if (match) {
+  homeTeamName = match.home_team_id
+    ? getTeamName(teams, match.home_team_id, locale)
+    : (match.home_label?.[locale] ?? 'A definir');
+
+  awayTeamName = match.away_team_id
+    ? getTeamName(teams, match.away_team_id, locale)
+    : (match.away_label?.[locale] ?? 'A definir');
+
+  weekday = formatWeekday(match.datetime_utc, locale, timezone);
+  dateStr = formatDate(match.datetime_utc, locale, timezone);
+  timeStr = formatTime(match.datetime_utc, locale, timezone);
+  stadiumStr = match.stadium[locale] ?? match.stadium['en'];
+  cityStr = match.city[locale] ?? match.city['en'];
+  phaseLabel = phases[match.phase] ?? match.phase;
+
+  if (match.group) {
+    roundInfo = `${phaseLabel} — ${t.group} ${match.group}`;
+  } else {
+    roundInfo = phaseLabel;
+  }
+
+  countdown = formatCountdown(match.datetime_utc, locale);
+}
+---
+
+<div class={`next-match-card ${match ? 'next-match-card--has-match' : 'next-match-card--empty'}`}>
+  {match ? (
+    <>
+      <div class="next-match-card__header">
+        <span class="next-match-card__label">{t.nextMatch}</span>
+        <span class="next-match-card__mock-badge" aria-label="Dados de demonstração">{t.mockBadge}</span>
+      </div>
+
+      <div class="next-match-card__teams">
+        <span class="next-match-card__team">{homeTeamName}</span>
+        <span class="next-match-card__vs" aria-hidden="true">{t.vs}</span>
+        <span class="next-match-card__team">{awayTeamName}</span>
+      </div>
+
+      <div class="next-match-card__datetime">
+        <time datetime={match.datetime_utc} class="next-match-card__time-text">
+          {weekday}, {dateStr} &bull; {timeStr}
+        </time>
+      </div>
+
+      <div class="next-match-card__meta">
+        <span class="next-match-card__phase">{roundInfo}</span>
+        {stadiumStr && cityStr && (
+          <span class="next-match-card__venue">
+            {stadiumStr} — {cityStr}
+          </span>
+        )}
+      </div>
+
+      <div class="next-match-card__countdown">
+        <span class="next-match-card__countdown-icon" aria-hidden="true">&#9200;</span>
+        <span class="next-match-card__countdown-text">{countdown}</span>
+      </div>
+    </>
+  ) : (
+    <p class="next-match-card__empty-msg">{t.noMatch}</p>
+  )}
+</div>
+
+<style>
+  .next-match-card {
+    position: relative;
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .next-match-card--has-match {
+    border-left: 4px solid var(--color-accent);
+  }
+
+  .next-match-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+
+  .next-match-card__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .next-match-card__mock-badge {
+    display: inline-block;
+    padding: 2px var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: #92400e;
+    background-color: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: var(--radius-full);
+    letter-spacing: 0.04em;
+  }
+
+  .next-match-card__teams {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .next-match-card__team {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    text-align: center;
+  }
+
+  .next-match-card__vs {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
+  .next-match-card__datetime {
+    text-align: center;
+    margin-bottom: var(--space-3);
+  }
+
+  .next-match-card__time-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .next-match-card__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+    text-align: center;
+  }
+
+  .next-match-card__phase {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .next-match-card__venue {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+
+  .next-match-card__countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--color-scheduled-bg);
+    border-radius: var(--radius-full);
+    width: fit-content;
+    margin-inline: auto;
+  }
+
+  .next-match-card__countdown-icon {
+    font-size: var(--font-size-base);
+  }
+
+  .next-match-card__countdown-text {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-scheduled);
+  }
+
+  .next-match-card__empty-msg {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    text-align: center;
+    padding-block: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .next-match-card__team {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
