@@ -1,0 +1,114 @@
+---
+import type { Locale } from '../types/index.ts';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+
+// Labels de idioma para o seletor
+const langLabels: Record<string, string> = {
+  'pt-br': 'PT',
+  'en': 'EN',
+  'es': 'ES',
+};
+
+const langFull: Record<string, string> = {
+  'pt-br': 'Português',
+  'en': 'English',
+  'es': 'Español',
+};
+
+const langPaths: Record<string, string> = {
+  'pt-br': '/pt-br/',
+  'en': '/en/',
+  'es': '/es/',
+};
+
+// Links de navegação por idioma
+const navLinks: Record<Locale, Array<{ label: string; href: string }>> = {
+  'pt-br': [
+    { label: 'Home', href: '/pt-br/' },
+    { label: 'Jogos de Hoje', href: '/pt-br/jogos-de-hoje-copa' },
+    { label: 'Tabela', href: '/pt-br/tabela-copa-2026' },
+    { label: 'Seleções', href: '/pt-br/selecoes' },
+  ],
+  'en': [
+    { label: 'Home', href: '/en/' },
+    { label: "Today's Matches", href: '/en/world-cup-games-today' },
+    { label: 'Schedule', href: '/en/world-cup-2026-schedule' },
+    { label: 'Teams', href: '/en/teams' },
+  ],
+  'es': [
+    { label: 'Inicio', href: '/es/' },
+    { label: 'Partidos de Hoy', href: '/es/partidos-de-hoy-mundial' },
+    { label: 'Tabla', href: '/es/calendario-mundial-2026' },
+    { label: 'Selecciones', href: '/es/equipos' },
+  ],
+};
+
+const currentNav = navLinks[locale];
+
+// Label do skip link por idioma
+const skipLabel: Record<Locale, string> = {
+  'pt-br': 'Ir para o conteúdo principal',
+  'en': 'Skip to main content',
+  'es': 'Ir al contenido principal',
+};
+---
+
+<a href="#main-content" class="skip-link">{skipLabel[locale]}</a>
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="site-logo" aria-label="World Cup Games Today — Home">
+      <span class="site-logo-icon" aria-hidden="true">⚽</span>
+      <span>World Cup Games Today</span>
+    </a>
+
+    <nav class="site-nav" aria-label={locale === 'pt-br' ? 'Navegação principal' : locale === 'es' ? 'Navegación principal' : 'Main navigation'}>
+      {currentNav.map((link) => (
+        <a
+          href={link.href}
+          class={Astro.url.pathname === link.href ? 'active' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-right">
+      <nav class="lang-nav" aria-label={locale === 'pt-br' ? 'Seleção de idioma' : locale === 'es' ? 'Selección de idioma' : 'Language selection'}>
+        {Object.entries(langLabels).map(([lang, label], index) => (
+          <>
+            {index > 0 && <span class="lang-nav-sep" aria-hidden="true">|</span>}
+            <a
+              href={langPaths[lang]}
+              class={locale === lang ? 'active' : undefined}
+              aria-label={langFull[lang]}
+              aria-current={locale === lang ? 'true' : undefined}
+              hreflang={lang === 'pt-br' ? 'pt-BR' : lang}
+            >
+              {label}
+            </a>
+          </>
+        ))}
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Navegação mobile (visível apenas em telas < 768px) -->
+<nav class="site-nav-mobile" aria-label={locale === 'pt-br' ? 'Navegação principal' : locale === 'es' ? 'Navegación principal' : 'Main navigation'}>
+  <div class="container">
+    {currentNav.map((link) => (
+      <a
+        href={link.href}
+        class={Astro.url.pathname === link.href ? 'active' : undefined}
+      >
+        {link.label}
+      </a>
+    ))}
+  </div>
+</nav>
