@@ -10,17 +10,17 @@
       "match_number": 1,
       "datetime_utc": "2026-06-12T18:00:00Z",
       "stadium": {
-        "pt": "Northern Arena",
+        "pt-br": "Northern Arena",
         "en": "Northern Arena",
         "es": "Northern Arena"
       },
       "city": {
-        "pt": "Northland City",
+        "pt-br": "Northland City",
         "en": "Northland City",
         "es": "Northland City"
       },
       "country": {
-        "pt": "Northland",
+        "pt-br": "Northland",
         "en": "Northland",
         "es": "Northland"
       },
@@ -37,17 +37,17 @@
       "match_number": 2,
       "datetime_utc": "2026-06-12T21:00:00Z",
       "stadium": {
-        "pt": "Western Stadium",
+        "pt-br": "Western Stadium",
         "en": "Western Stadium",
         "es": "Western Stadium"
       },
       "city": {
-        "pt": "Westmark City",
+        "pt-br": "Westmark City",
         "en": "Westmark City",
         "es": "Westmark City"
       },
       "country": {
-        "pt": "Westmark",
+        "pt-br": "Westmark",
         "en": "Westmark",
         "es": "Westmark"
       },
@@ -64,17 +64,17 @@
       "match_number": 3,
       "datetime_utc": "2026-06-13T15:00:00Z",
       "stadium": {
-        "pt": "Peak Arena",
+        "pt-br": "Peak Arena",
         "en": "Peak Arena",
         "es": "Peak Arena"
       },
       "city": {
-        "pt": "Highpeak City",
+        "pt-br": "Highpeak City",
         "en": "Highpeak City",
         "es": "Highpeak City"
       },
       "country": {
-        "pt": "Highpeak",
+        "pt-br": "Highpeak",
         "en": "Highpeak",
         "es": "Highpeak"
       },
@@ -91,17 +91,17 @@
       "match_number": 4,
       "datetime_utc": "2026-06-13T21:00:00Z",
       "stadium": {
-        "pt": "Bay Stadium",
+        "pt-br": "Bay Stadium",
         "en": "Bay Stadium",
         "es": "Bay Stadium"
       },
       "city": {
-        "pt": "Bayshore City",
+        "pt-br": "Bayshore City",
         "en": "Bayshore City",
         "es": "Bayshore City"
       },
       "country": {
-        "pt": "Bayshore",
+        "pt-br": "Bayshore",
         "en": "Bayshore",
         "es": "Bayshore"
       },
@@ -118,17 +118,17 @@
       "match_number": 5,
       "datetime_utc": "2026-06-17T18:00:00Z",
       "stadium": {
-        "pt": "Northern Arena",
+        "pt-br": "Northern Arena",
         "en": "Northern Arena",
         "es": "Northern Arena"
       },
       "city": {
-        "pt": "Northland City",
+        "pt-br": "Northland City",
         "en": "Northland City",
         "es": "Northland City"
       },
       "country": {
-        "pt": "Northland",
+        "pt-br": "Northland",
         "en": "Northland",
         "es": "Northland"
       },
@@ -145,17 +145,17 @@
       "match_number": 6,
       "datetime_utc": "2026-06-17T21:00:00Z",
       "stadium": {
-        "pt": "Eastern Field",
+        "pt-br": "Eastern Field",
         "en": "Eastern Field",
         "es": "Eastern Field"
       },
       "city": {
-        "pt": "Eastoria Capital",
+        "pt-br": "Eastoria Capital",
         "en": "Eastoria Capital",
         "es": "Eastoria Capital"
       },
       "country": {
-        "pt": "Eastoria",
+        "pt-br": "Eastoria",
         "en": "Eastoria",
         "es": "Eastoria"
       },
@@ -172,17 +172,17 @@
       "match_number": 7,
       "datetime_utc": "2026-06-18T15:00:00Z",
       "stadium": {
-        "pt": "Peak Arena",
+        "pt-br": "Peak Arena",
         "en": "Peak Arena",
         "es": "Peak Arena"
       },
       "city": {
-        "pt": "Highpeak City",
+        "pt-br": "Highpeak City",
         "en": "Highpeak City",
         "es": "Highpeak City"
       },
       "country": {
-        "pt": "Highpeak",
+        "pt-br": "Highpeak",
         "en": "Highpeak",
         "es": "Highpeak"
       },
@@ -199,17 +199,17 @@
       "match_number": 8,
       "datetime_utc": "2026-06-18T21:00:00Z",
       "stadium": {
-        "pt": "Valley Ground",
+        "pt-br": "Valley Ground",
         "en": "Valley Ground",
         "es": "Valley Ground"
       },
       "city": {
-        "pt": "Lowvale Town",
+        "pt-br": "Lowvale Town",
         "en": "Lowvale Town",
         "es": "Lowvale Town"
       },
       "country": {
-        "pt": "Lowvale",
+        "pt-br": "Lowvale",
         "en": "Lowvale",
         "es": "Lowvale"
       },
@@ -226,29 +226,29 @@
       "match_number": 9,
       "datetime_utc": "2026-07-01T19:00:00Z",
       "stadium": {
-        "pt": "Mock Central Stadium",
+        "pt-br": "Mock Central Stadium",
         "en": "Mock Central Stadium",
         "es": "Mock Central Stadium"
       },
       "city": {
-        "pt": "Central City",
+        "pt-br": "Central City",
         "en": "Central City",
         "es": "Central City"
       },
       "country": {
-        "pt": "Mock Country",
+        "pt-br": "Mock Country",
         "en": "Mock Country",
         "es": "Mock Country"
       },
       "home_team_id": null,
       "away_team_id": null,
       "home_label": {
-        "pt": "1º do Grupo M",
+        "pt-br": "1º do Grupo M",
         "en": "1st of Group M",
         "es": "1° del Grupo M"
       },
       "away_label": {
-        "pt": "2º do Grupo N",
+        "pt-br": "2º do Grupo N",
         "en": "2nd of Group N",
         "es": "2° del Grupo N"
       }
@@ -261,29 +261,29 @@
       "match_number": 10,
       "datetime_utc": "2026-07-14T19:00:00Z",
       "stadium": {
-        "pt": "Mock Central Stadium",
+        "pt-br": "Mock Central Stadium",
         "en": "Mock Central Stadium",
         "es": "Mock Central Stadium"
       },
       "city": {
-        "pt": "Central City",
+        "pt-br": "Central City",
         "en": "Central City",
         "es": "Central City"
       },
       "country": {
-        "pt": "Mock Country",
+        "pt-br": "Mock Country",
         "en": "Mock Country",
         "es": "Mock Country"
       },
       "home_team_id": null,
       "away_team_id": null,
       "home_label": {
-        "pt": "Vencedor de M009",
+        "pt-br": "Vencedor de M009",
         "en": "Winner of M009",
         "es": "Ganador de M009"
       },
       "away_label": {
-        "pt": "A definir",
+        "pt-br": "A definir",
         "en": "TBD",
         "es": "A definir"
       }
@@ -296,29 +296,29 @@
       "match_number": 11,
       "datetime_utc": "2026-07-19T19:00:00Z",
       "stadium": {
-        "pt": "Mock Central Stadium",
+        "pt-br": "Mock Central Stadium",
         "en": "Mock Central Stadium",
         "es": "Mock Central Stadium"
       },
       "city": {
-        "pt": "Central City",
+        "pt-br": "Central City",
         "en": "Central City",
         "es": "Central City"
       },
       "country": {
-        "pt": "Mock Country",
+        "pt-br": "Mock Country",
         "en": "Mock Country",
         "es": "Mock Country"
       },
       "home_team_id": null,
       "away_team_id": null,
       "home_label": {
-        "pt": "A definir",
+        "pt-br": "A definir",
         "en": "TBD",
         "es": "A definir"
       },
       "away_label": {
-        "pt": "A definir",
+        "pt-br": "A definir",
         "en": "TBD",
         "es": "A definir"
       }
