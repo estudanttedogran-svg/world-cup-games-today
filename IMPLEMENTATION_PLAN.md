@@ -237,7 +237,7 @@ Entregas:
 | 1 | Bootstrap do Projeto Astro | CONCLUÍDA ✅ |
 | 2 | Camada de Dados (Mock) | CONCLUÍDA ✅ |
 | 3 | Layout Base + CSS | CONCLUÍDA ✅ |
-| 4 | Utilitários Principais | PENDENTE |
+| 4 | Utilitários Principais | CONCLUÍDA ✅ |
 | 5 | Home Page (pt-br) | PENDENTE |
 | 6 | Páginas Principais (pt-br) | PENDENTE |
 | 7 | Compartilhamento + Calendário | PENDENTE |
