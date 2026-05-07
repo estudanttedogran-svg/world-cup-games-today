@@ -356,7 +356,7 @@ Entregas:
 | 3 | Layout Base + CSS | CONCLUÍDA ✅ |
 | 4 | Utilitários Principais | CONCLUÍDA ✅ |
 | 5 | Home Page (pt-br) | CONCLUÍDA ✅ |
-| 6A | Jogos de Hoje (pt-br) | PENDENTE |
+| 6A | Jogos de Hoje (pt-br) | CONCLUÍDA ✅ |
 | 6B | Tabela da Copa 2026 (pt-br) | PENDENTE |
 | 6C | Página por Seleção — rota dinâmica (pt-br) | PENDENTE |
 | 6D | Página por Grupo — rota dinâmica (pt-br) | PENDENTE |
