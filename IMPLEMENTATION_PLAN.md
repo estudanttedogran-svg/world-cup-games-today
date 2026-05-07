@@ -92,7 +92,7 @@ Entregas:
 ---
 
 ## Fase 5 — Home Page (pt-br)
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Entregas:
 - `src/pages/pt-br/index.astro` — página home completa em português
