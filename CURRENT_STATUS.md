@@ -210,9 +210,10 @@ Ordem obrigatória: 6A → 6B → 6C → 6D → 6E
 | Google Analytics ID | Não disponível — placeholder |
 | AdSense | Não disponível — placeholders nas fases futuras |
 | Simulador | Fora do MVP — MVP 1.5 |
-| Nav links para páginas futuras | Apontam para paths esperados (ex: /pt-br/jogos-de-hoje-copa) — páginas criadas na Fase 6 |
+| Nav links para páginas futuras | Apontam para paths esperados (ex: /pt-br/jogos-de-hoje-copa) — páginas criadas nas subfases 6A–6E |
 | Script GA | Não carregado — analytics.ts tem stubs prontos, script será injetado na Fase 12 |
-| GroupTable.astro | Componente não necessário na home — criar na Fase 6 (tabela por grupo) |
+| GroupTable.astro | Componente pendente — criar na Fase 6B (pré-requisito para Fase 6D) |
+| Rotas dinâmicas SSG | Primeiro uso de getStaticPaths() ocorrerá na Fase 6C — risco gerenciado por ser a terceira subfase |
 
 ---
 
