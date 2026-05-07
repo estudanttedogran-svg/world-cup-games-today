@@ -1,0 +1,306 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { Match, Team, Group } from '../../../types/index.ts';
+import teamsData from '../../../data/teams.json';
+import matchesData from '../../../data/matches.json';
+import groupsData from '../../../data/groups.json';
+import {
+  getNextConfirmedMatch,
+  getConfirmedMatchesByTeam,
+  sortMatchesByDate,
+} from '../../../utils/matches.ts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import NextMatchCard from '../../../components/NextMatchCard.astro';
+import MatchList from '../../../components/MatchList.astro';
+import AdPlaceholder from '../../../components/AdPlaceholder.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const teams = (teamsData as { teams: Team[] }).teams;
+  return teams.map((team) => ({
+    params: { slug: team.slug },
+    props: { team },
+  }));
+};
+
+interface Props {
+  team: Team;
+}
+
+const { team } = Astro.props;
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams   = (teamsData  as { teams:   Team[]  }).teams;
+const allGroups  = (groupsData as { groups:  Group[] }).groups;
+
+const defaultTimezone = 'America/Sao_Paulo';
+const locale = 'pt-br' as const;
+
+// Jogos confirmados da seleção, ordenados por data
+const confirmedMatches = getConfirmedMatchesByTeam(allMatches, team.slug);
+
+// Próximo jogo confirmado
+const nextMatch = getNextConfirmedMatch(allMatches, team.slug);
+
+// Jogos parciais (não confirmados, não simulação) — ordenados por data
+const partialMatches = sortMatchesByDate(
+  allMatches.filter((m) => m.type === 'partial')
+);
+
+// Grupo da seleção — groups.json usa team_ids (slugs)
+const teamGroup = allGroups.find((g) => g.team_ids.includes(team.slug));
+
+// Nome do grupo no locale
+const groupName = teamGroup
+  ? (teamGroup.name['pt-br'] ?? teamGroup.name['en'] ?? `Grupo ${teamGroup.slug.toUpperCase()}`)
+  : null;
+
+// Nome da seleção no locale
+const teamName = team.name['pt-br'] ?? team.name['en'] ?? team.slug;
+---
+
+<BaseLayout
+  title={`${teamName} — Copa do Mundo 2026 | World Cup Games Today`}
+  description={`Veja todos os jogos de ${teamName} na Copa do Mundo 2026 com horários no seu fuso local.`}
+  lang="pt-BR"
+  locale="pt-br"
+>
+  <div class="container">
+
+    <!-- HERO DA SELEÇÃO -->
+    <section class="page-hero">
+      <div class="team-hero">
+        <h1>{team.flag} {teamName}</h1>
+        {groupName && <p class="team-group">Copa do Mundo 2026 &mdash; {groupName}</p>}
+        <p>Veja todos os jogos de {teamName} no seu hor&aacute;rio local.</p>
+      </div>
+    </section>
+
+    <!-- AVISO DE DADOS MOCK -->
+    <div class="mock-warning" role="alert">
+      &#9888; Este site usa dados de demonstra&ccedil;&atilde;o (MOCK). Os dados exibidos s&atilde;o fict&iacute;cios.
+    </div>
+
+    <!-- PRÓXIMO JOGO CONFIRMADO -->
+    <section class="next-match-section" aria-label="Próximo jogo confirmado">
+      <h2>Pr&oacute;ximo Jogo</h2>
+      <NextMatchCard
+        match={nextMatch}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="pt-br"
+      />
+    </section>
+
+    <!-- ANÚNCIO (APÓS O PRÓXIMO JOGO, NUNCA ANTES) -->
+    <AdPlaceholder slot="middle" label="Anúncio" />
+
+    <!-- TODOS OS JOGOS CONFIRMADOS DA SELEÇÃO -->
+    <section class="team-matches-section" aria-label={`Todos os jogos de ${teamName}`}>
+      <h2>Todos os Jogos de {teamName}</h2>
+      <MatchList
+        matches={confirmedMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="pt-br"
+        emptyMessage="Nenhum jogo confirmado disponível para esta seleção."
+      />
+    </section>
+
+    <!-- JOGOS PARCIAIS (SOMENTE SE HOUVER) -->
+    {partialMatches.length > 0 && (
+      <section class="partial-section" aria-label="Fase eliminatória — vagas a definir">
+        <h2>Fase Eliminat&oacute;ria &mdash; Vagas a Definir</h2>
+        <p class="partial-note">
+          Estes jogos ainda n&atilde;o t&ecirc;m os times definidos. As vagas ser&atilde;o
+          conhecidas ao longo da competi&ccedil;&atilde;o.
+        </p>
+        <MatchList
+          matches={partialMatches}
+          teams={allTeams}
+          timezone={defaultTimezone}
+          locale="pt-br"
+          emptyMessage="Nenhuma partida eliminatória parcial disponível."
+        />
+      </section>
+    )}
+
+    <!-- LINKS INTERNOS -->
+    <nav class="internal-links" aria-label="Navegação interna">
+      <h2>Veja tamb&eacute;m</h2>
+      <ul>
+        <li><a href="/pt-br/">Home &mdash; Copa 2026</a></li>
+        <li><a href="/pt-br/jogos-de-hoje-copa">Jogos de hoje</a></li>
+        <li><a href="/pt-br/tabela-copa-2026">Tabela da Copa 2026</a></li>
+      </ul>
+    </nav>
+
+    <!-- COMPARTILHAR -->
+    <section class="share-section" aria-label="Compartilhar">
+      <h2>Compartilhe</h2>
+      <ShareButtons
+        locale="pt-br"
+        matchTitle={`${teamName} — Copa do Mundo 2026`}
+      />
+    </section>
+
+    <!-- TEXTO SEO -->
+    <section class="seo-text" aria-label={`${teamName} na Copa do Mundo 2026`}>
+      <h2>{teamName} na Copa do Mundo 2026</h2>
+      <p>
+        Acompanhe todos os jogos de {teamName} na Copa do Mundo FIFA 2026.
+        Os hor&aacute;rios s&atilde;o exibidos automaticamente no seu fuso hor&aacute;rio local &mdash;
+        sem precisar calcular manualmente.
+      </p>
+      {groupName && (
+        <p>
+          {teamName} est&aacute; no {groupName} da Copa do Mundo 2026.
+          Use o World Cup Games Today para acompanhar todas as partidas da sele&ccedil;&atilde;o
+          com hor&aacute;rio atualizado para sua regi&atilde;o.
+        </p>
+      )}
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* Hero da seleção — flex column com gap pequeno */
+  .team-hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Texto do grupo — menor, cor muted, weight medium */
+  .team-group {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Seção do próximo jogo */
+  .next-match-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .next-match-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Seção de todos os jogos da seleção */
+  .team-matches-section {
+    margin-bottom: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .team-matches-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Seção de partidas parciais */
+  .partial-section {
+    margin-block: var(--space-8);
+    padding: var(--space-6);
+    background-color: #fafbff;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .partial-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  /* Texto explicativo dos jogos parciais */
+  .partial-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Links internos */
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  /* Seção de compartilhamento */
+  .share-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Responsividade */
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .next-match-section h2,
+    .team-matches-section h2,
+    .partial-section h2,
+    .share-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
