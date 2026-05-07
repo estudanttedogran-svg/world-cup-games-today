@@ -1,0 +1,91 @@
+---
+import type { Match, Team } from '../../types/index.ts';
+import matchesData from '../../data/matches.json';
+import teamsData from '../../data/teams.json';
+import { getTodaysConfirmedMatches, sortMatchesByDate } from '../../utils/matches.ts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TodayMatches from '../../components/TodayMatches.astro';
+import TimezoneSelector from '../../components/TimezoneSelector.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import AdPlaceholder from '../../components/AdPlaceholder.astro';
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams = (teamsData as { teams: Team[] }).teams;
+const defaultTimezone = 'America/Sao_Paulo';
+
+// Filtrar jogos de hoje no fuso padrão (o JS do cliente pode sobrescrever dinamicamente)
+const todayMatches = getTodaysConfirmedMatches(allMatches, defaultTimezone);
+const totalToday = todayMatches.length;
+---
+
+<BaseLayout
+  title="Jogos de Hoje — Copa do Mundo 2026 | World Cup Games Today"
+  description="Veja todos os jogos da Copa do Mundo 2026 que acontecem hoje, com horário no seu fuso local. Dados atualizados."
+  lang="pt-BR"
+  locale="pt-br"
+>
+  <div class="container">
+
+    <!-- HERO DA PÁGINA -->
+    <section class="page-hero">
+      <h1>Jogos de Hoje &mdash; Copa 2026</h1>
+      <p>Todos os jogos da Copa do Mundo 2026 que acontecem hoje, no seu horário local.</p>
+    </section>
+
+    <!-- AVISO DE DADOS MOCK -->
+    <div class="mock-warning" role="alert">
+      &#9888; Este site usa dados de demonstração (MOCK). Os jogos exibidos são fictícios.
+    </div>
+
+    <!-- SELETOR DE FUSO -->
+    <section class="timezone-row" aria-label="Fuso horário">
+      <TimezoneSelector currentTimezone={defaultTimezone} locale="pt-br" />
+    </section>
+
+    <!-- RESUMO DO DIA -->
+    <div class="day-summary">
+      {totalToday === 0
+        ? <p>Nenhum jogo confirmado para hoje.</p>
+        : <p>{totalToday} {totalToday === 1 ? 'jogo confirmado' : 'jogos confirmados'} hoje.</p>
+      }
+    </div>
+
+    <!-- LISTA DE JOGOS DE HOJE -->
+    <section class="today-section" aria-label="Jogos de hoje">
+      <TodayMatches
+        matches={allMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="pt-br"
+      />
+    </section>
+
+    <!-- ANÚNCIO (APÓS O CONTEÚDO PRINCIPAL) -->
+    <AdPlaceholder slot="bottom" label="Anúncio" />
+
+    <!-- BOTÕES DE COMPARTILHAMENTO -->
+    <section class="share-section" aria-label="Compartilhar">
+      <h2>Compartilhe os jogos de hoje</h2>
+      <ShareButtons
+        locale="pt-br"
+        matchTitle="Jogos da Copa 2026 de hoje"
+      />
+    </section>
+
+    <!-- TEXTO SEO -->
+    <section class="seo-text" aria-label="Sobre a Copa do Mundo 2026">
+      <h2>Copa do Mundo 2026 &mdash; Jogos de hoje no seu horário</h2>
+      <p>
+        Acompanhe todos os jogos da Copa do Mundo FIFA 2026 que acontecem hoje.
+        Os horários são exibidos automaticamente no seu fuso horário local &mdash;
+        sem precisar converter manualmente.
+      </p>
+      <p>
+        A Copa do Mundo 2026 será realizada nos Estados Unidos, Canadá e México,
+        com jogos em múltiplos fusos horários. Use o World Cup Games Today para
+        não perder nenhuma partida.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
