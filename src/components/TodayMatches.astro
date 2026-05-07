@@ -1,0 +1,44 @@
+---
+import type { Match, Team, Locale } from '../types/index.ts';
+import { getTodaysConfirmedMatches } from '../utils/matches.ts';
+import MatchList from './MatchList.astro';
+
+interface Props {
+  matches: Match[];
+  teams: Team[];
+  timezone: string;
+  locale?: Locale;
+}
+
+const {
+  matches,
+  teams,
+  timezone,
+  locale = 'pt-br',
+} = Astro.props;
+
+const emptyMessages: Record<string, string> = {
+  'pt-br': 'Nenhum jogo confirmado para hoje.',
+  'en':    'No confirmed matches today.',
+  'es':    'No hay partidos confirmados para hoy.',
+};
+
+const todayMatches = getTodaysConfirmedMatches(matches, timezone);
+const emptyMsg = emptyMessages[locale] ?? emptyMessages['pt-br'];
+---
+
+<div class="today-matches">
+  <MatchList
+    matches={todayMatches}
+    teams={teams}
+    timezone={timezone}
+    locale={locale}
+    emptyMessage={emptyMsg}
+  />
+</div>
+
+<style>
+  .today-matches {
+    width: 100%;
+  }
+</style>
