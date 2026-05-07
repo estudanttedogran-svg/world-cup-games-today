@@ -135,7 +135,7 @@ Lógica idêntica à seção "Jogos de hoje" da home, mas isolada em página pr�
 ---
 
 ## Fase 6B — Tabela da Copa 2026 (pt-br)
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Página alvo:
 - `src/pages/pt-br/tabela-copa-2026.astro`
