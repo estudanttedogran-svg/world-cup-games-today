@@ -20,6 +20,53 @@
 ### Fase 3 ✅ — Layout Base + CSS
 ### Fase 4 ✅ — Utilitários Principais
 
+### Fase 6B ✅ — Tabela da Copa 2026 (pt-br)
+
+**Componente criado:**
+
+**`src/components/GroupTable.astro`**
+- Props: `group` (Group), `standings` (StandingEntry[]), `teams` (Team[]), `locale` (Locale)
+- Tabela responsiva com scroll horizontal via `.table-wrapper { overflow-x: auto }`
+- Colunas: # | Seleção | J | V | E | D | GP | GC | SG | Pts
+- SG calculado no componente: `goals_for - goals_against`
+- Ordenação: Pts desc > SG desc > GP desc
+- Linha do líder destacada com fundo `#eff6ff`
+- Badge "MOCK" discreto no cabeçalho do grupo
+- Nome do time resolvido via `teams.find(t => t.id === entry.team_id)` + locale
+- Flag emoji exibida à esquerda do nome
+- min-width: 480px na tabela (evita esmagamento em mobile)
+- CSS scoped no componente — sem dependências externas
+- Compatível com SSG (zero lógica de browser no frontmatter)
+- Será reutilizado obrigatoriamente na Fase 6D (página por grupo)
+
+**Página criada:**
+
+**`src/pages/pt-br/tabela-copa-2026.astro`**
+- URL gerada: `/pt-br/tabela-copa-2026/index.html`
+- Estrutura: hero, aviso MOCK, classificação por grupo, AdPlaceholder (após classificação), jogos confirmados da fase de grupos, jogos parcialmente definidos (seção separada com borda tracejada), links internos, ShareButtons, texto SEO
+- Mock standings inline com tipo correto (snake_case: team_id, goals_for, goals_against, points)
+- Separação estrita: `confirmed` e `partial` nunca misturados; `simulation` nunca exibido
+- Fuso padrão: `America/Sao_Paulo`
+- CSS scoped na página para: `.groups-section`, `.group-block`, `.schedule-section`, `.partial-section`, `.partial-note`, `.internal-links`
+
+**`src/styles/global.css`** — não alterado (estilos de página foram feitos com CSS scoped na própria página)
+
+**Validação:**
+- `npm run build`: 6 páginas geradas sem erros, zero TypeScript errors
+- `dist/pt-br/tabela-copa-2026/index.html`: gerado corretamente
+- Páginas totais: `/index.html`, `/pt-br/index.html`, `/en/index.html`, `/es/index.html`, `/pt-br/jogos-de-hoje-copa/index.html`, `/pt-br/tabela-copa-2026/index.html`
+
+---
+
+## Arquivos criados/alterados na Fase 6B
+
+| Arquivo | Ação |
+|---------|------|
+| `src/components/GroupTable.astro` | Criado |
+| `src/pages/pt-br/tabela-copa-2026.astro` | Criado |
+
+---
+
 ### Fase 6A ✅ — Jogos de Hoje (pt-br)
 
 **Página criada:**
