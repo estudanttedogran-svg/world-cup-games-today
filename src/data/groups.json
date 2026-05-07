@@ -1,0 +1,26 @@
+{
+  "_mock": true,
+  "_note": "MOCK DATA — substituir por dados oficiais verificados antes do lançamento",
+  "groups": [
+    {
+      "id": "M",
+      "name": {
+        "pt": "Grupo M",
+        "en": "Group M",
+        "es": "Grupo M"
+      },
+      "slug": "m",
+      "team_ids": ["northland", "eastoria", "westmark", "southmore"]
+    },
+    {
+      "id": "N",
+      "name": {
+        "pt": "Grupo N",
+        "en": "Group N",
+        "es": "Grupo N"
+      },
+      "slug": "n",
+      "team_ids": ["highpeak", "lowvale", "bayshore", "ridgemont"]
+    }
+  ]
+}

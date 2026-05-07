@@ -1,0 +1,159 @@
+{
+  "_mock": true,
+  "_note": "MOCK DATA — atualizar com dados reais durante a Copa. Este arquivo é buscado via fetch no cliente e pode ser editado sem rebuild.",
+  "last_updated": "2026-06-13T16:30:00Z",
+  "matches": {
+    "match-001": {
+      "status": "finished",
+      "score_home": 2,
+      "score_away": 1,
+      "minute": null
+    },
+    "match-002": {
+      "status": "finished",
+      "score_home": 0,
+      "score_away": 0,
+      "minute": null
+    },
+    "match-003": {
+      "status": "live",
+      "score_home": 1,
+      "score_away": 0,
+      "minute": 67
+    },
+    "match-004": {
+      "status": "scheduled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    },
+    "match-005": {
+      "status": "scheduled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    },
+    "match-006": {
+      "status": "scheduled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    },
+    "match-007": {
+      "status": "scheduled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    },
+    "match-008": {
+      "status": "scheduled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    },
+    "match-009": {
+      "status": "scheduled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    },
+    "match-010": {
+      "status": "scheduled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    },
+    "match-011": {
+      "status": "scheduled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    }
+  },
+  "standings": {
+    "M": [
+      {
+        "team_id": "northland",
+        "played": 1,
+        "won": 1,
+        "drawn": 0,
+        "lost": 0,
+        "goals_for": 2,
+        "goals_against": 1,
+        "points": 3
+      },
+      {
+        "team_id": "westmark",
+        "played": 1,
+        "won": 0,
+        "drawn": 1,
+        "lost": 0,
+        "goals_for": 0,
+        "goals_against": 0,
+        "points": 1
+      },
+      {
+        "team_id": "southmore",
+        "played": 1,
+        "won": 0,
+        "drawn": 1,
+        "lost": 0,
+        "goals_for": 0,
+        "goals_against": 0,
+        "points": 1
+      },
+      {
+        "team_id": "eastoria",
+        "played": 1,
+        "won": 0,
+        "drawn": 0,
+        "lost": 1,
+        "goals_for": 1,
+        "goals_against": 2,
+        "points": 0
+      }
+    ],
+    "N": [
+      {
+        "team_id": "highpeak",
+        "played": 1,
+        "won": 1,
+        "drawn": 0,
+        "lost": 0,
+        "goals_for": 1,
+        "goals_against": 0,
+        "points": 3
+      },
+      {
+        "team_id": "lowvale",
+        "played": 0,
+        "won": 0,
+        "drawn": 0,
+        "lost": 0,
+        "goals_for": 0,
+        "goals_against": 0,
+        "points": 0
+      },
+      {
+        "team_id": "bayshore",
+        "played": 1,
+        "won": 0,
+        "drawn": 0,
+        "lost": 1,
+        "goals_for": 0,
+        "goals_against": 1,
+        "points": 0
+      },
+      {
+        "team_id": "ridgemont",
+        "played": 0,
+        "won": 0,
+        "drawn": 0,
+        "lost": 0,
+        "goals_for": 0,
+        "goals_against": 0,
+        "points": 0
+      }
+    ]
+  }
+}

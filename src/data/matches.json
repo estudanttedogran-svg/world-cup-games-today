@@ -1,0 +1,327 @@
+{
+  "_mock": true,
+  "_note": "MOCK DATA — substituir por dados oficiais verificados antes do lançamento. Horários sempre em UTC.",
+  "matches": [
+    {
+      "id": "match-001",
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "M",
+      "match_number": 1,
+      "datetime_utc": "2026-06-12T18:00:00Z",
+      "stadium": {
+        "pt": "Northern Arena",
+        "en": "Northern Arena",
+        "es": "Northern Arena"
+      },
+      "city": {
+        "pt": "Northland City",
+        "en": "Northland City",
+        "es": "Northland City"
+      },
+      "country": {
+        "pt": "Northland",
+        "en": "Northland",
+        "es": "Northland"
+      },
+      "home_team_id": "northland",
+      "away_team_id": "eastoria",
+      "home_label": null,
+      "away_label": null
+    },
+    {
+      "id": "match-002",
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "M",
+      "match_number": 2,
+      "datetime_utc": "2026-06-12T21:00:00Z",
+      "stadium": {
+        "pt": "Western Stadium",
+        "en": "Western Stadium",
+        "es": "Western Stadium"
+      },
+      "city": {
+        "pt": "Westmark City",
+        "en": "Westmark City",
+        "es": "Westmark City"
+      },
+      "country": {
+        "pt": "Westmark",
+        "en": "Westmark",
+        "es": "Westmark"
+      },
+      "home_team_id": "westmark",
+      "away_team_id": "southmore",
+      "home_label": null,
+      "away_label": null
+    },
+    {
+      "id": "match-003",
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "N",
+      "match_number": 3,
+      "datetime_utc": "2026-06-13T15:00:00Z",
+      "stadium": {
+        "pt": "Peak Arena",
+        "en": "Peak Arena",
+        "es": "Peak Arena"
+      },
+      "city": {
+        "pt": "Highpeak City",
+        "en": "Highpeak City",
+        "es": "Highpeak City"
+      },
+      "country": {
+        "pt": "Highpeak",
+        "en": "Highpeak",
+        "es": "Highpeak"
+      },
+      "home_team_id": "highpeak",
+      "away_team_id": "lowvale",
+      "home_label": null,
+      "away_label": null
+    },
+    {
+      "id": "match-004",
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "N",
+      "match_number": 4,
+      "datetime_utc": "2026-06-13T21:00:00Z",
+      "stadium": {
+        "pt": "Bay Stadium",
+        "en": "Bay Stadium",
+        "es": "Bay Stadium"
+      },
+      "city": {
+        "pt": "Bayshore City",
+        "en": "Bayshore City",
+        "es": "Bayshore City"
+      },
+      "country": {
+        "pt": "Bayshore",
+        "en": "Bayshore",
+        "es": "Bayshore"
+      },
+      "home_team_id": "bayshore",
+      "away_team_id": "ridgemont",
+      "home_label": null,
+      "away_label": null
+    },
+    {
+      "id": "match-005",
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "M",
+      "match_number": 5,
+      "datetime_utc": "2026-06-17T18:00:00Z",
+      "stadium": {
+        "pt": "Northern Arena",
+        "en": "Northern Arena",
+        "es": "Northern Arena"
+      },
+      "city": {
+        "pt": "Northland City",
+        "en": "Northland City",
+        "es": "Northland City"
+      },
+      "country": {
+        "pt": "Northland",
+        "en": "Northland",
+        "es": "Northland"
+      },
+      "home_team_id": "northland",
+      "away_team_id": "westmark",
+      "home_label": null,
+      "away_label": null
+    },
+    {
+      "id": "match-006",
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "M",
+      "match_number": 6,
+      "datetime_utc": "2026-06-17T21:00:00Z",
+      "stadium": {
+        "pt": "Eastern Field",
+        "en": "Eastern Field",
+        "es": "Eastern Field"
+      },
+      "city": {
+        "pt": "Eastoria Capital",
+        "en": "Eastoria Capital",
+        "es": "Eastoria Capital"
+      },
+      "country": {
+        "pt": "Eastoria",
+        "en": "Eastoria",
+        "es": "Eastoria"
+      },
+      "home_team_id": "eastoria",
+      "away_team_id": "southmore",
+      "home_label": null,
+      "away_label": null
+    },
+    {
+      "id": "match-007",
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "N",
+      "match_number": 7,
+      "datetime_utc": "2026-06-18T15:00:00Z",
+      "stadium": {
+        "pt": "Peak Arena",
+        "en": "Peak Arena",
+        "es": "Peak Arena"
+      },
+      "city": {
+        "pt": "Highpeak City",
+        "en": "Highpeak City",
+        "es": "Highpeak City"
+      },
+      "country": {
+        "pt": "Highpeak",
+        "en": "Highpeak",
+        "es": "Highpeak"
+      },
+      "home_team_id": "highpeak",
+      "away_team_id": "bayshore",
+      "home_label": null,
+      "away_label": null
+    },
+    {
+      "id": "match-008",
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "N",
+      "match_number": 8,
+      "datetime_utc": "2026-06-18T21:00:00Z",
+      "stadium": {
+        "pt": "Valley Ground",
+        "en": "Valley Ground",
+        "es": "Valley Ground"
+      },
+      "city": {
+        "pt": "Lowvale Town",
+        "en": "Lowvale Town",
+        "es": "Lowvale Town"
+      },
+      "country": {
+        "pt": "Lowvale",
+        "en": "Lowvale",
+        "es": "Lowvale"
+      },
+      "home_team_id": "lowvale",
+      "away_team_id": "ridgemont",
+      "home_label": null,
+      "away_label": null
+    },
+    {
+      "id": "match-009",
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "match_number": 9,
+      "datetime_utc": "2026-07-01T19:00:00Z",
+      "stadium": {
+        "pt": "Mock Central Stadium",
+        "en": "Mock Central Stadium",
+        "es": "Mock Central Stadium"
+      },
+      "city": {
+        "pt": "Central City",
+        "en": "Central City",
+        "es": "Central City"
+      },
+      "country": {
+        "pt": "Mock Country",
+        "en": "Mock Country",
+        "es": "Mock Country"
+      },
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt": "1º do Grupo M",
+        "en": "1st of Group M",
+        "es": "1° del Grupo M"
+      },
+      "away_label": {
+        "pt": "2º do Grupo N",
+        "en": "2nd of Group N",
+        "es": "2° del Grupo N"
+      }
+    },
+    {
+      "id": "match-010",
+      "type": "partial",
+      "phase": "semifinal",
+      "group": null,
+      "match_number": 10,
+      "datetime_utc": "2026-07-14T19:00:00Z",
+      "stadium": {
+        "pt": "Mock Central Stadium",
+        "en": "Mock Central Stadium",
+        "es": "Mock Central Stadium"
+      },
+      "city": {
+        "pt": "Central City",
+        "en": "Central City",
+        "es": "Central City"
+      },
+      "country": {
+        "pt": "Mock Country",
+        "en": "Mock Country",
+        "es": "Mock Country"
+      },
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt": "Vencedor de M009",
+        "en": "Winner of M009",
+        "es": "Ganador de M009"
+      },
+      "away_label": {
+        "pt": "A definir",
+        "en": "TBD",
+        "es": "A definir"
+      }
+    },
+    {
+      "id": "match-011",
+      "type": "partial",
+      "phase": "final",
+      "group": null,
+      "match_number": 11,
+      "datetime_utc": "2026-07-19T19:00:00Z",
+      "stadium": {
+        "pt": "Mock Central Stadium",
+        "en": "Mock Central Stadium",
+        "es": "Mock Central Stadium"
+      },
+      "city": {
+        "pt": "Central City",
+        "en": "Central City",
+        "es": "Central City"
+      },
+      "country": {
+        "pt": "Mock Country",
+        "en": "Mock Country",
+        "es": "Mock Country"
+      },
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt": "A definir",
+        "en": "TBD",
+        "es": "A definir"
+      },
+      "away_label": {
+        "pt": "A definir",
+        "en": "TBD",
+        "es": "A definir"
+      }
+    }
+  ]
+}

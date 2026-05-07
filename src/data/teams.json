@@ -1,0 +1,70 @@
+{
+  "_mock": true,
+  "_note": "MOCK DATA — substituir por dados oficiais verificados antes do lançamento",
+  "teams": [
+    {
+      "id": "northland",
+      "name": { "pt": "Northland", "en": "Northland", "es": "Northland" },
+      "slug": "northland",
+      "group": "M",
+      "flag": "🟦",
+      "confederation": "MOCK-CF1"
+    },
+    {
+      "id": "eastoria",
+      "name": { "pt": "Eastoria", "en": "Eastoria", "es": "Eastoria" },
+      "slug": "eastoria",
+      "group": "M",
+      "flag": "🟥",
+      "confederation": "MOCK-CF1"
+    },
+    {
+      "id": "westmark",
+      "name": { "pt": "Westmark", "en": "Westmark", "es": "Westmark" },
+      "slug": "westmark",
+      "group": "M",
+      "flag": "🟨",
+      "confederation": "MOCK-CF2"
+    },
+    {
+      "id": "southmore",
+      "name": { "pt": "Southmore", "en": "Southmore", "es": "Southmore" },
+      "slug": "southmore",
+      "group": "M",
+      "flag": "🟩",
+      "confederation": "MOCK-CF2"
+    },
+    {
+      "id": "highpeak",
+      "name": { "pt": "Highpeak", "en": "Highpeak", "es": "Highpeak" },
+      "slug": "highpeak",
+      "group": "N",
+      "flag": "🟧",
+      "confederation": "MOCK-CF1"
+    },
+    {
+      "id": "lowvale",
+      "name": { "pt": "Lowvale", "en": "Lowvale", "es": "Lowvale" },
+      "slug": "lowvale",
+      "group": "N",
+      "flag": "🟪",
+      "confederation": "MOCK-CF2"
+    },
+    {
+      "id": "bayshore",
+      "name": { "pt": "Bayshore", "en": "Bayshore", "es": "Bayshore" },
+      "slug": "bayshore",
+      "group": "N",
+      "flag": "🔵",
+      "confederation": "MOCK-CF1"
+    },
+    {
+      "id": "ridgemont",
+      "name": { "pt": "Ridgemont", "en": "Ridgemont", "es": "Ridgemont" },
+      "slug": "ridgemont",
+      "group": "N",
+      "flag": "🔴",
+      "confederation": "MOCK-CF2"
+    }
+  ]
+}

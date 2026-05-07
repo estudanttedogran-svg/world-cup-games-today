@@ -1,0 +1,72 @@
+{
+  "_docs": {
+    "purpose": "Modelo de referência para edição do live-data.json. Copie este arquivo, renomeie para live-data.json e edite os valores conforme necessário.",
+    "last_updated": "Timestamp ISO 8601 da última vez que este arquivo foi editado. Exemplo: 2026-06-15T22:30:00Z",
+    "matches": "Objeto onde cada chave é um match_id (ex: 'match-001') e o valor contém o estado atual do jogo.",
+    "matches.status": "Valores possíveis: 'scheduled' | 'live' | 'finished' | 'postponed' | 'cancelled'",
+    "matches.score_home": "Gols do time mandante. Use null se o jogo ainda não começou.",
+    "matches.score_away": "Gols do time visitante. Use null se o jogo ainda não começou.",
+    "matches.minute": "Minuto atual do jogo (apenas quando status = 'live'). Use null nos demais casos.",
+    "standings": "Objeto onde cada chave é o ID do grupo (ex: 'A', 'B'...) e o valor é um array de entradas de classificação.",
+    "standings.team_id": "ID do time conforme definido em teams.json.",
+    "standings.points": "Pontos acumulados na fase de grupos.",
+    "fallback": "O site continua funcionando normalmente se este arquivo estiver ausente, vazio ou inválido."
+  },
+  "last_updated": "2026-06-15T22:30:00Z",
+  "matches": {
+    "match-001": {
+      "status": "finished",
+      "score_home": 3,
+      "score_away": 1,
+      "minute": null
+    },
+    "match-002": {
+      "status": "live",
+      "score_home": 1,
+      "score_away": 1,
+      "minute": 73
+    },
+    "match-003": {
+      "status": "scheduled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    },
+    "match-004": {
+      "status": "postponed",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    },
+    "match-005": {
+      "status": "cancelled",
+      "score_home": null,
+      "score_away": null,
+      "minute": null
+    }
+  },
+  "standings": {
+    "A": [
+      {
+        "team_id": "team-id-aqui",
+        "played": 3,
+        "won": 2,
+        "drawn": 1,
+        "lost": 0,
+        "goals_for": 7,
+        "goals_against": 2,
+        "points": 7
+      },
+      {
+        "team_id": "outro-team-id",
+        "played": 3,
+        "won": 2,
+        "drawn": 0,
+        "lost": 1,
+        "goals_for": 5,
+        "goals_against": 3,
+        "points": 6
+      }
+    ]
+  }
+}
