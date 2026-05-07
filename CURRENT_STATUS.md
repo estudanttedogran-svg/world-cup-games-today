@@ -20,6 +20,39 @@
 ### Fase 3 ✅ — Layout Base + CSS
 ### Fase 4 ✅ — Utilitários Principais
 
+### Fase 6A ✅ — Jogos de Hoje (pt-br)
+
+**Página criada:**
+
+**`src/pages/pt-br/jogos-de-hoje-copa.astro`**
+- URL gerada: `/pt-br/jogos-de-hoje-copa/index.html`
+- Estrutura: hero com h1 SEO, aviso MOCK, TimezoneSelector, resumo do dia, TodayMatches, AdPlaceholder (após conteúdo), ShareButtons, texto SEO
+- Fuso padrão: `America/Sao_Paulo` (sobrescrito pelo cliente via localStorage)
+- Nenhum componente novo criado — usa exclusivamente componentes existentes
+- Cast dos dados: `(matchesData as { matches: Match[] }).matches` (consistente com home)
+
+**`src/styles/global.css`** (atualizado)
+- `.page-hero`: hero para páginas internas (sem height mínima obrigatória), responsivo
+- `.timezone-row`: margem inferior para separação visual
+- `.day-summary`: caixa com fundo `--color-bg-alt`, texto médio com peso semibold
+- `.today-section`: espaçamento de seção
+- `.share-section`: mesma estrutura da classe `.share` da home, com h2 responsivo
+
+**Validação:**
+- `npm run build`: 5 páginas geradas sem erros, zero TypeScript errors
+- `dist/pt-br/jogos-de-hoje-copa/index.html`: gerado corretamente
+
+---
+
+## Arquivos criados/alterados na Fase 6A
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/pt-br/jogos-de-hoje-copa.astro` | Criado |
+| `src/styles/global.css` | Atualizado (estilos `.page-hero`, `.timezone-row`, `.day-summary`, `.today-section`, `.share-section`) |
+
+---
+
 ### Fase 5 ✅ — Home Page (pt-br)
 
 **Componentes criados:**
