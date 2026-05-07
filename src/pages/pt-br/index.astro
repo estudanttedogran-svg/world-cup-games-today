@@ -1,17 +1,127 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdPlaceholder from '../../components/AdPlaceholder.astro';
+import TimezoneSelector from '../../components/TimezoneSelector.astro';
+import TeamSelector from '../../components/TeamSelector.astro';
+import NextMatchCard from '../../components/NextMatchCard.astro';
+import MatchList from '../../components/MatchList.astro';
+import TodayMatches from '../../components/TodayMatches.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+
+import type { Match, Team } from '../../types/index.ts';
+import matchesData from '../../data/matches.json';
+import teamsData from '../../data/teams.json';
+import {
+  getNextConfirmedMatch,
+  getTodaysConfirmedMatches,
+  getConfirmedMatchesByTeam,
+  getTeamName,
+} from '../../utils/matches.ts';
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams = (teamsData as { teams: Team[] }).teams;
+
+const defaultTimezone = 'America/Sao_Paulo';
+const defaultTeamSlug = 'northland';
+
+const nextMatch = getNextConfirmedMatch(allMatches, defaultTeamSlug);
+const todayMatches = getTodaysConfirmedMatches(allMatches, defaultTimezone);
+const teamMatches = getConfirmedMatchesByTeam(allMatches, defaultTeamSlug);
+
+const teamDisplayName = getTeamName(allTeams, defaultTeamSlug, 'pt-br');
 ---
 
 <BaseLayout
   title="Jogos da Copa do Mundo 2026 — World Cup Games Today"
-  description="Veja todos os jogos da Copa do Mundo 2026 no seu horário local."
+  description="Veja todos os jogos da Copa do Mundo 2026 no seu horário local. Horário atualizado para o seu fuso."
   lang="pt-BR"
   locale="pt-br"
 >
-  <section class="container" style="padding-block: var(--space-12);">
-    <h1>Jogos da Copa do Mundo 2026</h1>
-    <p style="margin-top: var(--space-4); color: var(--color-text-muted); font-size: var(--font-size-lg);">
-      Veja todos os jogos no seu horário local.
-    </p>
-  </section>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1>Jogos da Copa do Mundo 2026</h1>
+      <p>Veja cada partida no seu horário local &mdash; sem precisar calcular o fuso.</p>
+    </section>
+
+    <!-- AVISO DE DADOS MOCK -->
+    <div class="mock-warning" role="alert">
+      &#9888; Este site usa dados de demonstração (MOCK). Os jogos exibidos são fictícios.
+    </div>
+
+    <!-- SELETORES: FUSO E SELEÇÃO -->
+    <section class="selectors" aria-label="Preferências">
+      <TimezoneSelector
+        currentTimezone={defaultTimezone}
+        locale="pt-br"
+      />
+      <TeamSelector
+        teams={allTeams}
+        selectedTeamSlug={defaultTeamSlug}
+        locale="pt-br"
+      />
+    </section>
+
+    <!-- PRÓXIMO JOGO DA SELEÇÃO -->
+    <section class="next-match" aria-label="Próximo jogo">
+      <NextMatchCard
+        match={nextMatch}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="pt-br"
+      />
+    </section>
+
+    <!-- ANÚNCIO (após o conteúdo principal) -->
+    <AdPlaceholder slot="middle" label="Anúncio" />
+
+    <!-- JOGOS DE HOJE -->
+    <section class="today-matches" aria-label="Jogos de hoje">
+      <h2>Jogos de hoje</h2>
+      <TodayMatches
+        matches={allMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="pt-br"
+      />
+    </section>
+
+    <!-- TODOS OS JOGOS DA SELEÇÃO -->
+    <section class="team-matches" aria-label={`Jogos de ${teamDisplayName}`}>
+      <h2>Jogos de {teamDisplayName}</h2>
+      <MatchList
+        matches={teamMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="pt-br"
+        title="Jogos da seleção"
+        emptyMessage="Nenhum jogo confirmado para esta seleção."
+      />
+    </section>
+
+    <!-- COMPARTILHAR -->
+    <section class="share" aria-label="Compartilhar">
+      <h2>Compartilhe</h2>
+      <ShareButtons
+        locale="pt-br"
+        matchTitle="Copa do Mundo 2026"
+      />
+    </section>
+
+    <!-- TEXTO SEO -->
+    <section class="seo-text" aria-label="Sobre a Copa do Mundo 2026">
+      <h2>Copa do Mundo 2026 &mdash; Horários no seu fuso</h2>
+      <p>
+        A Copa do Mundo FIFA 2026 será realizada nos Estados Unidos, Canadá e México.
+        Use o World Cup Games Today para acompanhar todos os jogos no seu horário local,
+        sem precisar converter manualmente para o seu fuso horário.
+      </p>
+      <p>
+        Selecione sua seleção favorita e veja quando ela joga &mdash; com horário atualizado
+        para qualquer cidade do mundo.
+      </p>
+    </section>
+
+  </div>
 </BaseLayout>
