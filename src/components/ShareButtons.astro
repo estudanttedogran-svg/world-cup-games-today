@@ -1,0 +1,250 @@
+---
+import type { Locale } from '../types/index.ts';
+
+interface Props {
+  matchId?: string;
+  matchTitle?: string;
+  locale?: Locale;
+}
+
+const {
+  matchId,
+  matchTitle = 'Copa do Mundo 2026',
+  locale = 'pt-br',
+} = Astro.props;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+
+const labels: Record<string, Record<string, string>> = {
+  'pt-br': {
+    whatsapp: 'Compartilhar no WhatsApp',
+    copy: 'Copiar link',
+    copied: 'Copiado!',
+    calendar: 'Adicionar ao Google Calendar',
+    shareTitle: 'Compartilhe:',
+    whatsappText: 'Veja o jogo {title} no World Cup Games Today: {url}',
+  },
+  'en': {
+    whatsapp: 'Share on WhatsApp',
+    copy: 'Copy link',
+    copied: 'Copied!',
+    calendar: 'Add to Google Calendar',
+    shareTitle: 'Share:',
+    whatsappText: 'See the match {title} on World Cup Games Today: {url}',
+  },
+  'es': {
+    whatsapp: 'Compartir en WhatsApp',
+    copy: 'Copiar enlace',
+    copied: '¡Copiado!',
+    calendar: 'Agregar a Google Calendar',
+    shareTitle: 'Compartir:',
+    whatsappText: 'Mira el partido {title} en World Cup Games Today: {url}',
+  },
+};
+
+const t = labels[locale] ?? labels['pt-br'];
+
+// URL da partida — usa matchId se disponível
+const matchPath = matchId ? `${siteUrl}/${locale}/jogo/${matchId}` : siteUrl;
+
+// WhatsApp share URL (URL construída no cliente via script para pegar a URL atual)
+const whatsappTextTemplate = t.whatsappText
+  .replace('{title}', matchTitle)
+  .replace('{url}', matchPath);
+
+const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(whatsappTextTemplate)}`;
+
+// Google Calendar base (detalhes preenchidos via script se match disponível)
+const calendarBase = 'https://calendar.google.com/calendar/r/eventedit';
+---
+
+<div class="share-buttons" id="share-buttons">
+  <span class="share-buttons__title">{t.shareTitle}</span>
+
+  <div class="share-buttons__group">
+    <!-- WhatsApp -->
+    <a
+      href={whatsappUrl}
+      class="share-btn share-btn--whatsapp"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={t.whatsapp}
+      id="share-whatsapp"
+    >
+      <span class="share-btn__icon" aria-hidden="true">&#128240;</span>
+      <span class="share-btn__label">WhatsApp</span>
+    </a>
+
+    <!-- Copiar link -->
+    <button
+      type="button"
+      class="share-btn share-btn--copy"
+      aria-label={t.copy}
+      id="share-copy-btn"
+      data-copy-label={t.copy}
+      data-copied-label={t.copied}
+    >
+      <span class="share-btn__icon" aria-hidden="true">&#128279;</span>
+      <span class="share-btn__label" id="share-copy-label">{t.copy}</span>
+    </button>
+
+    <!-- Google Calendar -->
+    <a
+      href={calendarBase}
+      class="share-btn share-btn--calendar"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={t.calendar}
+      id="share-calendar"
+    >
+      <span class="share-btn__icon" aria-hidden="true">&#128197;</span>
+      <span class="share-btn__label">Google Calendar</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  (function () {
+    if (typeof window === 'undefined') return;
+
+    // Atualiza link do WhatsApp com a URL atual da janela
+    const whatsappBtn = document.getElementById('share-whatsapp') as HTMLAnchorElement | null;
+    if (whatsappBtn) {
+      const currentUrl = window.location.href;
+      const text = whatsappBtn.href.replace(/%0A.*$/, '');
+      // Substituir a URL no texto encodado com a URL real da página
+      try {
+        const decoded = decodeURIComponent(whatsappBtn.href.replace('https://wa.me/?text=', ''));
+        // Substituir a URL base pela URL atual
+        const siteBase = 'https://worldcupgamestoday.com';
+        const updatedText = decoded.includes(siteBase)
+          ? decoded.replace(siteBase, currentUrl)
+          : decoded;
+        whatsappBtn.href = 'https://wa.me/?text=' + encodeURIComponent(updatedText);
+      } catch (_) {}
+    }
+
+    // Copiar link com feedback visual
+    const copyBtn = document.getElementById('share-copy-btn') as HTMLButtonElement | null;
+    const copyLabel = document.getElementById('share-copy-label') as HTMLElement | null;
+
+    if (copyBtn && copyLabel) {
+      const originalLabel = copyBtn.dataset.copyLabel ?? 'Copiar link';
+      const copiedLabel = copyBtn.dataset.copiedLabel ?? 'Copiado!';
+
+      copyBtn.addEventListener('click', async function () {
+        const urlToCopy = window.location.href;
+
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(urlToCopy);
+          } else {
+            // Fallback: input temporário
+            const input = document.createElement('input');
+            input.value = urlToCopy;
+            input.style.position = 'fixed';
+            input.style.opacity = '0';
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+          }
+
+          copyLabel.textContent = copiedLabel;
+          copyBtn.classList.add('share-btn--copied');
+
+          setTimeout(function () {
+            copyLabel.textContent = originalLabel;
+            copyBtn.classList.remove('share-btn--copied');
+          }, 2000);
+        } catch (_) {}
+      });
+    }
+  })();
+</script>
+
+<style>
+  .share-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .share-buttons__title {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .share-buttons__group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-sans);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    background-color: var(--color-bg-card);
+    color: var(--color-text);
+  }
+
+  .share-btn:hover,
+  .share-btn:focus {
+    text-decoration: none;
+    background-color: var(--color-bg-alt);
+  }
+
+  .share-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .share-btn--whatsapp:hover,
+  .share-btn--whatsapp:focus {
+    background-color: #dcfce7;
+    border-color: #22c55e;
+    color: #15803d;
+  }
+
+  .share-btn--copy:hover,
+  .share-btn--copy:focus {
+    background-color: var(--color-scheduled-bg);
+    border-color: var(--color-scheduled);
+    color: var(--color-scheduled);
+  }
+
+  .share-btn--copy.share-btn--copied {
+    background-color: var(--color-live-bg);
+    border-color: var(--color-live);
+    color: #15803d;
+  }
+
+  .share-btn--calendar:hover,
+  .share-btn--calendar:focus {
+    background-color: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+  }
+
+  .share-btn__icon {
+    font-size: var(--font-size-base);
+    line-height: 1;
+  }
+
+  .share-btn__label {
+    white-space: nowrap;
+  }
+</style>
