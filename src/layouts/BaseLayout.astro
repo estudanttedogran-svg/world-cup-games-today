@@ -1,0 +1,69 @@
+---
+import type { Locale } from '../types/index.ts';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/reset.css';
+import '../styles/variables.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+  locale?: Locale;
+  canonical?: string;
+}
+
+const {
+  title,
+  description = '',
+  lang = 'en',
+  locale = 'en',
+  canonical,
+} = Astro.props;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
+const ogUrl = canonicalUrl;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
+
+    {description && <meta name="description" content={description} />}
+
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:site_name" content="World Cup Games Today" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+
+    <!-- Slot para meta tags extras (ex: hreflang, JSON-LD) -->
+    <slot name="head" />
+  </head>
+  <body>
+    <Header locale={locale} />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer locale={locale} />
+
+    <!-- Slot para scripts inline -->
+    <slot name="scripts" />
+  </body>
+</html>
