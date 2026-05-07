@@ -6,9 +6,9 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 2 — Camada de Dados (Mock)
-**Próxima fase:** Fase 3 — Layout Base + CSS
-**Aguardando:** Autorização do usuário para iniciar Fase 3
+**Fase concluída:** Fase 3 — Layout Base + CSS
+**Próxima fase:** Fase 4 — Utilitários Principais
+**Aguardando:** Autorização do usuário para iniciar Fase 4
 
 ---
 
@@ -16,36 +16,56 @@
 
 ### Fase 0 ✅ — Meta / Setup do Processo
 ### Fase 1 ✅ — Bootstrap do Projeto Astro (Astro 5.18.1)
-
 ### Fase 2 ✅ — Camada de Dados (Mock)
 
-**Tipos TypeScript:**
-- `src/types/index.ts` criado com interfaces completas:
-  - `Locale`, `LocalizedString`
-  - `MatchType` (`confirmed | partial | simulation`)
-  - `MatchPhase` (7 fases: group_stage → final)
-  - `MatchStatus` (5 estados: scheduled → cancelled)
-  - `Team`, `Match`, `Group`, `StandingEntry`
-  - `OverrideMatchEntry`, `Overrides`
-  - `LiveMatchData`, `LiveData`
+### Fase 3 ✅ — Layout Base + CSS
 
-**Dados estruturais (build time — `src/data/`):**
-- `src/data/teams.json` — 8 seleções mock em 2 grupos (Grupo M e Grupo N)
-- `src/data/matches.json` — 11 partidas mock:
-  - 8 confirmadas (fase de grupos, rounds 1 e 2)
-  - 3 parcialmente definidas (Round of 32, Semifinal, Final)
-- `src/data/groups.json` — 2 grupos mock com slugs
-- `src/data/overrides.json` — estrutura vazia pronta para uso emergencial
+**Correção de tipo:**
+- `src/types/index.ts`: tipo `Locale` corrigido de `'pt' | 'en' | 'es'` para `'pt-br' | 'en' | 'es'`
+- `LocalizedString`: campo `pt` renomeado para `pt-br` para consistência com rotas e hreflang
+- `src/data/teams.json`, `src/data/matches.json`, `src/data/groups.json`: chave `"pt"` atualizada para `"pt-br"` em todos os objetos `LocalizedString`
 
-**Dados vivos (runtime — `public/data/`):**
-- `public/data/live-data.json` — estrutura mínima com:
-  - Status mock: match-001 e 002 finalizados, match-003 ao vivo (min 67), demais agendados
-  - Classificação mock dos Grupos M e N
-- `public/data/live-data.example.json` — modelo documentado com todos os estados possíveis
+**CSS:**
+- `src/styles/reset.css` — reset moderno e mínimo: box-sizing, margin/padding, img/svg responsive, nav lists
+- `src/styles/variables.css` — design tokens completos: cores, tipografia, espaçamento (escala 4px), bordas, sombras, layout, transições
+- `src/styles/global.css` — estilos base mobile-first: body, links, headings, .container, .sr-only, .skip-link, .site-header, .site-nav, .lang-nav, .site-nav-mobile, .site-footer, #main-content, utilitários
+
+**Componentes:**
+- `src/components/Header.astro` — logo, navegação principal por idioma, seletor de idioma (PT/EN/ES), skip link de acessibilidade, nav mobile abaixo do header
+- `src/components/Footer.astro` — nome + ano, links institucionais por idioma (placeholder href="#"), aviso legal obrigatório em pt-br/en/es, aviso de dados mock
+
+**Layout:**
+- `src/layouts/BaseLayout.astro` — HTML base completo: charset, viewport, title, description, canonical, Open Graph básico, Twitter Card, slots `head` e `scripts`, Header + main#main-content + Footer
+
+**Páginas atualizadas:**
+- `src/pages/index.astro` — usa BaseLayout com locale="en"
+- `src/pages/pt-br/index.astro` — usa BaseLayout com locale="pt-br"
+- `src/pages/en/index.astro` — usa BaseLayout com locale="en"
+- `src/pages/es/index.astro` — usa BaseLayout com locale="es"
 
 **Validação:**
-- Todos os 6 arquivos JSON: ✅ válidos
-- `npm run build`: ✅ 4 páginas geradas sem erros
+- `npm run build`: ✅ 4 páginas geradas sem erros, sem TypeScript errors
+
+---
+
+## Arquivos criados/alterados na Fase 3
+
+| Arquivo | Ação |
+|---------|------|
+| `src/types/index.ts` | Alterado — Locale: 'pt-br', LocalizedString: campo 'pt-br' |
+| `src/data/teams.json` | Alterado — chave 'pt' → 'pt-br' em todos os name |
+| `src/data/matches.json` | Alterado — chave 'pt' → 'pt-br' em stadium/city/country/labels |
+| `src/data/groups.json` | Alterado — chave 'pt' → 'pt-br' em name |
+| `src/styles/reset.css` | Criado |
+| `src/styles/variables.css` | Criado |
+| `src/styles/global.css` | Criado |
+| `src/layouts/BaseLayout.astro` | Criado |
+| `src/components/Header.astro` | Criado |
+| `src/components/Footer.astro` | Criado |
+| `src/pages/index.astro` | Alterado — usa BaseLayout |
+| `src/pages/pt-br/index.astro` | Alterado — usa BaseLayout |
+| `src/pages/en/index.astro` | Alterado — usa BaseLayout |
+| `src/pages/es/index.astro` | Alterado — usa BaseLayout |
 
 ---
 
@@ -53,51 +73,25 @@
 
 | Arquivo | Ação |
 |---------|------|
-| `src/types/index.ts` | Criado |
-| `src/data/teams.json` | Criado |
-| `src/data/matches.json` | Criado |
-| `src/data/groups.json` | Criado |
+| `src/types/index.ts` | Criado (atualizado na Fase 3) |
+| `src/data/teams.json` | Criado (atualizado na Fase 3) |
+| `src/data/matches.json` | Criado (atualizado na Fase 3) |
+| `src/data/groups.json` | Criado (atualizado na Fase 3) |
 | `src/data/overrides.json` | Criado |
 | `public/data/live-data.json` | Criado |
 | `public/data/live-data.example.json` | Criado |
 
 ---
 
-## Estrutura de dados (resumo)
+## Próximos passos (Fase 4)
 
-### Tipos de partida implementados
-| Tipo | Descrição | Exemplo |
-|------|-----------|---------|
-| `confirmed` | Times, data, hora, estádio definidos | match-001 a match-008 |
-| `partial` | Data/hora definidos, times a definir | match-009 a match-011 |
-| `simulation` | Estrutura compatível — implementar em MVP 1.5 | — |
-
-### Grupos mock
-| Grupo | Times |
-|-------|-------|
-| M | northland, eastoria, westmark, southmore |
-| N | highpeak, lowvale, bayshore, ridgemont |
-
-### live-data.json — estados de exemplo
-| Match | Status |
-|-------|--------|
-| match-001 | finished (2-1) |
-| match-002 | finished (0-0) |
-| match-003 | live (1-0, min 67) |
-| match-004 a 011 | scheduled |
-
----
-
-## Próximos passos (Fase 3)
-
-Fase 3 — Layout Base + CSS:
-1. `src/layouts/BaseLayout.astro` — HTML base, head, slots, meta
-2. `src/components/Header.astro` — logo, nav, seletor de idioma
-3. `src/components/Footer.astro` — links + aviso legal obrigatório
-4. `src/styles/reset.css`
-5. `src/styles/variables.css` — design tokens (cores, tipografia, espaçamento)
-6. `src/styles/global.css` — estilos base mobile-first
-7. Atualizar as 4 páginas stub para usar BaseLayout
+Fase 4 — Utilitários Principais:
+1. `src/utils/timezone.ts` — detectar fuso do navegador, converter UTC para local
+2. `src/utils/datetime.ts` — formatar datas/horas por idioma e fuso
+3. `src/utils/language.ts` — detectar idioma do navegador
+4. `src/utils/storage.ts` — wrapper seguro para localStorage
+5. `src/utils/matches.ts` — filtrar partidas (hoje, por seleção, por fase, por status)
+6. `src/utils/analytics.ts` — stubs de eventos GA
 
 ---
 
@@ -106,13 +100,14 @@ Fase 3 — Layout Base + CSS:
 | Item | Status |
 |------|--------|
 | Dados reais da Copa 2026 | Não inseridos — aguardar fase dedicada com fontes verificadas |
-| Teams fictícios | Nomes claramente fictícios (Northland, Eastoria etc.) para evitar confusão |
+| Teams fictícios | Nomes claramente fictícios (Northland, Eastoria etc.) |
 | Slugs i18n de grupos | Slug único `m`/`n` — URL prefixo tratado pela rota da página |
 | Fallback de live-data.json | Estrutura pronta — lógica de fallback implementada na Fase 8 |
 | Domínio definitivo | Não definido — placeholder `PUBLIC_SITE_URL` |
 | Google Analytics ID | Não disponível — placeholder |
 | AdSense | Não disponível — placeholders nas fases futuras |
 | Simulador | Fora do MVP — MVP 1.5 |
+| Nav links para páginas futuras | Apontam para paths esperados (ex: /pt-br/jogos-de-hoje-copa) — páginas criadas na Fase 5/6 |
 
 ---
 
@@ -121,11 +116,13 @@ Fase 3 — Layout Base + CSS:
 | Decisão | Escolha |
 |---------|---------|
 | Framework | Astro 5.18.1 |
-| CSS | CSS puro / CSS Modules |
+| CSS | CSS puro / CSS Modules — reset + variables + global |
 | Hospedagem | Hostinger via `dist/` |
 | Dados estruturais | `src/data/` (build time) |
 | Dados vivos | `public/data/live-data.json` (fetch client-side, Fase 8) |
 | Horários | UTC em todos os arquivos de dados |
 | Tipo de partida | `confirmed`, `partial`, `simulation` |
+| Locale | `'pt-br' | 'en' | 'es'` (consistente com rotas) |
+| LocalizedString | Campo `pt-br` (não `pt`) para consistência com locale |
 | Identificadores | IDs: `match-001`; slugs: `northland`, `m` etc. |
-| Strings localizadas | `LocalizedString { pt, en, es }` em todos os campos de texto |
+| Nav mobile | Links em linha abaixo do header, sem hamburger (suficiente para MVP) |
