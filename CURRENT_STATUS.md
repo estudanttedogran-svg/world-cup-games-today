@@ -6,9 +6,9 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 3 — Layout Base + CSS
-**Próxima fase:** Fase 4 — Utilitários Principais
-**Aguardando:** Autorização do usuário para iniciar Fase 4
+**Fase concluída:** Fase 4 — Utilitários Principais
+**Próxima fase:** Fase 5 — Home Page (pt-br)
+**Aguardando:** Autorização do usuário para iniciar Fase 5
 
 ---
 
@@ -17,34 +17,83 @@
 ### Fase 0 ✅ — Meta / Setup do Processo
 ### Fase 1 ✅ — Bootstrap do Projeto Astro (Astro 5.18.1)
 ### Fase 2 ✅ — Camada de Dados (Mock)
-
 ### Fase 3 ✅ — Layout Base + CSS
 
-**Correção de tipo:**
-- `src/types/index.ts`: tipo `Locale` corrigido de `'pt' | 'en' | 'es'` para `'pt-br' | 'en' | 'es'`
-- `LocalizedString`: campo `pt` renomeado para `pt-br` para consistência com rotas e hreflang
-- `src/data/teams.json`, `src/data/matches.json`, `src/data/groups.json`: chave `"pt"` atualizada para `"pt-br"` em todos os objetos `LocalizedString`
+### Fase 4 ✅ — Utilitários Principais
 
-**CSS:**
-- `src/styles/reset.css` — reset moderno e mínimo: box-sizing, margin/padding, img/svg responsive, nav lists
-- `src/styles/variables.css` — design tokens completos: cores, tipografia, espaçamento (escala 4px), bordas, sombras, layout, transições
-- `src/styles/global.css` — estilos base mobile-first: body, links, headings, .container, .sr-only, .skip-link, .site-header, .site-nav, .lang-nav, .site-nav-mobile, .site-footer, #main-content, utilitários
+**Utilitários criados:**
 
-**Componentes:**
-- `src/components/Header.astro` — logo, navegação principal por idioma, seletor de idioma (PT/EN/ES), skip link de acessibilidade, nav mobile abaixo do header
-- `src/components/Footer.astro` — nome + ano, links institucionais por idioma (placeholder href="#"), aviso legal obrigatório em pt-br/en/es, aviso de dados mock
+**`src/utils/timezone.ts`**
+- `isBrowser()` — detecta execução no navegador
+- `isValidTimezone(tz)` — valida fuso IANA via Intl.DateTimeFormat
+- `getBrowserTimezone()` — retorna fuso do navegador ou 'UTC' como fallback
+- `getTimezoneLabel(tz)` — rótulo amigável com offset calculado via Intl (ex: "São Paulo (UTC-3)")
+- `getPopularTimezones()` — lista de 70+ fusos agrupados por região (América do Sul, América do Norte, Europa, Ásia/Oceania, África, UTC)
+- Interface `TimezoneOption` exportada
+- Cobre múltiplos fusos para BR (9 fusos), US, MX, CA, AR, RU
 
-**Layout:**
-- `src/layouts/BaseLayout.astro` — HTML base completo: charset, viewport, title, description, canonical, Open Graph básico, Twitter Card, slots `head` e `scripts`, Header + main#main-content + Footer
+**`src/utils/datetime.ts`**
+- `utcToTimezone(utcDateString, timezone)` — converte UTC string para Date
+- `formatDate(utcDateString, locale, timezone)` — data localizada via Intl.DateTimeFormat
+- `formatTime(utcDateString, locale, timezone)` — hora localizada (24h para pt-br/es, 12h para en)
+- `formatDateTime(utcDateString, locale, timezone)` — data e hora juntos ("11 jun. • 16:00")
+- `formatWeekday(utcDateString, locale, timezone)` — dia da semana localizado
+- `secondsUntil(utcDateString)` — segundos até a data alvo (negativo se passou)
+- `formatCountdown(utcDateString, locale)` — contagem regressiva legível em pt-br/en/es
+- `isToday(utcDateString, timezone)` — verifica se é hoje no fuso dado
+- `isPast(utcDateString)` — verifica se a data já passou
 
-**Páginas atualizadas:**
-- `src/pages/index.astro` — usa BaseLayout com locale="en"
-- `src/pages/pt-br/index.astro` — usa BaseLayout com locale="pt-br"
-- `src/pages/en/index.astro` — usa BaseLayout com locale="en"
-- `src/pages/es/index.astro` — usa BaseLayout com locale="es"
+**`src/utils/language.ts`**
+- `detectBrowserLocale()` — detecta idioma do navegador (pt* → 'pt-br', es* → 'es', else → 'en')
+- `isValidLocale(value)` — type guard para Locale
+- `getLocaleName(locale)` — nome do idioma no próprio idioma
+- `getHtmlLang(locale)` — código HTML lang (ex: 'pt-BR')
+- `uiLabels` — labels de UI completos para pt-br/en/es (Header e Footer)
+
+**`src/utils/storage.ts`**
+- `savePreference(key, value)` — salva preferência específica
+- `loadPreference(key)` — lê preferência específica (null se ausente/inválida)
+- `savePreferences(prefs)` — salva várias preferências (merge)
+- `loadPreferences()` — lê todas as preferências
+- `clearPreferences()` — remove todas as preferências
+- Interface `UserPreferences` exportada
+- Chave localStorage: `'wcgt_prefs'`
+- Sanitização e validação dos dados lidos (locale e timezone validados antes de retornar)
+
+**`src/utils/matches.ts`**
+- `getNextConfirmedMatch(matches, teamSlug)` — próximo jogo confirmado de uma seleção
+- `getConfirmedMatchesByTeam(matches, teamSlug)` — todos os jogos confirmados de uma seleção
+- `getTodaysMatches(matches, timezone)` — jogos de hoje (qualquer tipo)
+- `getTodaysConfirmedMatches(matches, timezone)` — jogos confirmados de hoje
+- `getTeamName(teams, teamSlug, locale)` — nome localizado de uma seleção
+- `isMatchLive(matchId, liveStatuses)` — verifica se jogo está ao vivo via live-data
+- `sortMatchesByDate(matches)` — ordena por data UTC (ascending, sem mutar original)
+- `filterMatchesByPhase(matches, phase)` — filtra por fase
+
+**`src/utils/analytics.ts`**
+- `trackEvent(eventName, params?)` — evento genérico (no-op se gtag ausente ou ID vazio)
+- `trackTimezoneChange(fromTz, toTz)` — troca de fuso
+- `trackLocaleChange(fromLocale, toLocale)` — troca de idioma
+- `trackTeamSelect(teamSlug)` — seleção de time favorito
+- `trackShareClick(method)` — clique em compartilhamento
+- `trackMatchView(matchId)` — visualização de partida
+- Script GA não carregado ainda — será feito na Fase 12
 
 **Validação:**
-- `npm run build`: ✅ 4 páginas geradas sem erros, sem TypeScript errors
+- `npm run build`: ✅ 4 páginas geradas sem erros, zero TypeScript errors
+
+---
+
+## Arquivos criados na Fase 4
+
+| Arquivo | Ação |
+|---------|------|
+| `src/utils/timezone.ts` | Criado |
+| `src/utils/datetime.ts` | Criado |
+| `src/utils/language.ts` | Criado |
+| `src/utils/storage.ts` | Criado |
+| `src/utils/matches.ts` | Criado |
+| `src/utils/analytics.ts` | Criado |
 
 ---
 
@@ -83,15 +132,18 @@
 
 ---
 
-## Próximos passos (Fase 4)
+## Próximos passos (Fase 5)
 
-Fase 4 — Utilitários Principais:
-1. `src/utils/timezone.ts` — detectar fuso do navegador, converter UTC para local
-2. `src/utils/datetime.ts` — formatar datas/horas por idioma e fuso
-3. `src/utils/language.ts` — detectar idioma do navegador
-4. `src/utils/storage.ts` — wrapper seguro para localStorage
-5. `src/utils/matches.ts` — filtrar partidas (hoje, por seleção, por fase, por status)
-6. `src/utils/analytics.ts` — stubs de eventos GA
+Fase 5 — Home Page (pt-br):
+1. `src/pages/pt-br/index.astro` — página home completa em português
+2. `src/components/TimezoneSelector.astro` — exibir fuso + botão de troca manual
+3. `src/components/TeamSelector.astro` — seleção favorita + busca
+4. `src/components/NextMatchCard.astro` — próximo jogo confirmado + contagem regressiva
+5. `src/components/MatchList.astro` — lista de jogos com horário convertido
+6. `src/components/TodayMatches.astro` — seção de jogos do dia
+7. `src/components/ShareButtons.astro` — WhatsApp, copiar link, calendário
+8. `src/components/AdPlaceholder.astro` — placeholder de anúncio
+9. Seção de texto/FAQ para SEO
 
 ---
 
@@ -108,6 +160,7 @@ Fase 4 — Utilitários Principais:
 | AdSense | Não disponível — placeholders nas fases futuras |
 | Simulador | Fora do MVP — MVP 1.5 |
 | Nav links para páginas futuras | Apontam para paths esperados (ex: /pt-br/jogos-de-hoje-copa) — páginas criadas na Fase 5/6 |
+| Script GA | Não carregado — analytics.ts tem stubs prontos, script será injetado na Fase 12 |
 
 ---
 
@@ -126,3 +179,5 @@ Fase 4 — Utilitários Principais:
 | LocalizedString | Campo `pt-br` (não `pt`) para consistência com locale |
 | Identificadores | IDs: `match-001`; slugs: `northland`, `m` etc. |
 | Nav mobile | Links em linha abaixo do header, sem hamburger (suficiente para MVP) |
+| localStorage key | `'wcgt_prefs'` (objeto JSON unificado) |
+| Fusos BR | 9 fusos cobertos: SP, Manaus, Fortaleza, Recife, Belém, Porto Velho, Boa Vista, Rio Branco, Noronha |
