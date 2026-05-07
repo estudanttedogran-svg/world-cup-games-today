@@ -48,7 +48,7 @@ Resultado esperado: `npm run dev` sobe o servidor local sem erros.
 ---
 
 ## Fase 2 — Camada de Dados (Mock)
-**Status:** AGUARDANDO AUTORIZAÇÃO
+**Status:** CONCLUÍDA ✅
 
 Entregas:
 - `src/data/teams.json` — MOCK: 8 seleções fictícias
