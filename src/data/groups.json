@@ -5,7 +5,7 @@
     {
       "id": "M",
       "name": {
-        "pt": "Grupo M",
+        "pt-br": "Grupo M",
         "en": "Group M",
         "es": "Grupo M"
       },
@@ -15,7 +15,7 @@
     {
       "id": "N",
       "name": {
-        "pt": "Grupo N",
+        "pt-br": "Grupo N",
         "en": "Group N",
         "es": "Grupo N"
       },
