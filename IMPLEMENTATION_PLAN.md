@@ -356,8 +356,12 @@ Entregas:
 | 3 | Layout Base + CSS | CONCLUÍDA ✅ |
 | 4 | Utilitários Principais | CONCLUÍDA ✅ |
 | 5 | Home Page (pt-br) | CONCLUÍDA ✅ |
-| 6 | Páginas Principais (pt-br) | PENDENTE |
-| 7 | Compartilhamento + Calendário | PENDENTE |
+| 6A | Jogos de Hoje (pt-br) | PENDENTE |
+| 6B | Tabela da Copa 2026 (pt-br) | PENDENTE |
+| 6C | Página por Seleção — rota dinâmica (pt-br) | PENDENTE |
+| 6D | Página por Grupo — rota dinâmica (pt-br) | PENDENTE |
+| 6E | Página por Jogo + Calendário (pt-br) | PENDENTE |
+| 7 | Compartilhamento + Integração de Calendário | PENDENTE |
 | 8 | live-data fetch + Fallback | PENDENTE |
 | 9 | Internacionalização (en + es) | PENDENTE |
 | 10 | SEO Técnico | PENDENTE |
@@ -365,3 +369,6 @@ Entregas:
 | 12 | Analytics + AdSense (placeholders) | PENDENTE |
 | 13 | Documentação | PENDENTE |
 | 14 | Build + Validação Final | PENDENTE |
+
+Ordem obrigatória dentro da Fase 6: 6A → 6B → 6C → 6D → 6E
+(6D depende de 6B; 6E pode rodar após 6C em paralelo com 6D, mas recomenda-se sequencial)
