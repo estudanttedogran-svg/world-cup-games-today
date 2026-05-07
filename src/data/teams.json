@@ -4,7 +4,7 @@
   "teams": [
     {
       "id": "northland",
-      "name": { "pt": "Northland", "en": "Northland", "es": "Northland" },
+      "name": { "pt-br": "Northland", "en": "Northland", "es": "Northland" },
       "slug": "northland",
       "group": "M",
       "flag": "🟦",
