@@ -1,7 +1,7 @@
-export type Locale = 'pt' | 'en' | 'es';
+export type Locale = 'pt-br' | 'en' | 'es';
 
 export interface LocalizedString {
-  pt: string;
+  'pt-br': string;
   en: string;
   es: string;
 }
