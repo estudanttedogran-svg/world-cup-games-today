@@ -1,0 +1,315 @@
+---
+import type { Match, Team, Locale } from '../types/index.ts';
+import { formatWeekday, formatDate, formatTime } from '../utils/datetime.ts';
+import { getTeamName } from '../utils/matches.ts';
+
+interface Props {
+  matches: Match[];
+  teams: Team[];
+  timezone: string;
+  locale?: Locale;
+  title?: string;
+  emptyMessage?: string;
+}
+
+const {
+  matches,
+  teams,
+  timezone,
+  locale = 'pt-br',
+  title,
+  emptyMessage,
+} = Astro.props;
+
+const phaseLabels: Record<string, Record<string, string>> = {
+  'pt-br': {
+    group_stage:   'Fase de Grupos',
+    round_of_32:   'Fase de 32',
+    round_of_16:   'Oitavas de Final',
+    quarterfinal:  'Quartas de Final',
+    semifinal:     'Semifinal',
+    third_place:   'Disputa de 3º Lugar',
+    final:         'Final',
+  },
+  'en': {
+    group_stage:   'Group Stage',
+    round_of_32:   'Round of 32',
+    round_of_16:   'Round of 16',
+    quarterfinal:  'Quarter-final',
+    semifinal:     'Semi-final',
+    third_place:   'Third Place',
+    final:         'Final',
+  },
+  'es': {
+    group_stage:   'Fase de Grupos',
+    round_of_32:   'Ronda de 32',
+    round_of_16:   'Octavos de Final',
+    quarterfinal:  'Cuartos de Final',
+    semifinal:     'Semifinal',
+    third_place:   '3er Lugar',
+    final:         'Final',
+  },
+};
+
+const statusLabels: Record<string, Record<string, string>> = {
+  'pt-br': {
+    scheduled:  'Agendado',
+    live:       'Ao Vivo',
+    finished:   'Encerrado',
+    postponed:  'Adiado',
+    cancelled:  'Cancelado',
+  },
+  'en': {
+    scheduled:  'Scheduled',
+    live:       'Live',
+    finished:   'Finished',
+    postponed:  'Postponed',
+    cancelled:  'Cancelled',
+  },
+  'es': {
+    scheduled:  'Programado',
+    live:       'En Vivo',
+    finished:   'Finalizado',
+    postponed:  'Aplazado',
+    cancelled:  'Cancelado',
+  },
+};
+
+const ui: Record<string, Record<string, string>> = {
+  'pt-br': {
+    empty: 'Nenhum jogo disponível.',
+    partialLabel: 'Vaga não definida',
+    group: 'Grupo',
+    round: 'Rodada',
+    vs: 'vs',
+    mockBadge: 'MOCK',
+  },
+  'en': {
+    empty: 'No matches available.',
+    partialLabel: 'TBD',
+    group: 'Group',
+    round: 'Round',
+    vs: 'vs',
+    mockBadge: 'MOCK',
+  },
+  'es': {
+    empty: 'No hay partidos disponibles.',
+    partialLabel: 'Sin definir',
+    group: 'Grupo',
+    round: 'Ronda',
+    vs: 'vs',
+    mockBadge: 'MOCK',
+  },
+};
+
+const t = ui[locale] ?? ui['pt-br'];
+const phases = phaseLabels[locale] ?? phaseLabels['pt-br'];
+const statuses = statusLabels[locale] ?? statusLabels['pt-br'];
+
+const defaultEmpty = emptyMessage ?? t.empty;
+
+// Filtrar simulações — nunca exibir nesta fase
+const displayMatches = matches.filter((m) => m.type !== 'simulation');
+---
+
+<div class="match-list">
+  {title && <h3 class="match-list__title">{title}</h3>}
+
+  {displayMatches.length === 0 ? (
+    <p class="match-list__empty">{defaultEmpty}</p>
+  ) : (
+    <ul class="match-list__items" role="list">
+      {displayMatches.map((match) => {
+        const isPartial = match.type === 'partial';
+
+        const homeTeamName = match.home_team_id
+          ? getTeamName(teams, match.home_team_id, locale)
+          : (match.home_label?.[locale] ?? t.partialLabel);
+
+        const awayTeamName = match.away_team_id
+          ? getTeamName(teams, match.away_team_id, locale)
+          : (match.away_label?.[locale] ?? t.partialLabel);
+
+        const weekday = formatWeekday(match.datetime_utc, locale, timezone);
+        const dateStr = formatDate(match.datetime_utc, locale, timezone);
+        const timeStr = formatTime(match.datetime_utc, locale, timezone);
+        const stadiumStr = match.stadium[locale] ?? match.stadium['en'];
+        const cityStr = match.city[locale] ?? match.city['en'];
+        const phaseStr = phases[match.phase] ?? match.phase;
+        const roundInfo = match.group
+          ? `${phaseStr} — ${t.group} ${match.group}`
+          : phaseStr;
+
+        return (
+          <li class={`match-item ${isPartial ? 'match-item--partial' : ''}`}>
+            <div class="match-item__header">
+              <span class="match-item__phase">{roundInfo}</span>
+              <div class="match-item__badges">
+                {isPartial && (
+                  <span class="match-item__badge match-item__badge--partial">
+                    {t.partialLabel}
+                  </span>
+                )}
+                <span class="match-item__badge match-item__badge--mock">
+                  {t.mockBadge}
+                </span>
+              </div>
+            </div>
+
+            <div class="match-item__teams">
+              <span class="match-item__team">{homeTeamName}</span>
+              <span class="match-item__vs" aria-hidden="true">{t.vs}</span>
+              <span class="match-item__team">{awayTeamName}</span>
+            </div>
+
+            <div class="match-item__meta">
+              <time datetime={match.datetime_utc} class="match-item__datetime">
+                {weekday}, {dateStr} &bull; {timeStr}
+              </time>
+              {stadiumStr && cityStr && (
+                <span class="match-item__venue">{stadiumStr} — {cityStr}</span>
+              )}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  )}
+</div>
+
+<style>
+  .match-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .match-list__title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-2);
+  }
+
+  .match-list__empty {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    padding-block: var(--space-4);
+  }
+
+  .match-list__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .match-item {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .match-item:last-child {
+    border-bottom: none;
+  }
+
+  .match-item--partial {
+    opacity: 0.85;
+  }
+
+  .match-item__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-2);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .match-item__phase {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .match-item__badges {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .match-item__badge {
+    display: inline-block;
+    padding: 1px var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    letter-spacing: 0.04em;
+  }
+
+  .match-item__badge--partial {
+    color: #92400e;
+    background-color: #fef3c7;
+    border: 1px solid #fde68a;
+  }
+
+  .match-item__badge--mock {
+    color: #4b5563;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+  }
+
+  .match-item__teams {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .match-item__team {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+  }
+
+  .match-item__vs {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
+  .match-item__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .match-item__datetime {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .match-item__venue {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 768px) {
+    .match-item__teams {
+      gap: var(--space-4);
+    }
+
+    .match-item__team {
+      font-size: var(--font-size-lg);
+    }
+  }
+</style>
