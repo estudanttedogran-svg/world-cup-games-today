@@ -191,28 +191,30 @@ const teamName = team.name['pt-br'] ?? team.name['en'] ?? team.slug;
     margin-bottom: var(--space-6);
   }
 
-  /* Seção de partidas parciais */
-  .partial-section {
-    margin-block: var(--space-8);
+  /* Bloco informativo de próximas fases (sem listar parciais genéricos) */
+  .next-phases-info {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-8);
     padding: var(--space-6);
     background-color: #fafbff;
     border: 1px dashed var(--color-border);
     border-radius: var(--radius-lg);
   }
 
-  .partial-section h2 {
+  .next-phases-info h2 {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
     color: var(--color-text);
     margin-bottom: var(--space-3);
   }
 
-  /* Texto explicativo dos jogos parciais */
-  .partial-note {
+  /* Texto explicativo do bloco de próximas fases */
+  .next-phases-note {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    margin-bottom: var(--space-4);
+    margin: 0;
     line-height: var(--line-height-relaxed);
+    font-style: italic;
   }
 
   /* Links internos */
