@@ -159,7 +159,7 @@ Notas: `GroupTable.astro` criado aqui será obrigatoriamente reutilizado na Fase
 ---
 
 ## Fase 6C — Página por Seleção (pt-br)
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Página alvo:
 - `src/pages/pt-br/selecoes/[slug].astro` — rota dinâmica, uma página por time
