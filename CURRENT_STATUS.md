@@ -6,10 +6,9 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 5 — Home Page (pt-br)
-**Tarefa de planejamento concluída:** Fase 6 subdividida em 6A–6E (ver abaixo)
-**Próxima fase:** Fase 6A — Jogos de Hoje (pt-br)
-**Aguardando:** Autorização do usuário para iniciar Fase 6A
+**Fase concluída:** Fase 6A — Jogos de Hoje (pt-br)
+**Próxima fase:** Fase 6B — Tabela da Copa 2026 (pt-br)
+**Aguardando:** Autorização do usuário para iniciar Fase 6B
 
 ---
 
