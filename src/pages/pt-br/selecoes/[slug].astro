@@ -101,23 +101,14 @@ const teamName = team.name['pt-br'] ?? team.name['en'] ?? team.slug;
       />
     </section>
 
-    <!-- JOGOS PARCIAIS (SOMENTE SE HOUVER) -->
-    {partialMatches.length > 0 && (
-      <section class="partial-section" aria-label="Fase eliminatória — vagas a definir">
-        <h2>Fase Eliminat&oacute;ria &mdash; Vagas a Definir</h2>
-        <p class="partial-note">
-          Estes jogos ainda n&atilde;o t&ecirc;m os times definidos. As vagas ser&atilde;o
-          conhecidas ao longo da competi&ccedil;&atilde;o.
-        </p>
-        <MatchList
-          matches={partialMatches}
-          teams={allTeams}
-          timezone={defaultTimezone}
-          locale="pt-br"
-          emptyMessage="Nenhuma partida eliminatória parcial disponível."
-        />
-      </section>
-    )}
+    <!-- PRÓXIMAS FASES — BLOCO INFORMATIVO (sem listar parciais genéricos) -->
+    <section class="next-phases-info" aria-label="Próximas fases da competição">
+      <h2>Pr&oacute;ximas Fases</h2>
+      <p class="next-phases-note">
+        Os poss&iacute;veis jogos das fases eliminat&oacute;rias ser&atilde;o exibidos quando
+        a classifica&ccedil;&atilde;o da fase de grupos estiver definida.
+      </p>
+    </section>
 
     <!-- LINKS INTERNOS -->
     <nav class="internal-links" aria-label="Navegação interna">
