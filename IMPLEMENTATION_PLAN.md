@@ -418,6 +418,7 @@ Entregas:
 | 8 | live-data fetch + Fallback | CONCLUÍDA ✅ |
 | 9A | Internacionalização — Páginas em inglês (/en/) | CONCLUÍDA ✅ |
 | 9B | Internacionalização — Páginas em espanhol (/es/) | CONCLUÍDA ✅ |
+| 9C | Página raiz `/` — seleção de idioma + sugestão automática | CONCLUÍDA ✅ |
 | 10 | SEO Técnico | PENDENTE |
 | 11 | Páginas Institucionais | PENDENTE |
 | 12 | Analytics + AdSense (placeholders) | PENDENTE |
