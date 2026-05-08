@@ -66,6 +66,14 @@ const mockStandingsMap: Record<string, StandingEntry[]> = {
   ],
 };
 const groupStandings: StandingEntry[] = mockStandingsMap[group.slug] ?? [];
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/groups/${group.slug}`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/grupos/${group.slug}` },
+  { hreflang: 'en',    href: `${siteUrl}/en/groups/${group.slug}` },
+  { hreflang: 'es',    href: `${siteUrl}/es/grupos/${group.slug}` },
+];
 ---
 
 <BaseLayout
@@ -73,6 +81,8 @@ const groupStandings: StandingEntry[] = mockStandingsMap[group.slug] ?? [];
   description={`View the standings and all matches for ${groupName} at the 2026 World Cup with kick-off times in your local timezone.`}
   lang="en"
   locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
