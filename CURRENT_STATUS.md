@@ -405,18 +405,28 @@ O arquivo `public/data/live-data.json` deve ter cache de curta duração para ev
 
 ---
 
-## Páginas totais geradas (29):
+## Páginas totais geradas (53):
+
+### Raiz e pt-br (29 páginas — inalteradas)
 - `/index.html`
 - `/pt-br/index.html`
-- `/en/index.html`
-- `/es/index.html`
+- `/es/index.html` (stub — aguardando Fase 9B)
 - `/pt-br/jogos-de-hoje-copa/index.html`
 - `/pt-br/tabela-copa-2026/index.html`
 - `/pt-br/calendario-copa-2026/index.html`
-- `/pt-br/selecoes/index.html` (NOVA — correção pós-QA)
-- `/pt-br/selecoes/[northland|eastoria|westmark|southmore|highpeak|lowvale|bayshore|ridgemont]/index.html` (8 paginas)
-- `/pt-br/grupos/[m|n]/index.html` (2 paginas)
-- `/pt-br/jogos/[match-001..match-011]/index.html` (11 paginas)
+- `/pt-br/selecoes/index.html`
+- `/pt-br/selecoes/[northland|eastoria|westmark|southmore|highpeak|lowvale|bayshore|ridgemont]/index.html` (8 páginas)
+- `/pt-br/grupos/[m|n]/index.html` (2 páginas)
+- `/pt-br/jogos/[match-001..match-011]/index.html` (11 páginas)
+
+### Inglês /en/ (24 páginas — NOVAS — Fase 9A)
+- `/en/index.html`
+- `/en/world-cup-games-today/index.html`
+- `/en/world-cup-2026-schedule/index.html`
+- `/en/teams/index.html`
+- `/en/teams/[northland|eastoria|westmark|southmore|highpeak|lowvale|bayshore|ridgemont]/index.html` (8 páginas)
+- `/en/groups/[m|n]/index.html` (2 páginas)
+- `/en/matches/[match-001..match-011]/index.html` (11 páginas)
 
 ---
 
