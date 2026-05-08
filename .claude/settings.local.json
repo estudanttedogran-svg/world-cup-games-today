@@ -6,7 +6,10 @@
       "Bash(npm run *)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(Select-String -Path \"C:\\\\World Cup Games Today\\\\dist\\\\en\\\\matches\\\\match-001\\\\index.html\" -Pattern \"application/ld\\\\+json\")",
+      "Bash(Select-Object -First 3)",
+      "Bash(python3 *)"
     ]
   }
 }
