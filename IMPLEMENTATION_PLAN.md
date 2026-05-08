@@ -359,7 +359,7 @@ Entregas:
 | 6A | Jogos de Hoje (pt-br) | CONCLUÍDA ✅ |
 | 6B | Tabela da Copa 2026 (pt-br) | CONCLUÍDA ✅ |
 | 6C | Página por Seleção — rota dinâmica (pt-br) | CONCLUÍDA ✅ |
-| 6D | Página por Grupo — rota dinâmica (pt-br) | PENDENTE |
+| 6D | Página por Grupo — rota dinâmica (pt-br) | CONCLUÍDA ✅ |
 | 6E | Página por Jogo + Calendário (pt-br) | PENDENTE |
 | 7 | Compartilhamento + Integração de Calendário | PENDENTE |
 | 8 | live-data fetch + Fallback | PENDENTE |
