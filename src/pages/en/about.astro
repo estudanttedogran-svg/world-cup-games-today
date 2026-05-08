@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/about`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/sobre` },
+  { hreflang: 'en',    href: `${siteUrl}/en/about` },
+  { hreflang: 'es',    href: `${siteUrl}/es/sobre` },
+];
+---
+
+<BaseLayout
+  title="About World Cup Games Today"
+  description="Learn about World Cup Games Today, an independent website created to help football fans follow the FIFA World Cup 2026 matches in their local time zone."
+  lang="en"
+  locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>About World Cup Games Today</h1>
+
+    <p>
+      World Cup Games Today is an independent website created to help football fans
+      around the world follow the FIFA World Cup 2026 matches in their local time zone,
+      without the hassle of manual conversions.
+    </p>
+
+    <p>
+      Our goal is simple: show you every match time automatically converted to your
+      device's time zone.
+    </p>
+
+    <p>
+      This website has no official affiliation with FIFA or the World Cup organization.
+      All trademarks, names, and logos mentioned belong to their respective owners.
+    </p>
+
+    <p>
+      The data currently displayed is for demonstration purposes (MOCK) and will be
+      replaced with real data before the official launch. Always verify schedules and
+      information with official sources before making any decisions.
+    </p>
+
+    <nav class="institutional-links" aria-label="Internal links">
+      <a href="/en/">Home</a>
+      <a href="/en/contact">Contact</a>
+      <a href="/en/privacy-policy">Privacy Policy</a>
+      <a href="/en/terms-of-use">Terms of Use</a>
+      <a href="/en/legal-notice">Legal Notice</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
