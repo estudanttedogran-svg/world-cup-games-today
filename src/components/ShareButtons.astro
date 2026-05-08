@@ -71,7 +71,7 @@ const labels = {
 const t = labels[locale as keyof typeof labels] ?? labels['pt-br'];
 ---
 
-<div class="share-buttons" data-share-component>
+<div class="share-buttons" data-share-component data-locale={locale}>
   <span class="share-buttons__title">{t.shareTitle}</span>
 
   <div class="share-buttons__group">
