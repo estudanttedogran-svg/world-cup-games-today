@@ -69,6 +69,9 @@ const stadiumName = match.stadium['pt-br'] ?? match.stadium['en'] ?? null;
 const cityName    = match.city['pt-br']    ?? match.city['en']    ?? null;
 const countryName = match.country['pt-br'] ?? match.country['en'] ?? null;
 
+// String de localização para o calendário ("Estádio, Cidade, País")
+const locationStr = [stadiumName, cityName, countryName].filter(Boolean).join(', ');
+
 // Rótulo da fase — segue os valores exatos do tipo MatchPhase em types/index.ts
 const phaseLabels: Record<string, string> = {
   'group_stage':  'Fase de Grupos',
