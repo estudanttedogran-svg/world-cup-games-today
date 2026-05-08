@@ -264,13 +264,15 @@ Entregas:
 ---
 
 ## Fase 8 — live-data: Fetch Client-Side + Fallback
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Entregas:
-- Componente Astro Island para buscar `live-data.json` no cliente
-- Fallback seguro se arquivo ausente, inválido ou com erro de rede
-- Integração com páginas: placares ao vivo, status de partida, classificação
-- Documentação de como atualizar o arquivo manualmente
+- `src/utils/liveData.ts` — fetch, validação mínima e acesso ao live-data.json com fallback total
+- `src/components/LiveMatchStatus.astro` — componente Island com cache em memória, badge pulsante e placar
+- Integrado em `src/pages/pt-br/jogos/[id].astro` — seção "Status da Partida"
+- Integrado em `src/components/MatchList.astro` — badge de status em cada item da lista
+- Documentação de cache (live-data.json) registrada no CURRENT_STATUS.md
+- 29 páginas geradas sem erros — build estático não depende do live-data.json
 
 ---
 
