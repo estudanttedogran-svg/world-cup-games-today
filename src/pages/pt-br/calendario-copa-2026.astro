@@ -1,0 +1,432 @@
+---
+import type { Match, Team, Group } from '../../types/index.ts';
+import matchesData from '../../data/matches.json';
+import teamsData from '../../data/teams.json';
+import groupsData from '../../data/groups.json';
+import { sortMatchesByDate } from '../../utils/matches.ts';
+import { formatDate, formatTime, formatWeekday } from '../../utils/datetime.ts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdPlaceholder from '../../components/AdPlaceholder.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import TimezoneSelector from '../../components/TimezoneSelector.astro';
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams   = (teamsData  as { teams:   Team[]  }).teams;
+const allGroups  = (groupsData as { groups:  Group[] }).groups;
+
+const defaultTimezone = 'America/Sao_Paulo';
+const locale = 'pt-br' as const;
+
+// Ordenar todas as partidas por data (confirmed e partial juntos, simulation excluída)
+const displayMatches = sortMatchesByDate(
+  allMatches.filter((m) => m.type !== 'simulation')
+);
+
+// Agrupar por data local (no defaultTimezone)
+const matchesByDate = displayMatches.reduce<Record<string, Match[]>>((acc, match) => {
+  const dateKey = formatDate(match.datetime_utc, locale, defaultTimezone);
+  if (!acc[dateKey]) acc[dateKey] = [];
+  acc[dateKey].push(match);
+  return acc;
+}, {});
+
+// Array de [dateKey, matches[]] ordenado (já na ordem de inserção, que é cronológica)
+const groupedDates = Object.entries(matchesByDate);
+
+// Helper: resolver nome do time
+function resolveTeamName(slug: string | null | undefined): string {
+  if (!slug) return 'A definir';
+  const team = allTeams.find((t) => t.id === slug || t.slug === slug);
+  return team?.name['pt-br'] ?? team?.name['en'] ?? slug;
+}
+
+// Helper: resolver nome do grupo
+function resolveGroupName(groupSlug: string | null | undefined): string | null {
+  if (!groupSlug) return null;
+  const group = allGroups.find(
+    (g) =>
+      g.slug === groupSlug ||
+      g.id === groupSlug ||
+      g.slug.toLowerCase() === groupSlug.toLowerCase()
+  );
+  return group?.name['pt-br'] ?? group?.name['en'] ?? null;
+}
+
+// Rótulos de fase
+const phaseLabels: Record<string, string> = {
+  'group_stage':  'Fase de Grupos',
+  'round_of_32':  'Rodada de 32',
+  'round_of_16':  'Oitavas de Final',
+  'quarterfinal': 'Quartas de Final',
+  'semifinal':    'Semifinal',
+  'third_place':  'Disputa de 3º Lugar',
+  'final':        'Final',
+};
+---
+
+<BaseLayout
+  title="Calendário da Copa do Mundo 2026 — World Cup Games Today"
+  description="Veja o calendário completo da Copa do Mundo 2026 com todos os jogos, datas e horários no seu fuso local."
+  lang="pt-BR"
+  locale="pt-br"
+>
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="page-hero">
+      <h1>Calendário da Copa 2026</h1>
+      <p>Todos os jogos da Copa do Mundo 2026 organizados por data — no seu horário local.</p>
+    </section>
+
+    <!-- Aviso MOCK -->
+    <div class="mock-warning" role="alert">
+      &#9888; Este site usa dados de demonstração (MOCK). Os dados exibidos são fictícios.
+    </div>
+
+    <!-- Seletor de fuso -->
+    <div class="timezone-row">
+      <TimezoneSelector currentTimezone={defaultTimezone} locale="pt-br" />
+    </div>
+
+    <!-- Calendário agrupado por data -->
+    <section class="calendar-section" aria-label="Calendário de partidas">
+      {groupedDates.map(([dateKey, dayMatches]) => (
+        <div class="calendar-day">
+          <h2 class="calendar-day-header">{dateKey}</h2>
+          <div class="calendar-matches">
+            {dayMatches.map((match) => {
+              const isConfirmed = match.type === 'confirmed';
+              const homeTeamName = isConfirmed ? resolveTeamName(match.home_team_id) : 'A definir';
+              const awayTeamName = isConfirmed ? resolveTeamName(match.away_team_id) : 'A definir';
+              const timeStr  = formatTime(match.datetime_utc, locale, defaultTimezone);
+              const weekday  = formatWeekday(match.datetime_utc, locale, defaultTimezone);
+              const groupName = resolveGroupName(match.group);
+              const phaseStr  = phaseLabels[match.phase] ?? match.phase;
+
+              return (
+                <article class={`calendar-match-card${match.type === 'partial' ? ' partial' : ''}`}>
+                  <div class="cal-match-time">
+                    <span class="cal-weekday">{weekday}</span>
+                    <span class="cal-time">{timeStr}</span>
+                  </div>
+                  <div class="cal-match-info">
+                    <div class="cal-teams">
+                      <span class={`cal-team${!isConfirmed ? ' tbd' : ''}`}>{homeTeamName}</span>
+                      <span class="cal-vs">x</span>
+                      <span class={`cal-team${!isConfirmed ? ' tbd' : ''}`}>{awayTeamName}</span>
+                    </div>
+                    <div class="cal-meta">
+                      <span class="cal-phase">{phaseStr}</span>
+                      {groupName && <span class="cal-group"> — {groupName}</span>}
+                    </div>
+                  </div>
+                  <div class="cal-match-actions">
+                    {isConfirmed ? (
+                      <a href={`/pt-br/jogos/${match.id}`} class="cal-detail-link">
+                        Ver detalhes &rarr;
+                      </a>
+                    ) : (
+                      <span class="cal-partial-badge">Vaga a definir</span>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <!-- AdPlaceholder após o calendário -->
+    <AdPlaceholder slot="bottom" label="Anuncio" />
+
+    <!-- Links internos -->
+    <nav class="internal-links" aria-label="Navegacao interna">
+      <h2>Veja tambem</h2>
+      <ul>
+        <li><a href="/pt-br/">Home &mdash; Copa 2026</a></li>
+        <li><a href="/pt-br/jogos-de-hoje-copa">Jogos de hoje</a></li>
+        <li><a href="/pt-br/tabela-copa-2026">Tabela da Copa 2026</a></li>
+      </ul>
+    </nav>
+
+    <!-- ShareButtons -->
+    <section class="share-section">
+      <h2>Compartilhe o calendario</h2>
+      <ShareButtons locale="pt-br" matchTitle="Calendario da Copa do Mundo 2026" />
+    </section>
+
+    <!-- Texto SEO -->
+    <section class="seo-text">
+      <h2>Calendario completo da Copa do Mundo 2026</h2>
+      <p>
+        A Copa do Mundo FIFA 2026 sera realizada nos Estados Unidos, Canada e Mexico.
+        Acompanhe o calendario completo com todos os jogos — da fase de grupos ate a final —
+        com horarios exibidos automaticamente no seu fuso horario local.
+      </p>
+      <p>
+        Nunca perca um jogo da Copa 2026. Confira as datas, horarios e as selecoes
+        de cada partida usando o World Cup Games Today.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .container {
+    max-width: var(--max-width-content);
+    margin: 0 auto;
+    padding: var(--space-4) var(--space-4) var(--space-12);
+  }
+
+  /* ===== CALENDARIO ===== */
+
+  .calendar-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-bottom: var(--space-10);
+  }
+
+  .calendar-day {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .calendar-day-header {
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+  }
+
+  .calendar-matches {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .calendar-match-card {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--color-border-light);
+    background: var(--color-bg-card);
+  }
+
+  .calendar-match-card:last-child {
+    border-bottom: none;
+  }
+
+  .calendar-match-card.partial {
+    background: var(--color-bg-alt);
+  }
+
+  .cal-match-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cal-weekday {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-transform: capitalize;
+  }
+
+  .cal-time {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+  }
+
+  .cal-match-info {
+    min-width: 0;
+  }
+
+  .cal-teams {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .cal-team {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+  }
+
+  .cal-team.tbd {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .cal-vs {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .cal-meta {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  .cal-match-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .cal-detail-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .cal-detail-link:hover {
+    text-decoration: underline;
+  }
+
+  .cal-detail-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  .cal-partial-badge {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: var(--space-1) var(--space-2);
+    white-space: nowrap;
+  }
+
+  /* ===== LINKS INTERNOS ===== */
+
+  .internal-links {
+    margin: var(--space-8) 0;
+    padding: var(--space-5);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .internal-links a:hover {
+    text-decoration: underline;
+  }
+
+  /* ===== SHARE SECTION ===== */
+
+  .share-section {
+    margin: var(--space-8) 0;
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+  }
+
+  /* ===== SEO TEXT ===== */
+
+  .seo-text {
+    margin-top: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .seo-text h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+  }
+
+  .seo-text p {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .seo-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ===== MOBILE: stack columns ===== */
+
+  @media (max-width: 600px) {
+    .calendar-match-card {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+
+    .cal-match-time {
+      flex-direction: row;
+      gap: var(--space-2);
+      justify-content: flex-start;
+      align-items: baseline;
+      text-align: left;
+    }
+
+    .cal-match-actions {
+      justify-content: flex-start;
+      margin-top: var(--space-1);
+    }
+
+    .internal-links ul {
+      flex-direction: column;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .calendar-day-header {
+      font-size: var(--font-size-lg);
+    }
+
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .share-section h2 {
+      font-size: var(--font-size-xl);
+    }
+  }
+</style>
