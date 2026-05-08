@@ -6,12 +6,19 @@ import '../styles/reset.css';
 import '../styles/variables.css';
 import '../styles/global.css';
 
+interface HreflangAlternate {
+  hreflang: string;
+  href: string;
+}
+
 interface Props {
   title: string;
   description?: string;
   lang?: string;
   locale?: Locale;
   canonical?: string;
+  canonicalUrl?: string;
+  alternates?: HreflangAlternate[];
 }
 
 const {
@@ -20,10 +27,13 @@ const {
   lang = 'en',
   locale = 'en',
   canonical,
+  canonicalUrl: canonicalUrlProp,
+  alternates,
 } = Astro.props;
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
-const canonicalUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
+// canonicalUrlProp tem prioridade; depois canonical (legacy); depois pathname automático
+const canonicalUrl = canonicalUrlProp || canonical || `${siteUrl}${Astro.url.pathname}`;
 const ogUrl = canonicalUrl;
 ---
 
