@@ -26,7 +26,6 @@ Continue apenas a próxima fase indicada.
 Ao terminar uma fase, atualize CURRENT_STATUS.md e pare — aguarde autorização do usuário para continuar.
 
 ## Configurações do ambiente
-
 - **GitHub CLI:** instalado em `C:\Program Files\GitHub CLI\gh.exe`
 - **Usuário GitHub:** `estudanttedogran-svg`
 - **Git user.email:** `davi.dalciano86@gmail.com`

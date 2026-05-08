@@ -1,14 +1,76 @@
 # CURRENT_STATUS.md — World Cup Games Today
 
-**Última atualização:** 2026-05-07
+**Última atualização:** 2026-05-08
 
 ---
 
 ## Status atual
 
-**Fase concluída:** Fase 7A — Compartilhamento (WhatsApp + Copiar link) CONCLUIDA
-**Próxima fase:** Fase 7B — Google Calendar + arquivo `.ics`
-**Aguardando:** Autorização do usuário para iniciar Fase 7B
+**Fase concluída:** Fase 7B — Google Calendar + download `.ics` CONCLUIDA ✅
+**Próxima fase:** Fase 8 — live-data fetch client-side + fallback
+**Aguardando:** Autorização do usuário para iniciar Fase 8
+
+---
+
+## Fase 7B — Google Calendar + download `.ics` ✅
+
+### Arquivos criados/alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/utils/calendar.ts` | Criado — utilitários de integração com Google Calendar e geração de .ics |
+| `src/components/CalendarButtons.astro` | Criado — botões de Google Calendar e download .ics |
+| `src/pages/pt-br/jogos/[id].astro` | Atualizado — integra CalendarButtons na seção "Adicionar ao calendário" |
+
+### O que foi feito
+
+**`src/utils/calendar.ts`** (novo)
+- Interface `CalendarEventData` com `id`, `matchType`, `summary`, `description`, `location`, `dtstart`, `durationMinutes`, `pageUrl`
+- `toGoogleCalendarDate()` — converte ISO UTC para `YYYYMMDDTHHMMSSZ` (formato Google Calendar)
+- `buildGoogleCalendarUrl()` — gera link `https://calendar.google.com/calendar/r/eventedit` com parâmetros `text`, `dates`, `details`, `location`; calcula DTEND = DTSTART + 120 min; seguro para Node (build time)
+- `toICSDate()` — converte ISO UTC para formato ICS (`YYYYMMDDTHHMMSSZ`)
+- `nowICSDate()` — gera DTSTAMP atual no formato ICS
+- `buildICSContent()` — gera conteúdo completo `.ics` (RFC 5545): VCALENDAR, VEVENT com UID estável (`{id}@worldcupgamestoday.com`), DTSTAMP, DTSTART, DTEND, SUMMARY, DESCRIPTION, LOCATION; linhas separadas por `\r\n`
+- `escapeICS()` (privada) — escapa `\`, `;`, `,`, `\n` e remove `\r` conforme RFC 5545
+- `downloadICS()` — download no browser via `Blob` + `URL.createObjectURL`; guard `typeof window`/`typeof document`; retorna `false` se fora do browser
+- `buildCalendarEventData()` — constrói `CalendarEventData` a partir dos dados da página de jogo:
+  - `confirmed`: título "HomeTeam x AwayTeam — Copa 2026", descrição com nomes reais
+  - `partial`: título "Partida a definir — Copa 2026", descrição sem inventar seleções
+  - `simulation`/outros: título genérico "Copa do Mundo 2026"
+
+**`src/components/CalendarButtons.astro`** (novo)
+- Props: `matchId`, `matchType`, `homeTeamName?`, `awayTeamName?`, `datetimeUtc`, `locationStr?`, `pageUrl?`, `locale?`
+- Regra crítica: `simulation` nunca renderiza calendário (`shouldRender = matchType !== 'simulation'`)
+- Server-side: pré-gera `googleCalUrl` via `buildGoogleCalendarUrl()` — seguro para build estático
+- Botão Google Calendar: link `<a>` com `target="_blank" rel="noopener noreferrer"`, ícone SVG inline, cor `#1a73e8`
+- Botão download .ics: `<button type="button">` com atributos `data-*` para passar dados ao script client-side
+- `<script>` client-side: guard `typeof window !== 'undefined'`, gera ICS inline (sem importar módulos TypeScript), faz download via Blob
+- Textos localizados: pt-br, en, es (labels `googleCal`, `downloadICS`)
+- CSS scoped: `.calendar-buttons`, `.cal-btn`, `.cal-btn--google` (azul Google), `.cal-btn--ics` (neutro)
+- Zero acesso a window no frontmatter — todo guard no `<script>`
+
+**`src/pages/pt-br/jogos/[id].astro`** (atualizado)
+- Importa `CalendarButtons from '../../../components/CalendarButtons.astro'`
+- Calcula `locationStr` no frontmatter: `[stadiumName, cityName, countryName].filter(Boolean).join(', ')`
+- Seção `<!-- ADICIONAR AO CALENDÁRIO -->` renderizada apenas se `match.type !== 'simulation'`
+- `CalendarButtons` recebe `matchId`, `matchType` (cast para `'confirmed' | 'partial'`), `homeTeamName?`, `awayTeamName?`, `datetimeUtc`, `locationStr`, `pageUrl` canônica
+- CSS scoped `.calendar-section` adicionado: mesmo visual do `.share-section`
+
+### Regras respeitadas
+- `simulation` — nunca exibe botões de calendário
+- `partial` — exibe calendário com título "Partida a definir", sem inventar seleções
+- `confirmed` — exibe com "HomeTeam x AwayTeam — Copa 2026"
+- UID estável por `match.id` — não usa timestamp nem random
+- Duração padrão: 120 min
+- Formato UTC em todas as datas
+- Sem dependências novas
+- Build estático: zero API de browser no frontmatter
+
+### Validação
+- `npm run build`: 29 páginas geradas sem erros ✅
+- Zero erros TypeScript ✅
+- Nenhuma página nova (Fase 7B é integração em páginas existentes) ✅
+- Total de páginas: 29 (sem alteração)
 
 ---
 
