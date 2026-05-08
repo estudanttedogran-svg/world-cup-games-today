@@ -7,6 +7,14 @@ import AdPlaceholder from '../../../components/AdPlaceholder.astro';
 
 const allTeams = (teamsData as { teams: Team[] }).teams;
 const allGroups = (groupsData as { groups: Group[] }).groups;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/es/equipos`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/selecoes` },
+  { hreflang: 'en',    href: `${siteUrl}/en/teams` },
+  { hreflang: 'es',    href: `${siteUrl}/es/equipos` },
+];
 ---
 
 <BaseLayout
@@ -14,6 +22,8 @@ const allGroups = (groupsData as { groups: Group[] }).groups;
   description="Consulta todas las selecciones que participan en la Copa del Mundo 2026 y ve sus horarios de partido en tu zona horaria local."
   lang="es"
   locale="es"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <section class="page-hero">
     <h1>Selecciones &mdash; Copa del Mundo 2026</h1>
