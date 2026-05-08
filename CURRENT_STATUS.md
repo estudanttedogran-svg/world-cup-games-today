@@ -6,9 +6,150 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 8 — live-data fetch client-side + fallback CONCLUIDA ✅
-**Próxima fase:** Fase 9 — Internacionalização (en + es)
-**Aguardando:** Autorização do usuário para iniciar Fase 9
+**Fase concluída:** Fase 9A — Páginas em inglês (/en/) CONCLUÍDA ✅
+**Próxima fase:** Fase 9B — Internacionalização (es)
+**Aguardando:** Autorização do usuário para iniciar Fase 9B
+
+---
+
+## Fase 9A — Páginas em inglês (/en/) ✅
+
+### Arquivos criados/alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/en/index.astro` | Reescrito — home completa em inglês (antes era stub mínimo) |
+| `src/pages/en/world-cup-games-today.astro` | Criado — jogos de hoje em inglês |
+| `src/pages/en/world-cup-2026-schedule.astro` | Criado — tabela + classificações em inglês |
+| `src/pages/en/teams/index.astro` | Criado — listagem de times em inglês |
+| `src/pages/en/teams/[slug].astro` | Criado — página por time em inglês (8 páginas geradas) |
+| `src/pages/en/groups/[group].astro` | Criado — página por grupo em inglês (2 páginas geradas) |
+| `src/pages/en/matches/[id].astro` | Criado — página por jogo em inglês (11 páginas geradas) |
+
+### Páginas geradas pela Fase 9A (24 novas)
+
+- `/en/index.html` (reescrita)
+- `/en/world-cup-games-today/index.html`
+- `/en/world-cup-2026-schedule/index.html`
+- `/en/teams/index.html`
+- `/en/teams/northland/index.html`
+- `/en/teams/eastoria/index.html`
+- `/en/teams/westmark/index.html`
+- `/en/teams/southmore/index.html`
+- `/en/teams/highpeak/index.html`
+- `/en/teams/lowvale/index.html`
+- `/en/teams/bayshore/index.html`
+- `/en/teams/ridgemont/index.html`
+- `/en/groups/m/index.html`
+- `/en/groups/n/index.html`
+- `/en/matches/match-001/index.html`
+- `/en/matches/match-002/index.html`
+- `/en/matches/match-003/index.html`
+- `/en/matches/match-004/index.html`
+- `/en/matches/match-005/index.html`
+- `/en/matches/match-006/index.html`
+- `/en/matches/match-007/index.html`
+- `/en/matches/match-008/index.html`
+- `/en/matches/match-009/index.html`
+- `/en/matches/match-010/index.html`
+- `/en/matches/match-011/index.html`
+
+### O que foi implementado
+
+**Padrão geral (aplicado em todas as páginas /en/):**
+- Locale `'en'` passado para todos os componentes que aceitam a prop (`TimezoneSelector`, `TeamSelector`, `NextMatchCard`, `MatchList`, `TodayMatches`, `GroupTable`, `LiveMatchStatus`, `ShareButtons`, `CalendarButtons`)
+- Fuso padrão `America/New_York` (compatível com `formatDate`/`formatTime` — sem erros no build)
+- Todos os textos da página em inglês: h1, h2, avisos, links internos, meta tags SEO
+- Aviso MOCK em inglês: "⚠ This site uses demonstration data (MOCK). The data shown is fictional."
+- Nomes de times via `team.name['en'] ?? team.name['pt-br']`
+- Nomes de grupos via `group.name['en'] ?? group.name['pt-br']`
+- Links internos apontam para `/en/...` — nenhum link quebrado para `/pt-br/...`
+- `partial` nunca tratado como `confirmed`
+- `simulation` nunca exibido como jogo real
+
+**`src/pages/en/index.astro`** (reescrita do stub)
+- Estrutura completa idêntica ao pt-br: hero → aviso MOCK → seletores → próximo jogo → anúncio → jogos de hoje → jogos da seleção → compartilhar → texto SEO
+- Componentes reutilizados: `TimezoneSelector`, `TeamSelector`, `NextMatchCard`, `MatchList`, `TodayMatches`, `ShareButtons`, `AdPlaceholder`
+
+**`src/pages/en/world-cup-games-today.astro`**
+- Equivalente a `/pt-br/jogos-de-hoje-copa`
+- Resume jogos de hoje, seletor de fuso, `TodayMatches`, compartilhamento
+- CSS scoped inline (não afeta global.css)
+
+**`src/pages/en/world-cup-2026-schedule.astro`**
+- Equivalente a `/pt-br/tabela-copa-2026`
+- Tabela de classificação por grupo (`GroupTable` com `locale="en"`), jogos confirmados, parciais separados
+- Mock standings idênticos ao pt-br para consistência
+
+**`src/pages/en/teams/index.astro`**
+- Equivalente a `/pt-br/selecoes/index`
+- Grid de times agrupados por grupo, links para `/en/teams/[slug]` e `/en/groups/[slug]`
+
+**`src/pages/en/teams/[slug].astro`**
+- Equivalente a `/pt-br/selecoes/[slug]`
+- `getStaticPaths()` gera 8 páginas (um por time em teams.json)
+- Nome do time via `team.name['en'] ?? team.name['pt-br']`
+- Bloco informativo "Knockout Stages" no lugar de listar parciais genéricos (mesma regra do pt-br)
+- Links internos para `/en/groups/[slug]` quando grupo disponível
+
+**`src/pages/en/groups/[group].astro`**
+- Equivalente a `/pt-br/grupos/[grupo]`
+- `getStaticPaths()` gera 2 páginas (grupos M e N)
+- Parâmetro da rota: `group` (não `grupo` como no pt-br) — consistência com URLs em inglês
+- Mock standings idênticos ao pt-br
+
+**`src/pages/en/matches/[id].astro`**
+- Equivalente a `/pt-br/jogos/[id]`
+- `getStaticPaths()` gera 11 páginas (uma por partida em matches.json)
+- Rótulos de fase em inglês: Group Stage, Round of 32, Round of 16, Quarterfinal, Semifinal, Third Place, Final
+- Estádio/cidade/país via `match.stadium['en'] ?? match.stadium['pt-br']`
+- Horário exibido como "(New York)" no campo "Kick-off"
+- `LiveMatchStatus` com `locale="en"` — suporte multilíngue confirmado (componente já tinha labels en)
+- `CalendarButtons` com `locale="en"` — suporte multilíngue confirmado
+- `ShareButtons` com `locale="en"` — labels em inglês (botão "Share on WhatsApp", "Copy link")
+- Links para `/en/teams/[slug]` e `/en/groups/[slug]`
+
+### Componentes: suporte multilíngue verificado
+
+| Componente | Suporte a locale="en" | Observação |
+|------------|----------------------|------------|
+| `ShareButtons.astro` | Sim — labels en/es/pt-br | Texto WhatsApp no script JS ainda hardcoded em pt-br — PENDÊNCIA registrada abaixo |
+| `CalendarButtons.astro` | Sim — labels en/es/pt-br | Completo |
+| `LiveMatchStatus.astro` | Sim — labels en/es/pt-br | Completo |
+| `MatchList.astro` | Sim — prop locale aceita 'en' | Completo |
+| `GroupTable.astro` | Sim — prop locale aceita 'en' | Completo |
+| `NextMatchCard.astro` | Sim — prop locale aceita 'en' | Completo |
+| `TodayMatches.astro` | Sim — prop locale aceita 'en' | Completo |
+| `TimezoneSelector.astro` | Sim — prop locale aceita 'en' | Completo |
+| `TeamSelector.astro` | Sim — prop locale aceita 'en' | Completo |
+
+### Regras respeitadas
+
+- `partial` nunca tratado como `confirmed` — verificado em todas as 7 páginas
+- `simulation` nunca exibido como jogo real — verificado em todas as 7 páginas
+- Nenhuma dependência nova adicionada (`npm install` não foi executado)
+- Nenhuma página pt-br alterada
+- Nenhum dado real da Copa inserido
+- Build estático: zero API de browser nos frontmatters
+- Guards obrigatórios em todos os scripts client-side herdados dos componentes existentes
+
+### Validação
+
+- `npm run build`: 53 páginas geradas sem erros ✅
+- Zero erros TypeScript ✅
+- Nenhuma página pt-br alterada ✅
+- Fuso `America/New_York` aceito por `formatDate`/`formatTime` sem erros ✅
+
+### Pendências identificadas durante a implementação
+
+| Pendência | Arquivo | Impacto |
+|-----------|---------|---------|
+| `ShareButtons.astro`: texto WhatsApp no script client-side ainda hardcoded em pt-br (linhas com "Próxima fase da Copa 2026", "Copa do Mundo 2026") | `src/components/ShareButtons.astro` | Baixo — label dos botões está correto em inglês; apenas o texto da mensagem WhatsApp gerada no client é em pt-br |
+| `CalendarButtons.astro`: texto do `.ics` (summary e description) hardcoded em pt-br no script client-side | `src/components/CalendarButtons.astro` | Baixo — o arquivo .ics é funcional; apenas o texto interno está em pt-br |
+
+Essas pendências foram identificadas conforme instrução ("não reescrever componente agora — registrar no CURRENT_STATUS.md"). Serão tratadas na fase de i18n completa (Fase 9B ou fase de refatoração de componentes).
+
+---
 
 ---
 
