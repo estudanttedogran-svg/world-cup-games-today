@@ -51,6 +51,14 @@ const groupName = teamGroup
 
 // Nombre del equipo en español
 const teamName = team.name['es'] ?? team.name['en'] ?? team.name['pt-br'] ?? team.slug;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/es/equipos/${team.slug}`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/selecoes/${team.slug}` },
+  { hreflang: 'en',    href: `${siteUrl}/en/teams/${team.slug}` },
+  { hreflang: 'es',    href: `${siteUrl}/es/equipos/${team.slug}` },
+];
 ---
 
 <BaseLayout
@@ -58,6 +66,8 @@ const teamName = team.name['es'] ?? team.name['en'] ?? team.name['pt-br'] ?? tea
   description={`Ver todos los partidos de ${teamName} en la Copa del Mundo 2026 con horarios en tu zona horaria local.`}
   lang="es"
   locale="es"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
