@@ -10,22 +10,25 @@ const { locale = 'en' } = Astro.props;
 // Links institucionais por idioma
 const footerLinks: Record<Locale, Array<{ label: string; href: string }>> = {
   'pt-br': [
-    { label: 'Privacidade', href: '#' },
-    { label: 'Termos', href: '#' },
-    { label: 'Sobre', href: '#' },
-    { label: 'Contato', href: '#' },
+    { label: 'Privacidade', href: '/pt-br/politica-de-privacidade' },
+    { label: 'Termos', href: '/pt-br/termos-de-uso' },
+    { label: 'Sobre', href: '/pt-br/sobre' },
+    { label: 'Contato', href: '/pt-br/contato' },
+    { label: 'Aviso Legal', href: '/pt-br/aviso-legal' },
   ],
   'en': [
-    { label: 'Privacy', href: '#' },
-    { label: 'Terms', href: '#' },
-    { label: 'About', href: '#' },
-    { label: 'Contact', href: '#' },
+    { label: 'Privacy', href: '/en/privacy-policy' },
+    { label: 'Terms', href: '/en/terms-of-use' },
+    { label: 'About', href: '/en/about' },
+    { label: 'Contact', href: '/en/contact' },
+    { label: 'Legal Notice', href: '/en/legal-notice' },
   ],
   'es': [
-    { label: 'Privacidad', href: '#' },
-    { label: 'Términos', href: '#' },
-    { label: 'Acerca de', href: '#' },
-    { label: 'Contacto', href: '#' },
+    { label: 'Privacidad', href: '/es/politica-de-privacidad' },
+    { label: 'Términos', href: '/es/terminos-de-uso' },
+    { label: 'Acerca de', href: '/es/sobre' },
+    { label: 'Contacto', href: '/es/contacto' },
+    { label: 'Aviso Legal', href: '/es/aviso-legal' },
   ],
 };
 
