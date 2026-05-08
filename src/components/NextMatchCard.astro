@@ -157,10 +157,12 @@ if (match) {
         )}
       </div>
 
-      <div class="next-match-card__countdown">
-        <span class="next-match-card__countdown-icon" aria-hidden="true">&#9200;</span>
-        <span class="next-match-card__countdown-text">{countdown}</span>
-      </div>
+      {countdown && (
+        <div class="next-match-card__countdown">
+          <span class="next-match-card__countdown-icon" aria-hidden="true">&#9200;</span>
+          <span class="next-match-card__countdown-text">{countdown}</span>
+        </div>
+      )}
     </>
   ) : (
     <p class="next-match-card__empty-msg">{t.noMatch}</p>
