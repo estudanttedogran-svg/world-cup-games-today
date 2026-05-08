@@ -15,6 +15,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AdPlaceholder from '../../../components/AdPlaceholder.astro';
 import ShareButtons from '../../../components/ShareButtons.astro';
 import CalendarButtons from '../../../components/CalendarButtons.astro';
+import LiveMatchStatus from '../../../components/LiveMatchStatus.astro';
 
 export const getStaticPaths: GetStaticPaths = () => {
   const matches = (matchesData as { matches: Match[] }).matches;
