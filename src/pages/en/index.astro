@@ -1,17 +1,127 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdPlaceholder from '../../components/AdPlaceholder.astro';
+import TimezoneSelector from '../../components/TimezoneSelector.astro';
+import TeamSelector from '../../components/TeamSelector.astro';
+import NextMatchCard from '../../components/NextMatchCard.astro';
+import MatchList from '../../components/MatchList.astro';
+import TodayMatches from '../../components/TodayMatches.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+
+import type { Match, Team } from '../../types/index.ts';
+import matchesData from '../../data/matches.json';
+import teamsData from '../../data/teams.json';
+import {
+  getNextConfirmedMatch,
+  getTodaysConfirmedMatches,
+  getConfirmedMatchesByTeam,
+  getTeamName,
+} from '../../utils/matches.ts';
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams = (teamsData as { teams: Team[] }).teams;
+
+const defaultTimezone = 'America/New_York';
+const defaultTeamSlug = 'northland';
+
+const nextMatch = getNextConfirmedMatch(allMatches, defaultTeamSlug);
+const todayMatches = getTodaysConfirmedMatches(allMatches, defaultTimezone);
+const teamMatches = getConfirmedMatchesByTeam(allMatches, defaultTeamSlug);
+
+const teamDisplayName = getTeamName(allTeams, defaultTeamSlug, 'en');
 ---
 
 <BaseLayout
-  title="World Cup 2026 Games Today — World Cup Games Today"
-  description="See every World Cup 2026 match in your local time."
+  title="World Cup 2026 Matches — World Cup Games Today"
+  description="See all 2026 World Cup matches in your local time. Schedule automatically updated to your timezone."
   lang="en"
   locale="en"
 >
-  <section class="container" style="padding-block: var(--space-12);">
-    <h1>World Cup 2026 Games</h1>
-    <p style="margin-top: var(--space-4); color: var(--color-text-muted); font-size: var(--font-size-lg);">
-      See every match in your local time.
-    </p>
-  </section>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1>2026 World Cup Matches</h1>
+      <p>See every match in your local time &mdash; no timezone conversion needed.</p>
+    </section>
+
+    <!-- MOCK DATA WARNING -->
+    <div class="mock-warning" role="alert">
+      &#9888; This site uses demonstration data (MOCK). The data shown is fictional.
+    </div>
+
+    <!-- SELECTORS: TIMEZONE AND TEAM -->
+    <section class="selectors" aria-label="Preferences">
+      <TimezoneSelector
+        currentTimezone={defaultTimezone}
+        locale="en"
+      />
+      <TeamSelector
+        teams={allTeams}
+        selectedTeamSlug={defaultTeamSlug}
+        locale="en"
+      />
+    </section>
+
+    <!-- NEXT MATCH FOR SELECTED TEAM -->
+    <section class="next-match" aria-label="Next match">
+      <NextMatchCard
+        match={nextMatch}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="en"
+      />
+    </section>
+
+    <!-- AD PLACEHOLDER -->
+    <AdPlaceholder slot="middle" label="Advertisement" />
+
+    <!-- TODAY'S MATCHES -->
+    <section class="today-matches" aria-label="Today's matches">
+      <h2>Today's Matches</h2>
+      <TodayMatches
+        matches={allMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="en"
+      />
+    </section>
+
+    <!-- ALL MATCHES FOR SELECTED TEAM -->
+    <section class="team-matches" aria-label={`Matches for ${teamDisplayName}`}>
+      <h2>{teamDisplayName} Matches</h2>
+      <MatchList
+        matches={teamMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="en"
+        title="Team matches"
+        emptyMessage="No confirmed matches available for this team."
+      />
+    </section>
+
+    <!-- SHARE -->
+    <section class="share" aria-label="Share">
+      <h2>Share</h2>
+      <ShareButtons
+        locale="en"
+        matchTitle="2026 World Cup"
+      />
+    </section>
+
+    <!-- SEO TEXT -->
+    <section class="seo-text" aria-label="About the 2026 World Cup">
+      <h2>2026 World Cup &mdash; Match Times in Your Timezone</h2>
+      <p>
+        The 2026 FIFA World Cup will be held in the United States, Canada, and Mexico.
+        Use World Cup Games Today to follow every match in your local time,
+        without manually converting timezones.
+      </p>
+      <p>
+        Select your favorite national team and see when they play &mdash; with times
+        automatically updated for any city in the world.
+      </p>
+    </section>
+
+  </div>
 </BaseLayout>
