@@ -12,6 +12,26 @@
 
 ---
 
+## Correção pós-Fase 10A — robots.txt dinâmico ✅ (2026-05-08)
+
+### Problema corrigido
+1. `public/robots.txt` bloqueava `/data/` — removido (live-data.json é usado pelo cliente)
+2. Domínio hardcoded no robots.txt — substituído por endpoint dinâmico que usa `PUBLIC_SITE_URL`
+
+### Arquivos alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `public/robots.txt` | **Removido** — substituído pelo endpoint dinâmico |
+| `src/pages/robots.txt.ts` | **Criado** — endpoint Astro que usa `PUBLIC_SITE_URL`; sem Disallow; Sitemap com URL dinâmica |
+
+### Validação
+- `npm run build`: 77 páginas + `robots.txt` + `sitemap.xml` em `dist/` ✅
+- `/data/` não bloqueado ✅
+- URL do sitemap gerada via `PUBLIC_SITE_URL || 'https://worldcupgamestoday.com'` ✅
+
+---
+
 ## Fase 10A — sitemap.xml, robots.txt, canonical e hreflang ✅
 
 ### Arquivos criados/alterados
