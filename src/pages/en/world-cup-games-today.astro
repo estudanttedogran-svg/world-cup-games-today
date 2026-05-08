@@ -15,6 +15,14 @@ const defaultTimezone = 'America/New_York';
 
 const todayMatches = getTodaysConfirmedMatches(allMatches, defaultTimezone);
 const totalToday = todayMatches.length;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/world-cup-games-today`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/jogos-de-hoje-copa` },
+  { hreflang: 'en',    href: `${siteUrl}/en/world-cup-games-today` },
+  { hreflang: 'es',    href: `${siteUrl}/es/partidos-de-hoy-mundial` },
+];
 ---
 
 <BaseLayout
@@ -22,6 +30,8 @@ const totalToday = todayMatches.length;
   description="See all 2026 World Cup matches happening today, with kick-off times in your local timezone. Updated data."
   lang="en"
   locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
