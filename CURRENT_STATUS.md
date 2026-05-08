@@ -6,10 +6,93 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 6E2 — Calendário da Copa 2026 (pt-br) — CONCLUIDA
-**Fase 6 completa:** TODAS as subfases (6A, 6B, 6C, 6D, 6E1, 6E2) CONCLUIDAS
+**Fase concluída:** Correções pós-QA da Fase 6 — CONCLUIDAS
+**Fase 6 completa:** TODAS as subfases (6A, 6B, 6C, 6D, 6E1, 6E2) + correções pós-QA CONCLUIDAS
 **Próxima fase:** Fase 7 — Compartilhamento + Integração de Calendário
 **Aguardando:** Autorização do usuário para iniciar Fase 7
+
+---
+
+## Correções pós-QA da Fase 6 — aplicadas em 2026-05-07
+
+### Correção 1 — Página de listagem `/pt-br/selecoes` ✅
+
+**Problema corrigido:** Link "Seleções" no Header apontava para `/pt-br/selecoes` que retornava 404.
+
+**Arquivo criado:** `src/pages/pt-br/selecoes/index.astro`
+- Importa `teams.json` e `groups.json` com cast correto
+- Agrupa times por grupo via `group.team_ids.includes(t.id)` — campo `team_ids` confirmado em `types/index.ts`
+- Hero com h1 descritivo e aviso MOCK
+- Para cada grupo: bloco com h2 linkado para `/pt-br/grupos/[slug]`, grid 2col de cards de seleções
+- Cada card linka para `/pt-br/selecoes/[slug]` com flag + nome + "Ver jogos →"
+- AdPlaceholder, links internos e texto SEO ao final
+- CSS scoped com grid responsivo: 2 colunas desktop, 1 coluna mobile (≤480px)
+- Compatível com SSG: zero API de browser no frontmatter
+
+**Validação:**
+- `dist/pt-br/selecoes/index.html` gerado corretamente
+- Build: 29 páginas sem erros, zero TypeScript errors
+
+---
+
+### Correção 2 — ShareButtons: rota `/jogo/` → `/jogos/` ✅
+
+**Problema corrigido:** Linha 48 de `ShareButtons.astro` gerava URL com `/jogo/` (singular).
+
+**Arquivo alterado:** `src/components/ShareButtons.astro`
+- Substituído `${siteUrl}/${locale}/jogo/${matchId}` por `${siteUrl}/${locale}/jogos/${matchId}`
+- Nenhuma outra ocorrência de `/jogo/` (singular) encontrada no arquivo
+
+---
+
+### Correção 3 — MatchList: discriminar por `match.type` explicitamente ✅
+
+**Problema corrigido:** `MatchList.astro` usava `match.home_team_id` como discriminador em vez de `match.type`.
+
+**Arquivo alterado:** `src/components/MatchList.astro`
+- Adicionada variável `isConfirmed = match.type === 'confirmed'`
+- `isPartial` já existia: `match.type === 'partial'` (mantido)
+- `homeTeamName` e `awayTeamName` agora usam `isConfirmed && match.home_team_id` — se não confirmado, usa label ou partialLabel
+- Comentário explícito: `simulation` nunca exibido (já filtrado em `displayMatches`)
+- Comportamento: `confirmed` exibe nomes reais; `partial` exibe `home_label`/`away_label` ou "Vaga não definida"
+
+---
+
+### Correção 4 — NextMatchCard: não calcular countdown se partida já passou ✅
+
+**Problema corrigido:** `NextMatchCard.astro` calculava countdown sem verificar se a partida já ocorreu.
+
+**Arquivo alterado:** `src/components/NextMatchCard.astro`
+- Importado `isPast` de `../utils/datetime.ts`
+- `countdown` agora calculado condicionalmente: `!isPast(match.datetime_utc) ? formatCountdown(...) : ''`
+- Template: `{countdown && (...)}` — a div `.next-match-card__countdown` só é renderizada se countdown não estiver vazio
+- Partidas passadas não exibem o bloco de contagem regressiva
+
+---
+
+## Arquivos criados/alterados nas correções pós-QA
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/pt-br/selecoes/index.astro` | Criado — página de listagem de seleções |
+| `src/components/ShareButtons.astro` | Corrigido — rota `/jogo/` → `/jogos/` |
+| `src/components/MatchList.astro` | Corrigido — discriminador `match.type` explícito |
+| `src/components/NextMatchCard.astro` | Corrigido — `isPast` antes de exibir countdown |
+
+---
+
+## Páginas totais geradas (29):
+- `/index.html`
+- `/pt-br/index.html`
+- `/en/index.html`
+- `/es/index.html`
+- `/pt-br/jogos-de-hoje-copa/index.html`
+- `/pt-br/tabela-copa-2026/index.html`
+- `/pt-br/calendario-copa-2026/index.html`
+- `/pt-br/selecoes/index.html` (NOVA — correção pós-QA)
+- `/pt-br/selecoes/[northland|eastoria|westmark|southmore|highpeak|lowvale|bayshore|ridgemont]/index.html` (8 paginas)
+- `/pt-br/grupos/[m|n]/index.html` (2 paginas)
+- `/pt-br/jogos/[match-001..match-011]/index.html` (11 paginas)
 
 ---
 
