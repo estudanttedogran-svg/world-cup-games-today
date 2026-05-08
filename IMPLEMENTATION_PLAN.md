@@ -405,7 +405,8 @@ Entregas:
 | 7A | Compartilhamento — WhatsApp + Copiar link | CONCLUÍDA ✅ |
 | 7B | Compartilhamento — Google Calendar + .ics | CONCLUÍDA ✅ |
 | 8 | live-data fetch + Fallback | CONCLUÍDA ✅ |
-| 9 | Internacionalização (en + es) | PENDENTE |
+| 9A | Internacionalização — Páginas em inglês (/en/) | CONCLUÍDA ✅ |
+| 9B | Internacionalização — Páginas em espanhol (/es/) | CONCLUÍDA ✅ |
 | 10 | SEO Técnico | PENDENTE |
 | 11 | Páginas Institucionais | PENDENTE |
 | 12 | Analytics + AdSense (placeholders) | PENDENTE |
