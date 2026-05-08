@@ -12,6 +12,122 @@
 
 ---
 
+## Fase 9B — Páginas em espanhol (/es/) ✅
+
+### Arquivos criados/alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/es/index.astro` | Reescrito — home completa em espanhol (antes era stub mínimo) |
+| `src/pages/es/partidos-de-hoy-mundial.astro` | Criado — partidos de hoy en español |
+| `src/pages/es/calendario-mundial-2026.astro` | Criado — calendario completo en español |
+| `src/pages/es/equipos/index.astro` | Criado — listado de selecciones en español |
+| `src/pages/es/equipos/[slug].astro` | Criado — página por selección en español (8 páginas geradas) |
+| `src/pages/es/grupos/[group].astro` | Criado — página por grupo en español (2 páginas geradas) |
+| `src/pages/es/partidos/[id].astro` | Criado — página por partido en español (11 páginas geradas) |
+
+### Páginas geradas pela Fase 9B (24 novas)
+
+- `/es/index.html` (reescrita do stub — 1 página já contada nas 53 anteriores)
+- `/es/partidos-de-hoy-mundial/index.html`
+- `/es/calendario-mundial-2026/index.html`
+- `/es/equipos/index.html`
+- `/es/equipos/northland/index.html`
+- `/es/equipos/eastoria/index.html`
+- `/es/equipos/westmark/index.html`
+- `/es/equipos/southmore/index.html`
+- `/es/equipos/highpeak/index.html`
+- `/es/equipos/lowvale/index.html`
+- `/es/equipos/bayshore/index.html`
+- `/es/equipos/ridgemont/index.html`
+- `/es/grupos/m/index.html`
+- `/es/grupos/n/index.html`
+- `/es/partidos/match-001/index.html`
+- `/es/partidos/match-002/index.html`
+- `/es/partidos/match-003/index.html`
+- `/es/partidos/match-004/index.html`
+- `/es/partidos/match-005/index.html`
+- `/es/partidos/match-006/index.html`
+- `/es/partidos/match-007/index.html`
+- `/es/partidos/match-008/index.html`
+- `/es/partidos/match-009/index.html`
+- `/es/partidos/match-010/index.html`
+- `/es/partidos/match-011/index.html`
+
+### O que foi implementado
+
+**Padrão geral (aplicado em todas as páginas /es/):**
+- Locale `'es'` passado para todos os componentes que aceitam a prop (`TimezoneSelector`, `TeamSelector`, `NextMatchCard`, `MatchList`, `TodayMatches`, `GroupTable`, `LiveMatchStatus`, `ShareButtons`, `CalendarButtons`)
+- Fuso padrão `America/Mexico_City` (México — maior mercado hispanohablante; aceito pelo `Intl` do Node.js sem erros)
+- Todos os textos da página em espanhol: h1, h2, avisos, links internos, meta tags SEO
+- Aviso MOCK en español: "&#9888; Este sitio usa datos de demostración (MOCK). Los datos mostrados son ficticios."
+- Nomes de times via `team.name['es'] ?? team.name['en'] ?? team.name['pt-br']`
+- Nomes de grupos via `group.name['es'] ?? group.name['en'] ?? group.name['pt-br']`
+- Links internos apontam para `/es/...` — nenhum link quebrado para `/pt-br/...` ou `/en/...`
+- `partial` nunca tratado como `confirmed`
+- `simulation` nunca exibido como jogo real
+
+**Rótulos de fase em espanhol (usados em `src/pages/es/partidos/[id].astro`):**
+- `group_stage` → "Fase de Grupos"
+- `round_of_32` → "Ronda de 32"
+- `round_of_16` → "Octavos de Final"
+- `quarterfinal` → "Cuartos de Final"
+- `semifinal` → "Semifinal"
+- `third_place` → "Tercer Puesto"
+- `final` → "Final"
+
+**URLs espanholas adotadas (conforme especificação):**
+- `/es/` — home
+- `/es/partidos-de-hoy-mundial` — partidos de hoy
+- `/es/calendario-mundial-2026` — calendario
+- `/es/equipos` — listado de selecciones
+- `/es/equipos/[slug]` — página por selección
+- `/es/grupos/[group]` — página por grupo (parâmetro: `group`, slug do grupo)
+- `/es/partidos/[id]` — página por partido
+
+### Componentes: suporte a locale="es" verificado
+
+| Componente | Suporte a locale="es" | Observação |
+|------------|----------------------|------------|
+| `ShareButtons.astro` | Parcial — labels en español corretos | Script JS client-side ainda hardcoded em pt-br (textos WhatsApp) — PENDÊNCIA (herdada da Fase 9A) |
+| `CalendarButtons.astro` | Parcial — labels en español corretos | Script ICS client-side ainda hardcoded em pt-br — PENDÊNCIA (herdada da Fase 9A) |
+| `LiveMatchStatus.astro` | Completo — labels en español implementados | OK |
+| `MatchList.astro` | Completo — prop locale aceita 'es' | OK |
+| `GroupTable.astro` | Completo — prop locale aceita 'es' | OK |
+| `NextMatchCard.astro` | Completo — prop locale aceita 'es' | OK |
+| `TodayMatches.astro` | Completo — prop locale aceita 'es' | OK |
+| `TimezoneSelector.astro` | Completo — prop locale aceita 'es' | OK |
+| `TeamSelector.astro` | Completo — prop locale aceita 'es' | OK |
+
+### Regras respeitadas
+
+- `partial` nunca tratado como `confirmed` — verificado em todas as 7 páginas
+- `simulation` nunca exibido como jogo real — verificado em todas as 7 páginas
+- Nenhuma dependência nova adicionada (`npm install` não foi executado)
+- Nenhuma página pt-br ou en alterada
+- Nenhum dado real da Copa inserido
+- Build estático: zero API de browser nos frontmatters
+- Guards obrigatórios em todos os scripts client-side herdados dos componentes existentes
+
+### Validação
+
+- `npm run build`: 77 páginas geradas sem erros ✅
+- Zero erros TypeScript ✅
+- Nenhuma página pt-br ou en alterada ✅
+- Fuso `America/Mexico_City` aceito por `formatDate`/`formatTime` sem erros ✅
+- Total de 24 novas páginas /es/ geradas (53 → 77) ✅
+
+### Pendências identificadas durante a implementação
+
+| Pendência | Arquivo | Impacto |
+|-----------|---------|---------|
+| `ShareButtons.astro`: texto WhatsApp no script client-side hardcoded em pt-br | `src/components/ShareButtons.astro` | Baixo — labels dos botões estão corretos em espanhol; apenas o texto da mensagem WhatsApp gerada no client é em pt-br |
+| `CalendarButtons.astro`: texto do `.ics` (summary e description) hardcoded em pt-br no script client-side | `src/components/CalendarButtons.astro` | Baixo — arquivo .ics funcional; apenas o texto interno está em pt-br |
+
+Essas pendências estavam registradas desde a Fase 9A e se aplicam igualmente ao espanhol. Serão tratadas na fase de refatoração de componentes (i18n completa de scripts client-side).
+
+---
+
 ## Fase 9A — Páginas em inglês (/en/) ✅
 
 ### Arquivos criados/alterados
