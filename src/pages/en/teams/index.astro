@@ -7,6 +7,14 @@ import AdPlaceholder from '../../../components/AdPlaceholder.astro';
 
 const allTeams = (teamsData as { teams: Team[] }).teams;
 const allGroups = (groupsData as { groups: Group[] }).groups;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/teams`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/selecoes` },
+  { hreflang: 'en',    href: `${siteUrl}/en/teams` },
+  { hreflang: 'es',    href: `${siteUrl}/es/equipos` },
+];
 ---
 
 <BaseLayout
@@ -14,6 +22,8 @@ const allGroups = (groupsData as { groups: Group[] }).groups;
   description="View all national teams competing in the 2026 World Cup and see their match schedules in your local time."
   lang="en"
   locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <section class="page-hero">
     <h1>2026 World Cup Teams</h1>
