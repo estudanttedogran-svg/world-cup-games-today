@@ -7,6 +7,14 @@ import AdPlaceholder from '../../../components/AdPlaceholder.astro';
 
 const allTeams = (teamsData as { teams: Team[] }).teams;
 const allGroups = (groupsData as { groups: Group[] }).groups;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/pt-br/selecoes`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/selecoes` },
+  { hreflang: 'en',    href: `${siteUrl}/en/teams` },
+  { hreflang: 'es',    href: `${siteUrl}/es/equipos` },
+];
 ---
 
 <BaseLayout
@@ -14,6 +22,8 @@ const allGroups = (groupsData as { groups: Group[] }).groups;
   description="Veja todos os jogos de cada seleção da Copa do Mundo 2026 no seu horário local."
   lang="pt-BR"
   locale="pt-br"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <section class="page-hero">
     <h1>Seleções da Copa 2026</h1>
