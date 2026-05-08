@@ -378,7 +378,7 @@ Entregas:
 ---
 
 ## Fase 11 — Páginas Institucionais
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Entregas (pt-br, en, es):
 - Sobre / About / Acerca de
@@ -386,6 +386,8 @@ Entregas (pt-br, en, es):
 - Política de Privacidade / Privacy Policy / Política de Privacidad
 - Termos de Uso / Terms of Use / Términos de Uso
 - Aviso Legal / Legal Notice / Aviso Legal
+
+Resultado: 15 páginas criadas, build passou com 92 páginas sem erros. Footer atualizado com links reais. Hreflang configurado entre os 3 idiomas para cada par de páginas.
 
 ---
 
