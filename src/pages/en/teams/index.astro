@@ -1,0 +1,181 @@
+---
+import type { Team, Group } from '../../../types/index.ts';
+import teamsData from '../../../data/teams.json';
+import groupsData from '../../../data/groups.json';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdPlaceholder from '../../../components/AdPlaceholder.astro';
+
+const allTeams = (teamsData as { teams: Team[] }).teams;
+const allGroups = (groupsData as { groups: Group[] }).groups;
+---
+
+<BaseLayout
+  title="2026 World Cup Teams — World Cup Games Today"
+  description="View all national teams competing in the 2026 World Cup and see their match schedules in your local time."
+  lang="en"
+  locale="en"
+>
+  <section class="page-hero">
+    <h1>2026 World Cup Teams</h1>
+    <p>Select a team to see all their matches in your local time.</p>
+  </section>
+
+  <div class="mock-warning" role="alert">
+    &#9888; This site uses demonstration data (MOCK). The teams shown are fictional.
+  </div>
+
+  <section class="teams-by-group">
+    {allGroups.map((group) => {
+      const groupName = group.name['en'] ?? group.name['pt-br'] ?? `Group ${group.slug.toUpperCase()}`;
+      const groupTeams = allTeams.filter((t) => group.team_ids.includes(t.id));
+      return (
+        <div class="teams-group-block">
+          <h2 class="teams-group-title">
+            <a href={`/en/groups/${group.slug}`}>{groupName}</a>
+          </h2>
+          <ul class="teams-list">
+            {groupTeams.map((team) => {
+              const teamName = team.name['en'] ?? team.name['pt-br'] ?? team.slug;
+              return (
+                <li class="teams-list-item">
+                  <a href={`/en/teams/${team.slug}`} class="team-card-link">
+                    <span class="team-card-name">{team.flag} {teamName}</span>
+                    <span class="team-card-action">View matches &rarr;</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      );
+    })}
+  </section>
+
+  <AdPlaceholder slot="bottom" label="Advertisement" />
+
+  <nav class="internal-links" aria-label="Internal navigation">
+    <ul>
+      <li><a href="/en/">&larr; Home</a></li>
+      <li><a href="/en/world-cup-2026-schedule">2026 Schedule</a></li>
+      <li><a href="/en/world-cup-games-today">Today's Matches</a></li>
+    </ul>
+  </nav>
+
+  <section class="seo-text">
+    <h2>All 2026 World Cup Teams</h2>
+    <p>
+      Follow the matches of every national team at the 2026 FIFA World Cup.
+      Select your favorite team and view all their matches with kick-off times
+      in your local timezone.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .teams-by-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+    margin-bottom: var(--space-10);
+  }
+
+  .teams-group-block {}
+
+  .teams-group-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--color-primary);
+  }
+
+  .teams-group-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .teams-group-title a:hover {
+    color: var(--color-accent);
+  }
+
+  .teams-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .team-card-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .team-card-link:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .team-card-name {
+    font-weight: var(--font-weight-medium);
+  }
+
+  .team-card-action {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+  }
+
+  .internal-links {
+    margin-bottom: var(--space-8);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .internal-links a {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .internal-links a:hover {
+    color: var(--color-accent-hover);
+  }
+
+  .seo-text {
+    padding: var(--space-8) 0;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .seo-text h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+  }
+
+  .seo-text p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+    max-width: 640px;
+  }
+
+  @media (max-width: 480px) {
+    .teams-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
