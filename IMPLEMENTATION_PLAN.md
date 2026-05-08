@@ -361,7 +361,7 @@ Entregas:
 | 6C | Página por Seleção — rota dinâmica (pt-br) | CONCLUÍDA ✅ |
 | 6D | Página por Grupo — rota dinâmica (pt-br) | CONCLUÍDA ✅ |
 | 6E1 | Páginas Individuais por Jogo (pt-br) | CONCLUÍDA ✅ |
-| 6E2 | Calendário da Copa 2026 (pt-br) | PENDENTE |
+| 6E2 | Calendário da Copa 2026 (pt-br) | CONCLUÍDA ✅ |
 | 7 | Compartilhamento + Integração de Calendário | PENDENTE |
 | 8 | live-data fetch + Fallback | PENDENTE |
 | 9 | Internacionalização (en + es) | PENDENTE |
