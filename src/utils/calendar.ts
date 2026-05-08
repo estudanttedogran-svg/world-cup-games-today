@@ -140,7 +140,7 @@ export function downloadICS(event: CalendarEventData): boolean {
 
 /**
  * Constrói um CalendarEventData a partir dos dados disponíveis na página de jogo.
- * Textos em pt-br (idioma principal do MVP).
+ * Suporta pt-br, en e es via parâmetro locale. Padrão: pt-br.
  */
 export function buildCalendarEventData(opts: {
   matchId: string;
@@ -150,6 +150,7 @@ export function buildCalendarEventData(opts: {
   datetimeUtc: string;
   locationStr: string;   // "Estádio, Cidade, País"
   pageUrl: string;
+  locale?: Locale;       // opcional — padrão 'pt-br' para compatibilidade
 }): CalendarEventData {
   const {
     matchId,
@@ -161,18 +162,47 @@ export function buildCalendarEventData(opts: {
     pageUrl,
   } = opts;
 
+  const locale = opts.locale ?? 'pt-br';
+
   let summary: string;
   let description: string;
 
   if (matchType === 'confirmed' && homeTeamName && awayTeamName) {
-    summary = `${homeTeamName} x ${awayTeamName} — Copa 2026`;
-    description = `Jogo da Copa do Mundo FIFA 2026.\n${homeTeamName} x ${awayTeamName}\n\nVeja detalhes em: ${pageUrl}\n\n⚠ DADOS DE DEMONSTRACAO (MOCK). Este site e independente e nao possui afiliacao oficial com a FIFA.`;
+    if (locale === 'en') {
+      summary = `${homeTeamName} vs ${awayTeamName} — World Cup 2026`;
+      description = `FIFA World Cup 2026 match.\n${homeTeamName} vs ${awayTeamName}\n\nSee details at: ${pageUrl}\n\n⚠ DEMONSTRATION DATA (MOCK). This site is independent and has no official affiliation with FIFA.`;
+    } else if (locale === 'es') {
+      summary = `${homeTeamName} vs ${awayTeamName} — Copa 2026`;
+      description = `Partido de la Copa Mundial FIFA 2026.\n${homeTeamName} vs ${awayTeamName}\n\nVer detalles en: ${pageUrl}\n\n⚠ DATOS DE DEMOSTRACION (MOCK). Este sitio es independiente y no tiene afiliacion oficial con la FIFA.`;
+    } else {
+      // pt-br (padrão)
+      summary = `${homeTeamName} x ${awayTeamName} — Copa 2026`;
+      description = `Jogo da Copa do Mundo FIFA 2026.\n${homeTeamName} x ${awayTeamName}\n\nVeja detalhes em: ${pageUrl}\n\n⚠ DADOS DE DEMONSTRACAO (MOCK). Este site e independente e nao possui afiliacao oficial com a FIFA.`;
+    }
   } else if (matchType === 'partial') {
-    summary = `Partida a definir — Copa 2026`;
-    description = `Jogo da Copa do Mundo FIFA 2026.\nAs selecoes serao definidas ao longo da competicao.\n\nVeja detalhes em: ${pageUrl}\n\n⚠ DADOS DE DEMONSTRACAO (MOCK). Este site e independente e nao possui afiliacao oficial com a FIFA.`;
+    if (locale === 'en') {
+      summary = `Match to be confirmed — World Cup 2026`;
+      description = `FIFA World Cup 2026 match.\nTeams will be determined as the competition progresses.\n\nSee details at: ${pageUrl}\n\n⚠ DEMONSTRATION DATA (MOCK). This site is independent and has no official affiliation with FIFA.`;
+    } else if (locale === 'es') {
+      summary = `Partido por definir — Copa 2026`;
+      description = `Partido de la Copa Mundial FIFA 2026.\nLas selecciones se definiran a lo largo de la competicion.\n\nVer detalles en: ${pageUrl}\n\n⚠ DATOS DE DEMOSTRACION (MOCK). Este sitio es independiente y no tiene afiliacion oficial con la FIFA.`;
+    } else {
+      // pt-br (padrão)
+      summary = `Partida a definir — Copa 2026`;
+      description = `Jogo da Copa do Mundo FIFA 2026.\nAs selecoes serao definidas ao longo da competicao.\n\nVeja detalhes em: ${pageUrl}\n\n⚠ DADOS DE DEMONSTRACAO (MOCK). Este site e independente e nao possui afiliacao oficial com a FIFA.`;
+    }
   } else {
-    summary = `Copa do Mundo 2026`;
-    description = `Veja em: ${pageUrl}\n\n⚠ DADOS DE DEMONSTRACAO (MOCK).`;
+    if (locale === 'en') {
+      summary = `World Cup 2026`;
+      description = `See at: ${pageUrl}\n\n⚠ DEMONSTRATION DATA (MOCK).`;
+    } else if (locale === 'es') {
+      summary = `Copa Mundial 2026`;
+      description = `Ver en: ${pageUrl}\n\n⚠ DATOS DE DEMOSTRACION (MOCK).`;
+    } else {
+      // pt-br (padrão)
+      summary = `Copa do Mundo 2026`;
+      description = `Veja em: ${pageUrl}\n\n⚠ DADOS DE DEMONSTRACAO (MOCK).`;
+    }
   }
 
   return {
