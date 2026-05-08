@@ -6,9 +6,85 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 7B — Google Calendar + download `.ics` CONCLUIDA ✅
-**Próxima fase:** Fase 8 — live-data fetch client-side + fallback
-**Aguardando:** Autorização do usuário para iniciar Fase 8
+**Fase concluída:** Fase 8 — live-data fetch client-side + fallback CONCLUIDA ✅
+**Próxima fase:** Fase 9 — Internacionalização (en + es)
+**Aguardando:** Autorização do usuário para iniciar Fase 9
+
+---
+
+## Fase 8 — live-data fetch client-side + fallback ✅
+
+### Arquivos criados/alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/utils/liveData.ts` | Criado — utilitário de fetch, validação e acesso ao live-data.json |
+| `src/components/LiveMatchStatus.astro` | Criado — componente Island para status e placar ao vivo |
+| `src/pages/pt-br/jogos/[id].astro` | Atualizado — integra LiveMatchStatus na seção "Status da Partida" |
+| `src/components/MatchList.astro` | Atualizado — exibe badge de status ao vivo em cada item da lista |
+
+### O que foi implementado
+
+**`src/utils/liveData.ts`** (novo)
+- Interface `LiveMatchData` e `LiveData` já existiam em `src/types/index.ts` — reutilizadas sem duplicação
+- Função `fetchLiveData(): Promise<LiveData | null>` — fetch com timeout (8s) via AbortController; retorna null em qualquer falha (404, JSON malformado, rede offline, timeout)
+- `isValidLiveData()` (privada) — valida estrutura mínima: objeto, campo `matches` é Record não-array, cada entrada tem `status` string
+- Guard `typeof window === 'undefined'` — nunca executa fora do browser
+- Guard `navigator.onLine === false` — fallback imediato quando offline
+- Cache: `cache: 'no-cache'` no fetch — respeita recomendação de curta duração
+- Função `getLiveMatchData(liveData, matchId)` — busca entrada por matchId, valida antes de retornar
+- Função `getStatusLabel(status, locale)` — retorna rótulo localizado para pt-br / en / es
+
+**`src/components/LiveMatchStatus.astro`** (novo)
+- Props: `matchId: string`, `matchType?: 'confirmed' | 'partial' | 'simulation'`, `defaultStatus?: string`, `locale?: string`
+- Renderização server-side: placeholder estático (`defaultStatus` → label localizado)
+- Atributos `data-*` no container: `data-match-id`, `data-match-type`, `data-locale`, `data-can-show-score`, `data-is-simulation`
+- `simulation` renderiza badge estático "Simulação" sem script de atualização
+- `<script>` global (sem `define:vars`) — descobre todos os containers `[data-match-id]` na página
+- Cache em memória (`liveDataCache`) — fetch feito uma única vez por página, mesmo com múltiplos componentes
+- Timeout 8s via `AbortController` + `setTimeout`; fallback silencioso em qualquer erro
+- `updateContainer()` — atualiza classe CSS, texto do badge, minuto (para `live`), placar (somente `confirmed` + `live`/`finished`)
+- Badge pulsante para `live`: `.live-status__dot` com animação `live-pulse`
+- Placar (`data-score-display`) — oculto por padrão (`display:none`); exibido apenas quando há scores
+- CSS scoped: badges por status (scheduled azul, live verde, finished cinza, postponed amarelo, cancelled vermelho, simulation neutro)
+
+**Integração em `src/pages/pt-br/jogos/[id].astro`**
+- Importa `LiveMatchStatus`
+- Seção `<!-- STATUS AO VIVO -->` renderizada apenas se `match.type !== 'simulation'`
+- `LiveMatchStatus` recebe `matchId={match.id}`, `matchType`, `defaultStatus="scheduled"`, `locale="pt-br"`
+- CSS scoped adicionado: `.live-status-section`, `.live-status-row`
+
+**Integração em `src/components/MatchList.astro`**
+- Importa `LiveMatchStatus`
+- Badge `LiveMatchStatus` adicionado ao bloco `.match-item__badges` — apenas para `confirmed` e `partial`
+- Placar não exibido na lista (somente na página individual de jogo)
+- `simulation` já filtrado por `displayMatches` — nunca chega ao badge
+
+### Regras respeitadas
+- `simulation` nunca recebe dados vivos — verificado via `data-is-simulation` no script
+- `partial` não exibe placar — `data-can-show-score=false`
+- `confirmed` pode exibir placar quando `live` ou `finished` com scores válidos
+- Fallback silencioso em 100% dos cenários de falha (404, JSON inválido, timeout, offline)
+- Nenhuma página quebra por erro no live-data
+- SEO estático não alterado (meta tags, title, description, schema intactos)
+- Build estático independente do live-data.json — nenhuma página depende do fetch para renderização
+- Guards obrigatórios: `typeof window`, `typeof fetch`, `navigator.onLine`
+- Zero dependências novas (sem npm install)
+- `npm run build` passa sem erros: 29 páginas geradas
+
+### Documentação de cache (live-data.json)
+O arquivo `public/data/live-data.json` deve ter cache de curta duração para evitar dados desatualizados:
+- **Recomendação:** `Cache-Control: no-cache` ou `Cache-Control: max-age=60`
+- **Hostinger:** configurar via `.htaccess` com `<Files "live-data.json">` + `Header set Cache-Control "no-cache, must-revalidate"`
+- **Cloudflare (se ativado):** criar regra de Page Rule para `*/data/live-data.json` com "Cache Level: Bypass" ou TTL de 60s
+- **NÃO configurar agora** — pendência para fase de infraestrutura / pre-launch checklist
+- O fetch no cliente já usa `cache: 'no-cache'` para evitar cache do browser
+
+### Validação
+- `npm run build`: 29 páginas geradas sem erros ✅
+- Zero erros TypeScript ✅
+- Nenhuma página nova gerada (Fase 8 é integração em páginas existentes) ✅
+- Total de páginas: 29 (sem alteração)
 
 ---
 
