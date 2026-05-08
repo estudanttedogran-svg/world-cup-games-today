@@ -277,7 +277,19 @@ Entregas:
 ---
 
 ## Fase 9 — Internacionalização (en + es) + Página raiz
-**Status:** CONCLUÍDA ✅ — Fase 9A CONCLUÍDA ✅ | Fase 9B CONCLUÍDA ✅ | Fase 9C CONCLUÍDA ✅
+**Status:** CONCLUÍDA ✅ — Fase 9A ✅ | Fase 9B ✅ | Fase 9C ✅ | Fase 9D ✅
+
+### Fase 9D — Refinamento i18n de componentes compartilhados
+**Status:** CONCLUÍDA ✅ — 2026-05-08
+
+Entregas:
+- `src/utils/share.ts` — `buildWhatsAppText` localizado para pt-br, en, es (campo `locale` opcional adicionado)
+- `src/components/ShareButtons.astro` — `data-locale` no container; script client-side usa locale para textos WhatsApp
+- `src/utils/calendar.ts` — `buildCalendarEventData` localizado para pt-br, en, es (campo `locale` opcional adicionado)
+- `src/components/CalendarButtons.astro` — `locale` passado para `buildCalendarEventData`; `data-locale` no botão ICS; script ICS localizado
+- Compatibilidade: todas as chamadas existentes sem `locale` continuam usando `'pt-br'`
+- Nenhuma página nova — total permanece 77 páginas
+- `npm run build`: 77 páginas sem erros ✅
 
 ### Fase 9C — Página raiz `/` (seleção de idioma + sugestão automática)
 **Status:** CONCLUÍDA ✅ — 2026-05-08
