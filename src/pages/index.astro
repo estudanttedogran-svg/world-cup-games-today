@@ -1,5 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/`;
+const alternates = [
+  { hreflang: 'x-default', href: `${siteUrl}/` },
+  { hreflang: 'pt-BR',     href: `${siteUrl}/pt-br/` },
+  { hreflang: 'en',        href: `${siteUrl}/en/` },
+  { hreflang: 'es',        href: `${siteUrl}/es/` },
+];
 ---
 
 <BaseLayout
@@ -7,6 +16,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="See every World Cup 2026 match schedule in your local time. Choose your language to get started."
   lang="en"
   locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="lang-select-page">
     <div class="container">
