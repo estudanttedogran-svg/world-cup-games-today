@@ -373,7 +373,8 @@ Entregas:
 | 6D | Página por Grupo — rota dinâmica (pt-br) | CONCLUÍDA ✅ |
 | 6E1 | Páginas Individuais por Jogo (pt-br) | CONCLUÍDA ✅ |
 | 6E2 | Calendário da Copa 2026 (pt-br) | CONCLUÍDA ✅ |
-| 7 | Compartilhamento + Integração de Calendário | PENDENTE |
+| 7A | Compartilhamento — WhatsApp + Copiar link | CONCLUÍDA ✅ |
+| 7B | Compartilhamento — Google Calendar + .ics | PENDENTE |
 | 8 | live-data fetch + Fallback | PENDENTE |
 | 9 | Internacionalização (en + es) | PENDENTE |
 | 10 | SEO Técnico | PENDENTE |
