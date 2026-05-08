@@ -6,9 +6,9 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 9A — Páginas em inglês (/en/) CONCLUÍDA ✅
-**Próxima fase:** Fase 9B — Internacionalização (es)
-**Aguardando:** Autorização do usuário para iniciar Fase 9B
+**Fase concluída:** Fase 9B — Páginas em espanhol (/es/) CONCLUÍDA ✅
+**Próxima fase:** Fase 9C — Página raiz `/` (seleção de idioma + sugestão por navegador)
+**Aguardando:** Autorização do usuário para iniciar Fase 9C
 
 ---
 
