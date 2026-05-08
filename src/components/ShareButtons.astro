@@ -118,28 +118,53 @@ const t = labels[locale as keyof typeof labels] ?? labels['pt-br'];
   (function () {
     if (typeof window === 'undefined') return;
 
-    // --- WhatsApp: atualizar URL com a URL real da página ---
+    // --- WhatsApp: atualizar URL com a URL real da página e locale correto ---
+    const container = document.querySelector('[data-share-component]') as HTMLElement | null;
     const waBtn = document.getElementById('share-whatsapp') as HTMLAnchorElement | null;
     if (waBtn) {
       const pageUrl = window.location.href;
+      const locale = (container && container.dataset.locale) ? container.dataset.locale : 'pt-br';
       const matchType = waBtn.dataset.matchType ?? 'generic';
-      const homeTeam = waBtn.dataset.homeTeam || undefined;
-      const awayTeam = waBtn.dataset.awayTeam || undefined;
-      const date = waBtn.dataset.date || undefined;
-      const time = waBtn.dataset.time || undefined;
+      const homeTeam = waBtn.dataset.homeTeam || '';
+      const awayTeam = waBtn.dataset.awayTeam || '';
+      const date = waBtn.dataset.date || '';
+      const time = waBtn.dataset.time || '';
 
       let text = '';
+
       if (matchType === 'confirmed' && homeTeam && awayTeam) {
-        const datePart = date && time ? `\n🕐 ${date} às ${time}` : '';
-        text = `⚽ ${homeTeam} x ${awayTeam}${datePart}\nVeja no World Cup Games Today: ${pageUrl}`;
+        if (locale === 'en') {
+          const datePart = date && time ? '\n🕐 ' + date + ' at ' + time : '';
+          text = '⚽ ' + homeTeam + ' vs ' + awayTeam + datePart + '\nSee on World Cup Games Today: ' + pageUrl;
+        } else if (locale === 'es') {
+          const datePart = date && time ? '\n🕐 ' + date + ' a las ' + time : '';
+          text = '⚽ ' + homeTeam + ' vs ' + awayTeam + datePart + '\nVer en World Cup Games Today: ' + pageUrl;
+        } else {
+          const datePart = date && time ? '\n🕐 ' + date + ' às ' + time : '';
+          text = '⚽ ' + homeTeam + ' x ' + awayTeam + datePart + '\nVeja no World Cup Games Today: ' + pageUrl;
+        }
       } else if (matchType === 'partial') {
-        const datePart = date ? `\n📅 ${date}` : '';
-        text = `⚽ Próxima fase da Copa 2026 — vagas a definir${datePart}\nVeja no World Cup Games Today: ${pageUrl}`;
+        if (locale === 'en') {
+          const datePart = date ? '\n📅 ' + date : '';
+          text = '⚽ World Cup 2026 — Teams to be confirmed' + datePart + '\nSee on World Cup Games Today: ' + pageUrl;
+        } else if (locale === 'es') {
+          const datePart = date ? '\n📅 ' + date : '';
+          text = '⚽ Copa Mundial 2026 — Equipos por definir' + datePart + '\nVer en World Cup Games Today: ' + pageUrl;
+        } else {
+          const datePart = date ? '\n📅 ' + date : '';
+          text = '⚽ Próxima fase da Copa 2026 — vagas a definir' + datePart + '\nVeja no World Cup Games Today: ' + pageUrl;
+        }
       } else {
-        text = `⚽ Copa do Mundo 2026 — Veja os jogos no seu horário local\n${pageUrl}`;
+        if (locale === 'en') {
+          text = '⚽ FIFA World Cup 2026 — See all matches in your local time\n' + pageUrl;
+        } else if (locale === 'es') {
+          text = '⚽ Copa Mundial FIFA 2026 — Todos los partidos en tu horario local\n' + pageUrl;
+        } else {
+          text = '⚽ Copa do Mundo 2026 — Veja os jogos no seu horário local\n' + pageUrl;
+        }
       }
 
-      waBtn.setAttribute('href', `https://wa.me/?text=${encodeURIComponent(text)}`);
+      waBtn.setAttribute('href', 'https://wa.me/?text=' + encodeURIComponent(text));
     }
 
     // --- Copiar link ---
