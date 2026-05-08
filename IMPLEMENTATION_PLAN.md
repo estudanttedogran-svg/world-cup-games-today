@@ -253,12 +253,13 @@ Entregas:
 - Botão copiar link: Clipboard API + fallback + feedback visual por 2 segundos
 
 ### Fase 7B — Google Calendar + .ics
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Entregas:
 - Geração de link Google Calendar (`eventedit` com parâmetros de data/hora/título)
-- Geração de arquivo `.ics` para download (partidas confirmadas)
-- Integração nas páginas de jogo e calendário
+- Geração de arquivo `.ics` para download (partidas `confirmed` e `partial` com data real)
+- Integração na página individual de jogo (`/pt-br/jogos/[id]`)
+- `simulation` nunca recebe botões de calendário
 
 ---
 
