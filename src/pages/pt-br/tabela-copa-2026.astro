@@ -44,6 +44,14 @@ const mockStandings: Record<string, StandingEntry[]> = {
     { team_id: 'ridgemont', played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
   ],
 };
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/pt-br/tabela-copa-2026`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/tabela-copa-2026` },
+  { hreflang: 'en',    href: `${siteUrl}/en/world-cup-2026-schedule` },
+  { hreflang: 'es',    href: `${siteUrl}/es/calendario-mundial-2026` },
+];
 ---
 
 <BaseLayout
@@ -51,6 +59,8 @@ const mockStandings: Record<string, StandingEntry[]> = {
   description="Veja a tabela completa da Copa do Mundo 2026: classificação por grupo, todos os jogos e horários no seu fuso local."
   lang="pt-BR"
   locale="pt-br"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
