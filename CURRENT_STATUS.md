@@ -12,6 +12,60 @@
 
 ---
 
+## Fase 6E1 ✅ — Páginas Individuais por Jogo (pt-br) — rota dinâmica SSG
+
+**Arquivo criado:**
+
+**`src/pages/pt-br/jogos/[id].astro`**
+- Rota dinâmica SSG com `getStaticPaths()` — terceiro uso no projeto (padrão já consolidado)
+- Gera uma página estática por cada partida em `matches.json` (11 partidas = 11 páginas)
+- Cast correto dos dados: `(matchesData as { matches: Match[] }).matches`
+- `getStaticPaths()` retorna `{ params: { id: match.id }, props: { match } }` por partida
+- Campo real de data/hora: `datetime_utc` (não `date_utc`) — confirmado antes de usar
+- Times resolvidos via `allTeams.find(t => t.id === match.home_team_id)` — campo `home_team_id`/`away_team_id`
+- Grupos resolvidos via `allGroups.find(g => g.id === match.group || g.slug === match.group.toLowerCase())`
+- Estádio, cidade e país exibidos via `LocalizedString['pt-br']` com fallback `['en']`
+- `phaseLabels` mapeamento completo dos valores reais do tipo `MatchPhase`: `group_stage`, `round_of_32`, `round_of_16`, `quarterfinal`, `semifinal`, `third_place`, `final`
+- Tratamento diferenciado por tipo de partida:
+  - `confirmed`: times reais, links para seleções, SEO contextualizado
+  - `partial`: "A definir" nos dois lados, aviso `.partial-warning`
+  - `simulation`: aviso `.simulation-warning`, rotulado como simulação
+- `confirmed` nunca exibe como `partial` ou vice-versa — regras respeitadas
+- `partial` exibe aviso azul (cor scheduled) — não vermelho nem verde
+- `simulation` exibe aviso neutro (fundo alt, borda border)
+- Card de detalhes com `<dl>/<dt>/<dd>` semântico: Fase, Data, Horário, Faltam, Estádio, Cidade, Jogo nº
+- `countdownText` somente exibido se a partida NÃO passou ainda (`!isPast(match.datetime_utc)`)
+- `AdPlaceholder` posicionado após o card de detalhes, nunca antes do conteúdo principal
+- Links para seleções via `.team-links-grid` (grid 2col desktop, 1col mobile ≤480px)
+- Links internos: Home, Tabela, Jogos de hoje, e link condicional para o grupo (se existir)
+- CSS scoped: `.match-hero`, `.match-confronto`, `.team-name`, `.match-vs`, `.match-phase-label`, `.partial-warning`, `.simulation-warning`, `.match-detail-card`, `.match-info-list`, `.match-info-row`, `.match-team-links`, `.team-links-grid`, `.team-link-card`, `.internal-links`, `.share-section`
+- Responsividade: breakpoints 480px (team-links-grid 1col, team-name xl), 768px (team-name 3xl, h2 maiores)
+- Compatível com SSG: zero API de browser no frontmatter
+- Build: 27 páginas geradas sem erros, zero TypeScript errors
+
+**Páginas de jogo geradas (11):**
+- `/pt-br/jogos/match-001/index.html` (Northland x Eastoria — Fase de Grupos)
+- `/pt-br/jogos/match-002/index.html` (Westmark x Southmore — Fase de Grupos)
+- `/pt-br/jogos/match-003/index.html` (Highpeak x Lowvale — Fase de Grupos)
+- `/pt-br/jogos/match-004/index.html` (Bayshore x Ridgemont — Fase de Grupos)
+- `/pt-br/jogos/match-005/index.html` (Northland x Westmark — Fase de Grupos)
+- `/pt-br/jogos/match-006/index.html` (Eastoria x Southmore — Fase de Grupos)
+- `/pt-br/jogos/match-007/index.html` (Highpeak x Bayshore — Fase de Grupos)
+- `/pt-br/jogos/match-008/index.html` (Lowvale x Ridgemont — Fase de Grupos)
+- `/pt-br/jogos/match-009/index.html` (Parcial — Rodada de 32)
+- `/pt-br/jogos/match-010/index.html` (Parcial — Semifinal)
+- `/pt-br/jogos/match-011/index.html` (Parcial — Final)
+
+---
+
+## Arquivos criados/alterados na Fase 6E1
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/pt-br/jogos/[id].astro` | Criado |
+
+---
+
 ## Fase 6D ✅ — Página por Grupo (pt-br) — rota dinâmica SSG
 
 **Arquivo criado:**
