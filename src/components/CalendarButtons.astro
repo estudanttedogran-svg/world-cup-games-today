@@ -111,7 +111,7 @@ const t = labels[locale as keyof typeof labels] ?? labels['pt-br'];
 
     document.querySelectorAll('.cal-btn--ics').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var el = btn;
+        var el = btn as HTMLElement;
         var matchId = el.dataset.matchId || 'match';
         var matchType = el.dataset.matchType || 'generic';
         var homeTeam = el.dataset.homeTeam || '';
@@ -119,23 +119,48 @@ const t = labels[locale as keyof typeof labels] ?? labels['pt-br'];
         var datetimeUtc = el.dataset.datetimeUtc || new Date().toISOString();
         var locationStr = el.dataset.location || '';
         var pageUrl = el.dataset.pageUrl || window.location.href;
+        var locale = el.dataset.locale || 'pt-br';
 
-        var summary;
-        var description;
+        var summary: string;
+        var description: string;
 
         if (matchType === 'confirmed' && homeTeam && awayTeam) {
-          summary = homeTeam + ' x ' + awayTeam + ' — Copa 2026';
-          description = 'Jogo da Copa do Mundo FIFA 2026.\\n' + homeTeam + ' x ' + awayTeam + '\\n\\nVeja detalhes em: ' + pageUrl + '\\n\\n⚠ DADOS DE DEMONSTRACAO (MOCK).';
+          if (locale === 'en') {
+            summary = homeTeam + ' vs ' + awayTeam + ' — World Cup 2026';
+            description = 'FIFA World Cup 2026 match.\\n' + homeTeam + ' vs ' + awayTeam + '\\n\\nSee details at: ' + pageUrl + '\\n\\n⚠ DEMONSTRATION DATA (MOCK). This site is independent and has no official affiliation with FIFA.';
+          } else if (locale === 'es') {
+            summary = homeTeam + ' vs ' + awayTeam + ' — Copa 2026';
+            description = 'Partido de la Copa Mundial FIFA 2026.\\n' + homeTeam + ' vs ' + awayTeam + '\\n\\nVer detalles en: ' + pageUrl + '\\n\\n⚠ DATOS DE DEMOSTRACION (MOCK). Este sitio es independiente y no tiene afiliacion oficial con la FIFA.';
+          } else {
+            summary = homeTeam + ' x ' + awayTeam + ' — Copa 2026';
+            description = 'Jogo da Copa do Mundo FIFA 2026.\\n' + homeTeam + ' x ' + awayTeam + '\\n\\nVeja detalhes em: ' + pageUrl + '\\n\\n⚠ DADOS DE DEMONSTRACAO (MOCK). Este site e independente e nao possui afiliacao oficial com a FIFA.';
+          }
         } else if (matchType === 'partial') {
-          summary = 'Partida a definir — Copa 2026';
-          description = 'Jogo da Copa do Mundo FIFA 2026.\\nAs selecoes serao definidas ao longo da competicao.\\n\\nVeja em: ' + pageUrl + '\\n\\n⚠ DADOS DE DEMONSTRACAO (MOCK).';
+          if (locale === 'en') {
+            summary = 'Match to be confirmed — World Cup 2026';
+            description = 'FIFA World Cup 2026 match.\\nTeams will be determined as the competition progresses.\\n\\nSee details at: ' + pageUrl + '\\n\\n⚠ DEMONSTRATION DATA (MOCK). This site is independent and has no official affiliation with FIFA.';
+          } else if (locale === 'es') {
+            summary = 'Partido por definir — Copa 2026';
+            description = 'Partido de la Copa Mundial FIFA 2026.\\nLas selecciones se definiran a lo largo de la competicion.\\n\\nVer detalles en: ' + pageUrl + '\\n\\n⚠ DATOS DE DEMOSTRACION (MOCK). Este sitio es independiente y no tiene afiliacion oficial con la FIFA.';
+          } else {
+            summary = 'Partida a definir — Copa 2026';
+            description = 'Jogo da Copa do Mundo FIFA 2026.\\nAs selecoes serao definidas ao longo da competicao.\\n\\nVeja detalhes em: ' + pageUrl + '\\n\\n⚠ DADOS DE DEMONSTRACAO (MOCK). Este site e independente e nao possui afiliacao oficial com a FIFA.';
+          }
         } else {
-          summary = 'Copa do Mundo 2026';
-          description = 'Veja em: ' + pageUrl + '\\n\\n⚠ DADOS DE DEMONSTRACAO (MOCK).';
+          if (locale === 'en') {
+            summary = 'World Cup 2026';
+            description = 'See at: ' + pageUrl + '\\n\\n⚠ DEMONSTRATION DATA (MOCK).';
+          } else if (locale === 'es') {
+            summary = 'Copa Mundial 2026';
+            description = 'Ver en: ' + pageUrl + '\\n\\n⚠ DATOS DE DEMOSTRACION (MOCK).';
+          } else {
+            summary = 'Copa do Mundo 2026';
+            description = 'Veja em: ' + pageUrl + '\\n\\n⚠ DADOS DE DEMONSTRACAO (MOCK).';
+          }
         }
 
         // Converte ISO UTC para formato ICS YYYYMMDDTHHMMSSZ
-        function toICS(iso) {
+        function toICS(iso: string): string {
           return iso.replace(/[-:]/g, '').replace(/\.\d{3}/, '');
         }
 
@@ -146,7 +171,7 @@ const t = labels[locale as keyof typeof labels] ?? labels['pt-br'];
         var uid = matchId + '@worldcupgamestoday.com';
 
         // Escapa caracteres especiais para formato ICS (RFC 5545)
-        function escICS(s) {
+        function escICS(s: string): string {
           return s
             .replace(/\\/g, '\\\\')
             .replace(/;/g, '\\;')
