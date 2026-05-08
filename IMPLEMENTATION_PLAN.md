@@ -337,7 +337,10 @@ Entregas:
 ---
 
 ## Fase 10 — SEO Técnico
-**Status:** PENDENTE
+**Status:** PARCIALMENTE CONCLUÍDA
+
+### Fase 10A — sitemap.xml, robots.txt, canonical e hreflang
+**Status:** CONCLUÍDA ✅ — 2026-05-08
 
 Entregas:
 - `public/sitemap.xml` (gerado via Astro ou script)
