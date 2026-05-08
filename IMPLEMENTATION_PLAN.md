@@ -378,7 +378,7 @@ Entregas:
 | 6E2 | Calendário da Copa 2026 (pt-br) | CONCLUÍDA ✅ |
 | 7A | Compartilhamento — WhatsApp + Copiar link | CONCLUÍDA ✅ |
 | 7B | Compartilhamento — Google Calendar + .ics | CONCLUÍDA ✅ |
-| 8 | live-data fetch + Fallback | PENDENTE |
+| 8 | live-data fetch + Fallback | CONCLUÍDA ✅ |
 | 9 | Internacionalização (en + es) | PENDENTE |
 | 10 | SEO Técnico | PENDENTE |
 | 11 | Páginas Institucionais | PENDENTE |
