@@ -1,0 +1,277 @@
+---
+import type { Match, Team, Group, StandingEntry } from '../../types/index.ts';
+import matchesData from '../../data/matches.json';
+import teamsData from '../../data/teams.json';
+import groupsData from '../../data/groups.json';
+import { sortMatchesByDate, filterMatchesByPhase } from '../../utils/matches.ts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GroupTable from '../../components/GroupTable.astro';
+import MatchList from '../../components/MatchList.astro';
+import AdPlaceholder from '../../components/AdPlaceholder.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams   = (teamsData  as { teams:   Team[]  }).teams;
+const allGroups  = (groupsData as { groups:  Group[] }).groups;
+
+const defaultTimezone = 'America/Mexico_City';
+const locale = 'es' as const;
+
+// Partidos de fase de grupos, ordenados por fecha
+const groupStageMatches = sortMatchesByDate(
+  filterMatchesByPhase(allMatches, 'group_stage')
+);
+
+// Separar por tipo — nunca mezclar
+const confirmedMatches = groupStageMatches.filter((m) => m.type === 'confirmed');
+const partialMatches   = groupStageMatches.filter((m) => m.type === 'partial');
+// type === 'simulation' nunca se pasa a las listas
+
+// MOCK clasificaciones
+const mockStandings: Record<string, StandingEntry[]> = {
+  'm': [
+    { team_id: 'northland', played: 2, won: 1, drawn: 1, lost: 0, goals_for: 3, goals_against: 1, points: 4 },
+    { team_id: 'eastoria',  played: 2, won: 1, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 3 },
+    { team_id: 'westmark',  played: 1, won: 0, drawn: 1, lost: 0, goals_for: 0, goals_against: 0, points: 1 },
+    { team_id: 'southmore', played: 1, won: 0, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 0 },
+  ],
+  'n': [
+    { team_id: 'highpeak',  played: 1, won: 1, drawn: 0, lost: 0, goals_for: 1, goals_against: 0, points: 3 },
+    { team_id: 'lowvale',   played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+    { team_id: 'bayshore',  played: 1, won: 0, drawn: 0, lost: 1, goals_for: 0, goals_against: 1, points: 0 },
+    { team_id: 'ridgemont', played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+  ],
+};
+---
+
+<BaseLayout
+  title="Calendario del Mundial 2026 — World Cup Games Today"
+  description="Calendario completo de partidos del Mundial FIFA 2026 con horarios en tu zona horaria."
+  lang="es"
+  locale="es"
+>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <h1>Calendario del Mundial 2026</h1>
+      <p>Clasificaciones por grupo y todos los partidos &mdash; horarios en tu zona horaria local.</p>
+    </section>
+
+    <!-- AVISO MOCK -->
+    <div class="mock-warning" role="alert">
+      &#9888; Este sitio usa datos de demostración (MOCK). Los datos mostrados son ficticios.
+    </div>
+
+    <!-- CLASIFICACIONES POR GRUPO -->
+    <section class="groups-section" aria-label="Clasificaciones por grupo">
+      <h2>Clasificaciones</h2>
+
+      {allGroups.map((group) => (
+        <div class="group-block">
+          <GroupTable
+            group={group}
+            standings={mockStandings[group.slug] ?? []}
+            teams={allTeams}
+            locale="es"
+          />
+        </div>
+      ))}
+    </section>
+
+    <!-- ANUNCIO (TRAS LAS CLASIFICACIONES, ANTES DE LOS PARTIDOS) -->
+    <AdPlaceholder slot="middle" label="Publicidad" />
+
+    <!-- PARTIDOS CONFIRMADOS DE FASE DE GRUPOS -->
+    <section class="schedule-section" aria-label="Partidos confirmados de fase de grupos">
+      <h2>Partidos Confirmados &mdash; Fase de Grupos</h2>
+      <MatchList
+        matches={confirmedMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="es"
+        emptyMessage="No hay partidos confirmados disponibles."
+      />
+    </section>
+
+    <!-- PARTIDOS PARCIALMENTE DEFINIDOS (SI LOS HAY) -->
+    {partialMatches.length > 0 && (
+      <section class="partial-section" aria-label="Fase eliminatoria — plazas a definir">
+        <h2>Fase Eliminatoria &mdash; Plazas a Definir</h2>
+        <p class="partial-note">
+          Las selecciones de estos partidos se determinarán a lo largo de la competición.
+        </p>
+        <MatchList
+          matches={partialMatches}
+          teams={allTeams}
+          timezone={defaultTimezone}
+          locale="es"
+          emptyMessage="No hay partidos parciales disponibles."
+        />
+      </section>
+    )}
+
+    <!-- ENLACES INTERNOS -->
+    <nav class="internal-links" aria-label="Navegación interna">
+      <h2>Ver también</h2>
+      <ul>
+        <li><a href="/es/">&larr; Inicio</a></li>
+        <li><a href="/es/partidos-de-hoy-mundial">Partidos de Hoy</a></li>
+        <li><a href="/es/equipos">Selecciones</a></li>
+      </ul>
+    </nav>
+
+    <!-- COMPARTIR -->
+    <section class="share-section" aria-label="Compartir">
+      <h2>Compartir el calendario</h2>
+      <ShareButtons locale="es" matchTitle="Calendario del Mundial 2026" />
+    </section>
+
+    <!-- TEXTO SEO -->
+    <section class="seo-text" aria-label="Sobre la Copa del Mundo 2026">
+      <h2>Copa del Mundo 2026 &mdash; Calendario Completo</h2>
+      <p>
+        La Copa del Mundo FIFA 2026 se celebrará en Estados Unidos, Canadá y México.
+        Sigue las clasificaciones, los resultados y los próximos horarios de partido &mdash;
+        mostrados automáticamente en tu zona horaria local.
+      </p>
+      <p>
+        Usa World Cup Games Today para seguir el calendario del Mundial 2026 en tiempo real,
+        sin calcular manualmente los horarios de los partidos.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* Clasificaciones */
+  .groups-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .groups-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  .group-block {
+    margin-bottom: var(--space-6);
+  }
+
+  .group-block:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Sección de partidos */
+  .schedule-section {
+    margin-block: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .schedule-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Sección de parciales */
+  .partial-section {
+    margin-block: var(--space-8);
+    padding: var(--space-6);
+    background-color: #fafbff;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .partial-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  .partial-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Enlaces internos */
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  /* Compartir */
+  .share-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .groups-section h2,
+    .schedule-section h2,
+    .partial-section h2,
+    .share-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
