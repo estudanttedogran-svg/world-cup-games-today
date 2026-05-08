@@ -223,8 +223,12 @@ const metaDescription = match.type === 'confirmed'
       <h2>Compartilhe</h2>
       <ShareButtons
         locale="pt-br"
-        matchTitle={matchTitle}
-        matchId={match.id}
+        matchType={match.type as 'confirmed' | 'partial' | 'simulation'}
+        homeTeamName={match.type === 'confirmed' ? homeTeamName : undefined}
+        awayTeamName={match.type === 'confirmed' ? awayTeamName : undefined}
+        dateFormatted={weekdayFormatted && dateFormatted ? `${weekdayFormatted}, ${dateFormatted}` : dateFormatted ?? undefined}
+        timeFormatted={timeFormatted ?? undefined}
+        pageUrl={`${import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com'}/pt-br/jogos/${match.id}`}
       />
     </section>
 
