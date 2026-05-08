@@ -122,7 +122,9 @@ if (match) {
     roundInfo = phaseLabel;
   }
 
-  countdown = formatCountdown(match.datetime_utc, locale);
+  countdown = !isPast(match.datetime_utc)
+    ? formatCountdown(match.datetime_utc, locale)
+    : '';
 }
 ---
 
