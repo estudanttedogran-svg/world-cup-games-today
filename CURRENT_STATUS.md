@@ -6,9 +6,110 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 9D — Refinamento i18n de componentes compartilhados CONCLUÍDA ✅
-**Próxima fase:** Fase 10 — SEO Técnico
-**Aguardando:** Autorização do usuário para iniciar Fase 10
+**Fase concluída:** Fase 10A — sitemap.xml, robots.txt, canonical e hreflang CONCLUÍDA ✅
+**Próxima fase:** Fase 10B — Open Graph completo + SportsEvent JSON-LD
+**Aguardando:** Autorização do usuário para iniciar Fase 10B
+
+---
+
+## Fase 10A — sitemap.xml, robots.txt, canonical e hreflang ✅
+
+### Arquivos criados/alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/layouts/BaseLayout.astro` | Atualizado — novas props `canonicalUrl` e `alternates` (hreflang); compatibilidade retroativa mantida |
+| `src/pages/sitemap.xml.ts` | Criado — endpoint Astro que gera sitemap.xml em build time (sem dependência nova) |
+| `public/robots.txt` | Criado — permite rastreamento geral, bloqueia `/data/`, referencia sitemap |
+| `src/pages/index.astro` | Atualizado — canonical + hreflang (x-default, pt-BR, en, es) |
+| `src/pages/pt-br/index.astro` | Atualizado — canonical + hreflang (x-default, pt-BR, en, es) |
+| `src/pages/en/index.astro` | Atualizado — canonical + hreflang (x-default, pt-BR, en, es) |
+| `src/pages/es/index.astro` | Atualizado — canonical + hreflang (x-default, pt-BR, en, es) |
+| `src/pages/pt-br/jogos-de-hoje-copa.astro` | Atualizado — canonical + hreflang (pt-BR, en, es) |
+| `src/pages/en/world-cup-games-today.astro` | Atualizado — canonical + hreflang (pt-BR, en, es) |
+| `src/pages/es/partidos-de-hoy-mundial.astro` | Atualizado — canonical + hreflang (pt-BR, en, es) |
+| `src/pages/pt-br/tabela-copa-2026.astro` | Atualizado — canonical + hreflang (pt-BR, en, es) |
+| `src/pages/en/world-cup-2026-schedule.astro` | Atualizado — canonical + hreflang (pt-BR, en, es) |
+| `src/pages/es/calendario-mundial-2026.astro` | Atualizado — canonical + hreflang (pt-BR, en, es) |
+| `src/pages/pt-br/calendario-copa-2026.astro` | Atualizado — canonical apenas (sem alternates — página sem equivalente en/es) |
+| `src/pages/pt-br/selecoes/index.astro` | Atualizado — canonical + hreflang (pt-BR, en, es) |
+| `src/pages/en/teams/index.astro` | Atualizado — canonical + hreflang (pt-BR, en, es) |
+| `src/pages/es/equipos/index.astro` | Atualizado — canonical + hreflang (pt-BR, en, es) |
+| `src/pages/pt-br/selecoes/[slug].astro` | Atualizado — canonical + hreflang por slug (pt-BR, en, es) |
+| `src/pages/en/teams/[slug].astro` | Atualizado — canonical + hreflang por slug (pt-BR, en, es) |
+| `src/pages/es/equipos/[slug].astro` | Atualizado — canonical + hreflang por slug (pt-BR, en, es) |
+| `src/pages/pt-br/grupos/[grupo].astro` | Atualizado — canonical + hreflang por slug de grupo (pt-BR, en, es) |
+| `src/pages/en/groups/[group].astro` | Atualizado — canonical + hreflang por slug de grupo (pt-BR, en, es) |
+| `src/pages/es/grupos/[group].astro` | Atualizado — canonical + hreflang por slug de grupo (pt-BR, en, es) |
+| `src/pages/pt-br/jogos/[id].astro` | Atualizado — canonical + hreflang por match.id (pt-BR, en, es) |
+| `src/pages/en/matches/[id].astro` | Atualizado — canonical + hreflang por match.id (pt-BR, en, es) |
+| `src/pages/es/partidos/[id].astro` | Atualizado — canonical + hreflang por match.id (pt-BR, en, es) |
+
+### O que foi implementado
+
+**`src/layouts/BaseLayout.astro`**
+- Interface `HreflangAlternate` adicionada: `{ hreflang: string; href: string }`
+- Prop `canonicalUrl` (nova, opcional) — tem prioridade sobre `canonical` (legada) e sobre o pathname automático
+- Prop `alternates` (nova, opcional) — array de `HreflangAlternate`
+- Tags `<link rel="alternate" hreflang="...">` renderizadas no `<head>` se `alternates` for passado
+- Compatibilidade total: todas as páginas que não passam as props novas continuam funcionando sem erros
+
+**`src/pages/sitemap.xml.ts`**
+- Endpoint Astro (APIRoute) que gera XML em build time — sem dependências novas
+- Usa `PUBLIC_SITE_URL` com fallback `https://worldcupgamestoday.com`
+- Importa `matches.json`, `teams.json`, `groups.json` — URLs geradas a partir dos dados
+- Exclui partidas do tipo `simulation` do sitemap (apenas `confirmed` e `partial`)
+- URLs incluídas:
+  - 4 URLs fixas de raiz/homes (`/`, `/pt-br/`, `/en/`, `/es/`)
+  - 3 URLs fixas de "jogos de hoje" (pt-br, en, es)
+  - 3 URLs fixas de tabela/schedule (pt-br, en, es)
+  - 1 URL de calendário pt-br
+  - 3 URLs de índice de seleções (pt-br, en, es)
+  - 24 URLs de times (8 times × 3 idiomas)
+  - 6 URLs de grupos (2 grupos × 3 idiomas)
+  - 33 URLs de partidas (11 partidas × 3 idiomas)
+- Total: 77 URLs no sitemap
+
+**`public/robots.txt`**
+- `User-agent: *` — todos os crawlers
+- `Allow: /` — todo o site indexável
+- `Disallow: /data/` — bloqueia `live-data.json` de indexação
+- `Sitemap: https://worldcupgamestoday.com/sitemap.xml`
+
+**Padrão de hreflang aplicado:**
+- `x-default`: `{siteUrl}/` — somente nas homes (raiz e `/pt-br/`, `/en/`, `/es/`)
+- `pt-BR`: `{siteUrl}/pt-br/...`
+- `en`: `{siteUrl}/en/...`
+- `es`: `{siteUrl}/es/...`
+- Páginas dinâmicas: slug/id idêntico nos três idiomas (ex: `northland`, `match-001`, `m`)
+
+### Decisões técnicas
+
+- Sitemap gerado via endpoint Astro (`src/pages/sitemap.xml.ts`) em vez de plugin — sem dependência nova
+- `@astrojs/sitemap` não estava instalado em `package.json` — decisão correta: não instalar
+- `canonicalUrl` como prop nova com prioridade sobre `canonical` (legacy) — retrocompatível
+- `calendario-copa-2026` (pt-br) sem alternates — não há equivalente direto en/es
+- Nenhuma página de 404, asset ou dado incluído no sitemap
+
+### Validação
+
+- `npm run build`: 77 páginas geradas sem erros ✅
+- Zero erros TypeScript ✅
+- `dist/sitemap.xml` gerado ✅
+- `dist/robots.txt` copiado de `public/` ✅
+- Endpoint `src/pages/sitemap.xml.ts` renderizado como `/sitemap.xml` em `dist/` ✅
+- Total de páginas: 77 (sem alteração — sitemap.xml é endpoint, não página HTML contada) ✅
+- Nenhuma página existente quebrada ✅
+- Nenhuma dependência nova instalada ✅
+
+### Riscos e pendências
+
+| Item | Impacto |
+|------|---------|
+| `robots.txt` referencia o domínio hardcoded `worldcupgamestoday.com` — não usa `PUBLIC_SITE_URL` (arquivo estático, não processado pelo Astro) | Baixo — trocar manualmente se o domínio mudar |
+| Sitemap sem `<lastmod>` e sem `<priority>` — formato mínimo válido | Baixo — adequado para MVP; adicionar em fase futura se necessário |
+| `calendario-copa-2026` (pt-br) não tem equivalentes en/es — sem hreflang nessa página | Aceitável — página sem equivalente cross-language confirmado |
+| Fase 10B pendente — Open Graph completo + SportsEvent JSON-LD | Próxima fase |
 
 ---
 
