@@ -277,7 +277,7 @@ Entregas:
 ---
 
 ## Fase 9 — Internacionalização (en + es)
-**Status:** EM ANDAMENTO — Fase 9A CONCLUÍDA ✅ | Fase 9B PENDENTE
+**Status:** EM ANDAMENTO — Fase 9A CONCLUÍDA ✅ | Fase 9B CONCLUÍDA ✅
 
 ### Fase 9A — Páginas em inglês (/en/)
 **Status:** CONCLUÍDA ✅ — 2026-05-08
@@ -296,18 +296,20 @@ Entregas:
 - `npm run build`: 53 páginas sem erros ✅
 
 ### Fase 9B — Páginas em espanhol (/es/)
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅ — 2026-05-08
 
 Entregas:
 - `src/pages/es/index.astro` — home em espanhol (reescrita do stub)
-- `src/pages/es/juegos-de-hoy-copa.astro` — jogos de hoje em espanhol
-- `src/pages/es/calendario-copa-2026.astro` — tabela/calendário em espanhol
-- `src/pages/es/selecciones/index.astro` — listagem de times em espanhol
-- `src/pages/es/selecciones/[slug].astro` — página por time em espanhol
-- `src/pages/es/grupos/[grupo].astro` — página por grupo em espanhol
-- `src/pages/es/partidos/[id].astro` — página por jogo em espanhol
+- `src/pages/es/partidos-de-hoy-mundial.astro` — partidos de hoy en español
+- `src/pages/es/calendario-mundial-2026.astro` — calendario completo en español
+- `src/pages/es/equipos/index.astro` — listado de selecciones en español
+- `src/pages/es/equipos/[slug].astro` — página por selección en español (8 páginas)
+- `src/pages/es/grupos/[group].astro` — página por grupo en español (2 páginas)
+- `src/pages/es/partidos/[id].astro` — página por partido en español (11 páginas)
 - Fuso padrão: `America/Mexico_City`
 - Locale `'es'` em todos os componentes que aceitam a prop
+- 24 páginas novas geradas — total passa de 53 para 77 páginas
+- `npm run build`: 77 páginas sem erros ✅
 
 ---
 
