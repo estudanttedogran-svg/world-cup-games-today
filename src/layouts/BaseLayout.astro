@@ -19,6 +19,11 @@ interface Props {
   canonical?: string;
   canonicalUrl?: string;
   alternates?: HreflangAlternate[];
+  ogType?: string;
+  ogImage?: string;
+  ogLocale?: string;
+  ogLocaleAlternates?: string[];
+  twitterCard?: string;
 }
 
 const {
@@ -29,12 +34,36 @@ const {
   canonical,
   canonicalUrl: canonicalUrlProp,
   alternates,
+  ogType,
+  ogImage,
+  ogLocale: ogLocaleProp,
+  ogLocaleAlternates: ogLocaleAlternatesProp,
+  twitterCard,
 } = Astro.props;
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
 // canonicalUrlProp tem prioridade; depois canonical (legacy); depois pathname automático
 const canonicalUrl = canonicalUrlProp || canonical || `${siteUrl}${Astro.url.pathname}`;
 const ogUrl = canonicalUrl;
+
+// Derivação automática de ogLocale a partir de locale
+const localeToOgLocale: Record<string, string> = {
+  'pt-br': 'pt_BR',
+  'en': 'en_US',
+  'es': 'es_ES',
+};
+const resolvedOgLocale = ogLocaleProp ?? (locale ? localeToOgLocale[locale] : undefined);
+
+// Derivação automática de ogLocaleAlternates a partir de alternates (hreflang)
+const hreflangToOgLocale: Record<string, string> = {
+  'pt-BR': 'pt_BR',
+  'en': 'en_US',
+  'es': 'es_ES',
+};
+const resolvedOgLocaleAlternates = ogLocaleAlternatesProp
+  ?? alternates
+    ?.map((a) => hreflangToOgLocale[a.hreflang])
+    .filter((v): v is string => Boolean(v));
 ---
 
 <!DOCTYPE html>
@@ -55,16 +84,22 @@ const ogUrl = canonicalUrl;
     ))}
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
-    {description && <meta property="og:description" content={description} />}
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType ?? 'website'} />
     <meta property="og:url" content={ogUrl} />
     <meta property="og:site_name" content="World Cup Games Today" />
+    {resolvedOgLocale && <meta property="og:locale" content={resolvedOgLocale} />}
+    {resolvedOgLocaleAlternates?.map((alt) => (
+      <meta property="og:locale:alternate" content={alt} />
+    ))}
+    {ogImage && <meta property="og:image" content={ogImage} />}
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content={twitterCard ?? 'summary'} />
     <meta name="twitter:title" content={title} />
-    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <!-- Slot para meta tags extras (ex: hreflang, JSON-LD) -->
     <slot name="head" />
