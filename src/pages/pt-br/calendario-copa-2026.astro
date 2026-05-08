@@ -62,6 +62,10 @@ const phaseLabels: Record<string, string> = {
   'third_place':  'Disputa de 3º Lugar',
   'final':        'Final',
 };
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/pt-br/calendario-copa-2026`;
+// Não há equivalente direto en/es para esta página — sem alternates de outros idiomas
 ---
 
 <BaseLayout
@@ -69,6 +73,7 @@ const phaseLabels: Record<string, string> = {
   description="Veja o calendário completo da Copa do Mundo 2026 com todos os jogos, datas e horários no seu fuso local."
   lang="pt-BR"
   locale="pt-br"
+  canonicalUrl={canonicalUrl}
 >
   <div class="container">
 
