@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/legal-notice`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/aviso-legal` },
+  { hreflang: 'en',    href: `${siteUrl}/en/legal-notice` },
+  { hreflang: 'es',    href: `${siteUrl}/es/aviso-legal` },
+];
+---
+
+<BaseLayout
+  title="Legal Notice — World Cup Games Today"
+  description="Legal Notice for World Cup Games Today. Independent website with no official association with FIFA or the World Cup."
+  lang="en"
+  locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Legal Notice</h1>
+
+    <p>
+      World Cup Games Today is an independent website and has no official association
+      with FIFA or the World Cup organization.
+    </p>
+
+    <p>
+      All trademarks, trade names, logos, and other visual identity elements
+      mentioned or displayed on this site belong to their respective owners.
+    </p>
+
+    <p>
+      The use of any name, trademark, or reference to the World Cup or FIFA is made
+      solely for informational and descriptive purposes, without any intention of
+      suggesting official sponsorship, endorsement, or affiliation.
+    </p>
+
+    <p>
+      This site is independently operated by sports enthusiasts, with the sole
+      purpose of informing fans about match schedules in their local time zone.
+    </p>
+
+    <p>
+      For official information about the FIFA World Cup 2026, please visit FIFA's
+      official channels and platforms.
+    </p>
+
+    <nav class="institutional-links" aria-label="Internal links">
+      <a href="/en/">Home</a>
+      <a href="/en/about">About</a>
+      <a href="/en/contact">Contact</a>
+      <a href="/en/privacy-policy">Privacy Policy</a>
+      <a href="/en/terms-of-use">Terms of Use</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
