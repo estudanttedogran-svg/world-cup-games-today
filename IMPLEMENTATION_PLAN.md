@@ -187,7 +187,7 @@ Notas: slugs gerados a partir de `teams.json` — cada time.slug vira uma rota.
 ---
 
 ## Fase 6D — Página por Grupo (pt-br)
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Página alvo:
 - `src/pages/pt-br/grupos/[grupo].astro` — rota dinâmica, uma página por grupo
