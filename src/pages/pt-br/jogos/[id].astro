@@ -236,6 +236,23 @@ const metaDescription = match.type === 'confirmed'
       />
     </section>
 
+    <!-- ADICIONAR AO CALENDÁRIO (somente confirmed e partial — simulation não exibe) -->
+    {match.type !== 'simulation' && (
+      <section class="calendar-section" aria-label="Adicionar ao calendário">
+        <h2>Adicionar ao calendário</h2>
+        <CalendarButtons
+          matchId={match.id}
+          matchType={match.type as 'confirmed' | 'partial'}
+          homeTeamName={match.type === 'confirmed' ? homeTeamName : undefined}
+          awayTeamName={match.type === 'confirmed' ? awayTeamName : undefined}
+          datetimeUtc={match.datetime_utc}
+          locationStr={locationStr}
+          pageUrl={`${import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com'}/pt-br/jogos/${match.id}`}
+          locale="pt-br"
+        />
+      </section>
+    )}
+
     <!-- LINKS INTERNOS -->
     <nav class="internal-links" aria-label="Navega&ccedil;&atilde;o interna">
       <ul>
