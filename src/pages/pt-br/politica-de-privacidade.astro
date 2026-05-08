@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/pt-br/politica-de-privacidade`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/politica-de-privacidade` },
+  { hreflang: 'en',    href: `${siteUrl}/en/privacy-policy` },
+  { hreflang: 'es',    href: `${siteUrl}/es/politica-de-privacidad` },
+];
+---
+
+<BaseLayout
+  title="Política de Privacidade — World Cup Games Today"
+  description="Saiba como o World Cup Games Today coleta e usa dados, incluindo localStorage, cookies e Analytics."
+  lang="pt-BR"
+  locale="pt-br"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Política de Privacidade</h1>
+
+    <p>
+      Esta Política de Privacidade descreve como o World Cup Games Today trata as
+      informações dos visitantes do site. Ao usar este site, você concorda com as
+      práticas descritas neste documento.
+    </p>
+
+    <h2>Dados coletados automaticamente</h2>
+
+    <p>
+      Como qualquer servidor web, nosso servidor de hospedagem pode registrar
+      automaticamente informações como endereço IP, tipo de navegador, páginas
+      acessadas e data/hora de acesso. Essas informações são coletadas pelos
+      sistemas de log padrão da hospedagem e são usadas exclusivamente para fins
+      de segurança e análise de desempenho técnico.
+    </p>
+
+    <h2>Dados salvos localmente (localStorage)</h2>
+
+    <p>
+      Para melhorar a experiência do usuário, este site salva algumas preferências
+      diretamente no seu navegador usando <strong>localStorage</strong>. Isso inclui:
+    </p>
+
+    <p>
+      - Idioma preferido<br />
+      - Fuso horário selecionado<br />
+      - Seleção favorita de time
+    </p>
+
+    <p>
+      Esses dados ficam armazenados apenas no seu dispositivo e não são enviados
+      a nenhum servidor externo. Você pode limpar esses dados a qualquer momento
+      limpando os dados do site nas configurações do seu navegador.
+    </p>
+
+    <h2>Google Analytics</h2>
+
+    <p>
+      O site poderá utilizar Google Analytics no futuro para analisar o tráfego
+      de forma anonimizada. O Google Analytics pode usar cookies para coletar
+      informações sobre como os visitantes usam o site, incluindo páginas
+      visitadas e tempo de permanência. Os dados são processados de forma
+      agregada e não permitem identificar usuários individualmente.
+    </p>
+
+    <p>
+      Se o Google Analytics estiver ativo, você poderá optar por não ser
+      rastreado usando extensões de navegador como o Google Analytics Opt-out
+      Browser Add-on.
+    </p>
+
+    <h2>Anúncios</h2>
+
+    <p>
+      O site poderá exibir anúncios no futuro por meio de redes como o Google
+      AdSense. Redes de anúncios podem usar cookies para exibir anúncios
+      relevantes com base em visitas anteriores a este e a outros sites. Quando
+      essa funcionalidade for ativada, informaremos os usuários e atualizaremos
+      esta política conforme necessário.
+    </p>
+
+    <h2>Login e cadastro</h2>
+
+    <p>
+      Na versão atual do site (MVP), não é necessário criar conta ou realizar
+      login para usar qualquer funcionalidade. Não coletamos nomes, e-mails ou
+      senhas de usuários.
+    </p>
+
+    <h2>Seus dados e seus direitos</h2>
+
+    <p>
+      Você pode limpar os dados salvos pelo site a qualquer momento nas
+      configurações do seu navegador (opção "Limpar dados do site" ou equivalente).
+      Como não coletamos dados pessoais identificáveis nos servidores do site,
+      não há dados a excluir do nosso lado.
+    </p>
+
+    <h2>Contato</h2>
+
+    <p>
+      Para dúvidas sobre esta Política de Privacidade, entre em contato pelo
+      e-mail: <a href="mailto:contact@worldcupgamestoday.com" class="email-link">contact@worldcupgamestoday.com</a>
+    </p>
+
+    <nav class="institutional-links" aria-label="Links internos">
+      <a href="/pt-br/">Início</a>
+      <a href="/pt-br/sobre">Sobre</a>
+      <a href="/pt-br/contato">Contato</a>
+      <a href="/pt-br/termos-de-uso">Termos de Uso</a>
+      <a href="/pt-br/aviso-legal">Aviso Legal</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .email-link {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
