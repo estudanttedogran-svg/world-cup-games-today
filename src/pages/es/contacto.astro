@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/es/contacto`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/contato` },
+  { hreflang: 'en',    href: `${siteUrl}/en/contact` },
+  { hreflang: 'es',    href: `${siteUrl}/es/contacto` },
+];
+---
+
+<BaseLayout
+  title="Contacto — World Cup Games Today"
+  description="Póngase en contacto con World Cup Games Today. Envíenos un correo electrónico para contacto general y soporte del sitio."
+  lang="es"
+  locale="es"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Contacto</h1>
+
+    <p>
+      Para ponerse en contacto con World Cup Games Today, envíe un correo electrónico a:
+    </p>
+
+    <p>
+      <a href="mailto:contact@worldcupgamestoday.com" class="email-link">
+        contact@worldcupgamestoday.com
+      </a>
+    </p>
+
+    <p>
+      Responderemos lo antes posible. Este correo electrónico es solo para contacto
+      general y soporte del sitio. Para reclamaciones relacionadas con la Copa Mundial
+      o la FIFA, utilice los canales oficiales.
+    </p>
+
+    <nav class="institutional-links" aria-label="Enlaces internos">
+      <a href="/es/">Inicio</a>
+      <a href="/es/sobre">Acerca de</a>
+      <a href="/es/politica-de-privacidad">Política de Privacidad</a>
+      <a href="/es/terminos-de-uso">Términos de Uso</a>
+      <a href="/es/aviso-legal">Aviso Legal</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .email-link {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-lg);
+  }
+
+  .email-link:hover {
+    text-decoration: underline;
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
