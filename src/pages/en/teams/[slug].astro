@@ -51,6 +51,14 @@ const groupName = teamGroup
 
 // Team name in locale
 const teamName = team.name['en'] ?? team.name['pt-br'] ?? team.slug;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/teams/${team.slug}`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/selecoes/${team.slug}` },
+  { hreflang: 'en',    href: `${siteUrl}/en/teams/${team.slug}` },
+  { hreflang: 'es',    href: `${siteUrl}/es/equipos/${team.slug}` },
+];
 ---
 
 <BaseLayout
@@ -58,6 +66,8 @@ const teamName = team.name['en'] ?? team.name['pt-br'] ?? team.slug;
   description={`View all ${teamName} matches at the 2026 World Cup with kick-off times in your local timezone.`}
   lang="en"
   locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
