@@ -240,7 +240,7 @@ para liberar 6B e 6C para componentes mais coesos.
 ---
 
 ## Fase 7 — Compartilhamento + Integração de Calendário
-**Status:** EM ANDAMENTO
+**Status:** CONCLUÍDA ✅
 
 ### Fase 7A — WhatsApp + Copiar link
 **Status:** CONCLUÍDA ✅
