@@ -364,7 +364,16 @@ Entregas:
 - 77 paginas geradas sem erros; nenhuma dependencia nova
 
 ### Fase 10C — SportsEvent JSON-LD
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅ — 2026-05-08
+
+Entregas:
+- `src/utils/schema.ts` — utilitário puro `buildSportsEventSchema()` com interface tipada `SportsEventSchemaOptions`
+- `src/pages/pt-br/jogos/[id].astro` — injeção de JSON-LD via `slot="head"` somente para `confirmed`
+- `src/pages/en/matches/[id].astro` — injeção de JSON-LD via `slot="head"` somente para `confirmed`
+- `src/pages/es/partidos/[id].astro` — injeção de JSON-LD via `slot="head"` somente para `confirmed`
+- Regra absoluta: `partial` e `simulation` sem nenhum SportsEvent schema
+- Nomes dos times e fase sempre em inglês no schema (padrão internacional)
+- 77 páginas geradas sem erros; nenhuma dependência nova
 
 ---
 
