@@ -51,6 +51,14 @@ const groupName = teamGroup
 
 // Nome da seleção no locale
 const teamName = team.name['pt-br'] ?? team.name['en'] ?? team.slug;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/pt-br/selecoes/${team.slug}`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/selecoes/${team.slug}` },
+  { hreflang: 'en',    href: `${siteUrl}/en/teams/${team.slug}` },
+  { hreflang: 'es',    href: `${siteUrl}/es/equipos/${team.slug}` },
+];
 ---
 
 <BaseLayout
@@ -58,6 +66,8 @@ const teamName = team.name['pt-br'] ?? team.name['en'] ?? team.slug;
   description={`Veja todos os jogos de ${teamName} na Copa do Mundo 2026 com horários no seu fuso local.`}
   lang="pt-BR"
   locale="pt-br"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
