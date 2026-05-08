@@ -6,9 +6,98 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 10C — SportsEvent JSON-LD CONCLUÍDA ✅
-**Próxima fase:** Fase 11 — Páginas Institucionais
-**Aguardando:** Autorização do usuário para iniciar Fase 11
+**Fase concluída:** Fase 11 — Páginas Institucionais CONCLUÍDA ✅
+**Próxima fase:** Fase 12 — Analytics + AdSense (placeholders)
+**Aguardando:** Autorização do usuário para iniciar Fase 12
+
+---
+
+## Fase 11 — Páginas Institucionais ✅ (2026-05-08)
+
+### Arquivos criados
+
+| Arquivo | URL gerada |
+|---------|------------|
+| `src/pages/pt-br/sobre.astro` | `/pt-br/sobre` |
+| `src/pages/pt-br/contato.astro` | `/pt-br/contato` |
+| `src/pages/pt-br/politica-de-privacidade.astro` | `/pt-br/politica-de-privacidade` |
+| `src/pages/pt-br/termos-de-uso.astro` | `/pt-br/termos-de-uso` |
+| `src/pages/pt-br/aviso-legal.astro` | `/pt-br/aviso-legal` |
+| `src/pages/en/about.astro` | `/en/about` |
+| `src/pages/en/contact.astro` | `/en/contact` |
+| `src/pages/en/privacy-policy.astro` | `/en/privacy-policy` |
+| `src/pages/en/terms-of-use.astro` | `/en/terms-of-use` |
+| `src/pages/en/legal-notice.astro` | `/en/legal-notice` |
+| `src/pages/es/sobre.astro` | `/es/sobre` |
+| `src/pages/es/contacto.astro` | `/es/contacto` |
+| `src/pages/es/politica-de-privacidad.astro` | `/es/politica-de-privacidad` |
+| `src/pages/es/terminos-de-uso.astro` | `/es/terminos-de-uso` |
+| `src/pages/es/aviso-legal.astro` | `/es/aviso-legal` |
+
+### Arquivos alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/components/Footer.astro` | Links do footer atualizados de `#` para URLs reais das páginas institucionais. Adicionado "Aviso Legal" / "Legal Notice" / "Aviso Legal" em cada idioma. |
+
+### Validação
+
+- `npm run build`: **92 páginas** geradas sem erros (77 anteriores + 15 novas)
+- `dist/robots.txt`: presente
+- `dist/sitemap.xml`: presente
+- Todas as 15 páginas renderizadas com sucesso
+
+### Conteúdo implementado
+
+**Estrutura de cada página:**
+- `BaseLayout` com `title`, `description`, `lang`, `locale`, `canonicalUrl`, `alternates` (hreflang)
+- `<h1>` principal
+- Parágrafos em prosa (sem dados inventados de jogos)
+- Nav de links internos no rodapé da página para outras páginas do mesmo idioma
+
+**Hreflang configurado:**
+- `/pt-br/sobre` ↔ `/en/about` ↔ `/es/sobre`
+- `/pt-br/contato` ↔ `/en/contact` ↔ `/es/contacto`
+- `/pt-br/politica-de-privacidade` ↔ `/en/privacy-policy` ↔ `/es/politica-de-privacidad`
+- `/pt-br/termos-de-uso` ↔ `/en/terms-of-use` ↔ `/es/terminos-de-uso`
+- `/pt-br/aviso-legal` ↔ `/en/legal-notice` ↔ `/es/aviso-legal`
+
+**Política de Privacidade cobre:**
+- Logs automáticos do servidor
+- localStorage (idioma, fuso, time favorito)
+- Google Analytics (futuro, anonimizado)
+- Google AdSense (futuro)
+- Sem login/cadastro no MVP
+- Direitos do usuário
+- Contato para dúvidas
+
+**Termos de Uso cobrem:**
+- Uso exclusivamente informativo
+- Dados sujeitos a alteração sem aviso
+- Isenção de responsabilidade por dados desatualizados
+- Independência da FIFA
+- Propriedade intelectual
+
+**Aviso Legal:**
+- Disclaimer obrigatório de independência da FIFA
+- Uso de marcas apenas para fins informativos e descritivos
+- Operado por entusiastas do esporte
+
+### Conformidade de marca
+
+- Nenhuma imagem protegida da FIFA usada
+- Nenhum logo oficial da Copa 2026 usado
+- Nenhum mascote oficial usado
+- Linguagem claramente independente e descritiva
+- Sem sugestão de afiliação oficial
+
+### Riscos e pendências
+
+| Item | Impacto |
+|------|---------|
+| Footer links agora apontam para URLs reais — confirmar que todas as páginas estão acessíveis após deploy | Baixo — build confirma geração correta |
+| Aviso legal no footer difere levemente da versão es (inclui "ninguna") vs. o aviso legal nas páginas es | Mínimo — ambos comunicam claramente a independência |
+| Fase 12 pendente: stubs de Analytics e placeholders de AdSense ainda não implementados | Médio — sem GA e AdSense o site funciona normalmente |
 
 ---
 
