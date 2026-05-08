@@ -45,7 +45,7 @@ const labels: Record<string, Record<string, string>> = {
 const t = labels[locale] ?? labels['pt-br'];
 
 // URL da partida — usa matchId se disponível
-const matchPath = matchId ? `${siteUrl}/${locale}/jogo/${matchId}` : siteUrl;
+const matchPath = matchId ? `${siteUrl}/${locale}/jogos/${matchId}` : siteUrl;
 
 // WhatsApp share URL (URL construída no cliente via script para pegar a URL atual)
 const whatsappTextTemplate = t.whatsappText
