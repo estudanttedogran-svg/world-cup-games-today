@@ -6,10 +6,55 @@
 
 ## Status atual
 
-**Fase concluída:** Correções pós-QA da Fase 6 — CONCLUIDAS
-**Fase 6 completa:** TODAS as subfases (6A, 6B, 6C, 6D, 6E1, 6E2) + correções pós-QA CONCLUIDAS
-**Próxima fase:** Fase 7 — Compartilhamento + Integração de Calendário
-**Aguardando:** Autorização do usuário para iniciar Fase 7
+**Fase concluída:** Fase 7A — Compartilhamento (WhatsApp + Copiar link) CONCLUIDA
+**Próxima fase:** Fase 7B — Google Calendar + arquivo `.ics`
+**Aguardando:** Autorização do usuário para iniciar Fase 7B
+
+---
+
+## Fase 7A — Compartilhamento (WhatsApp + Copiar link) ✅
+
+### Arquivos criados/alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/utils/share.ts` | Criado — utilitário centralizado de compartilhamento |
+| `src/components/ShareButtons.astro` | Refatorado — novas props contextuais, SVG inline, CSS renovado |
+| `src/pages/pt-br/jogos/[id].astro` | Atualizado — passa props contextuais corretas para ShareButtons |
+
+### O que foi feito
+
+**`src/utils/share.ts`** (novo)
+- Interface `ShareMatchContext` com `matchType`, nomes dos times, data/hora formatada, URL e locale
+- `buildWhatsAppText()` — gera texto diferenciado por `matchType`:
+  - `confirmed`: "⚽ HomeTeam x AwayTeam\n🕐 data às hora\nVeja no World Cup Games Today: url"
+  - `partial`: "⚽ Próxima fase da Copa 2026 — vagas a definir\n📅 data\nVeja no..."
+  - `generic`/`simulation`: "⚽ Copa do Mundo 2026 — Veja os jogos no seu horário local\nurl"
+- `buildWhatsAppUrl()` — encoda texto e gera URL `wa.me/?text=...`
+- `copyToClipboard()` — Clipboard API com fallback textarea + `execCommand`; guard `typeof window`
+- `getCurrentPageUrl()` — retorna `window.location.href` com fallback seguro no server
+
+**`src/components/ShareButtons.astro`** (refatorado)
+- Props novas: `matchType`, `homeTeamName`, `awayTeamName`, `dateFormatted`, `timeFormatted`, `pageUrl`
+- Props legadas `matchId` e `matchTitle` mantidas para compatibilidade (ignoradas silenciosamente)
+- Server-side: pré-gera URL WhatsApp via `buildWhatsAppText` + `buildWhatsAppUrl` (sobrescrita pelo JS)
+- Client-side `<script>`: reconstrói texto WhatsApp com `window.location.href` real; trata `confirmed`/`partial`/`generic`
+- Botão copiar link: Clipboard API + fallback textarea; feedback visual "Copiado!" / "Erro ao copiar" por 2 segundos
+- SVG inline para WhatsApp (ícone oficial simplificado) e ícone de copiar (cópia dupla)
+- Removido botão Google Calendar (será implementado na Fase 7B)
+- CSS scoped: `.share-btn--whatsapp` com verde WhatsApp (#25d366); `.share-btn--copy` com estados `--copied` e `--failed`
+- Zero acesso a `window` no frontmatter — todos os guards no `<script>` client-side
+
+**`src/pages/pt-br/jogos/[id].astro`** (atualizado)
+- `ShareButtons` agora recebe `matchType`, `homeTeamName`/`awayTeamName` (somente se `confirmed`), `dateFormatted` composto (`weekdayFormatted + dateFormatted`), `timeFormatted`, `pageUrl` canônica com `PUBLIC_SITE_URL`
+
+### Validação
+- `npm run build`: 29 páginas geradas sem erros
+- Zero erros TypeScript
+- Zero erros de build
+- Nenhuma mudança no total de páginas geradas
+
+---
 
 ---
 
