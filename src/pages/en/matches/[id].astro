@@ -1,0 +1,605 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { Match, Team, Group } from '../../../types/index.ts';
+import matchesData from '../../../data/matches.json';
+import teamsData from '../../../data/teams.json';
+import groupsData from '../../../data/groups.json';
+import {
+  formatDate,
+  formatTime,
+  formatWeekday,
+  isPast,
+  formatCountdown,
+} from '../../../utils/datetime.ts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdPlaceholder from '../../../components/AdPlaceholder.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+import CalendarButtons from '../../../components/CalendarButtons.astro';
+import LiveMatchStatus from '../../../components/LiveMatchStatus.astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const matches = (matchesData as { matches: Match[] }).matches;
+  return matches.map((match) => ({
+    params: { id: match.id },
+    props: { match },
+  }));
+};
+
+interface Props {
+  match: Match;
+}
+
+const { match } = Astro.props;
+
+const allTeams  = (teamsData  as { teams:  Team[]  }).teams;
+const allGroups = (groupsData as { groups: Group[] }).groups;
+
+const defaultTimezone = 'America/New_York';
+const locale = 'en' as const;
+
+// Resolve team names (only for confirmed)
+const homeTeam = match.type === 'confirmed' && match.home_team_id
+  ? allTeams.find((t) => t.id === match.home_team_id)
+  : null;
+const awayTeam = match.type === 'confirmed' && match.away_team_id
+  ? allTeams.find((t) => t.id === match.away_team_id)
+  : null;
+
+const homeTeamName = homeTeam?.name['en'] ?? homeTeam?.name['pt-br'] ?? 'TBD';
+const awayTeamName = awayTeam?.name['en'] ?? awayTeam?.name['pt-br'] ?? 'TBD';
+
+// Match group (if applicable — only when match.group is defined)
+const matchGroup = match.group
+  ? allGroups.find((g) => g.id === match.group || g.slug === match.group.toLowerCase())
+  : null;
+const groupName = matchGroup
+  ? (matchGroup.name['en'] ?? matchGroup.name['pt-br'] ?? `Group ${matchGroup.slug.toUpperCase()}`)
+  : null;
+
+// Formatted date/time — real field is datetime_utc
+const hasDate = Boolean(match.datetime_utc);
+const dateFormatted    = hasDate ? formatDate(match.datetime_utc, locale, defaultTimezone)    : null;
+const timeFormatted    = hasDate ? formatTime(match.datetime_utc, locale, defaultTimezone)    : null;
+const weekdayFormatted = hasDate ? formatWeekday(match.datetime_utc, locale, defaultTimezone) : null;
+const countdownText = hasDate && !isPast(match.datetime_utc)
+  ? formatCountdown(match.datetime_utc, locale)
+  : null;
+
+// Stadium and city (LocalizedString — use 'en' with 'pt-br' fallback)
+const stadiumName = match.stadium['en'] ?? match.stadium['pt-br'] ?? null;
+const cityName    = match.city['en']    ?? match.city['pt-br']    ?? null;
+const countryName = match.country['en'] ?? match.country['pt-br'] ?? null;
+
+// Location string for calendar ("Stadium, City, Country")
+const locationStr = [stadiumName, cityName, countryName].filter(Boolean).join(', ');
+
+// Phase labels — following exact MatchPhase type values from types/index.ts
+const phaseLabels: Record<string, string> = {
+  'group_stage':  'Group Stage',
+  'round_of_32':  'Round of 32',
+  'round_of_16':  'Round of 16',
+  'quarterfinal': 'Quarterfinal',
+  'semifinal':    'Semifinal',
+  'third_place':  'Third Place',
+  'final':        'Final',
+};
+const phaseLabel = phaseLabels[match.phase] ?? match.phase;
+
+// SEO title
+const matchTitle = match.type === 'confirmed'
+  ? `${homeTeamName} vs ${awayTeamName} — ${phaseLabel} | World Cup 2026`
+  : `${phaseLabel} — Slots to Be Determined | World Cup 2026`;
+
+// SEO description
+const metaDescription = match.type === 'confirmed'
+  ? `View details for ${homeTeamName} vs ${awayTeamName} — ${phaseLabel} of the 2026 World Cup.`
+  : `${phaseLabel} of the 2026 World Cup — slots to be determined. Follow on World Cup Games Today.`;
+---
+
+<BaseLayout
+  title={`${matchTitle} | World Cup Games Today`}
+  description={metaDescription}
+  lang="en"
+  locale="en"
+>
+  <div class="container">
+
+    <!-- MATCH HERO -->
+    <section class="page-hero match-hero">
+      {match.type === 'confirmed' ? (
+        <>
+          <div class="match-confronto">
+            <span class="team-name home">{homeTeamName}</span>
+            <span class="match-vs">&times;</span>
+            <span class="team-name away">{awayTeamName}</span>
+          </div>
+          <p class="match-phase-label">{phaseLabel}{groupName ? ` — ${groupName}` : ''}</p>
+        </>
+      ) : match.type === 'partial' ? (
+        <>
+          <div class="match-confronto partial">
+            <span class="team-name tbd">TBD</span>
+            <span class="match-vs">&times;</span>
+            <span class="team-name tbd">TBD</span>
+          </div>
+          <p class="match-phase-label">{phaseLabel} &mdash; Slots to be determined</p>
+        </>
+      ) : (
+        <>
+          <div class="match-confronto simulation">
+            <span class="team-name tbd">Simulation</span>
+            <span class="match-vs">&times;</span>
+            <span class="team-name tbd">Simulation</span>
+          </div>
+          <p class="match-phase-label">{phaseLabel} &mdash; Simulation data</p>
+        </>
+      )}
+    </section>
+
+    <!-- MOCK WARNING -->
+    <div class="mock-warning" role="alert">
+      &#9888; This site uses demonstration data (MOCK). The data shown is fictional.
+    </div>
+
+    <!-- SPECIAL WARNING FOR PARTIAL -->
+    {match.type === 'partial' && (
+      <div class="partial-warning" role="note">
+        The teams for this match have not been determined yet. They will be known
+        as the competition progresses.
+      </div>
+    )}
+
+    <!-- SPECIAL WARNING FOR SIMULATION -->
+    {match.type === 'simulation' && (
+      <div class="simulation-warning" role="note">
+        This match is a simulation and does not represent a real 2026 World Cup fixture.
+      </div>
+    )}
+
+    <!-- MATCH DETAILS CARD -->
+    <section class="match-detail-card" aria-label="Match details">
+      <h2>Match Details</h2>
+      <dl class="match-info-list">
+        <div class="match-info-row">
+          <dt>Phase</dt>
+          <dd>{phaseLabel}{groupName ? ` — ${groupName}` : ''}</dd>
+        </div>
+        {dateFormatted && (
+          <div class="match-info-row">
+            <dt>Date</dt>
+            <dd>{weekdayFormatted}, {dateFormatted}</dd>
+          </div>
+        )}
+        {timeFormatted && (
+          <div class="match-info-row">
+            <dt>Kick-off</dt>
+            <dd>{timeFormatted} (New York)</dd>
+          </div>
+        )}
+        {countdownText && (
+          <div class="match-info-row">
+            <dt>Time left</dt>
+            <dd>{countdownText}</dd>
+          </div>
+        )}
+        {stadiumName && (
+          <div class="match-info-row">
+            <dt>Stadium</dt>
+            <dd>{stadiumName}</dd>
+          </div>
+        )}
+        {cityName && (
+          <div class="match-info-row">
+            <dt>City</dt>
+            <dd>{cityName}{countryName ? `, ${countryName}` : ''}</dd>
+          </div>
+        )}
+        <div class="match-info-row">
+          <dt>Match #</dt>
+          <dd>{match.match_number}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- LIVE STATUS — only confirmed and partial; simulation does not show -->
+    {match.type !== 'simulation' && (
+      <section class="live-status-section" aria-label="Match status">
+        <h2>Match Status</h2>
+        <div class="live-status-row">
+          <LiveMatchStatus
+            matchId={match.id}
+            matchType={match.type as 'confirmed' | 'partial'}
+            defaultStatus="scheduled"
+            locale="en"
+          />
+        </div>
+      </section>
+    )}
+
+    <!-- AD PLACEHOLDER (AFTER DETAILS CARD) -->
+    <AdPlaceholder slot="middle" label="Advertisement" />
+
+    <!-- LINKS TO TEAMS (only if confirmed and teams resolved) -->
+    {match.type === 'confirmed' && homeTeam && awayTeam && (
+      <section class="match-team-links" aria-label="Teams in this match">
+        <h2>Teams</h2>
+        <div class="team-links-grid">
+          <a href={`/en/teams/${homeTeam.slug}`} class="team-link-card">
+            {homeTeam.flag && <span class="team-link-flag" aria-hidden="true">{homeTeam.flag}</span>}
+            <span class="team-link-name">{homeTeamName}</span>
+            <span class="team-link-action">View all matches &rarr;</span>
+          </a>
+          <a href={`/en/teams/${awayTeam.slug}`} class="team-link-card">
+            {awayTeam.flag && <span class="team-link-flag" aria-hidden="true">{awayTeam.flag}</span>}
+            <span class="team-link-name">{awayTeamName}</span>
+            <span class="team-link-action">View all matches &rarr;</span>
+          </a>
+        </div>
+      </section>
+    )}
+
+    <!-- SHARE -->
+    <section class="share-section" aria-label="Share">
+      <h2>Share</h2>
+      <ShareButtons
+        locale="en"
+        matchType={match.type as 'confirmed' | 'partial' | 'simulation'}
+        homeTeamName={match.type === 'confirmed' ? homeTeamName : undefined}
+        awayTeamName={match.type === 'confirmed' ? awayTeamName : undefined}
+        dateFormatted={weekdayFormatted && dateFormatted ? `${weekdayFormatted}, ${dateFormatted}` : dateFormatted ?? undefined}
+        timeFormatted={timeFormatted ?? undefined}
+        pageUrl={`${import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com'}/en/matches/${match.id}`}
+      />
+    </section>
+
+    <!-- ADD TO CALENDAR (only confirmed and partial — simulation does not show) -->
+    {match.type !== 'simulation' && (
+      <section class="calendar-section" aria-label="Add to calendar">
+        <h2>Add to Calendar</h2>
+        <CalendarButtons
+          matchId={match.id}
+          matchType={match.type as 'confirmed' | 'partial'}
+          homeTeamName={match.type === 'confirmed' ? homeTeamName : undefined}
+          awayTeamName={match.type === 'confirmed' ? awayTeamName : undefined}
+          datetimeUtc={match.datetime_utc}
+          locationStr={locationStr}
+          pageUrl={`${import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com'}/en/matches/${match.id}`}
+          locale="en"
+        />
+      </section>
+    )}
+
+    <!-- INTERNAL LINKS -->
+    <nav class="internal-links" aria-label="Internal navigation">
+      <ul>
+        <li><a href="/en/">&larr; Home</a></li>
+        <li><a href="/en/world-cup-2026-schedule">2026 Schedule</a></li>
+        <li><a href="/en/world-cup-games-today">Today's Matches</a></li>
+        {groupName && matchGroup && (
+          <li><a href={`/en/groups/${matchGroup.slug}`}>View {groupName}</a></li>
+        )}
+      </ul>
+    </nav>
+
+    <!-- SEO TEXT -->
+    <section class="seo-text">
+      {match.type === 'confirmed' ? (
+        <>
+          <h2>{homeTeamName} vs {awayTeamName} &mdash; World Cup 2026</h2>
+          <p>
+            Follow all the details of {homeTeamName} vs {awayTeamName}
+            in the {phaseLabel} of the 2026 FIFA World Cup. Kick-off time shown in your local timezone.
+          </p>
+        </>
+      ) : (
+        <>
+          <h2>{phaseLabel} &mdash; 2026 World Cup</h2>
+          <p>
+            Follow the details of this stage of the 2026 FIFA World Cup.
+            The teams will be determined as the competition progresses.
+          </p>
+        </>
+      )}
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* ===== MATCH HERO ===== */
+
+  .match-hero {
+    text-align: center;
+    padding: var(--space-8) 0;
+  }
+
+  .match-confronto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-2);
+  }
+
+  .team-name {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+  }
+
+  .team-name.tbd {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .match-vs {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-normal);
+    flex-shrink: 0;
+  }
+
+  .match-phase-label {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin-bottom: 0;
+  }
+
+  /* ===== WARNINGS (partial / simulation) ===== */
+
+  .partial-warning,
+  .simulation-warning {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-6);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .partial-warning {
+    background: var(--color-scheduled-bg);
+    border: 1px solid var(--color-scheduled);
+    color: var(--color-scheduled);
+  }
+
+  .simulation-warning {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  /* ===== DETAILS CARD ===== */
+
+  .match-detail-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .match-detail-card h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-5);
+  }
+
+  .match-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0;
+  }
+
+  .match-info-row {
+    display: flex;
+    gap: var(--space-4);
+    align-items: baseline;
+  }
+
+  .match-info-row dt {
+    font-weight: var(--font-weight-semibold);
+    min-width: 80px;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    flex-shrink: 0;
+  }
+
+  .match-info-row dd {
+    margin: 0;
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+  }
+
+  /* ===== TEAM LINKS ===== */
+
+  .match-team-links {
+    margin-bottom: var(--space-8);
+  }
+
+  .match-team-links h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  .team-links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .team-link-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    background-color: var(--color-bg-card);
+  }
+
+  .team-link-card:hover,
+  .team-link-card:focus {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+  }
+
+  .team-link-card:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .team-link-flag {
+    font-size: var(--font-size-xl);
+    line-height: 1;
+  }
+
+  .team-link-name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+  }
+
+  .team-link-action {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+  }
+
+  /* ===== INTERNAL LINKS ===== */
+
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  /* ===== SHARE ===== */
+
+  .share-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* ===== LIVE STATUS ===== */
+
+  .live-status-section {
+    margin-bottom: var(--space-6);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .live-status-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  .live-status-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  /* ===== CALENDAR ===== */
+
+  .calendar-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .calendar-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* ===== RESPONSIVENESS ===== */
+
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .team-links-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .team-name {
+      font-size: var(--font-size-xl);
+    }
+
+    .match-detail-card {
+      padding: var(--space-4);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .match-detail-card h2,
+    .match-team-links h2,
+    .share-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+
+    .team-name {
+      font-size: var(--font-size-3xl);
+    }
+
+    .match-vs {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
