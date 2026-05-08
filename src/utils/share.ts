@@ -10,29 +10,58 @@ export interface ShareMatchContext {
   dateFormatted?: string;   // ex: "Quinta-feira, 11 jun."
   timeFormatted?: string;   // ex: "16:00"
   pageUrl: string;          // URL completa da página
-  locale: Locale;
+  locale?: Locale;          // opcional — padrão 'pt-br' para compatibilidade
 }
 
 /**
  * Gera o texto de compartilhamento para WhatsApp de acordo com o contexto da partida.
- * Mensagens em pt-br (idioma principal do MVP).
+ * Suporta pt-br, en e es. Padrão: pt-br (compatibilidade com chamadas existentes).
  */
 export function buildWhatsAppText(ctx: ShareMatchContext): string {
-  const siteUrl = 'World Cup Games Today';
+  const locale = ctx.locale ?? 'pt-br';
 
   if (ctx.matchType === 'confirmed' && ctx.homeTeamName && ctx.awayTeamName) {
+    if (locale === 'en') {
+      const datePart = ctx.dateFormatted && ctx.timeFormatted
+        ? `\n🕐 ${ctx.dateFormatted} at ${ctx.timeFormatted}`
+        : '';
+      return `⚽ ${ctx.homeTeamName} vs ${ctx.awayTeamName}${datePart}\nSee on World Cup Games Today: ${ctx.pageUrl}`;
+    }
+    if (locale === 'es') {
+      const datePart = ctx.dateFormatted && ctx.timeFormatted
+        ? `\n🕐 ${ctx.dateFormatted} a las ${ctx.timeFormatted}`
+        : '';
+      return `⚽ ${ctx.homeTeamName} vs ${ctx.awayTeamName}${datePart}\nVer en World Cup Games Today: ${ctx.pageUrl}`;
+    }
+    // pt-br (padrão)
     const datePart = ctx.dateFormatted && ctx.timeFormatted
       ? `\n🕐 ${ctx.dateFormatted} às ${ctx.timeFormatted}`
       : '';
-    return `⚽ ${ctx.homeTeamName} x ${ctx.awayTeamName}${datePart}\nVeja no ${siteUrl}: ${ctx.pageUrl}`;
+    return `⚽ ${ctx.homeTeamName} x ${ctx.awayTeamName}${datePart}\nVeja no World Cup Games Today: ${ctx.pageUrl}`;
   }
 
   if (ctx.matchType === 'partial') {
+    if (locale === 'en') {
+      const datePart = ctx.dateFormatted ? `\n📅 ${ctx.dateFormatted}` : '';
+      return `⚽ World Cup 2026 — Teams to be confirmed${datePart}\nSee on World Cup Games Today: ${ctx.pageUrl}`;
+    }
+    if (locale === 'es') {
+      const datePart = ctx.dateFormatted ? `\n📅 ${ctx.dateFormatted}` : '';
+      return `⚽ Copa Mundial 2026 — Equipos por definir${datePart}\nVer en World Cup Games Today: ${ctx.pageUrl}`;
+    }
+    // pt-br (padrão)
     const datePart = ctx.dateFormatted ? `\n📅 ${ctx.dateFormatted}` : '';
-    return `⚽ Próxima fase da Copa 2026 — vagas a definir${datePart}\nVeja no ${siteUrl}: ${ctx.pageUrl}`;
+    return `⚽ Próxima fase da Copa 2026 — vagas a definir${datePart}\nVeja no World Cup Games Today: ${ctx.pageUrl}`;
   }
 
   // Generic (home, calendario, etc.) — inclui simulation tratado como generic
+  if (locale === 'en') {
+    return `⚽ FIFA World Cup 2026 — See all matches in your local time\n${ctx.pageUrl}`;
+  }
+  if (locale === 'es') {
+    return `⚽ Copa Mundial FIFA 2026 — Todos los partidos en tu horario local\n${ctx.pageUrl}`;
+  }
+  // pt-br (padrão)
   return `⚽ Copa do Mundo 2026 — Veja os jogos no seu horário local\n${ctx.pageUrl}`;
 }
 
