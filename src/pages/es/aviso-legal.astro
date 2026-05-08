@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/es/aviso-legal`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/aviso-legal` },
+  { hreflang: 'en',    href: `${siteUrl}/en/legal-notice` },
+  { hreflang: 'es',    href: `${siteUrl}/es/aviso-legal` },
+];
+---
+
+<BaseLayout
+  title="Aviso Legal — World Cup Games Today"
+  description="Aviso Legal de World Cup Games Today. Sitio web independiente sin asociación oficial con la FIFA ni con la Copa Mundial."
+  lang="es"
+  locale="es"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Aviso Legal</h1>
+
+    <p>
+      World Cup Games Today es un sitio web independiente y no tiene asociación
+      oficial con la FIFA ni con la organización de la Copa del Mundo.
+    </p>
+
+    <p>
+      Todas las marcas registradas, nombres comerciales, logotipos y otros elementos
+      de identidad visual mencionados o mostrados en este sitio pertenecen a sus
+      respectivos propietarios.
+    </p>
+
+    <p>
+      El uso de cualquier nombre, marca o referencia a la Copa Mundial o a la FIFA
+      se realiza únicamente con fines informativos y descriptivos, sin ninguna
+      intención de sugerir patrocinio, respaldo o afiliación oficial.
+    </p>
+
+    <p>
+      Este sitio es operado de forma independiente por aficionados al deporte, con
+      el único propósito de informar a los fans sobre los horarios de los partidos
+      en su zona horaria local.
+    </p>
+
+    <p>
+      Para información oficial sobre la Copa Mundial FIFA 2026, visite los canales
+      y plataformas oficiales de la FIFA.
+    </p>
+
+    <nav class="institutional-links" aria-label="Enlaces internos">
+      <a href="/es/">Inicio</a>
+      <a href="/es/sobre">Acerca de</a>
+      <a href="/es/contacto">Contacto</a>
+      <a href="/es/politica-de-privacidad">Política de Privacidad</a>
+      <a href="/es/terminos-de-uso">Términos de Uso</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
