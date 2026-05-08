@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/pt-br/aviso-legal`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/aviso-legal` },
+  { hreflang: 'en',    href: `${siteUrl}/en/legal-notice` },
+  { hreflang: 'es',    href: `${siteUrl}/es/aviso-legal` },
+];
+---
+
+<BaseLayout
+  title="Aviso Legal — World Cup Games Today"
+  description="Aviso Legal do World Cup Games Today. Site independente sem associação oficial com a FIFA ou a Copa do Mundo."
+  lang="pt-BR"
+  locale="pt-br"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Aviso Legal</h1>
+
+    <p>
+      World Cup Games Today é um site independente e não possui associação oficial
+      com a FIFA ou com a organização da Copa do Mundo.
+    </p>
+
+    <p>
+      Todas as marcas registradas, nomes comerciais, logotipos e outros elementos
+      de identidade visual mencionados ou exibidos neste site pertencem aos seus
+      respectivos proprietários.
+    </p>
+
+    <p>
+      O uso de qualquer nome, marca ou referência à Copa do Mundo ou à FIFA é feito
+      apenas para fins informativos e descritivos, sem qualquer intenção de sugerir
+      patrocínio, endosso ou afiliação oficial.
+    </p>
+
+    <p>
+      Este site é operado de forma independente por entusiastas do esporte, com o
+      único propósito de informar os torcedores sobre os horários dos jogos no seu
+      fuso horário local.
+    </p>
+
+    <p>
+      Para informações oficiais sobre a Copa do Mundo FIFA 2026, acesse os canais
+      e plataformas oficiais da FIFA.
+    </p>
+
+    <nav class="institutional-links" aria-label="Links internos">
+      <a href="/pt-br/">Início</a>
+      <a href="/pt-br/sobre">Sobre</a>
+      <a href="/pt-br/contato">Contato</a>
+      <a href="/pt-br/politica-de-privacidade">Política de Privacidade</a>
+      <a href="/pt-br/termos-de-uso">Termos de Uso</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
