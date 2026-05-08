@@ -1,0 +1,181 @@
+---
+import type { Team, Group } from '../../../types/index.ts';
+import teamsData from '../../../data/teams.json';
+import groupsData from '../../../data/groups.json';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdPlaceholder from '../../../components/AdPlaceholder.astro';
+
+const allTeams = (teamsData as { teams: Team[] }).teams;
+const allGroups = (groupsData as { groups: Group[] }).groups;
+---
+
+<BaseLayout
+  title="Selecciones — Copa del Mundo 2026 | World Cup Games Today"
+  description="Consulta todas las selecciones que participan en la Copa del Mundo 2026 y ve sus horarios de partido en tu zona horaria local."
+  lang="es"
+  locale="es"
+>
+  <section class="page-hero">
+    <h1>Selecciones &mdash; Copa del Mundo 2026</h1>
+    <p>Elige una selección para ver todos sus partidos en tu horario local.</p>
+  </section>
+
+  <div class="mock-warning" role="alert">
+    &#9888; Este sitio usa datos de demostración (MOCK). Las selecciones mostradas son ficticias.
+  </div>
+
+  <section class="teams-by-group">
+    {allGroups.map((group) => {
+      const groupName = group.name['es'] ?? group.name['en'] ?? group.name['pt-br'] ?? `Grupo ${group.slug.toUpperCase()}`;
+      const groupTeams = allTeams.filter((t) => group.team_ids.includes(t.id));
+      return (
+        <div class="teams-group-block">
+          <h2 class="teams-group-title">
+            <a href={`/es/grupos/${group.slug}`}>{groupName}</a>
+          </h2>
+          <ul class="teams-list">
+            {groupTeams.map((team) => {
+              const teamName = team.name['es'] ?? team.name['en'] ?? team.name['pt-br'] ?? team.slug;
+              return (
+                <li class="teams-list-item">
+                  <a href={`/es/equipos/${team.slug}`} class="team-card-link">
+                    <span class="team-card-name">{team.flag} {teamName}</span>
+                    <span class="team-card-action">Ver partidos &rarr;</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      );
+    })}
+  </section>
+
+  <AdPlaceholder slot="bottom" label="Publicidad" />
+
+  <nav class="internal-links" aria-label="Navegación interna">
+    <ul>
+      <li><a href="/es/">&larr; Inicio</a></li>
+      <li><a href="/es/calendario-mundial-2026">Calendario del Mundial 2026</a></li>
+      <li><a href="/es/partidos-de-hoy-mundial">Partidos de Hoy</a></li>
+    </ul>
+  </nav>
+
+  <section class="seo-text">
+    <h2>Todas las Selecciones del Mundial 2026</h2>
+    <p>
+      Sigue los partidos de todas las selecciones en la Copa del Mundo FIFA 2026.
+      Elige tu selección favorita y consulta todos sus encuentros con horarios
+      en tu zona horaria local.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .teams-by-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+    margin-bottom: var(--space-10);
+  }
+
+  .teams-group-block {}
+
+  .teams-group-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--color-primary);
+  }
+
+  .teams-group-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .teams-group-title a:hover {
+    color: var(--color-accent);
+  }
+
+  .teams-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .team-card-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .team-card-link:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .team-card-name {
+    font-weight: var(--font-weight-medium);
+  }
+
+  .team-card-action {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+  }
+
+  .internal-links {
+    margin-bottom: var(--space-8);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .internal-links a {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .internal-links a:hover {
+    color: var(--color-accent-hover);
+  }
+
+  .seo-text {
+    padding: var(--space-8) 0;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .seo-text h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+  }
+
+  .seo-text p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+    max-width: 640px;
+  }
+
+  @media (max-width: 480px) {
+    .teams-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
