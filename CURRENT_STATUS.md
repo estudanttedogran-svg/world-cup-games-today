@@ -521,12 +521,11 @@ O arquivo `public/data/live-data.json` deve ter cache de curta duração para ev
 
 ---
 
-## Páginas totais geradas (53):
+## Páginas totais geradas (77):
 
 ### Raiz e pt-br (29 páginas — inalteradas)
 - `/index.html`
 - `/pt-br/index.html`
-- `/es/index.html` (stub — aguardando Fase 9B)
 - `/pt-br/jogos-de-hoje-copa/index.html`
 - `/pt-br/tabela-copa-2026/index.html`
 - `/pt-br/calendario-copa-2026/index.html`
@@ -535,7 +534,7 @@ O arquivo `public/data/live-data.json` deve ter cache de curta duração para ev
 - `/pt-br/grupos/[m|n]/index.html` (2 páginas)
 - `/pt-br/jogos/[match-001..match-011]/index.html` (11 páginas)
 
-### Inglês /en/ (24 páginas — NOVAS — Fase 9A)
+### Inglês /en/ (24 páginas — Fase 9A)
 - `/en/index.html`
 - `/en/world-cup-games-today/index.html`
 - `/en/world-cup-2026-schedule/index.html`
@@ -543,6 +542,15 @@ O arquivo `public/data/live-data.json` deve ter cache de curta duração para ev
 - `/en/teams/[northland|eastoria|westmark|southmore|highpeak|lowvale|bayshore|ridgemont]/index.html` (8 páginas)
 - `/en/groups/[m|n]/index.html` (2 páginas)
 - `/en/matches/[match-001..match-011]/index.html` (11 páginas)
+
+### Espanhol /es/ (24 páginas — NOVAS — Fase 9B)
+- `/es/index.html` (reescrita do stub)
+- `/es/partidos-de-hoy-mundial/index.html`
+- `/es/calendario-mundial-2026/index.html`
+- `/es/equipos/index.html`
+- `/es/equipos/[northland|eastoria|westmark|southmore|highpeak|lowvale|bayshore|ridgemont]/index.html` (8 páginas)
+- `/es/grupos/[m|n]/index.html` (2 páginas)
+- `/es/partidos/[match-001..match-011]/index.html` (11 páginas)
 
 ---
 
