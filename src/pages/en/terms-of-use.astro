@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/terms-of-use`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/termos-de-uso` },
+  { hreflang: 'en',    href: `${siteUrl}/en/terms-of-use` },
+  { hreflang: 'es',    href: `${siteUrl}/es/terminos-de-uso` },
+];
+---
+
+<BaseLayout
+  title="Terms of Use — World Cup Games Today"
+  description="Read the Terms of Use for World Cup Games Today. This site is informational and independent, with no affiliation with FIFA."
+  lang="en"
+  locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Terms of Use</h1>
+
+    <p>
+      By accessing and using World Cup Games Today, you agree to the terms and
+      conditions described on this page. If you do not agree with any of these
+      terms, please do not use this site.
+    </p>
+
+    <h2>Informational use</h2>
+
+    <p>
+      World Cup Games Today is provided exclusively for informational purposes.
+      The information available on this site — including match schedules, standings
+      tables, and match data — is illustrative in nature and should not be used as
+      the basis for important decisions without confirmation from official sources.
+    </p>
+
+    <h2>Data subject to change</h2>
+
+    <p>
+      Match times, dates, venues, and other information may be updated, corrected,
+      or removed without prior notice. The information currently displayed consists
+      of demonstration data (MOCK) and will be replaced with real data in a future
+      phase. Always consult official World Cup sources for definitive information.
+    </p>
+
+    <h2>Liability</h2>
+
+    <p>
+      World Cup Games Today is not responsible for any losses, inconveniences, or
+      damages resulting from the use of outdated, incorrect, or incomplete
+      information provided on this site. The user is solely responsible for
+      decisions made based on information displayed here.
+    </p>
+
+    <p>
+      Always verify schedules and information directly with official World Cup
+      sources before making any decisions (such as purchasing tickets, traveling,
+      or planning).
+    </p>
+
+    <h2>Independence</h2>
+
+    <p>
+      World Cup Games Today is an independent website and has no affiliation,
+      partnership, or association with FIFA, the World Cup organizers, or any
+      national football team. This site is not an official World Cup channel.
+    </p>
+
+    <h2>Intellectual property</h2>
+
+    <p>
+      The original content of this site — including texts, code, and information
+      organization — is the property of World Cup Games Today. All trademarks,
+      trade names, logos, and visual identities of third parties mentioned or
+      referenced on this site belong to their respective owners and are used
+      solely for informational and descriptive purposes.
+    </p>
+
+    <h2>Contact</h2>
+
+    <p>
+      For questions about these Terms of Use, please contact us at:
+      <a href="mailto:contact@worldcupgamestoday.com" class="email-link">contact@worldcupgamestoday.com</a>
+    </p>
+
+    <nav class="institutional-links" aria-label="Internal links">
+      <a href="/en/">Home</a>
+      <a href="/en/about">About</a>
+      <a href="/en/contact">Contact</a>
+      <a href="/en/privacy-policy">Privacy Policy</a>
+      <a href="/en/legal-notice">Legal Notice</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .email-link {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
