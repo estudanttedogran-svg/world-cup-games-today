@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/es/politica-de-privacidad`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/politica-de-privacidade` },
+  { hreflang: 'en',    href: `${siteUrl}/en/privacy-policy` },
+  { hreflang: 'es',    href: `${siteUrl}/es/politica-de-privacidad` },
+];
+---
+
+<BaseLayout
+  title="Política de Privacidad — World Cup Games Today"
+  description="Conozca cómo World Cup Games Today maneja los datos de los visitantes, incluyendo localStorage, cookies y Analytics."
+  lang="es"
+  locale="es"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Política de Privacidad</h1>
+
+    <p>
+      Esta Política de Privacidad describe cómo World Cup Games Today maneja la
+      información de los visitantes de este sitio web. Al usar este sitio, usted
+      acepta las prácticas descritas en este documento.
+    </p>
+
+    <h2>Datos recopilados automáticamente</h2>
+
+    <p>
+      Como cualquier servidor web, nuestro proveedor de alojamiento puede registrar
+      automáticamente información como direcciones IP, tipo de navegador, páginas
+      visitadas y fecha/hora de acceso. Esta información es recopilada por los
+      sistemas de registro estándar del alojamiento y se utiliza exclusivamente
+      para fines de seguridad y análisis de rendimiento técnico.
+    </p>
+
+    <h2>Datos almacenados localmente (localStorage)</h2>
+
+    <p>
+      Para mejorar la experiencia del usuario, este sitio guarda ciertas preferencias
+      directamente en su navegador usando <strong>localStorage</strong>. Esto incluye:
+    </p>
+
+    <p>
+      - Idioma preferido<br />
+      - Zona horaria seleccionada<br />
+      - Selección de equipo favorito
+    </p>
+
+    <p>
+      Estos datos se almacenan únicamente en su dispositivo y no se envían a ningún
+      servidor externo. Puede borrar estos datos en cualquier momento limpiando los
+      datos del sitio en la configuración de su navegador.
+    </p>
+
+    <h2>Google Analytics</h2>
+
+    <p>
+      Este sitio puede utilizar Google Analytics en el futuro para analizar el
+      tráfico de forma anonimizada. Google Analytics puede usar cookies para
+      recopilar información sobre cómo los visitantes usan el sitio, incluyendo
+      páginas visitadas y tiempo de permanencia. Los datos se procesan de forma
+      agregada y no permiten identificar a usuarios individuales.
+    </p>
+
+    <p>
+      Si Google Analytics está activo, puede optar por no ser rastreado usando
+      extensiones de navegador como el complemento de inhabilitación de Google
+      Analytics.
+    </p>
+
+    <h2>Publicidad</h2>
+
+    <p>
+      Este sitio puede mostrar anuncios en el futuro a través de redes como Google
+      AdSense. Las redes de publicidad pueden usar cookies para mostrar anuncios
+      relevantes basados en visitas anteriores a este y otros sitios. Cuando se
+      active esta función, informaremos a los usuarios y actualizaremos esta
+      política según sea necesario.
+    </p>
+
+    <h2>Inicio de sesión y registro</h2>
+
+    <p>
+      En la versión actual del sitio (MVP), no es necesario crear una cuenta ni
+      iniciar sesión para usar ninguna funcionalidad. No recopilamos nombres,
+      correos electrónicos ni contraseñas de los usuarios.
+    </p>
+
+    <h2>Sus datos y sus derechos</h2>
+
+    <p>
+      Puede borrar los datos guardados por este sitio en cualquier momento en la
+      configuración de su navegador (usando la opción "Borrar datos del sitio" o
+      equivalente). Como no recopilamos datos personales identificables en nuestros
+      servidores, no hay datos que eliminar de nuestra parte.
+    </p>
+
+    <h2>Contacto</h2>
+
+    <p>
+      Para preguntas sobre esta Política de Privacidad, contáctenos en:
+      <a href="mailto:contact@worldcupgamestoday.com" class="email-link">contact@worldcupgamestoday.com</a>
+    </p>
+
+    <nav class="institutional-links" aria-label="Enlaces internos">
+      <a href="/es/">Inicio</a>
+      <a href="/es/sobre">Acerca de</a>
+      <a href="/es/contacto">Contacto</a>
+      <a href="/es/terminos-de-uso">Términos de Uso</a>
+      <a href="/es/aviso-legal">Aviso Legal</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .email-link {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
