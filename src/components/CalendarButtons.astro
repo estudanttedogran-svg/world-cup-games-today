@@ -1,0 +1,250 @@
+---
+import { buildCalendarEventData, buildGoogleCalendarUrl } from '../utils/calendar.ts';
+import type { Locale } from '../types/index.ts';
+
+interface Props {
+  matchId: string;
+  matchType: 'confirmed' | 'partial' | 'simulation';
+  homeTeamName?: string;
+  awayTeamName?: string;
+  datetimeUtc: string;
+  locationStr?: string;
+  pageUrl?: string;
+  locale?: Locale;
+}
+
+const {
+  matchId,
+  matchType,
+  homeTeamName,
+  awayTeamName,
+  datetimeUtc,
+  locationStr = '',
+  pageUrl = 'https://worldcupgamestoday.com',
+  locale = 'pt-br',
+} = Astro.props;
+
+// Não renderizar para simulation — regra crítica
+const shouldRender = matchType !== 'simulation';
+
+const eventData = shouldRender
+  ? buildCalendarEventData({
+      matchId,
+      matchType,
+      homeTeamName,
+      awayTeamName,
+      datetimeUtc,
+      locationStr,
+      pageUrl,
+    })
+  : null;
+
+const googleCalUrl = eventData ? buildGoogleCalendarUrl(eventData) : null;
+
+const labels = {
+  'pt-br': {
+    googleCal: 'Adicionar ao Google Calendar',
+    downloadICS: 'Baixar para Calendário (.ics)',
+    calSection: 'Adicionar ao calendário',
+  },
+  'en': {
+    googleCal: 'Add to Google Calendar',
+    downloadICS: 'Download Calendar File (.ics)',
+    calSection: 'Add to calendar',
+  },
+  'es': {
+    googleCal: 'Agregar a Google Calendar',
+    downloadICS: 'Descargar archivo de calendario (.ics)',
+    calSection: 'Agregar al calendario',
+  },
+} as const;
+
+const t = labels[locale as keyof typeof labels] ?? labels['pt-br'];
+---
+
+{shouldRender && eventData && (
+  <div class="calendar-buttons">
+    <!-- Google Calendar -->
+    <a
+      href={googleCalUrl!}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="cal-btn cal-btn--google"
+      aria-label={t.googleCal}
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
+        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+      </svg>
+      <span>{t.googleCal}</span>
+    </a>
+
+    <!-- Download .ics -->
+    <button
+      type="button"
+      class="cal-btn cal-btn--ics"
+      aria-label={t.downloadICS}
+      data-match-id={matchId}
+      data-match-type={matchType}
+      data-home-team={homeTeamName ?? ''}
+      data-away-team={awayTeamName ?? ''}
+      data-datetime-utc={datetimeUtc}
+      data-location={locationStr}
+      data-page-url={pageUrl}
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      <span>{t.downloadICS}</span>
+    </button>
+  </div>
+)}
+
+<script>
+  // Download .ics — somente client-side
+  // Guard obrigatório: todo acesso a window/document dentro deste bloco
+  (function () {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+    document.querySelectorAll('.cal-btn--ics').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var el = btn;
+        var matchId = el.dataset.matchId || 'match';
+        var matchType = el.dataset.matchType || 'generic';
+        var homeTeam = el.dataset.homeTeam || '';
+        var awayTeam = el.dataset.awayTeam || '';
+        var datetimeUtc = el.dataset.datetimeUtc || new Date().toISOString();
+        var locationStr = el.dataset.location || '';
+        var pageUrl = el.dataset.pageUrl || window.location.href;
+
+        var summary;
+        var description;
+
+        if (matchType === 'confirmed' && homeTeam && awayTeam) {
+          summary = homeTeam + ' x ' + awayTeam + ' — Copa 2026';
+          description = 'Jogo da Copa do Mundo FIFA 2026.\\n' + homeTeam + ' x ' + awayTeam + '\\n\\nVeja detalhes em: ' + pageUrl + '\\n\\n⚠ DADOS DE DEMONSTRACAO (MOCK).';
+        } else if (matchType === 'partial') {
+          summary = 'Partida a definir — Copa 2026';
+          description = 'Jogo da Copa do Mundo FIFA 2026.\\nAs selecoes serao definidas ao longo da competicao.\\n\\nVeja em: ' + pageUrl + '\\n\\n⚠ DADOS DE DEMONSTRACAO (MOCK).';
+        } else {
+          summary = 'Copa do Mundo 2026';
+          description = 'Veja em: ' + pageUrl + '\\n\\n⚠ DADOS DE DEMONSTRACAO (MOCK).';
+        }
+
+        // Converte ISO UTC para formato ICS YYYYMMDDTHHMMSSZ
+        function toICS(iso) {
+          return iso.replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+        }
+
+        var dtstart = toICS(datetimeUtc);
+        var endDate = new Date(new Date(datetimeUtc).getTime() + 120 * 60 * 1000);
+        var dtend = toICS(endDate.toISOString());
+        var dtstamp = toICS(new Date().toISOString());
+        var uid = matchId + '@worldcupgamestoday.com';
+
+        // Escapa caracteres especiais para formato ICS (RFC 5545)
+        function escICS(s) {
+          return s
+            .replace(/\\/g, '\\\\')
+            .replace(/;/g, '\\;')
+            .replace(/,/g, '\\,')
+            .replace(/\n/g, '\\n')
+            .replace(/\r/g, '');
+        }
+
+        var ics = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//World Cup Games Today//Copa 2026//PT',
+          'CALSCALE:GREGORIAN',
+          'METHOD:PUBLISH',
+          'BEGIN:VEVENT',
+          'UID:' + uid,
+          'DTSTAMP:' + dtstamp,
+          'DTSTART:' + dtstart,
+          'DTEND:' + dtend,
+          'SUMMARY:' + escICS(summary),
+          'DESCRIPTION:' + escICS(description),
+          'LOCATION:' + escICS(locationStr),
+          'END:VEVENT',
+          'END:VCALENDAR',
+        ].join('\r\n');
+
+        var blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = 'copa-2026-' + matchId + '.ics';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      });
+    });
+  })();
+</script>
+
+<style>
+  .calendar-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .cal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-sans);
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  }
+
+  .cal-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .cal-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* Google Calendar — azul Google */
+  .cal-btn--google {
+    color: #1a73e8;
+    border-color: #1a73e8;
+    background: var(--color-bg-alt);
+  }
+
+  .cal-btn--google:hover,
+  .cal-btn--google:focus {
+    background: #e8f0fe;
+    border-color: #1557b0;
+    text-decoration: none;
+  }
+
+  /* Download .ics — neutro */
+  .cal-btn--ics {
+    color: var(--color-text);
+    border-color: var(--color-border);
+    background: var(--color-bg-alt);
+  }
+
+  .cal-btn--ics:hover,
+  .cal-btn--ics:focus {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-sm);
+  }
+</style>
