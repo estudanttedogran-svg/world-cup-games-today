@@ -450,7 +450,9 @@ Entregas:
 | 9A | Internacionalização — Páginas em inglês (/en/) | CONCLUÍDA ✅ |
 | 9B | Internacionalização — Páginas em espanhol (/es/) | CONCLUÍDA ✅ |
 | 9C | Página raiz `/` — seleção de idioma + sugestão automática | CONCLUÍDA ✅ |
-| 10 | SEO Técnico | PENDENTE |
+| 10A | SEO Técnico — sitemap, robots, canonical, hreflang | CONCLUÍDA ✅ |
+| 10B | SEO Técnico — Open Graph + Twitter Card | CONCLUÍDA ✅ |
+| 10C | SEO Técnico — SportsEvent JSON-LD | PENDENTE |
 | 11 | Páginas Institucionais | PENDENTE |
 | 12 | Analytics + AdSense (placeholders) | PENDENTE |
 | 13 | Documentação | PENDENTE |
