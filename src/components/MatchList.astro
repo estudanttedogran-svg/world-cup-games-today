@@ -156,6 +156,15 @@ const displayMatches = matches.filter((m) => m.type !== 'simulation');
                 <span class="match-item__badge match-item__badge--mock">
                   {t.mockBadge}
                 </span>
+                {/* Badge de status ao vivo — apenas confirmed e partial, nunca simulation */}
+                {(isConfirmed || isPartial) && (
+                  <LiveMatchStatus
+                    matchId={match.id}
+                    matchType={isConfirmed ? 'confirmed' : 'partial'}
+                    defaultStatus="scheduled"
+                    locale={locale}
+                  />
+                )}
               </div>
             </div>
 
