@@ -350,6 +350,22 @@ Entregas:
 - SportsEvent JSON-LD em páginas de partidas confirmadas
 - Verificação de hreflang correto em todas as rotas
 
+### Fase 10B — Open Graph completo + Twitter Card
+**Status:** CONCLUÍDA ✅ — 2026-05-08
+
+Entregas:
+- `src/layouts/BaseLayout.astro` — novas props `ogType`, `ogImage`, `ogLocale`, `ogLocaleAlternates`, `twitterCard`; derivacao automatica de `ogLocale` e `ogLocaleAlternates` a partir de `locale` e `alternates`
+- Tags Open Graph completas: `og:title`, `og:description`, `og:type`, `og:url`, `og:site_name`, `og:locale`, `og:locale:alternate`
+- Twitter Card: `twitter:card`, `twitter:title`, `twitter:description`
+- `og:image` e `twitter:image` nao emitidos (pendente imagem OG real)
+- `src/pages/pt-br/jogos/[id].astro` — `ogType="article"` para `confirmed`
+- `src/pages/en/matches/[id].astro` — `ogType="article"` para `confirmed`
+- `src/pages/es/partidos/[id].astro` — `ogType="article"` para `confirmed`
+- 77 paginas geradas sem erros; nenhuma dependencia nova
+
+### Fase 10C — SportsEvent JSON-LD
+**Status:** PENDENTE
+
 ---
 
 ## Fase 11 — Páginas Institucionais
