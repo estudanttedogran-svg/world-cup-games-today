@@ -136,6 +136,9 @@ const alternates = [
   alternates={alternates}
   ogType={match.type === 'confirmed' ? 'article' : 'website'}
 >
+  {schemaData && (
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} slot="head" />
+  )}
   <div class="container">
 
     <!-- MATCH HERO -->
