@@ -240,14 +240,25 @@ para liberar 6B e 6C para componentes mais coesos.
 ---
 
 ## Fase 7 — Compartilhamento + Integração de Calendário
+**Status:** EM ANDAMENTO
+
+### Fase 7A — WhatsApp + Copiar link
+**Status:** CONCLUÍDA ✅
+
+Entregas:
+- `src/utils/share.ts` — utilitário centralizado (`buildWhatsAppText`, `buildWhatsAppUrl`, `copyToClipboard`, `getCurrentPageUrl`)
+- `src/components/ShareButtons.astro` — refatorado com props contextuais, SVG inline, CSS renovado
+- `src/pages/pt-br/jogos/[id].astro` — atualizado para passar props corretas ao ShareButtons
+- Mensagens WhatsApp diferenciadas: `confirmed` (times + data/hora), `partial` ("vagas a definir"), `generic` (home/calendário)
+- Botão copiar link: Clipboard API + fallback + feedback visual por 2 segundos
+
+### Fase 7B — Google Calendar + .ics
 **Status:** PENDENTE
 
 Entregas:
-- Lógica de compartilhamento WhatsApp (texto com horário local do usuário)
-- Botão copiar link (clipboard API)
-- Geração de link Google Calendar
-- Geração de arquivo `.ics` (download)
-- Testes dos 4 fluxos de compartilhamento
+- Geração de link Google Calendar (`eventedit` com parâmetros de data/hora/título)
+- Geração de arquivo `.ics` para download (partidas confirmadas)
+- Integração nas páginas de jogo e calendário
 
 ---
 
