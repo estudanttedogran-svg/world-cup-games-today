@@ -120,13 +120,15 @@ const displayMatches = matches.filter((m) => m.type !== 'simulation');
   ) : (
     <ul class="match-list__items" role="list">
       {displayMatches.map((match) => {
+        const isConfirmed = match.type === 'confirmed';
         const isPartial = match.type === 'partial';
+        // simulation já foi filtrado em displayMatches — nunca exibido aqui
 
-        const homeTeamName = match.home_team_id
+        const homeTeamName = isConfirmed && match.home_team_id
           ? getTeamName(teams, match.home_team_id, locale)
           : (match.home_label?.[locale] ?? t.partialLabel);
 
-        const awayTeamName = match.away_team_id
+        const awayTeamName = isConfirmed && match.away_team_id
           ? getTeamName(teams, match.away_team_id, locale)
           : (match.away_label?.[locale] ?? t.partialLabel);
 
