@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/privacy-policy`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/politica-de-privacidade` },
+  { hreflang: 'en',    href: `${siteUrl}/en/privacy-policy` },
+  { hreflang: 'es',    href: `${siteUrl}/es/politica-de-privacidad` },
+];
+---
+
+<BaseLayout
+  title="Privacy Policy — World Cup Games Today"
+  description="Learn how World Cup Games Today handles visitor data, including localStorage, cookies, and Analytics."
+  lang="en"
+  locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Privacy Policy</h1>
+
+    <p>
+      This Privacy Policy describes how World Cup Games Today handles information
+      from visitors to this website. By using this site, you agree to the practices
+      described in this document.
+    </p>
+
+    <h2>Automatically collected data</h2>
+
+    <p>
+      Like any web server, our hosting provider may automatically log information
+      such as IP addresses, browser type, pages accessed, and date/time of access.
+      This information is collected by standard hosting log systems and is used
+      solely for security and technical performance analysis purposes.
+    </p>
+
+    <h2>Locally stored data (localStorage)</h2>
+
+    <p>
+      To improve the user experience, this site saves certain preferences directly
+      in your browser using <strong>localStorage</strong>. This includes:
+    </p>
+
+    <p>
+      - Preferred language<br />
+      - Selected time zone<br />
+      - Favorite team selection
+    </p>
+
+    <p>
+      This data is stored only on your device and is not sent to any external server.
+      You can clear this data at any time by clearing site data in your browser settings.
+    </p>
+
+    <h2>Google Analytics</h2>
+
+    <p>
+      This site may use Google Analytics in the future to analyze traffic in an
+      anonymized manner. Google Analytics may use cookies to collect information
+      about how visitors use the site, including pages visited and time spent.
+      Data is processed in aggregate form and does not allow individual users to
+      be identified.
+    </p>
+
+    <p>
+      If Google Analytics is active, you may opt out of tracking by using browser
+      extensions such as the Google Analytics Opt-out Browser Add-on.
+    </p>
+
+    <h2>Advertising</h2>
+
+    <p>
+      This site may display advertisements in the future through networks such as
+      Google AdSense. Advertising networks may use cookies to display relevant ads
+      based on previous visits to this and other sites. When this feature is
+      enabled, we will inform users and update this policy accordingly.
+    </p>
+
+    <h2>Login and registration</h2>
+
+    <p>
+      In the current version of the site (MVP), no account creation or login is
+      required to use any functionality. We do not collect names, emails, or
+      passwords from users.
+    </p>
+
+    <h2>Your data and your rights</h2>
+
+    <p>
+      You can clear data saved by this site at any time in your browser settings
+      (using the "Clear site data" option or equivalent). Since we do not collect
+      personally identifiable data on our servers, there is no data to delete on
+      our end.
+    </p>
+
+    <h2>Contact</h2>
+
+    <p>
+      For questions about this Privacy Policy, please contact us at:
+      <a href="mailto:contact@worldcupgamestoday.com" class="email-link">contact@worldcupgamestoday.com</a>
+    </p>
+
+    <nav class="institutional-links" aria-label="Internal links">
+      <a href="/en/">Home</a>
+      <a href="/en/about">About</a>
+      <a href="/en/contact">Contact</a>
+      <a href="/en/terms-of-use">Terms of Use</a>
+      <a href="/en/legal-notice">Legal Notice</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .email-link {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
