@@ -67,6 +67,14 @@ const mockStandingsMap: Record<string, StandingEntry[]> = {
   ],
 };
 const groupStandings: StandingEntry[] = mockStandingsMap[group.slug] ?? [];
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/pt-br/grupos/${group.slug}`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/grupos/${group.slug}` },
+  { hreflang: 'en',    href: `${siteUrl}/en/groups/${group.slug}` },
+  { hreflang: 'es',    href: `${siteUrl}/es/grupos/${group.slug}` },
+];
 ---
 
 <BaseLayout
@@ -74,6 +82,8 @@ const groupStandings: StandingEntry[] = mockStandingsMap[group.slug] ?? [];
   description={`Veja a classificação e todos os jogos do ${groupName} da Copa do Mundo 2026 com horários no seu fuso local.`}
   lang="pt-BR"
   locale="pt-br"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
