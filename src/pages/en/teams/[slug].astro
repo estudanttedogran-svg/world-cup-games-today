@@ -1,0 +1,296 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { Match, Team, Group } from '../../../types/index.ts';
+import teamsData from '../../../data/teams.json';
+import matchesData from '../../../data/matches.json';
+import groupsData from '../../../data/groups.json';
+import {
+  getNextConfirmedMatch,
+  getConfirmedMatchesByTeam,
+} from '../../../utils/matches.ts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import NextMatchCard from '../../../components/NextMatchCard.astro';
+import MatchList from '../../../components/MatchList.astro';
+import AdPlaceholder from '../../../components/AdPlaceholder.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const teams = (teamsData as { teams: Team[] }).teams;
+  return teams.map((team) => ({
+    params: { slug: team.slug },
+    props: { team },
+  }));
+};
+
+interface Props {
+  team: Team;
+}
+
+const { team } = Astro.props;
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams   = (teamsData  as { teams:   Team[]  }).teams;
+const allGroups  = (groupsData as { groups:  Group[] }).groups;
+
+const defaultTimezone = 'America/New_York';
+const locale = 'en' as const;
+
+// Confirmed matches for this team, sorted by date
+const confirmedMatches = getConfirmedMatchesByTeam(allMatches, team.slug);
+
+// Next confirmed match
+const nextMatch = getNextConfirmedMatch(allMatches, team.slug);
+
+// Team's group
+const teamGroup = allGroups.find((g) => g.team_ids.includes(team.slug));
+
+// Group name in locale
+const groupName = teamGroup
+  ? (teamGroup.name['en'] ?? teamGroup.name['pt-br'] ?? `Group ${teamGroup.slug.toUpperCase()}`)
+  : null;
+
+// Team name in locale
+const teamName = team.name['en'] ?? team.name['pt-br'] ?? team.slug;
+---
+
+<BaseLayout
+  title={`${teamName} — 2026 World Cup | World Cup Games Today`}
+  description={`View all ${teamName} matches at the 2026 World Cup with kick-off times in your local timezone.`}
+  lang="en"
+  locale="en"
+>
+  <div class="container">
+
+    <!-- TEAM HERO -->
+    <section class="page-hero">
+      <div class="team-hero">
+        <h1>{team.flag} {teamName}</h1>
+        {groupName && <p class="team-group">2026 World Cup &mdash; {groupName}</p>}
+        <p>View all {teamName} matches in your local time.</p>
+      </div>
+    </section>
+
+    <!-- MOCK DATA WARNING -->
+    <div class="mock-warning" role="alert">
+      &#9888; This site uses demonstration data (MOCK). The data shown is fictional.
+    </div>
+
+    <!-- NEXT CONFIRMED MATCH -->
+    <section class="next-match-section" aria-label="Next confirmed match">
+      <h2>Next Match</h2>
+      <NextMatchCard
+        match={nextMatch}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="en"
+      />
+    </section>
+
+    <!-- AD PLACEHOLDER (AFTER NEXT MATCH, NEVER BEFORE) -->
+    <AdPlaceholder slot="middle" label="Advertisement" />
+
+    <!-- ALL CONFIRMED MATCHES FOR THE TEAM -->
+    <section class="team-matches-section" aria-label={`All ${teamName} matches`}>
+      <h2>All {teamName} Matches</h2>
+      <MatchList
+        matches={confirmedMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="en"
+        emptyMessage="No confirmed matches available for this team."
+      />
+    </section>
+
+    <!-- NEXT PHASES — INFORMATIONAL BLOCK (no generic partials listed) -->
+    <section class="next-phases-info" aria-label="Upcoming knockout stages">
+      <h2>Knockout Stages</h2>
+      <p class="next-phases-note">
+        Potential knockout stage matches will be shown once the group stage
+        standings are determined.
+      </p>
+    </section>
+
+    <!-- INTERNAL LINKS -->
+    <nav class="internal-links" aria-label="Internal navigation">
+      <h2>See also</h2>
+      <ul>
+        <li><a href="/en/">&larr; Home</a></li>
+        <li><a href="/en/world-cup-games-today">Today's Matches</a></li>
+        <li><a href="/en/world-cup-2026-schedule">2026 Schedule</a></li>
+        {groupName && teamGroup && (
+          <li><a href={`/en/groups/${teamGroup.slug}`}>{groupName}</a></li>
+        )}
+      </ul>
+    </nav>
+
+    <!-- SHARE -->
+    <section class="share-section" aria-label="Share">
+      <h2>Share</h2>
+      <ShareButtons
+        locale="en"
+        matchTitle={`${teamName} — 2026 World Cup`}
+      />
+    </section>
+
+    <!-- SEO TEXT -->
+    <section class="seo-text" aria-label={`${teamName} at the 2026 World Cup`}>
+      <h2>{teamName} at the 2026 World Cup</h2>
+      <p>
+        Follow all {teamName} matches at the 2026 FIFA World Cup.
+        Kick-off times are automatically shown in your local timezone &mdash;
+        no manual calculation required.
+      </p>
+      {groupName && (
+        <p>
+          {teamName} is in {groupName} of the 2026 World Cup.
+          Use World Cup Games Today to follow all their matches
+          with times updated for your region.
+        </p>
+      )}
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* Team hero — flex column with small gap */
+  .team-hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Group label — smaller, muted color, medium weight */
+  .team-group {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Next match section */
+  .next-match-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .next-match-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* All team matches section */
+  .team-matches-section {
+    margin-bottom: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .team-matches-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Next phases informational block */
+  .next-phases-info {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-8);
+    padding: var(--space-6);
+    background-color: #fafbff;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .next-phases-info h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  /* Explanatory text */
+  .next-phases-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: var(--line-height-relaxed);
+    font-style: italic;
+  }
+
+  /* Internal links */
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  /* Share section */
+  .share-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Responsiveness */
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .next-match-section h2,
+    .team-matches-section h2,
+    .next-phases-info h2,
+    .share-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
