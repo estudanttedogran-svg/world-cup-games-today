@@ -98,6 +98,28 @@ const metaDescription = match.type === 'confirmed'
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
 const canonicalUrl = `${siteUrl}/en/matches/${match.id}`;
+
+// Team names in English for schema (international standard)
+const homeTeamNameForSchema = homeTeam?.name['en'] ?? homeTeam?.name['pt-br'] ?? homeTeamName;
+const awayTeamNameForSchema = awayTeam?.name['en'] ?? awayTeam?.name['pt-br'] ?? awayTeamName;
+
+// JSON-LD SportsEvent — only for 'confirmed' matches with both teams defined
+// 'partial' and 'simulation' MUST NOT receive any SportsEvent schema (absolute rule)
+const schemaData = match.type === 'confirmed' && homeTeam && awayTeam
+  ? buildSportsEventSchema({
+      matchId: match.id,
+      homeTeamName: homeTeamNameForSchema,
+      awayTeamName: awayTeamNameForSchema,
+      datetimeUtc: match.datetime_utc,
+      stadiumName: match.stadium['en'] ?? match.stadium['pt-br'] ?? '',
+      cityName: match.city['en'] ?? match.city['pt-br'] ?? '',
+      countryName: match.country['en'] ?? match.country['pt-br'] ?? '',
+      phase: phaseLabel,
+      locale: 'en',
+      canonicalUrl: canonicalUrl,
+    })
+  : null;
+
 const alternates = [
   { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/jogos/${match.id}` },
   { hreflang: 'en',    href: `${siteUrl}/en/matches/${match.id}` },
