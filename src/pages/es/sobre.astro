@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/es/sobre`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/sobre` },
+  { hreflang: 'en',    href: `${siteUrl}/en/about` },
+  { hreflang: 'es',    href: `${siteUrl}/es/sobre` },
+];
+---
+
+<BaseLayout
+  title="Acerca de World Cup Games Today"
+  description="Conozca World Cup Games Today, un sitio web independiente creado para ayudar a los aficionados a seguir los partidos de la Copa Mundial FIFA 2026 en su horario local."
+  lang="es"
+  locale="es"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Acerca de World Cup Games Today</h1>
+
+    <p>
+      World Cup Games Today es un sitio web independiente creado para ayudar a los
+      aficionados del fútbol de todo el mundo a seguir los partidos de la Copa Mundial
+      FIFA 2026 en su horario local, sin necesidad de hacer conversiones manuales.
+    </p>
+
+    <p>
+      Nuestro objetivo es simple: mostrarle el horario de cada partido automáticamente
+      convertido a la zona horaria de su dispositivo.
+    </p>
+
+    <p>
+      Este sitio web no tiene ninguna afiliación oficial con la FIFA ni con la
+      organización de la Copa Mundial. Todas las marcas, nombres y logotipos
+      mencionados pertenecen a sus respectivos propietarios.
+    </p>
+
+    <p>
+      Los datos que se muestran actualmente son de demostración (MOCK) y serán
+      reemplazados por datos reales antes del lanzamiento oficial del sitio. Siempre
+      verifique los horarios y la información con fuentes oficiales antes de tomar
+      decisiones.
+    </p>
+
+    <nav class="institutional-links" aria-label="Enlaces internos">
+      <a href="/es/">Inicio</a>
+      <a href="/es/contacto">Contacto</a>
+      <a href="/es/politica-de-privacidad">Política de Privacidad</a>
+      <a href="/es/terminos-de-uso">Términos de Uso</a>
+      <a href="/es/aviso-legal">Aviso Legal</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
