@@ -6,9 +6,85 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 10A — sitemap.xml, robots.txt, canonical e hreflang CONCLUÍDA ✅
-**Próxima fase:** Fase 10B — Open Graph completo + SportsEvent JSON-LD
-**Aguardando:** Autorização do usuário para iniciar Fase 10B
+**Fase concluída:** Fase 10B — Open Graph completo + Twitter Card CONCLUÍDA ✅
+**Próxima fase:** Fase 10C — SportsEvent JSON-LD
+**Aguardando:** Autorização do usuário para iniciar Fase 10C
+
+---
+
+## Fase 10B — Open Graph completo + Twitter Card ✅ (2026-05-08)
+
+### Arquivos alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/layouts/BaseLayout.astro` | Atualizado — novas props OG e Twitter Card; derivacao automatica de `ogLocale` e `ogLocaleAlternates` |
+| `src/pages/pt-br/jogos/[id].astro` | Atualizado — `ogType="article"` para partidas `confirmed` |
+| `src/pages/en/matches/[id].astro` | Atualizado — `ogType="article"` para partidas `confirmed` |
+| `src/pages/es/partidos/[id].astro` | Atualizado — `ogType="article"` para partidas `confirmed` |
+
+### O que foi implementado
+
+**`src/layouts/BaseLayout.astro`**
+
+Novas props adicionadas (todas opcionais — retrocompatibilidade total):
+- `ogType?: string` — 'website' | 'article' — padrao: 'website'
+- `ogImage?: string` — URL absoluta da imagem OG — nao emitida se ausente
+- `ogLocale?: string` — ex: 'pt_BR', 'en_US', 'es_ES' — derivado automaticamente de `locale` se omitido
+- `ogLocaleAlternates?: string[]` — derivado automaticamente de `alternates` se omitido
+- `twitterCard?: string` — 'summary' | 'summary_large_image' — padrao: 'summary'
+
+Tags Open Graph emitidas:
+- `og:title` — sempre emitido (valor de `title`)
+- `og:description` — sempre emitido (valor de `description`, string vazia se ausente)
+- `og:type` — `ogType ?? 'website'`
+- `og:url` — `canonicalUrl` (ou pathname automatico)
+- `og:site_name` — "World Cup Games Today" (hardcoded)
+- `og:locale` — derivado de `locale` automaticamente ('pt-br' -> 'pt_BR', 'en' -> 'en_US', 'es' -> 'es_ES')
+- `og:locale:alternate` — derivado de `alternates` (hreflang) automaticamente, excluindo 'x-default'
+- `og:image` — somente se `ogImage` for passado
+
+Tags Twitter Card emitidas:
+- `twitter:card` — `twitterCard ?? 'summary'`
+- `twitter:title` — valor de `title`
+- `twitter:description` — valor de `description`
+- `twitter:image` — somente se `ogImage` for passado
+
+Derivacao automatica no frontmatter:
+- `ogLocale`: mapeado via `localeToOgLocale` ('pt-br' -> 'pt_BR', 'en' -> 'en_US', 'es' -> 'es_ES')
+- `ogLocaleAlternates`: mapeado via `hreflangToOgLocale` a partir de `alternates?.map(a => hreflangToOgLocale[a.hreflang])` — exclui 'x-default' automaticamente (nao tem mapeamento)
+
+**Paginas de jogo (pt-br, en, es)**
+- `ogType={match.type === 'confirmed' ? 'article' : 'website'}` adicionado
+- Partidas `confirmed`: `og:type` = 'article'
+- Partidas `partial` e `simulation`: `og:type` = 'website' (padrao)
+
+### Regras respeitadas
+- `og:image` e `twitter:image` nao emitidos — imagem OG pendente (ver pendencias)
+- `simulation` nao recebe `og:type` = 'article' — regra de classificacao mantida
+- Nenhuma pagina nova criada — total permanece 77 paginas
+- Nenhuma dependencia nova instalada
+- Conteudo visual das paginas nao alterado
+- SportsEvent JSON-LD nao implementado (Fase 10C)
+- sitemap.xml e robots.txt nao alterados
+
+### Validacao
+- `npm run build`: 77 paginas geradas sem erros
+- Zero erros TypeScript
+- `dist/robots.txt` presente
+- `dist/sitemap.xml` presente
+- Total de paginas: 77 (sem alteracao)
+
+### Riscos e pendencias
+
+| Item | Impacto |
+|------|---------|
+| Imagem OG (`og:image` e `twitter:image`) nao criada — sem URL real e sem identidade visual definida | Medio — compartilhamentos em redes sociais nao exibiram preview de imagem ate a imagem ser criada e hospedada |
+| `og:description` emite string vazia quando `description` nao passado — tecnicamente valido, mas nao ideal | Baixo — todas as paginas ja passam `description` |
+| `og:locale:alternate` derivado de hreflang — 'x-default' nao mapeado (excluido corretamente) | Nenhum |
+| Fase 10C pendente — SportsEvent JSON-LD | Proxima fase |
+
+---
 
 ---
 
