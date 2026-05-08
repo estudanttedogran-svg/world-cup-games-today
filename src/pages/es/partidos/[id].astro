@@ -98,6 +98,40 @@ const metaDescription = match.type === 'confirmed'
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
 const canonicalUrl = `${siteUrl}/es/partidos/${match.id}`;
+
+// Fase en inglés para el schema (estándar internacional)
+const phaseLabelsEn: Record<string, string> = {
+  'group_stage':  'Group Stage',
+  'round_of_32':  'Round of 32',
+  'round_of_16':  'Round of 16',
+  'quarterfinal': 'Quarterfinal',
+  'semifinal':    'Semifinal',
+  'third_place':  'Third Place',
+  'final':        'Final',
+};
+const phaseLabelEn = phaseLabelsEn[match.phase] ?? match.phase;
+
+// Nombres de equipos en inglés para el schema (estándar internacional)
+const homeTeamNameForSchema = homeTeam?.name['en'] ?? homeTeam?.name['pt-br'] ?? homeTeamName;
+const awayTeamNameForSchema = awayTeam?.name['en'] ?? awayTeam?.name['pt-br'] ?? awayTeamName;
+
+// JSON-LD SportsEvent — solo para partidos 'confirmed' con ambos equipos definidos
+// 'partial' y 'simulation' NO reciben ningún schema SportsEvent (regla absoluta)
+const schemaData = match.type === 'confirmed' && homeTeam && awayTeam
+  ? buildSportsEventSchema({
+      matchId: match.id,
+      homeTeamName: homeTeamNameForSchema,
+      awayTeamName: awayTeamNameForSchema,
+      datetimeUtc: match.datetime_utc,
+      stadiumName: match.stadium['en'] ?? match.stadium['pt-br'] ?? '',
+      cityName: match.city['en'] ?? match.city['pt-br'] ?? '',
+      countryName: match.country['en'] ?? match.country['pt-br'] ?? '',
+      phase: phaseLabelEn,
+      locale: 'en',
+      canonicalUrl: canonicalUrl,
+    })
+  : null;
+
 const alternates = [
   { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/jogos/${match.id}` },
   { hreflang: 'en',    href: `${siteUrl}/en/matches/${match.id}` },
