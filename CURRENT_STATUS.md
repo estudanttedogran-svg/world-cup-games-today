@@ -6,9 +6,9 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 6D — Página por Grupo (pt-br) — rota dinâmica SSG
-**Próxima fase:** Fase 6E — Página por Jogo + Calendário (pt-br)
-**Aguardando:** Autorização do usuário para iniciar Fase 6E
+**Fase concluída:** Fase 6E1 — Páginas Individuais por Jogo (pt-br) — rota dinâmica SSG
+**Próxima fase:** Fase 6E2 — Calendário da Copa 2026 (pt-br)
+**Aguardando:** Autorização do usuário para iniciar Fase 6E2
 
 ---
 
