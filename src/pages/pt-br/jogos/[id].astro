@@ -201,6 +201,21 @@ const metaDescription = match.type === 'confirmed'
       </dl>
     </section>
 
+    <!-- STATUS AO VIVO — somente confirmed e partial; simulation não exibe -->
+    {match.type !== 'simulation' && (
+      <section class="live-status-section" aria-label="Status ao vivo">
+        <h2>Status da Partida</h2>
+        <div class="live-status-row">
+          <LiveMatchStatus
+            matchId={match.id}
+            matchType={match.type as 'confirmed' | 'partial'}
+            defaultStatus="scheduled"
+            locale="pt-br"
+          />
+        </div>
+      </section>
+    )}
+
     <!-- ANÚNCIO (APÓS O CARD DE DETALHES) -->
     <AdPlaceholder slot="middle" label="An&uacute;ncio" />
 
