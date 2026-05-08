@@ -6,9 +6,71 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 9B — Páginas em espanhol (/es/) CONCLUÍDA ✅
-**Próxima fase:** Fase 9C — Página raiz `/` (seleção de idioma + sugestão por navegador)
-**Aguardando:** Autorização do usuário para iniciar Fase 9C
+**Fase concluída:** Fase 9C — Página raiz `/` (seleção de idioma + sugestão por navegador) CONCLUÍDA ✅
+**Próxima fase:** Fase 10 — SEO Técnico
+**Aguardando:** Autorização do usuário para iniciar Fase 10
+
+---
+
+## Fase 9C — Página raiz `/` ✅
+
+### Arquivos criados/alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/index.astro` | Reescrito — landing page de seleção de idioma com sugestão automática |
+
+### O que foi implementado
+
+**`src/pages/index.astro`** (reescrita completa do stub)
+
+- `BaseLayout` com `title="World Cup Games Today 2026"`, `description` em inglês, `lang="en"`, `locale="en"`
+- Hero centralizado: ícone de bola, h1 "World Cup Games Today", tagline em inglês
+- Três cards de seleção de idioma em grid responsivo:
+  - 3 colunas em desktop (>=480px) / 1 coluna mobile com layout horizontal
+  - Cada card: flag (emoji), nome do idioma, região, seta de acesso, `hreflang` e `aria-label`
+  - Hover: `border-color: var(--color-accent)`, `box-shadow`, `translateY(-2px)` — CSS puro, sem JS
+  - Cards com `data-lang` para o script salvar a escolha no localStorage
+- Sugestão automática (seção `#lang-suggestion`):
+  - Começa com atributo `hidden` (não `display:none`) — acessível e oculto antes do JS
+  - Script client-side detecta `navigator.language` (com fallback para `navigator.languages[]`)
+  - Mapeamento: `pt*` → `/pt-br/`, `es*` → `/es/`, outros → `/en/`
+  - Se `wcgt_lang` já salvo no localStorage, usa esse valor em vez de detectar
+  - Exibe texto + link para a versão sugerida (link normal, sem redirect automático)
+  - `aria-live="polite"` para anunciar ao leitor de tela quando exibida
+- localStorage (`wcgt_lang`):
+  - Chave separada `wcgt_lang` (não `wcgt_prefs`) conforme PROJECT_BRIEF.md
+  - Escrita ao clicar em qualquer card de idioma
+  - Leitura para pré-selecionar a sugestão automática
+  - Guards completos: `typeof window`, `typeof localStorage`, `try/catch`
+- Nota de dados: "Data shown is for demonstration purposes only." discreta no rodapé da seção
+- CSS scoped na página: `.lang-select-page`, `.lang-hero`, `.lang-suggestion`, `.lang-cards`, `.lang-card`, `.lang-demo-note`
+- Mobile-first: breakpoints 480px (grid 3 colunas), 768px (hero maior)
+- Nenhum JS no frontmatter — toda lógica em `<script>` client-side com guards
+
+### Regras respeitadas
+
+- Nenhuma nova dependência adicionada
+- Nenhuma página existente alterada
+- Nenhum redirect automático — sugestão exige clique do usuário
+- Build estático: zero API de browser no frontmatter
+- Guards obrigatórios no script client-side (`typeof window`, `typeof navigator`, `try/catch`)
+- Aviso legal no Footer (já presente via `BaseLayout` + `Footer.astro`)
+
+### Validação
+
+- `npm run build`: 77 páginas geradas sem erros ✅
+- Zero erros TypeScript ✅
+- Total de páginas: 77 (sem alteração — apenas reescrita do `index.astro`) ✅
+- Nenhuma página de idioma alterada ✅
+
+### Riscos e pendências identificados
+
+| Item | Impacto |
+|------|---------|
+| `hreflang` nos cards é atributo de link, não meta tag — Fase 10 (SEO Técnico) deve adicionar `<link rel="alternate" hreflang>` no `<head>` | Baixo para MVP |
+| Script detecta `navigator.language` via ES5 (`var`, loop manual) para máxima compatibilidade — adequado para MVP | Nenhum |
+| `detectBrowserLocale` de `language.ts` não foi importado no script (incompatível com bundling de módulos TS em `<script>` sem `import`) — lógica equivalente implementada inline | Nenhum |
 
 ---
 
