@@ -4,7 +4,7 @@
 // No browser, busca live-data.json e atualiza o status/placar.
 //
 // Regras críticas:
-// - simulation NUNCA recebe dados vivos (prop matchType='simulation' = sem atualização)
+// - simulation NUNCA recebe dados vivos (matchType='simulation' = sem fetch)
 // - partial NUNCA exibe placar (apenas status badge)
 // - confirmed pode exibir placar quando live ou finished
 // - Qualquer falha no fetch mantém o estado server-side sem erro visível
@@ -56,189 +56,204 @@ const isSimulation = matchType === 'simulation';
 const canShowScore = matchType === 'confirmed';
 ---
 
-{/* Renderização server-side: estado inicial estático */}
 <div
   class={`live-status live-status--${defaultStatus}`}
   data-match-id={matchId}
   data-match-type={matchType}
   data-locale={locale}
   data-can-show-score={canShowScore ? 'true' : 'false'}
+  data-is-simulation={isSimulation ? 'true' : 'false'}
   aria-live="polite"
   aria-atomic="true"
 >
   {isSimulation ? (
-    {/* simulation: nunca busca live-data — apenas exibe label estático */}
     <span class="live-status__badge live-status__badge--simulation">
-      Simulação
+      Simula&ccedil;&atilde;o
     </span>
   ) : (
-    <>
-      <span class="live-status__badge live-status__badge--{defaultStatus}" data-status-badge>
-        {defaultStatus === 'live' && (
-          <span class="live-status__dot" aria-hidden="true"></span>
-        )}
-        {defaultStatusText}
-      </span>
-      {/* Placar — inicialmente vazio; atualizado pelo script client-side */}
-      <span class="live-status__score" data-score-display style="display:none" aria-label="Placar"></span>
-    </>
+    <span class={`live-status__badge live-status__badge--${defaultStatus}`} data-status-badge>
+      {defaultStatus === 'live' && (
+        <span class="live-status__dot" aria-hidden="true"></span>
+      )}
+      {defaultStatusText}
+    </span>
   )}
+  <span class="live-status__score" data-score-display style="display:none" aria-label="Placar"></span>
 </div>
 
-{/* Script client-side — executado somente no browser */}
-{!isSimulation && (
-  <script define:vars={{ matchId, matchType, locale, defaultStatus }}>
-    // Guard obrigatório: não executar fora do browser
-    if (typeof window === 'undefined' || typeof fetch === 'undefined') {
-      // noop
-    } else {
-      (function initLiveMatchStatus() {
-        // Localização dos labels de status
-        var statusLabels = {
-          'pt-br': {
-            scheduled:  'Agendado',
-            live:       'Ao Vivo',
-            finished:   'Encerrado',
-            postponed:  'Adiado',
-            cancelled:  'Cancelado',
-          },
-          'en': {
-            scheduled:  'Scheduled',
-            live:       'Live',
-            finished:   'Finished',
-            postponed:  'Postponed',
-            cancelled:  'Cancelled',
-          },
-          'es': {
-            scheduled:  'Programado',
-            live:       'En Vivo',
-            finished:   'Finalizado',
-            postponed:  'Aplazado',
-            cancelled:  'Cancelado',
-          },
-        };
+<script>
+  // Guard obrigatório: não executar fora do browser
+  if (typeof window !== 'undefined' && typeof fetch !== 'undefined') {
+    (function initAllLiveStatuses() {
+      // Localização dos labels de status (inline — sem importar módulos)
+      var statusLabels = {
+        'pt-br': {
+          scheduled:  'Agendado',
+          live:       'Ao Vivo',
+          finished:   'Encerrado',
+          postponed:  'Adiado',
+          cancelled:  'Cancelado',
+        },
+        en: {
+          scheduled:  'Scheduled',
+          live:       'Live',
+          finished:   'Finished',
+          postponed:  'Postponed',
+          cancelled:  'Cancelled',
+        },
+        es: {
+          scheduled:  'Programado',
+          live:       'En Vivo',
+          finished:   'Finalizado',
+          postponed:  'Aplazado',
+          cancelled:  'Cancelado',
+        },
+      };
 
-        var localeMap = statusLabels[locale] || statusLabels['pt-br'];
+      function getLabel(status, locale) {
+        var map = statusLabels[locale] || statusLabels['pt-br'];
+        return map[status] || status;
+      }
 
-        function getLabel(status) {
-          return localeMap[status] || status;
+      // Validação mínima do live-data
+      function isValidData(data) {
+        if (!data || typeof data !== 'object') return false;
+        if (!data.matches || typeof data.matches !== 'object' || Array.isArray(data.matches)) return false;
+        return true;
+      }
+
+      // Atualiza o DOM de um container de status com os dados ao vivo
+      function updateContainer(container, liveEntry, locale) {
+        var badge = container.querySelector('[data-status-badge]');
+        var scoreDisplay = container.querySelector('[data-score-display]');
+        if (!badge) return;
+
+        var status = liveEntry.status || 'scheduled';
+        var label = getLabel(status, locale);
+
+        // Atualizar classes
+        container.className = 'live-status live-status--' + status;
+        badge.className = 'live-status__badge live-status__badge--' + status;
+
+        // Montar conteúdo do badge
+        var dotHtml = status === 'live'
+          ? '<span class="live-status__dot" aria-hidden="true"></span>'
+          : '';
+
+        var minuteText = '';
+        if (
+          status === 'live' &&
+          liveEntry.minute !== null &&
+          liveEntry.minute !== undefined
+        ) {
+          minuteText = " '" + liveEntry.minute;
         }
 
-        // Validação mínima do live-data
-        function isValidData(data) {
-          if (!data || typeof data !== 'object') return false;
-          if (!data.matches || typeof data.matches !== 'object' || Array.isArray(data.matches)) return false;
-          return true;
+        badge.innerHTML = dotHtml + label + minuteText;
+
+        // Placar — somente confirmed, quando live/finished e scores existem
+        var canShowScore = container.getAttribute('data-can-show-score') === 'true';
+        if (
+          canShowScore &&
+          scoreDisplay &&
+          (status === 'live' || status === 'finished') &&
+          liveEntry.score_home !== null &&
+          liveEntry.score_home !== undefined &&
+          liveEntry.score_away !== null &&
+          liveEntry.score_away !== undefined
+        ) {
+          scoreDisplay.textContent = liveEntry.score_home + ' – ' + liveEntry.score_away;
+          scoreDisplay.style.display = '';
+        } else if (scoreDisplay) {
+          scoreDisplay.style.display = 'none';
+        }
+      }
+
+      // Cache de live-data em memória (evitar múltiplos fetches na mesma página)
+      var liveDataCache = null;
+      var fetchPromise = null;
+
+      function getLiveData() {
+        if (liveDataCache !== null) {
+          return Promise.resolve(liveDataCache);
+        }
+        if (fetchPromise !== null) {
+          return fetchPromise;
         }
 
-        // Atualiza o DOM do componente com os dados ao vivo
-        function updateStatus(container, liveEntry) {
-          var badge = container.querySelector('[data-status-badge]');
-          var scoreDisplay = container.querySelector('[data-score-display]');
-
-          if (!badge) return;
-
-          var status = liveEntry.status || defaultStatus;
-          var label = getLabel(status);
-
-          // Limpar classes anteriores
-          container.className = 'live-status live-status--' + status;
-          badge.className = 'live-status__badge live-status__badge--' + status;
-
-          // Montar conteúdo do badge
-          var badgeContent = '';
-          if (status === 'live') {
-            badgeContent = '<span class="live-status__dot" aria-hidden="true"></span>';
+        fetchPromise = new Promise(function(resolve) {
+          // Verificar se está offline
+          if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+            resolve(null);
+            return;
           }
-          badgeContent += label;
-          if (status === 'live' && liveEntry.minute !== null && liveEntry.minute !== undefined) {
-            badgeContent += " '" + liveEntry.minute;
-          }
-          badge.innerHTML = badgeContent;
 
-          // Placar — somente para confirmed, quando live ou finished e scores existem
-          var canShowScore = container.getAttribute('data-can-show-score') === 'true';
-          if (
-            canShowScore &&
-            scoreDisplay &&
-            (status === 'live' || status === 'finished') &&
-            liveEntry.score_home !== null && liveEntry.score_home !== undefined &&
-            liveEntry.score_away !== null && liveEntry.score_away !== undefined
-          ) {
-            scoreDisplay.textContent = liveEntry.score_home + ' – ' + liveEntry.score_away;
-            scoreDisplay.style.display = '';
-          } else if (scoreDisplay) {
-            scoreDisplay.style.display = 'none';
-          }
-        }
+          var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+          var timeoutId = setTimeout(function() {
+            if (controller) controller.abort();
+            resolve(null);
+          }, 8000);
 
-        // Fetch com timeout e fallback silencioso
-        function fetchWithTimeout(url, timeout) {
-          return new Promise(function(resolve, reject) {
-            var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-            var timeoutId = setTimeout(function() {
-              if (controller) controller.abort();
-              resolve(null); // Timeout: fallback silencioso
-            }, timeout);
+          var fetchOptions = controller
+            ? { signal: controller.signal, cache: 'no-cache' }
+            : { cache: 'no-cache' };
 
-            var fetchOptions = controller ? { signal: controller.signal, cache: 'no-cache' } : { cache: 'no-cache' };
-
-            fetch(url, fetchOptions)
-              .then(function(response) {
-                clearTimeout(timeoutId);
-                if (!response.ok) {
-                  resolve(null);
-                  return;
-                }
-                return response.text();
-              })
-              .then(function(text) {
-                if (!text || text.trim().length === 0) {
-                  resolve(null);
-                  return;
-                }
-                try {
-                  resolve(JSON.parse(text));
-                } catch (e) {
+          fetch('/data/live-data.json', fetchOptions)
+            .then(function(response) {
+              clearTimeout(timeoutId);
+              if (!response.ok) { resolve(null); return null; }
+              return response.text();
+            })
+            .then(function(text) {
+              if (!text || !text.trim()) { resolve(null); return; }
+              try {
+                var parsed = JSON.parse(text);
+                if (isValidData(parsed)) {
+                  liveDataCache = parsed;
+                  resolve(parsed);
+                } else {
                   resolve(null);
                 }
-              })
-              .catch(function() {
-                clearTimeout(timeoutId);
-                resolve(null); // Erro de rede: fallback silencioso
-              });
-          });
-        }
+              } catch (e) {
+                resolve(null);
+              }
+            })
+            .catch(function() {
+              clearTimeout(timeoutId);
+              resolve(null);
+            });
+        });
 
-        // Executar apenas se o browser está online (ou se navigator.onLine não existir)
-        if (typeof navigator !== 'undefined' && navigator.onLine === false) {
-          return; // Offline: mantém estado inicial
-        }
+        return fetchPromise;
+      }
 
-        // Encontrar o container do componente — usando matchId como chave
-        var container = document.querySelector('[data-match-id="' + matchId + '"]');
-        if (!container) return;
+      // Encontrar todos os containers de status na página
+      var containers = document.querySelectorAll('[data-match-id]');
+      if (!containers.length) return;
 
-        // Buscar live-data.json
-        fetchWithTimeout('/data/live-data.json', 8000)
-          .then(function(data) {
-            if (!isValidData(data)) return; // Dado inválido: fallback silencioso
+      // Executar fetch uma única vez e atualizar todos os containers
+      getLiveData().then(function(data) {
+        if (!isValidData(data)) return;
 
-            var entry = data.matches && data.matches[matchId];
-            if (!entry || !entry.status) return; // Partida não encontrada: fallback silencioso
+        containers.forEach(function(container) {
+          // simulation nunca recebe dados vivos
+          if (container.getAttribute('data-is-simulation') === 'true') return;
 
-            // Validar match_id antes de aplicar
-            if (!matchId || typeof matchId !== 'string') return;
+          var matchId = container.getAttribute('data-match-id');
+          if (!matchId) return;
 
-            updateStatus(container, entry);
-          })
-          .catch(function() {
-            // Fallback silencioso — nunca expor erro ao usuário
-          });
-      })();
-    }
-  </script>
-)}
+          var locale = container.getAttribute('data-locale') || 'pt-br';
+          var entry = data.matches && data.matches[matchId];
+          if (!entry || !entry.status) return;
+
+          updateContainer(container, entry, locale);
+        });
+      }).catch(function() {
+        // Fallback silencioso — nunca expor erro ao usuário
+      });
+    })();
+  }
+</script>
 
 <style>
   .live-status {
@@ -297,7 +312,7 @@ const canShowScore = matchType === 'confirmed';
     border: 1px solid #fecaca;
   }
 
-  /* Simulação */
+  /* Simulacao */
   .live-status__badge--simulation {
     color: var(--color-text-muted);
     background-color: var(--color-bg-alt);
