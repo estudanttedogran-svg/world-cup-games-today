@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/pt-br/sobre`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/sobre` },
+  { hreflang: 'en',    href: `${siteUrl}/en/about` },
+  { hreflang: 'es',    href: `${siteUrl}/es/sobre` },
+];
+---
+
+<BaseLayout
+  title="Sobre o World Cup Games Today"
+  description="Conheça o World Cup Games Today, site independente criado para ajudar torcedores a acompanhar os jogos da Copa do Mundo FIFA 2026 no horário local."
+  lang="pt-BR"
+  locale="pt-br"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
+>
+  <div class="institutional-page">
+    <h1>Sobre o World Cup Games Today</h1>
+
+    <p>
+      O World Cup Games Today é um site independente criado para ajudar torcedores
+      de todo o mundo a acompanhar os jogos da Copa do Mundo FIFA 2026 no seu horário
+      local, sem complicações.
+    </p>
+
+    <p>
+      Nosso objetivo é simples: mostre a você o horário de cada jogo convertido para
+      o fuso horário do seu dispositivo, sem precisar fazer cálculos manuais.
+    </p>
+
+    <p>
+      Este site não possui qualquer associação oficial com a FIFA ou com a organização
+      da Copa do Mundo. Todas as marcas, nomes e logotipos mencionados pertencem aos
+      seus respectivos proprietários.
+    </p>
+
+    <p>
+      Os dados exibidos atualmente são de demonstração (MOCK) e serão substituídos
+      por dados reais antes do lançamento oficial do site. Sempre confirme horários
+      e informações com fontes oficiais antes de tomar decisões.
+    </p>
+
+    <nav class="institutional-links" aria-label="Links internos">
+      <a href="/pt-br/">Início</a>
+      <a href="/pt-br/contato">Contato</a>
+      <a href="/pt-br/politica-de-privacidade">Política de Privacidade</a>
+      <a href="/pt-br/termos-de-uso">Termos de Uso</a>
+      <a href="/pt-br/aviso-legal">Aviso Legal</a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .institutional-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+  }
+
+  .institutional-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .institutional-links a {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .institutional-links a:hover {
+    text-decoration: underline;
+  }
+</style>
