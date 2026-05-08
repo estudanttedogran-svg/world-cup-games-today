@@ -1,0 +1,295 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { Match, Team, Group } from '../../../types/index.ts';
+import teamsData from '../../../data/teams.json';
+import matchesData from '../../../data/matches.json';
+import groupsData from '../../../data/groups.json';
+import {
+  getNextConfirmedMatch,
+  getConfirmedMatchesByTeam,
+} from '../../../utils/matches.ts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import NextMatchCard from '../../../components/NextMatchCard.astro';
+import MatchList from '../../../components/MatchList.astro';
+import AdPlaceholder from '../../../components/AdPlaceholder.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const teams = (teamsData as { teams: Team[] }).teams;
+  return teams.map((team) => ({
+    params: { slug: team.slug },
+    props: { team },
+  }));
+};
+
+interface Props {
+  team: Team;
+}
+
+const { team } = Astro.props;
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams   = (teamsData  as { teams:   Team[]  }).teams;
+const allGroups  = (groupsData as { groups:  Group[] }).groups;
+
+const defaultTimezone = 'America/Mexico_City';
+const locale = 'es' as const;
+
+// Partidos confirmados para esta selección, ordenados por fecha
+const confirmedMatches = getConfirmedMatchesByTeam(allMatches, team.slug);
+
+// Próximo partido confirmado
+const nextMatch = getNextConfirmedMatch(allMatches, team.slug);
+
+// Grupo de la selección
+const teamGroup = allGroups.find((g) => g.team_ids.includes(team.slug));
+
+// Nombre del grupo en español
+const groupName = teamGroup
+  ? (teamGroup.name['es'] ?? teamGroup.name['en'] ?? teamGroup.name['pt-br'] ?? `Grupo ${teamGroup.slug.toUpperCase()}`)
+  : null;
+
+// Nombre del equipo en español
+const teamName = team.name['es'] ?? team.name['en'] ?? team.name['pt-br'] ?? team.slug;
+---
+
+<BaseLayout
+  title={`${teamName} — Copa del Mundo 2026 | World Cup Games Today`}
+  description={`Ver todos los partidos de ${teamName} en la Copa del Mundo 2026 con horarios en tu zona horaria local.`}
+  lang="es"
+  locale="es"
+>
+  <div class="container">
+
+    <!-- HERO DE LA SELECCIÓN -->
+    <section class="page-hero">
+      <div class="team-hero">
+        <h1>{team.flag} {teamName}</h1>
+        {groupName && <p class="team-group">Copa del Mundo 2026 &mdash; {groupName}</p>}
+        <p>Ve todos los partidos de {teamName} en tu horario local.</p>
+      </div>
+    </section>
+
+    <!-- AVISO MOCK -->
+    <div class="mock-warning" role="alert">
+      &#9888; Este sitio usa datos de demostración (MOCK). Los datos mostrados son ficticios.
+    </div>
+
+    <!-- PRÓXIMO PARTIDO CONFIRMADO -->
+    <section class="next-match-section" aria-label="Próximo partido confirmado">
+      <h2>Próximo Partido</h2>
+      <NextMatchCard
+        match={nextMatch}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="es"
+      />
+    </section>
+
+    <!-- ANUNCIO (TRAS EL PRÓXIMO PARTIDO, NUNCA ANTES) -->
+    <AdPlaceholder slot="middle" label="Publicidad" />
+
+    <!-- TODOS LOS PARTIDOS CONFIRMADOS DE LA SELECCIÓN -->
+    <section class="team-matches-section" aria-label={`Todos los partidos de ${teamName}`}>
+      <h2>Todos los Partidos de {teamName}</h2>
+      <MatchList
+        matches={confirmedMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="es"
+        emptyMessage="No hay partidos confirmados disponibles para esta selección."
+      />
+    </section>
+
+    <!-- FASES ELIMINATORIAS — BLOQUE INFORMATIVO (sin parciales genéricos) -->
+    <section class="next-phases-info" aria-label="Próximas fases eliminatorias">
+      <h2>Fases Eliminatorias</h2>
+      <p class="next-phases-note">
+        Los posibles partidos de las fases eliminatorias se mostrarán una vez que
+        la clasificación de la fase de grupos esté definida.
+      </p>
+    </section>
+
+    <!-- ENLACES INTERNOS -->
+    <nav class="internal-links" aria-label="Navegación interna">
+      <h2>Ver también</h2>
+      <ul>
+        <li><a href="/es/">&larr; Inicio</a></li>
+        <li><a href="/es/partidos-de-hoy-mundial">Partidos de Hoy</a></li>
+        <li><a href="/es/calendario-mundial-2026">Calendario del Mundial 2026</a></li>
+        {groupName && teamGroup && (
+          <li><a href={`/es/grupos/${teamGroup.slug}`}>{groupName}</a></li>
+        )}
+      </ul>
+    </nav>
+
+    <!-- COMPARTIR -->
+    <section class="share-section" aria-label="Compartir">
+      <h2>Compartir</h2>
+      <ShareButtons
+        locale="es"
+        matchTitle={`${teamName} — Copa del Mundo 2026`}
+      />
+    </section>
+
+    <!-- TEXTO SEO -->
+    <section class="seo-text" aria-label={`${teamName} en la Copa del Mundo 2026`}>
+      <h2>{teamName} en la Copa del Mundo 2026</h2>
+      <p>
+        Sigue todos los partidos de {teamName} en la Copa del Mundo FIFA 2026.
+        Los horarios se muestran automáticamente en tu zona horaria local &mdash;
+        sin necesidad de cálculo manual.
+      </p>
+      {groupName && (
+        <p>
+          {teamName} está en el {groupName} de la Copa del Mundo 2026.
+          Usa World Cup Games Today para seguir todos sus partidos
+          con horarios actualizados para tu región.
+        </p>
+      )}
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* Hero de la selección */
+  .team-hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Etiqueta de grupo */
+  .team-group {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Sección próximo partido */
+  .next-match-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .next-match-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Todos los partidos de la selección */
+  .team-matches-section {
+    margin-bottom: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .team-matches-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Bloque informativo de fases eliminatorias */
+  .next-phases-info {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-8);
+    padding: var(--space-6);
+    background-color: #fafbff;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .next-phases-info h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  .next-phases-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: var(--line-height-relaxed);
+    font-style: italic;
+  }
+
+  /* Enlaces internos */
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  /* Compartir */
+  .share-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Responsividad */
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .next-match-section h2,
+    .team-matches-section h2,
+    .next-phases-info h2,
+    .share-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
