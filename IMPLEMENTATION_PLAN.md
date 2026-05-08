@@ -276,8 +276,19 @@ Entregas:
 
 ---
 
-## Fase 9 — Internacionalização (en + es)
-**Status:** EM ANDAMENTO — Fase 9A CONCLUÍDA ✅ | Fase 9B CONCLUÍDA ✅
+## Fase 9 — Internacionalização (en + es) + Página raiz
+**Status:** CONCLUÍDA ✅ — Fase 9A CONCLUÍDA ✅ | Fase 9B CONCLUÍDA ✅ | Fase 9C CONCLUÍDA ✅
+
+### Fase 9C — Página raiz `/` (seleção de idioma + sugestão automática)
+**Status:** CONCLUÍDA ✅ — 2026-05-08
+
+Entregas:
+- `src/pages/index.astro` — landing page de seleção de idioma (reescrita do stub)
+- Cards de idioma: Português (Brasil), English, Español com grid responsivo
+- Sugestão automática via `navigator.language` (sem redirect automático)
+- localStorage `wcgt_lang` para salvar e recuperar preferência de idioma
+- CSS scoped mobile-first (1 col mobile, 3 colunas >= 480px)
+- Nenhuma página nova gerada — total permanece 77 páginas
 
 ### Fase 9A — Páginas em inglês (/en/)
 **Status:** CONCLUÍDA ✅ — 2026-05-08
