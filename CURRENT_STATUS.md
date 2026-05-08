@@ -6,9 +6,61 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 6E1 — Páginas Individuais por Jogo (pt-br) — rota dinâmica SSG
-**Próxima fase:** Fase 6E2 — Calendário da Copa 2026 (pt-br)
-**Aguardando:** Autorização do usuário para iniciar Fase 6E2
+**Fase concluída:** Fase 6E2 — Calendário da Copa 2026 (pt-br) — CONCLUIDA
+**Fase 6 completa:** TODAS as subfases (6A, 6B, 6C, 6D, 6E1, 6E2) CONCLUIDAS
+**Próxima fase:** Fase 7 — Compartilhamento + Integração de Calendário
+**Aguardando:** Autorização do usuário para iniciar Fase 7
+
+---
+
+## Fase 6E2 — Calendario da Copa 2026 (pt-br)
+
+**Arquivo criado:**
+
+**`src/pages/pt-br/calendario-copa-2026.astro`**
+- Pagina estatica em `/pt-br/calendario-copa-2026/` — sem rotas dinamicas
+- Importa `matches.json`, `teams.json`, `groups.json` com cast correto:
+  `(matchesData as { matches: Match[] }).matches`
+- Campo de data correto: `datetime_utc` — confirmado via tipos antes de usar
+- Filtra `simulation` da lista de exibicao: apenas `confirmed` e `partial`
+- `sortMatchesByDate` agrupa as partidas em ordem cronologica crescente
+- Agrupamento por data local: `formatDate(match.datetime_utc, locale, defaultTimezone)` como chave de `Record<string, Match[]>`
+- `Object.entries(matchesByDate)` mantem ordem de insercao (cronologica garantida por `sortMatchesByDate` antes do reduce)
+- `resolveTeamName(slug)` — busca em `allTeams` por `id` ou `slug`; retorna 'A definir' para null/undefined
+- `resolveGroupName(groupSlug)` — comparacao case-insensitive com `slug.toLowerCase()`; necessario pois `match.group` e "M"/"N" e `group.slug` e "m"/"n"
+- `phaseLabels` mapeamento completo de todos os valores de `MatchPhase`
+- `partial` nunca exibido como confirmado: `isConfirmed = match.type === 'confirmed'` controla `homeTeamName`, `awayTeamName`, classe `.tbd`, link vs badge
+- `confirmed` recebe link `/pt-br/jogos/${match.id}` — `partial` recebe badge "Vaga a definir"
+- `TimezoneSelector` incluido para conversao de fuso horario pelo usuario
+- `AdPlaceholder` posicionado apos o calendario, nunca antes do conteudo principal
+- `ShareButtons` com `matchTitle="Calendario da Copa do Mundo 2026"`
+- Estrutura da pagina: hero -> aviso MOCK -> seletor de fuso -> calendario agrupado -> AdPlaceholder -> links internos -> compartilhar -> texto SEO
+- CSS scoped na pagina: `.calendar-section`, `.calendar-day`, `.calendar-day-header`, `.calendar-matches`, `.calendar-match-card`, `.calendar-match-card.partial`, `.cal-match-time`, `.cal-weekday`, `.cal-time`, `.cal-match-info`, `.cal-teams`, `.cal-team`, `.cal-team.tbd`, `.cal-vs`, `.cal-meta`, `.cal-match-actions`, `.cal-detail-link`, `.cal-partial-badge`, `.internal-links`, `.share-section`, `.seo-text`
+- Responsividade: breakpoint 600px (grid 1col, cal-match-time linha horizontal); 768px (header maior, links internos em row)
+- Compativel com SSG: zero API de browser no frontmatter
+- Build: 28 paginas geradas sem erros, zero TypeScript errors
+
+**Paginas totais geradas (28):**
+- `/index.html`
+- `/pt-br/index.html`
+- `/en/index.html`
+- `/es/index.html`
+- `/pt-br/jogos-de-hoje-copa/index.html`
+- `/pt-br/tabela-copa-2026/index.html`
+- `/pt-br/calendario-copa-2026/index.html` (NOVA — Fase 6E2)
+- `/pt-br/selecoes/[northland|eastoria|westmark|southmore|highpeak|lowvale|bayshore|ridgemont]/index.html` (8 paginas)
+- `/pt-br/grupos/[m|n]/index.html` (2 paginas)
+- `/pt-br/jogos/[match-001..match-011]/index.html` (11 paginas)
+
+---
+
+## Arquivos criados/alterados na Fase 6E2
+
+| Arquivo | Acao |
+|---------|------|
+| `src/pages/pt-br/calendario-copa-2026.astro` | Criado |
+
+---
 
 ---
 
