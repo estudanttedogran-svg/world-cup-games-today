@@ -1,0 +1,324 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { Match, Team, Group, StandingEntry } from '../../../types/index.ts';
+import groupsData from '../../../data/groups.json';
+import matchesData from '../../../data/matches.json';
+import teamsData from '../../../data/teams.json';
+import { sortMatchesByDate } from '../../../utils/matches.ts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GroupTable from '../../../components/GroupTable.astro';
+import MatchList from '../../../components/MatchList.astro';
+import AdPlaceholder from '../../../components/AdPlaceholder.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const groups = (groupsData as { groups: Group[] }).groups;
+  return groups.map((group) => ({
+    params: { group: group.slug },
+    props: { group },
+  }));
+};
+
+interface Props {
+  group: Group;
+}
+
+const { group } = Astro.props;
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams   = (teamsData  as { teams:   Team[]  }).teams;
+
+const defaultTimezone = 'America/Mexico_City';
+const locale = 'es' as const;
+
+// Selecciones en este grupo
+const groupTeams = allTeams.filter((t) => group.team_ids.includes(t.id));
+
+// Nombre del grupo en español
+const groupName = group.name['es'] ?? group.name['en'] ?? group.name['pt-br'] ?? `Grupo ${group.slug.toUpperCase()}`;
+
+// Partidos confirmados del grupo — partidos donde al menos una selección pertenece al grupo
+const groupTeamIds = group.team_ids;
+const confirmedGroupMatches = sortMatchesByDate(
+  allMatches.filter(
+    (m) =>
+      m.type === 'confirmed' &&
+      (
+        (m.home_team_id !== null && groupTeamIds.includes(m.home_team_id)) ||
+        (m.away_team_id !== null && groupTeamIds.includes(m.away_team_id))
+      )
+  )
+);
+
+// MOCK clasificaciones
+const mockStandingsMap: Record<string, StandingEntry[]> = {
+  'm': [
+    { team_id: 'northland', played: 2, won: 1, drawn: 1, lost: 0, goals_for: 3, goals_against: 1, points: 4 },
+    { team_id: 'eastoria',  played: 2, won: 1, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 3 },
+    { team_id: 'westmark',  played: 1, won: 0, drawn: 1, lost: 0, goals_for: 0, goals_against: 0, points: 1 },
+    { team_id: 'southmore', played: 1, won: 0, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 0 },
+  ],
+  'n': [
+    { team_id: 'highpeak',  played: 1, won: 1, drawn: 0, lost: 0, goals_for: 1, goals_against: 0, points: 3 },
+    { team_id: 'lowvale',   played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+    { team_id: 'bayshore',  played: 1, won: 0, drawn: 0, lost: 1, goals_for: 0, goals_against: 1, points: 0 },
+    { team_id: 'ridgemont', played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+  ],
+};
+const groupStandings: StandingEntry[] = mockStandingsMap[group.slug] ?? [];
+---
+
+<BaseLayout
+  title={`${groupName} — Clasificación y Partidos | Copa del Mundo 2026 | World Cup Games Today`}
+  description={`Consulta la clasificación y todos los partidos del ${groupName} en la Copa del Mundo 2026 con horarios en tu zona horaria local.`}
+  lang="es"
+  locale="es"
+>
+  <div class="container">
+
+    <!-- HERO DEL GRUPO -->
+    <section class="page-hero">
+      <h1>{groupName}</h1>
+      <p>Clasificación y partidos del {groupName} en la Copa del Mundo 2026.</p>
+    </section>
+
+    <!-- AVISO MOCK -->
+    <div class="mock-warning" role="alert">
+      &#9888; Este sitio usa datos de demostración (MOCK). Los datos mostrados son ficticios.
+    </div>
+
+    <!-- TABLA DE CLASIFICACIÓN DEL GRUPO -->
+    <section class="group-table-section" aria-label={`Clasificación — ${groupName}`}>
+      <h2>Clasificación &mdash; {groupName}</h2>
+      <GroupTable
+        group={group}
+        standings={groupStandings}
+        teams={allTeams}
+        locale="es"
+      />
+    </section>
+
+    <!-- SELECCIONES EN EL GRUPO -->
+    <section class="group-teams-section" aria-label={`Selecciones del ${groupName}`}>
+      <h2>Selecciones del {groupName}</h2>
+      <ul class="group-teams-list" role="list">
+        {groupTeams.map((team) => (
+          <li>
+            <a href={`/es/equipos/${team.slug}`}>
+              {team.flag && <span aria-hidden="true">{team.flag}</span>}
+              {team.name['es'] ?? team.name['en'] ?? team.name['pt-br'] ?? team.slug}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- PARTIDOS CONFIRMADOS DEL GRUPO -->
+    <section class="group-matches-section" aria-label={`Partidos del ${groupName}`}>
+      <h2>Partidos del {groupName}</h2>
+      <MatchList
+        matches={confirmedGroupMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="es"
+        emptyMessage="No hay partidos confirmados disponibles para este grupo."
+      />
+    </section>
+
+    <!-- ANUNCIO (TRAS EL CONTENIDO PRINCIPAL) -->
+    <AdPlaceholder slot="bottom" label="Publicidad" />
+
+    <!-- ENLACES INTERNOS -->
+    <nav class="internal-links" aria-label="Navegación interna">
+      <h2>Ver también</h2>
+      <ul>
+        <li><a href="/es/">&larr; Inicio</a></li>
+        <li><a href="/es/partidos-de-hoy-mundial">Partidos de Hoy</a></li>
+        <li><a href="/es/calendario-mundial-2026">Calendario del Mundial 2026</a></li>
+        <li><a href="/es/equipos">Selecciones</a></li>
+      </ul>
+    </nav>
+
+    <!-- COMPARTIR -->
+    <section class="share-section" aria-label="Compartir">
+      <h2>Compartir</h2>
+      <ShareButtons
+        locale="es"
+        matchTitle={`${groupName} — Copa del Mundo 2026`}
+      />
+    </section>
+
+    <!-- TEXTO SEO -->
+    <section class="seo-text" aria-label={`${groupName} en la Copa del Mundo 2026`}>
+      <h2>{groupName} en la Copa del Mundo 2026</h2>
+      <p>
+        Sigue la clasificación y todos los partidos del {groupName}
+        en la Copa del Mundo FIFA 2026. Los horarios se muestran automáticamente
+        en tu zona horaria local.
+      </p>
+      <p>
+        Usa World Cup Games Today para saber cuándo juegan las selecciones del {groupName}
+        &mdash; con horarios actualizados para cualquier ciudad del mundo.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* Tabla de clasificación */
+  .group-table-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .group-table-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Selecciones en el grupo */
+  .group-teams-section {
+    margin-bottom: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .group-teams-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Lista de selecciones — sin viñetas, flex wrap */
+  .group-teams-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .group-teams-list li {
+    display: flex;
+  }
+
+  .group-teams-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .group-teams-list a:hover,
+  .group-teams-list a:focus {
+    background-color: var(--color-bg-alt);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .group-teams-list a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Partidos del grupo */
+  .group-matches-section {
+    margin-bottom: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .group-matches-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Enlaces internos */
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  /* Compartir */
+  .share-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Responsividad */
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .group-table-section h2,
+    .group-teams-section h2,
+    .group-matches-section h2,
+    .share-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
