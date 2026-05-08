@@ -49,6 +49,11 @@ const ogUrl = canonicalUrl;
 
     <link rel="canonical" href={canonicalUrl} />
 
+    <!-- hreflang alternates -->
+    {alternates?.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
