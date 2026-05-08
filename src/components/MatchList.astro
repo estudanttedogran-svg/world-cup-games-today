@@ -2,6 +2,7 @@
 import type { Match, Team, Locale } from '../types/index.ts';
 import { formatWeekday, formatDate, formatTime } from '../utils/datetime.ts';
 import { getTeamName } from '../utils/matches.ts';
+import LiveMatchStatus from './LiveMatchStatus.astro';
 
 interface Props {
   matches: Match[];
