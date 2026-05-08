@@ -29,6 +29,15 @@ const todayMatches = getTodaysConfirmedMatches(allMatches, defaultTimezone);
 const teamMatches = getConfirmedMatchesByTeam(allMatches, defaultTeamSlug);
 
 const teamDisplayName = getTeamName(allTeams, defaultTeamSlug, 'en');
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/`;
+const alternates = [
+  { hreflang: 'x-default', href: `${siteUrl}/` },
+  { hreflang: 'pt-BR',     href: `${siteUrl}/pt-br/` },
+  { hreflang: 'en',        href: `${siteUrl}/en/` },
+  { hreflang: 'es',        href: `${siteUrl}/es/` },
+];
 ---
 
 <BaseLayout
@@ -36,6 +45,8 @@ const teamDisplayName = getTeamName(allTeams, defaultTeamSlug, 'en');
   description="See all 2026 World Cup matches in your local time. Schedule automatically updated to your timezone."
   lang="en"
   locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
