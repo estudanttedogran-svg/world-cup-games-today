@@ -12,6 +12,90 @@
 
 ---
 
+## Fase 10C — SportsEvent JSON-LD ✅ (2026-05-08)
+
+### Arquivos criados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/utils/schema.ts` | CRIADO — utilitário puro `buildSportsEventSchema()` com interface tipada |
+
+### Arquivos alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/pt-br/jogos/[id].astro` | Importação do schema; cálculo de `schemaData`; injeção via `slot="head"` |
+| `src/pages/en/matches/[id].astro` | Importação do schema; cálculo de `schemaData`; injeção via `slot="head"` |
+| `src/pages/es/partidos/[id].astro` | Importação do schema; cálculo de `schemaData`; injeção via `slot="head"` |
+
+### O que foi implementado
+
+**`src/utils/schema.ts`**
+
+Função pura `buildSportsEventSchema(opts: SportsEventSchemaOptions): object` que retorna objeto JSON-LD com:
+- `@type`: `SportsEvent`
+- `name`: `{homeTeam} vs {awayTeam}` (separador neutro internacional)
+- `description`: aviso explícito "(demonstration data)"
+- `startDate`: `datetime_utc` exato da partida
+- `sport`: `"Soccer"` (padrão schema.org)
+- `eventStatus`: `"https://schema.org/EventScheduled"`
+- `eventAttendanceMode`: `"https://schema.org/OfflineEventAttendanceMode"`
+- `location`: estádio, cidade e país em inglês
+- `competitor`: array de dois `SportsTeam` com nomes em inglês
+- `url`: URL canônica da página
+
+**Não incluídos no schema (por política):**
+- Scores/placar — dado mock não confiável
+- Organizer com nome FIFA — sem afiliação
+- Imagens — sem URL real
+- Preços ou ingressos
+
+**Injeção nas páginas**
+
+Padrão idêntico nas três versões de idioma:
+```astro
+{schemaData && (
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} slot="head" />
+)}
+```
+
+Usando `<slot name="head" />` já existente no `BaseLayout.astro` — sem alteração no layout.
+
+### Regras de emissão do JSON-LD
+
+| Tipo de partida | JSON-LD emitido? | Motivo |
+|-----------------|------------------|--------|
+| `confirmed` (com homeTeam e awayTeam definidos) | SIM | Times, data e local conhecidos |
+| `partial` (teams nulos) | NÃO | Times indefinidos — schema seria enganoso |
+| `simulation` | NÃO | Dado fictício — nunca schema de evento real |
+
+### Nomes dos times no schema
+
+Sempre em inglês, independente do locale da página:
+```typescript
+const homeTeamNameForSchema = homeTeam?.name['en'] ?? homeTeam?.name['pt-br'] ?? homeTeamName;
+```
+
+### Validação
+
+- `npm run build`: 77 páginas geradas sem erros
+- `dist/robots.txt` presente
+- `dist/sitemap.xml` presente
+- JSON-LD verificado em match-001 (confirmed): presente e correto
+- JSON-LD verificado em match-009 (partial): AUSENTE (correto)
+- Todos os 8 jogos confirmed têm JSON-LD nas três versões de idioma
+- Todos os 3 jogos partial sem JSON-LD
+
+### Riscos e pendências
+
+| Item | Impacto |
+|------|---------|
+| Dados mock — nomes de times, estádios e datas são fictícios | Alto — schema com dados reais exige revisão completa antes do lançamento |
+| `url` no schema aponta para cada URL de idioma (pt-br, en, es) separadamente — não há schema único centralizado | Baixo — comportamento correto (cada página tem sua própria URL canônica) |
+| `eventStatus` fixado como `EventScheduled` — não será atualizado automaticamente após término | Médio — exige processo de atualização quando jogos forem encerrados |
+
+---
+
 ## Fase 10B — Open Graph completo + Twitter Card ✅ (2026-05-08)
 
 ### Arquivos alterados
