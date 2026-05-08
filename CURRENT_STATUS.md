@@ -6,9 +6,47 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 6C — Página por Seleção (pt-br) — rota dinâmica SSG + correção de segurança de dados
-**Próxima fase:** Fase 6D — Página por Grupo (pt-br) — rota dinâmica SSG
-**Aguardando:** Autorização do usuário para iniciar Fase 6D
+**Fase concluída:** Fase 6D — Página por Grupo (pt-br) — rota dinâmica SSG
+**Próxima fase:** Fase 6E — Página por Jogo + Calendário (pt-br)
+**Aguardando:** Autorização do usuário para iniciar Fase 6E
+
+---
+
+## Fase 6D ✅ — Página por Grupo (pt-br) — rota dinâmica SSG
+
+**Arquivo criado:**
+
+**`src/pages/pt-br/grupos/[grupo].astro`**
+- Rota dinâmica SSG com `getStaticPaths()` — segundo uso no projeto (padrão já estabelecido na 6C)
+- Gera uma página estática por cada grupo em `groups.json` (2 grupos = 2 páginas)
+- Cast correto dos dados: `(groupsData as { groups: Group[] }).groups`
+- `getStaticPaths()` retorna `{ params: { grupo: group.slug }, props: { group } }` por grupo
+- Times do grupo resolvidos via `allTeams.filter(t => group.team_ids.includes(t.id))` — campo real é `team_ids`, não `teams`
+- Jogos confirmados filtrados: `m.type === 'confirmed'` e `home_team_id` ou `away_team_id` no grupo
+- Estrutura da página: hero do grupo → aviso MOCK → classificação (GroupTable) → seleções do grupo → jogos confirmados → AdPlaceholder → links internos → compartilhar → texto SEO
+- `GroupTable.astro` reutilizado obrigatoriamente (criado na Fase 6B)
+- Mock standings inline: mesmos valores usados em `tabela-copa-2026.astro` para consistência
+- Jogos parciais: não exibidos (sem vínculo explícito de grupo nos parciais do mock) — consistente com decisão da Fase 6C
+- `AdPlaceholder` posicionado após o conteúdo principal, nunca antes
+- Lista de seleções com links para `/pt-br/selecoes/[slug]` — pill-style com flag + nome
+- CSS scoped na página: `.group-table-section`, `.group-teams-section`, `.group-teams-list`, `.group-matches-section`, `.internal-links`
+- Responsividade: breakpoints 480px (internal-links inline), 768px (h2 maiores)
+- Compatível com SSG: zero API de browser no frontmatter
+- Build: 16 páginas geradas sem erros, zero TypeScript errors
+
+**Páginas de grupo geradas:**
+- `/pt-br/grupos/m/index.html` (Grupo M — Northland, Eastoria, Westmark, Southmore)
+- `/pt-br/grupos/n/index.html` (Grupo N — Highpeak, Lowvale, Bayshore, Ridgemont)
+
+---
+
+## Arquivos criados/alterados na Fase 6D
+
+| Arquivo | Ação |
+|---------|------|
+| `src/pages/pt-br/grupos/[grupo].astro` | Criado |
+
+---
 
 ---
 
