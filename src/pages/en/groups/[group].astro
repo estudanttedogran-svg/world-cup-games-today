@@ -1,0 +1,324 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { Match, Team, Group, StandingEntry } from '../../../types/index.ts';
+import groupsData from '../../../data/groups.json';
+import matchesData from '../../../data/matches.json';
+import teamsData from '../../../data/teams.json';
+import { sortMatchesByDate } from '../../../utils/matches.ts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import GroupTable from '../../../components/GroupTable.astro';
+import MatchList from '../../../components/MatchList.astro';
+import AdPlaceholder from '../../../components/AdPlaceholder.astro';
+import ShareButtons from '../../../components/ShareButtons.astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const groups = (groupsData as { groups: Group[] }).groups;
+  return groups.map((group) => ({
+    params: { group: group.slug },
+    props: { group },
+  }));
+};
+
+interface Props {
+  group: Group;
+}
+
+const { group } = Astro.props;
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams   = (teamsData  as { teams:   Team[]  }).teams;
+
+const defaultTimezone = 'America/New_York';
+const locale = 'en' as const;
+
+// Teams in this group
+const groupTeams = allTeams.filter((t) => group.team_ids.includes(t.id));
+
+// Group name in locale
+const groupName = group.name['en'] ?? group.name['pt-br'] ?? `Group ${group.slug.toUpperCase()}`;
+
+// Confirmed matches for the group — matches where at least one team belongs to the group
+const groupTeamIds = group.team_ids;
+const confirmedGroupMatches = sortMatchesByDate(
+  allMatches.filter(
+    (m) =>
+      m.type === 'confirmed' &&
+      (
+        (m.home_team_id !== null && groupTeamIds.includes(m.home_team_id)) ||
+        (m.away_team_id !== null && groupTeamIds.includes(m.away_team_id))
+      )
+  )
+);
+
+// MOCK standings
+const mockStandingsMap: Record<string, StandingEntry[]> = {
+  'm': [
+    { team_id: 'northland', played: 2, won: 1, drawn: 1, lost: 0, goals_for: 3, goals_against: 1, points: 4 },
+    { team_id: 'eastoria',  played: 2, won: 1, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 3 },
+    { team_id: 'westmark',  played: 1, won: 0, drawn: 1, lost: 0, goals_for: 0, goals_against: 0, points: 1 },
+    { team_id: 'southmore', played: 1, won: 0, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 0 },
+  ],
+  'n': [
+    { team_id: 'highpeak',  played: 1, won: 1, drawn: 0, lost: 0, goals_for: 1, goals_against: 0, points: 3 },
+    { team_id: 'lowvale',   played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+    { team_id: 'bayshore',  played: 1, won: 0, drawn: 0, lost: 1, goals_for: 0, goals_against: 1, points: 0 },
+    { team_id: 'ridgemont', played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+  ],
+};
+const groupStandings: StandingEntry[] = mockStandingsMap[group.slug] ?? [];
+---
+
+<BaseLayout
+  title={`${groupName} — Standings & Matches | 2026 World Cup | World Cup Games Today`}
+  description={`View the standings and all matches for ${groupName} at the 2026 World Cup with kick-off times in your local timezone.`}
+  lang="en"
+  locale="en"
+>
+  <div class="container">
+
+    <!-- GROUP HERO -->
+    <section class="page-hero">
+      <h1>{groupName}</h1>
+      <p>Standings and matches for {groupName} at the 2026 World Cup.</p>
+    </section>
+
+    <!-- MOCK DATA WARNING -->
+    <div class="mock-warning" role="alert">
+      &#9888; This site uses demonstration data (MOCK). The data shown is fictional.
+    </div>
+
+    <!-- GROUP STANDINGS TABLE -->
+    <section class="group-table-section" aria-label={`Standings — ${groupName}`}>
+      <h2>Standings &mdash; {groupName}</h2>
+      <GroupTable
+        group={group}
+        standings={groupStandings}
+        teams={allTeams}
+        locale="en"
+      />
+    </section>
+
+    <!-- TEAMS IN THE GROUP -->
+    <section class="group-teams-section" aria-label={`Teams in ${groupName}`}>
+      <h2>Teams in {groupName}</h2>
+      <ul class="group-teams-list" role="list">
+        {groupTeams.map((team) => (
+          <li>
+            <a href={`/en/teams/${team.slug}`}>
+              {team.flag && <span aria-hidden="true">{team.flag}</span>}
+              {team.name['en'] ?? team.name['pt-br'] ?? team.slug}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- CONFIRMED GROUP MATCHES -->
+    <section class="group-matches-section" aria-label={`Matches in ${groupName}`}>
+      <h2>{groupName} Matches</h2>
+      <MatchList
+        matches={confirmedGroupMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="en"
+        emptyMessage="No confirmed matches available for this group."
+      />
+    </section>
+
+    <!-- AD PLACEHOLDER (AFTER MAIN CONTENT) -->
+    <AdPlaceholder slot="bottom" label="Advertisement" />
+
+    <!-- INTERNAL LINKS -->
+    <nav class="internal-links" aria-label="Internal navigation">
+      <h2>See also</h2>
+      <ul>
+        <li><a href="/en/">&larr; Home</a></li>
+        <li><a href="/en/world-cup-games-today">Today's Matches</a></li>
+        <li><a href="/en/world-cup-2026-schedule">Full 2026 Schedule</a></li>
+        <li><a href="/en/teams">All Teams</a></li>
+      </ul>
+    </nav>
+
+    <!-- SHARE BUTTONS -->
+    <section class="share-section" aria-label="Share">
+      <h2>Share</h2>
+      <ShareButtons
+        locale="en"
+        matchTitle={`${groupName} — 2026 World Cup`}
+      />
+    </section>
+
+    <!-- SEO TEXT -->
+    <section class="seo-text" aria-label={`${groupName} at the 2026 World Cup`}>
+      <h2>{groupName} at the 2026 World Cup</h2>
+      <p>
+        Follow the standings and all matches in {groupName}
+        at the 2026 FIFA World Cup. Kick-off times are automatically shown
+        in your local timezone.
+      </p>
+      <p>
+        Use World Cup Games Today to know when the teams in {groupName}
+        are playing &mdash; with times updated for any city in the world.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* Group standings table */
+  .group-table-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .group-table-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Teams in the group */
+  .group-teams-section {
+    margin-bottom: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .group-teams-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Team list — no bullets, flex wrap */
+  .group-teams-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .group-teams-list li {
+    display: flex;
+  }
+
+  .group-teams-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .group-teams-list a:hover,
+  .group-teams-list a:focus {
+    background-color: var(--color-bg-alt);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .group-teams-list a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Group matches */
+  .group-matches-section {
+    margin-bottom: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .group-matches-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Internal links */
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  /* Share section */
+  .share-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Responsiveness */
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .group-table-section h2,
+    .group-teams-section h2,
+    .group-matches-section h2,
+    .share-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
