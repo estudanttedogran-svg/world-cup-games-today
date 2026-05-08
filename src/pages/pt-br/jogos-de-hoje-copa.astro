@@ -16,6 +16,14 @@ const defaultTimezone = 'America/Sao_Paulo';
 // Filtrar jogos de hoje no fuso padrão (o JS do cliente pode sobrescrever dinamicamente)
 const todayMatches = getTodaysConfirmedMatches(allMatches, defaultTimezone);
 const totalToday = todayMatches.length;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/pt-br/jogos-de-hoje-copa`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/jogos-de-hoje-copa` },
+  { hreflang: 'en',    href: `${siteUrl}/en/world-cup-games-today` },
+  { hreflang: 'es',    href: `${siteUrl}/es/partidos-de-hoy-mundial` },
+];
 ---
 
 <BaseLayout
@@ -23,6 +31,8 @@ const totalToday = todayMatches.length;
   description="Veja todos os jogos da Copa do Mundo 2026 que acontecem hoje, com horário no seu fuso local. Dados atualizados."
   lang="pt-BR"
   locale="pt-br"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
