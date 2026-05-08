@@ -94,6 +94,14 @@ const matchTitle = match.type === 'confirmed'
 const metaDescription = match.type === 'confirmed'
   ? `View details for ${homeTeamName} vs ${awayTeamName} — ${phaseLabel} of the 2026 World Cup.`
   : `${phaseLabel} of the 2026 World Cup — slots to be determined. Follow on World Cup Games Today.`;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.com';
+const canonicalUrl = `${siteUrl}/en/matches/${match.id}`;
+const alternates = [
+  { hreflang: 'pt-BR', href: `${siteUrl}/pt-br/jogos/${match.id}` },
+  { hreflang: 'en',    href: `${siteUrl}/en/matches/${match.id}` },
+  { hreflang: 'es',    href: `${siteUrl}/es/partidos/${match.id}` },
+];
 ---
 
 <BaseLayout
@@ -101,6 +109,8 @@ const metaDescription = match.type === 'confirmed'
   description={metaDescription}
   lang="en"
   locale="en"
+  canonicalUrl={canonicalUrl}
+  alternates={alternates}
 >
   <div class="container">
 
