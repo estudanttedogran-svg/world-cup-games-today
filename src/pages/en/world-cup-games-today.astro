@@ -1,0 +1,187 @@
+---
+import type { Match, Team } from '../../types/index.ts';
+import matchesData from '../../data/matches.json';
+import teamsData from '../../data/teams.json';
+import { getTodaysConfirmedMatches } from '../../utils/matches.ts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TodayMatches from '../../components/TodayMatches.astro';
+import TimezoneSelector from '../../components/TimezoneSelector.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import AdPlaceholder from '../../components/AdPlaceholder.astro';
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams = (teamsData as { teams: Team[] }).teams;
+const defaultTimezone = 'America/New_York';
+
+const todayMatches = getTodaysConfirmedMatches(allMatches, defaultTimezone);
+const totalToday = todayMatches.length;
+---
+
+<BaseLayout
+  title="World Cup Games Today — 2026 FIFA World Cup | World Cup Games Today"
+  description="See all 2026 World Cup matches happening today, with kick-off times in your local timezone. Updated data."
+  lang="en"
+  locale="en"
+>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <h1>World Cup Games Today &mdash; 2026</h1>
+      <p>All 2026 World Cup matches happening today, shown in your local time.</p>
+    </section>
+
+    <!-- MOCK DATA WARNING -->
+    <div class="mock-warning" role="alert">
+      &#9888; This site uses demonstration data (MOCK). The data shown is fictional.
+    </div>
+
+    <!-- TIMEZONE SELECTOR -->
+    <section class="timezone-row" aria-label="Timezone">
+      <TimezoneSelector currentTimezone={defaultTimezone} locale="en" />
+    </section>
+
+    <!-- DAY SUMMARY -->
+    <div class="day-summary">
+      {totalToday === 0
+        ? <p>No confirmed matches today.</p>
+        : <p>{totalToday} confirmed {totalToday === 1 ? 'match' : 'matches'} today.</p>
+      }
+    </div>
+
+    <!-- TODAY'S MATCH LIST -->
+    <section class="today-section" aria-label="Today's matches">
+      <TodayMatches
+        matches={allMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="en"
+      />
+    </section>
+
+    <!-- AD PLACEHOLDER -->
+    <AdPlaceholder slot="bottom" label="Advertisement" />
+
+    <!-- SHARE BUTTONS -->
+    <section class="share-section" aria-label="Share">
+      <h2>Share today's matches</h2>
+      <ShareButtons
+        locale="en"
+        matchTitle="World Cup 2026 Games Today"
+      />
+    </section>
+
+    <!-- INTERNAL LINKS -->
+    <nav class="internal-links" aria-label="Internal navigation">
+      <h2>See also</h2>
+      <ul>
+        <li><a href="/en/">&larr; Home</a></li>
+        <li><a href="/en/world-cup-2026-schedule">Full 2026 Schedule</a></li>
+        <li><a href="/en/teams">All Teams</a></li>
+      </ul>
+    </nav>
+
+    <!-- SEO TEXT -->
+    <section class="seo-text" aria-label="About 2026 World Cup today">
+      <h2>2026 World Cup &mdash; Today's Matches in Your Timezone</h2>
+      <p>
+        Follow all 2026 FIFA World Cup matches happening today.
+        Kick-off times are automatically displayed in your local timezone &mdash;
+        no manual conversion required.
+      </p>
+      <p>
+        The 2026 World Cup is held across the United States, Canada, and Mexico,
+        spanning multiple time zones. Use World Cup Games Today to never miss a match.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .timezone-row {
+    margin-bottom: var(--space-6);
+  }
+
+  .day-summary {
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+    margin-bottom: var(--space-6);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+  }
+
+  .today-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .share-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .share-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
