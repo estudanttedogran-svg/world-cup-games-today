@@ -212,7 +212,7 @@ Notas: slugs gerados a partir de `groups.json` — cada group.slug vira uma rota
 ---
 
 ## Fase 6E — Página por Jogo + Calendário (pt-br)
-**Status:** PARCIALMENTE CONCLUÍDA — Fase 6E1 CONCLUÍDA ✅ | Fase 6E2 PENDENTE
+**Status:** CONCLUÍDA ✅ — Fase 6E1 CONCLUÍDA ✅ | Fase 6E2 CONCLUÍDA ✅
 
 Páginas alvo:
 - `src/pages/pt-br/jogo/[id].astro` — rota dinâmica, uma página por partida
