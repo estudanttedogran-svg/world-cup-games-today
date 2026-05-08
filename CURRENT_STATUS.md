@@ -6,9 +6,77 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 9C — Página raiz `/` (seleção de idioma + sugestão por navegador) CONCLUÍDA ✅
+**Fase concluída:** Fase 9D — Refinamento i18n de componentes compartilhados CONCLUÍDA ✅
 **Próxima fase:** Fase 10 — SEO Técnico
 **Aguardando:** Autorização do usuário para iniciar Fase 10
+
+---
+
+## Fase 9D — Refinamento i18n de componentes compartilhados ✅
+
+### Arquivos alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/utils/share.ts` | Atualizado — `buildWhatsAppText` agora usa `locale` para gerar textos em pt-br, en e es |
+| `src/components/ShareButtons.astro` | Atualizado — `data-locale` adicionado ao container; script client-side usa locale para textos WhatsApp |
+| `src/utils/calendar.ts` | Atualizado — `buildCalendarEventData` aceita `locale` opcional e localiza summary/description em pt-br, en, es |
+| `src/components/CalendarButtons.astro` | Atualizado — `locale` passado para `buildCalendarEventData`; `data-locale` adicionado ao botão ICS; script client-side usa locale |
+
+### O que foi implementado
+
+**`src/utils/share.ts`**
+- Campo `locale?: Locale` adicionado a `ShareMatchContext` (opcional, padrão `'pt-br'` — sem quebrar chamadas existentes)
+- `buildWhatsAppText` agora gera textos diferenciados para 3 idiomas e 3 tipos de partida:
+  - `confirmed` pt-br: "⚽ HomeTeam x AwayTeam\n🕐 data às hora\nVeja no World Cup Games Today: url"
+  - `confirmed` en: "⚽ HomeTeam vs AwayTeam\n🕐 date at time\nSee on World Cup Games Today: url"
+  - `confirmed` es: "⚽ HomeTeam vs AwayTeam\n🕐 fecha a las hora\nVer en World Cup Games Today: url"
+  - `partial` en: "⚽ World Cup 2026 — Teams to be confirmed\nSee on World Cup Games Today: url"
+  - `partial` es: "⚽ Copa Mundial 2026 — Equipos por definir\nVer en World Cup Games Today: url"
+  - `generic` en: "⚽ FIFA World Cup 2026 — See all matches in your local time\nurl"
+  - `generic` es: "⚽ Copa Mundial FIFA 2026 — Todos los partidos en tu horario local\nurl"
+
+**`src/components/ShareButtons.astro`**
+- `data-locale={locale}` adicionado ao container `[data-share-component]`
+- Script client-side: lê `container.dataset.locale` e usa para escolher textos WhatsApp inline (sem importar módulos TS)
+- Pendência i18n do WhatsApp client-side: RESOLVIDA
+
+**`src/utils/calendar.ts`**
+- Campo `locale?: Locale` adicionado aos opts de `buildCalendarEventData` (opcional, padrão `'pt-br'`)
+- `summary` e `description` localizados para pt-br, en e es nos três tipos: `confirmed`, `partial`, `simulation`/genérico
+- `uid`, `dtstart`, `dtend`, `dtstamp`, `location` sem alteração de lógica
+
+**`src/components/CalendarButtons.astro`**
+- `locale` agora passado explicitamente para `buildCalendarEventData` (Google Calendar já usa summary localizado)
+- `data-locale={locale}` adicionado ao botão `.cal-btn--ics`
+- Script client-side do ICS: lê `el.dataset.locale` e gera `summary`/`description` em pt-br, en ou es
+- Pendência i18n do ICS client-side: RESOLVIDA
+
+### Regras respeitadas
+
+- `simulation` nunca gera calendário — regra mantida (`shouldRender = matchType !== 'simulation'`)
+- `partial` nunca inventa times — summary usa textos genéricos sem nomes de seleções
+- `uid`, `dtstart`, `dtend`, `location` sem alteração de lógica
+- Compatibilidade: todas as chamadas existentes sem `locale` continuam usando `'pt-br'` como padrão
+- Nenhuma dependência nova adicionada
+- Nenhuma refatoração ampla — apenas adição de `locale` onde necessário
+- Todos os guards (`typeof window`, `typeof document`) mantidos
+
+### Validação
+
+- `npm run build`: 77 páginas geradas sem erros ✅
+- Zero erros TypeScript ✅
+- Total de páginas: 77 (sem alteração — nenhuma página nova nesta fase) ✅
+- Páginas pt-br, en e es existentes não alteradas ✅
+
+### Pendências i18n resolvidas nesta fase
+
+| Pendência | Arquivo | Status |
+|-----------|---------|--------|
+| `ShareButtons.astro`: texto WhatsApp client-side hardcoded em pt-br | `src/components/ShareButtons.astro` + `src/utils/share.ts` | RESOLVIDA ✅ |
+| `CalendarButtons.astro`: texto ICS client-side hardcoded em pt-br | `src/components/CalendarButtons.astro` + `src/utils/calendar.ts` | RESOLVIDA ✅ |
+
+---
 
 ---
 
