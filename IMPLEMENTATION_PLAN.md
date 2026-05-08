@@ -277,13 +277,37 @@ Entregas:
 ---
 
 ## Fase 9 — Internacionalização (en + es)
+**Status:** EM ANDAMENTO — Fase 9A CONCLUÍDA ✅ | Fase 9B PENDENTE
+
+### Fase 9A — Páginas em inglês (/en/)
+**Status:** CONCLUÍDA ✅ — 2026-05-08
+
+Entregas:
+- `src/pages/en/index.astro` — home em inglês (reescrita do stub)
+- `src/pages/en/world-cup-games-today.astro` — jogos de hoje em inglês
+- `src/pages/en/world-cup-2026-schedule.astro` — tabela/calendário em inglês
+- `src/pages/en/teams/index.astro` — listagem de times em inglês
+- `src/pages/en/teams/[slug].astro` — página por time em inglês (8 páginas)
+- `src/pages/en/groups/[group].astro` — página por grupo em inglês (2 páginas)
+- `src/pages/en/matches/[id].astro` — página por jogo em inglês (11 páginas)
+- Fuso padrão: `America/New_York`
+- Locale `'en'` em todos os componentes que aceitam a prop
+- 24 páginas novas geradas — total passa de 29 para 53 páginas
+- `npm run build`: 53 páginas sem erros ✅
+
+### Fase 9B — Páginas em espanhol (/es/)
 **Status:** PENDENTE
 
 Entregas:
-- `src/i18n/translations.ts` — strings traduzidas para pt-br, en, es
-- Todas as páginas do pt-br replicadas para `/en/` e `/es/`
-- Página raiz `/` — seleção de idioma + auto-sugestão por navegador
-- hreflang configurado em todas as páginas
+- `src/pages/es/index.astro` — home em espanhol (reescrita do stub)
+- `src/pages/es/juegos-de-hoy-copa.astro` — jogos de hoje em espanhol
+- `src/pages/es/calendario-copa-2026.astro` — tabela/calendário em espanhol
+- `src/pages/es/selecciones/index.astro` — listagem de times em espanhol
+- `src/pages/es/selecciones/[slug].astro` — página por time em espanhol
+- `src/pages/es/grupos/[grupo].astro` — página por grupo em espanhol
+- `src/pages/es/partidos/[id].astro` — página por jogo em espanhol
+- Fuso padrão: `America/Mexico_City`
+- Locale `'es'` em todos os componentes que aceitam a prop
 
 ---
 
