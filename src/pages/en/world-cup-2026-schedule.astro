@@ -1,0 +1,279 @@
+---
+import type { Match, Team, Group, StandingEntry } from '../../types/index.ts';
+import matchesData from '../../data/matches.json';
+import teamsData from '../../data/teams.json';
+import groupsData from '../../data/groups.json';
+import { sortMatchesByDate, filterMatchesByPhase } from '../../utils/matches.ts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GroupTable from '../../components/GroupTable.astro';
+import MatchList from '../../components/MatchList.astro';
+import AdPlaceholder from '../../components/AdPlaceholder.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+
+const allMatches = (matchesData as { matches: Match[] }).matches;
+const allTeams   = (teamsData  as { teams:   Team[]  }).teams;
+const allGroups  = (groupsData as { groups:  Group[] }).groups;
+
+const defaultTimezone = 'America/New_York';
+const locale = 'en' as const;
+
+// Group stage matches, sorted by date
+const groupStageMatches = sortMatchesByDate(
+  filterMatchesByPhase(allMatches, 'group_stage')
+);
+
+// Separate by type — never mix
+const confirmedMatches = groupStageMatches.filter((m) => m.type === 'confirmed');
+const partialMatches   = groupStageMatches.filter((m) => m.type === 'partial');
+// type === 'simulation' is never passed to lists
+
+// MOCK standings
+const mockStandings: Record<string, StandingEntry[]> = {
+  'm': [
+    { team_id: 'northland', played: 2, won: 1, drawn: 1, lost: 0, goals_for: 3, goals_against: 1, points: 4 },
+    { team_id: 'eastoria',  played: 2, won: 1, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 3 },
+    { team_id: 'westmark',  played: 1, won: 0, drawn: 1, lost: 0, goals_for: 0, goals_against: 0, points: 1 },
+    { team_id: 'southmore', played: 1, won: 0, drawn: 0, lost: 1, goals_for: 1, goals_against: 2, points: 0 },
+  ],
+  'n': [
+    { team_id: 'highpeak',  played: 1, won: 1, drawn: 0, lost: 0, goals_for: 1, goals_against: 0, points: 3 },
+    { team_id: 'lowvale',   played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+    { team_id: 'bayshore',  played: 1, won: 0, drawn: 0, lost: 1, goals_for: 0, goals_against: 1, points: 0 },
+    { team_id: 'ridgemont', played: 0, won: 0, drawn: 0, lost: 0, goals_for: 0, goals_against: 0, points: 0 },
+  ],
+};
+---
+
+<BaseLayout
+  title="2026 World Cup Schedule — World Cup Games Today"
+  description="View the complete 2026 World Cup schedule: group standings, all matches, and kick-off times in your local timezone."
+  lang="en"
+  locale="en"
+>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <h1>2026 World Cup Schedule</h1>
+      <p>Group standings and all matches &mdash; kick-off times in your local timezone.</p>
+    </section>
+
+    <!-- MOCK DATA WARNING -->
+    <div class="mock-warning" role="alert">
+      &#9888; This site uses demonstration data (MOCK). The data shown is fictional.
+    </div>
+
+    <!-- GROUP STANDINGS -->
+    <section class="groups-section" aria-label="Group standings">
+      <h2>Group Standings</h2>
+
+      {allGroups.map((group) => (
+        <div class="group-block">
+          <GroupTable
+            group={group}
+            standings={mockStandings[group.slug] ?? []}
+            teams={allTeams}
+            locale="en"
+          />
+        </div>
+      ))}
+    </section>
+
+    <!-- AD PLACEHOLDER (AFTER STANDINGS, BEFORE MATCHES) -->
+    <AdPlaceholder slot="middle" label="Advertisement" />
+
+    <!-- CONFIRMED GROUP STAGE MATCHES -->
+    <section class="schedule-section" aria-label="Confirmed group stage matches">
+      <h2>Confirmed Matches &mdash; Group Stage</h2>
+      <MatchList
+        matches={confirmedMatches}
+        teams={allTeams}
+        timezone={defaultTimezone}
+        locale="en"
+        emptyMessage="No confirmed matches available."
+      />
+    </section>
+
+    <!-- PARTIALLY DEFINED MATCHES (IF ANY) -->
+    {partialMatches.length > 0 && (
+      <section class="partial-section" aria-label="Knockout stage — slots to be determined">
+        <h2>Knockout Stage &mdash; Slots to Be Determined</h2>
+        <p class="partial-note">
+          The teams for these matches will be determined throughout the competition.
+        </p>
+        <MatchList
+          matches={partialMatches}
+          teams={allTeams}
+          timezone={defaultTimezone}
+          locale="en"
+          emptyMessage="No partial matches available."
+        />
+      </section>
+    )}
+
+    <!-- INTERNAL LINKS -->
+    <nav class="internal-links" aria-label="Internal navigation">
+      <h2>See also</h2>
+      <ul>
+        <li><a href="/en/">&larr; Home</a></li>
+        <li><a href="/en/world-cup-games-today">Today's Matches</a></li>
+        <li><a href="/en/teams">All Teams</a></li>
+      </ul>
+    </nav>
+
+    <!-- SHARE BUTTONS -->
+    <section class="share-section" aria-label="Share">
+      <h2>Share the schedule</h2>
+      <ShareButtons locale="en" matchTitle="2026 World Cup Schedule" />
+    </section>
+
+    <!-- SEO TEXT -->
+    <section class="seo-text" aria-label="About the 2026 World Cup">
+      <h2>2026 World Cup &mdash; Complete Schedule</h2>
+      <p>
+        The 2026 FIFA World Cup will be hosted by the United States, Canada, and Mexico.
+        Follow the group standings, match results, and upcoming kick-off times &mdash;
+        automatically displayed in your local timezone.
+      </p>
+      <p>
+        Use World Cup Games Today to track the 2026 World Cup schedule in real time,
+        without manually calculating match times.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* Group standings */
+  .groups-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .groups-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Gap between groups */
+  .group-block {
+    margin-bottom: var(--space-6);
+  }
+
+  .group-block:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Match schedule section */
+  .schedule-section {
+    margin-block: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .schedule-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Partial matches section */
+  .partial-section {
+    margin-block: var(--space-8);
+    padding: var(--space-6);
+    background-color: #fafbff;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .partial-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  /* Explanatory text for partial section */
+  .partial-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Internal links */
+  .internal-links {
+    margin-block: var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+  }
+
+  .internal-links h2 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .internal-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .internal-links a {
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .internal-links a:hover,
+  .internal-links a:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  /* Share section */
+  .share-section {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .share-section h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 480px) {
+    .internal-links ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .groups-section h2,
+    .schedule-section h2,
+    .partial-section h2,
+    .share-section h2 {
+      font-size: var(--font-size-2xl);
+    }
+  }
+</style>
