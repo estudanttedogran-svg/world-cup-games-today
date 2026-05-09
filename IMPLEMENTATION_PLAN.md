@@ -516,9 +516,9 @@ Esta fase transiciona o site de dados fictícios (MOCK) para dados reais verific
   - Data de acesso registrada por coleta
   - Critério de aceitação: dado só entra como `confirmed` se presente na fonte oficial com data e horário publicados
   - Processo de revisão: autor + data + URL da fonte em comentário no topo de cada JSON editado
-- Definição dos campos obrigatórios por tipo:
-  - `confirmed`: `id`, `home_team_id`, `away_team_id`, `date` (UTC ISO-8601), `venue`, `city`, `stage`, `group` (se fase de grupos)
-  - `partial`: `id`, `date` (UTC), `venue`, `city`, `stage` — `home_team_id` e `away_team_id` nulos ou descritores textuais
+- Definição dos campos obrigatórios por tipo (alinhados com `src/types/index.ts`):
+  - `confirmed`: `id`, `type`, `phase`, `group`, `match_number`, `datetime_utc` (ISO-8601 UTC), `stadium` (LocalizedString), `city` (LocalizedString), `country` (LocalizedString), `home_team_id`, `away_team_id` — todos definidos pela fonte oficial
+  - `partial`: `id`, `type`, `phase`, `group`, `match_number`, `datetime_utc`, `stadium`, `city`, `country` — `home_team_id` e `away_team_id` nulos ou descritores textuais em `home_label`/`away_label`
   - Nenhum placar entra em `matches.json` — apenas em `live-data.json`
 - Definição do fluxo de atualização de `live-data.json` durante o torneio (sem rebuild)
 
