@@ -116,6 +116,95 @@ const resolvedOgLocaleAlternates = ogLocaleAlternatesProp
     <!-- Slot para scripts inline -->
     <slot name="scripts" />
 
+    <!-- Timezone updater: reformata elementos [data-utc-datetime] quando o fuso muda -->
+    <script is:inline>
+    (function () {
+      if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+      function getIntlLocale() {
+        var lang = (document.documentElement.lang || 'en').toLowerCase();
+        if (lang.startsWith('pt')) return 'pt-BR';
+        if (lang.startsWith('es')) return 'es-ES';
+        return 'en-US';
+      }
+
+      function getSavedTz() {
+        try {
+          var raw = localStorage.getItem('wcgt_prefs');
+          if (raw) {
+            var prefs = JSON.parse(raw);
+            if (prefs.timezone && typeof prefs.timezone === 'string') return prefs.timezone;
+          }
+        } catch (e) {}
+        return null;
+      }
+
+      function isValidTz(tz) {
+        try { Intl.DateTimeFormat(undefined, { timeZone: tz }); return true; } catch (e) { return false; }
+      }
+
+      function fmt(utcStr, format, tz, intlLocale) {
+        try {
+          var date = new Date(utcStr);
+          if (isNaN(date.getTime())) return '';
+          var h12 = intlLocale === 'en-US';
+          var timeOpts = { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: h12 };
+          var dateOpts = { timeZone: tz, year: 'numeric', month: 'short', day: 'numeric' };
+          var wdOpts   = { timeZone: tz, weekday: 'long' };
+          if (format === 'time')    return new Intl.DateTimeFormat(intlLocale, timeOpts).format(date);
+          if (format === 'date')    return new Intl.DateTimeFormat(intlLocale, dateOpts).format(date);
+          if (format === 'weekday') return new Intl.DateTimeFormat(intlLocale, wdOpts).format(date);
+          if (format === 'weekday-date') {
+            var w = new Intl.DateTimeFormat(intlLocale, wdOpts).format(date);
+            var d = new Intl.DateTimeFormat(intlLocale, dateOpts).format(date);
+            return w + ', ' + d;
+          }
+          if (format === 'full') {
+            var wf = new Intl.DateTimeFormat(intlLocale, wdOpts).format(date);
+            var df = new Intl.DateTimeFormat(intlLocale, dateOpts).format(date);
+            var tf = new Intl.DateTimeFormat(intlLocale, timeOpts).format(date);
+            return wf + ', ' + df + ' • ' + tf;
+          }
+        } catch (e) {}
+        return '';
+      }
+
+      function applyTz(tz) {
+        if (!tz || !isValidTz(tz)) return;
+        var intlLocale = getIntlLocale();
+        var els = document.querySelectorAll('[data-utc-datetime][data-tz-format]');
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          var utcStr = el.getAttribute('data-utc-datetime');
+          var format = el.getAttribute('data-tz-format');
+          if (!utcStr || !format) continue;
+          var result = fmt(utcStr, format, tz, intlLocale);
+          if (result) el.textContent = result;
+        }
+        var city = tz.split('/').pop().replace(/_/g, ' ');
+        var labelEls = document.querySelectorAll('[data-tz-label]');
+        for (var j = 0; j < labelEls.length; j++) {
+          labelEls[j].textContent = city;
+        }
+      }
+
+      function run() {
+        var tz = getSavedTz();
+        if (tz) applyTz(tz);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', run);
+      } else {
+        run();
+      }
+
+      document.addEventListener('wcgt:timezone-change', function (e) {
+        if (e && e.detail && e.detail.timezone) applyTz(e.detail.timezone);
+      });
+    })();
+    </script>
+
     <!-- Google Analytics — carrega apenas se PUBLIC_GA_MEASUREMENT_ID estiver configurado -->
     {import.meta.env.PUBLIC_GA_MEASUREMENT_ID && (
       <Fragment>
