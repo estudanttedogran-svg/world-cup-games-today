@@ -14,7 +14,7 @@ const {
   displayLabel,
 } = Astro.props;
 
-const popularTimezones = getPopularTimezones();
+const popularTimezones = getPopularTimezones(locale);
 const resolvedLabel = displayLabel || getTimezoneLabel(currentTimezone);
 
 const labels: Record<string, { title: string; change: string; current: string }> = {
