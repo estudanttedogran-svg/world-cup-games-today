@@ -8,7 +8,8 @@
 
 **Fase concluída:** Fase 14 — Build + Validação Final CONCLUÍDA ✅
 **Status geral do projeto:** MVP MOCKADO COMPLETO — PRONTO PARA UPLOAD NA HOSTINGER
-**Próxima ação:** Upload na Hostinger (quando o usuário decidir)
+**Verificação de upload (2026-05-09):** dist/ confirmado limpo e completo — 104 arquivos, sem .env, sem node_modules, sem src/
+**Próxima ação:** Fazer upload do conteúdo de dist/ para public_html/ na Hostinger
 
 ---
 
