@@ -175,7 +175,12 @@ const displayMatches = matches.filter((m) => m.type !== 'simulation');
             </div>
 
             <div class="match-item__meta">
-              <time datetime={match.datetime_utc} class="match-item__datetime">
+              <time
+                datetime={match.datetime_utc}
+                class="match-item__datetime"
+                data-utc-datetime={match.datetime_utc}
+                data-tz-format="full"
+              >
                 {weekday}, {dateStr} &bull; {timeStr}
               </time>
               {stadiumStr && cityStr && (
