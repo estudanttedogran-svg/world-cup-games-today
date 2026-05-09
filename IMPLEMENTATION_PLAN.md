@@ -474,7 +474,7 @@ Entregas:
 | 11 | Páginas Institucionais | PENDENTE |
 | 12 | Analytics + AdSense (placeholders) | CONCLUÍDA ✅ |
 | 13 | Documentação | CONCLUÍDA ✅ |
-| 14 | Build + Validação Final | PENDENTE |
+| 14 | Build + Validação Final | CONCLUÍDA ✅ |
 
 Ordem obrigatória dentro da Fase 6: 6A → 6B → 6C → 6D → 6E
 (6D depende de 6B; 6E pode rodar após 6C em paralelo com 6D, mas recomenda-se sequencial)
