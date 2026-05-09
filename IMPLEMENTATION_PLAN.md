@@ -392,13 +392,16 @@ Resultado: 15 páginas criadas, build passou com 92 páginas sem erros. Footer a
 ---
 
 ## Fase 12 — Analytics + AdSense (Placeholders)
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅
 
 Entregas:
-- Script GA no BaseLayout (condicional: só carrega se `PUBLIC_GA_MEASUREMENT_ID` não estiver vazio)
-- Stubs de eventos: troca de seleção, fuso, idioma; clique em WhatsApp, copiar link, calendário
-- Componente `AdPlaceholder.astro` em todas as posições planejadas
+- Script GA no BaseLayout (condicional: só carrega se `PUBLIC_GA_MEASUREMENT_ID` não estiver vazio; `anonymize_ip: true`)
+- Stubs de eventos em `analytics.ts`: troca de seleção, fuso, idioma; clique em WhatsApp, copiar link, calendário, .ics; visualização de partida (todos já existiam e foram validados)
+- Componente `AdPlaceholder.astro` melhorado: props `size` (banner/rectangle/sidebar com alturas IAB) e `lang` (textos localizados pt-br/en/es), atributo `data-ad-slot`
+- Posicionamento verificado em todas as páginas principais — todos corretos
 - Nenhum anúncio real, nenhum ID real
+
+Resultado: build passou com 92 páginas sem erros.
 
 ---
 
