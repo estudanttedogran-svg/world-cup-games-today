@@ -13,6 +13,8 @@
 **Correção pós-QA: Checklist Páginas Dinâmicas — Links de seleção + Overflow mobile (2026-05-09) ✅ CONFIRMADO**
 **Correção pós-auditoria SEO — robots.txt + og:image (2026-05-09) ✅ APLICADA**
 **SEO Técnico:** APROVADO ✅ — robots.txt permite rastreamento, og:image presente em todas as 92 páginas
+**Correção acessibilidade/mobile — touch targets 44px (2026-05-09) ✅ APLICADA**
+**Checklist mobile:** APROVADO ✅ — todos os botões principais com min-height: 44px
 **Status geral do projeto:** MVP MOCKADO COMPLETO — PRONTO PARA UPLOAD NA HOSTINGER
 **Verificação de upload (2026-05-09):** dist/ confirmado limpo e completo — 104 arquivos, sem .env, sem node_modules, sem src/
 **Próxima ação:** Fazer upload do conteúdo de dist/ para public_html/ na Hostinger
