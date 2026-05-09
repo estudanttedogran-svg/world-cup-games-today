@@ -675,7 +675,7 @@ away_label   — LocalizedString ou null
 | H2 | Nenhum time fictício remanescente |
 | H3 | Slugs únicos, sem colisão de rotas |
 | H4 | Número de grupos em `groups.json` confere com fonte oficial |
-| H5 | Cada grupo tem exatamente 3 times (ou `teams: []` se sorteio pendente) |
+| H5 | Cada grupo tem exatamente 4 times (ou `team_ids: []` se sorteio pendente) |
 | H6 | Número total de partidas em `matches.json` confere com fonte oficial |
 | H7 | Nenhuma partida `confirmed` sem os dois times definidos |
 | H8 | Nenhum score em `matches.json` |
