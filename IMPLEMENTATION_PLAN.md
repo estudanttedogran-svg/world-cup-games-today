@@ -594,9 +594,9 @@ team_ids    — array de 4 team_ids
 **Objetivo:** substituir as partidas fictícias de `src/data/matches.json` pelas 104 partidas reais da Copa 2026.
 
 **Estrutura dos 104 jogos:**
-- Fase de grupos: 48 jogos (16 grupos × 3 rodadas, mas cada grupo tem 3 jogos, logo 16 × 3 = 48)
-- Fase eliminatória: 56 jogos (Round of 32: 16, R16: 8, QF: 4, SF: 2, 3º lugar: 1, Final: 1 = 32... o usuário especifica 104 total então seguir o dado real)
-- O número exato de jogos por fase será determinado pela fonte oficial — não inferir.
+- Fase de grupos: 72 jogos (12 grupos × 6 jogos por grupo)
+- Fase eliminatória: 32 jogos (Round of 32: 16, R16: 8, QF: 4, SF: 2, 3º lugar: 1, Final: 1)
+- Total: 104 jogos — confirmar estrutura com a fonte oficial; não inferir confrontos individuais.
 
 **Tipagem por partida:**
 - `confirmed`: data, hora (UTC), estádio, cidade, fase e **ambos os times** definidos pela fonte.
