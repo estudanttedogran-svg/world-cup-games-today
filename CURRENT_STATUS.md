@@ -19,6 +19,63 @@
 
 ---
 
+## Correção Pós-Auditoria SEO — robots.txt + og:image (2026-05-09) ✅
+
+### Diagnóstico
+
+| Ponto | Status encontrado | Ação |
+|-------|-------------------|------|
+| robots.txt | Já correto no src (`Allow: /`, sem bloqueio Googlebot) | Confirmado — sem alteração no fonte |
+| og:image | Ausente em todas as páginas | Corrigido |
+
+### Correção 1 — robots.txt
+
+O arquivo `src/pages/robots.txt.ts` já gerava corretamente:
+```
+User-agent: *
+Allow: /
+
+Sitemap: https://worldcupgamestoday.com/sitemap.xml
+```
+Nenhum bloqueio de Googlebot. Nenhuma rota bloqueada. O dist confirmado correto após rebuild.
+
+### Correção 2 — og:image padrão
+
+**Problema:** `BaseLayout.astro` só emitia `og:image` quando a prop `ogImage` era passada explicitamente. Nenhuma página passava essa prop → tag ausente em 92 páginas.
+
+**Solução:**
+1. Criado `public/images/og-default.svg` (1200×630) — design neutro, texto "World Cup Games Today / World Cup 2026 matches in your local time", sem identidade oficial FIFA
+2. `BaseLayout.astro`: adicionada variável `resolvedOgImage = ogImage || defaultOgImage` com URL absoluta via `PUBLIC_SITE_URL`
+3. Tags og:image, og:image:width (1200), og:image:height (630) agora emitidas em todas as páginas
+4. `twitter:card` atualizado para `summary_large_image` (melhor preview com imagem grande)
+5. `twitter:image` agora sempre presente
+
+### Arquivos alterados
+
+| Arquivo | Alteração |
+|---------|-----------|
+| `public/images/og-default.svg` | Criado — imagem OG padrão 1200×630 |
+| `src/layouts/BaseLayout.astro` | `resolvedOgImage` com fallback; og:image + og:image:width/height sempre presentes; twitter:card → summary_large_image |
+| `CURRENT_STATUS.md` | Esta entrada |
+
+### Build
+92 páginas geradas sem erros. og:image e twitter:image presentes em todas as páginas.
+
+### SEO Técnico pós-correção: APROVADO ✅
+
+| Critério | Status |
+|----------|--------|
+| robots.txt permite Googlebot | ✅ |
+| robots.txt não bloqueia nenhuma rota | ✅ |
+| Sitemap correto (92 URLs) | ✅ |
+| og:image em todas as páginas | ✅ |
+| og:image URL absoluta | ✅ |
+| og:image:width / og:image:height | ✅ |
+| twitter:image em todas as páginas | ✅ |
+| twitter:card = summary_large_image | ✅ |
+
+---
+
 ## Correção Pós-QA — Checklist Páginas Dinâmicas (2026-05-09) ✅
 
 ### Correção 1 — Links entre seleções nas páginas de seleção
