@@ -804,9 +804,9 @@ away_label   — LocalizedString ou null
 | 12 | Analytics + AdSense (placeholders) | CONCLUÍDA ✅ |
 | 13 | Documentação | CONCLUÍDA ✅ |
 | 14 | Build + Validação Final | CONCLUÍDA ✅ |
-| 15A | Dados Reais — Congelar MVP Mock | PENDENTE |
+| 15A | Dados Reais — Congelar MVP Mock | CONCLUÍDA ✅ |
 | 15B | Dados Reais — Domínio e PUBLIC_SITE_URL | PENDENTE |
-| 15C | Dados Reais — Definir processo de coleta | PENDENTE |
+| 15C | Dados Reais — Definir processo de coleta | CONCLUÍDA ✅ |
 | 15D | Dados Reais — Importar seleções reais | PENDENTE |
 | 15E | Dados Reais — Importar grupos reais | PENDENTE |
 | 15F | Dados Reais — Importar calendário 104 jogos | PENDENTE |
