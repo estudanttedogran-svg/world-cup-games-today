@@ -1,6 +1,6 @@
 # CURRENT_STATUS.md — World Cup Games Today
 
-**Última atualização:** 2026-05-09 (Fase 15A concluída)
+**Última atualização:** 2026-05-09 (Fase 15B — aguardando domínio)
 
 ---
 
