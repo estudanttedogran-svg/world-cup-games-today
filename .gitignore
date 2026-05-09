@@ -15,6 +15,9 @@ dist/
 # Claude Code local settings
 .claude/settings.local.json
 
+# Backup local do dist mockado — não versionar
+dist_mock_backup/
+
 # OS
 .DS_Store
 Thumbs.db
