@@ -15,6 +15,51 @@
 
 ---
 
+## Correção Pós-QA — Bug Checklist 4: Horários Reativos ao Fuso ✅ (2026-05-09)
+
+### Problema
+Os horários dos jogos eram renderizados estaticamente no build (SSG) e não atualizavam quando o usuário trocava o fuso horário. O seletor salvava a preferência no localStorage e recarregava a página, mas a página sempre renderizava com o `defaultTimezone` do build.
+
+### Causa raiz
+Ausência de lógica client-side para reformatar os horários exibidos após a seleção de um novo fuso.
+
+### Solução
+**Abordagem:** data attributes + script global + evento customizado
+
+1. **`data-utc-datetime`** e **`data-tz-format`** adicionados a todos os elementos que exibem horários/datas derivados de UTC.
+2. **Script global** em `BaseLayout.astro` (is:inline IIFE) que:
+   - Na carga da página: lê timezone salvo em `wcgt_prefs` e aplica a todos os `[data-utc-datetime]`
+   - Escuta evento `wcgt:timezone-change` para atualizar imediatamente sem reload
+3. **`TimezoneSelector.astro`**: substituído `window.location.reload()` por `document.dispatchEvent(new CustomEvent('wcgt:timezone-change', { detail: { timezone: chosen } }))` + atualização do label de exibição
+4. **`data-tz-label`** em spans de nome de cidade para atualizar junto com o fuso
+
+### Arquivos alterados
+
+| Arquivo | Alteração |
+|---------|-----------|
+| `src/layouts/BaseLayout.astro` | Script global de reformatação por fuso (IIFE inline) |
+| `src/components/TimezoneSelector.astro` | Substituído reload por dispatch de evento + atualização de label |
+| `src/components/MatchList.astro` | `<time>` com `data-utc-datetime` + `data-tz-format="full"` |
+| `src/components/NextMatchCard.astro` | `<time>` com `data-utc-datetime` + `data-tz-format="full"` |
+| `src/pages/pt-br/calendario-copa-2026.astro` | Spans weekday/time com data attributes |
+| `src/pages/pt-br/jogos/[id].astro` | Spans date + time com data attributes + data-tz-label |
+| `src/pages/en/matches/[id].astro` | Spans date + time com data attributes + data-tz-label |
+| `src/pages/es/partidos/[id].astro` | Spans date + time com data attributes + data-tz-label |
+
+### Verificação de math timezone para `2026-06-12T18:00:00Z`
+
+| Timezone | Esperado | Comportamento |
+|----------|----------|---------------|
+| America/Sao_Paulo (UTC-3) | 15:00 | Script aplica corretamente |
+| Europe/Paris (UTC+2) | 20:00 | Script aplica corretamente |
+| America/New_York (UTC-4) | 14:00 | Script aplica corretamente |
+| America/Mexico_City (UTC-6) | 12:00 | Script aplica corretamente |
+
+### Build
+92 páginas sem erros.
+
+---
+
 ## Correção Pós-QA — Bug Checklist 3: Timezone Labels i18n ✅ (2026-05-09)
 
 ### Problema
