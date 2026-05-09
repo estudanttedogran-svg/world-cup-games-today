@@ -38,6 +38,7 @@
 | Subfase | Descrição | Status |
 |---------|-----------|--------|
 | 15A | Congelar MVP mockado aprovado (tag v1.0-mock + backup) | CONCLUÍDA ✅ |
+| 15C | Definir processo de coleta de dados reais com fonte verificada | CONCLUÍDA ✅ |
 | 15B | Preparar domínio e PUBLIC_SITE_URL | PENDENTE |
 | 15C | Definir processo de coleta de dados reais com fonte verificada | PENDENTE |
 | 15D | Importar seleções reais (48 times) | PENDENTE |
