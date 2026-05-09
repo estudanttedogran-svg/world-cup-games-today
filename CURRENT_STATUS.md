@@ -19,6 +19,7 @@
 **FAQ:** Presente nas homes /pt-br/, /en/, /es/ — 6 perguntas por idioma, FAQPage JSON-LD incluído
 **Status geral do projeto:** MVP MOCKADO COMPLETO — PRONTO PARA UPLOAD NA HOSTINGER
 **Verificação de upload (2026-05-09):** dist/ confirmado limpo e completo — 104 arquivos, sem .env, sem node_modules, sem src/
+**Marco de versão (2026-05-09):** MVP MOCK APROVADO — todos os checklists validados ✅
 **Próxima ação:** Fazer upload do conteúdo de dist/ para public_html/ na Hostinger
 
 ---
