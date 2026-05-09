@@ -204,13 +204,20 @@ const alternates = [
         {dateFormatted && (
           <div class="match-info-row">
             <dt>Date</dt>
-            <dd>{weekdayFormatted}, {dateFormatted}</dd>
+            <dd>
+              <span data-utc-datetime={match.datetime_utc} data-tz-format="weekday-date">{weekdayFormatted}, {dateFormatted}</span>
+            </dd>
           </div>
         )}
         {timeFormatted && (
           <div class="match-info-row">
             <dt>Kick-off</dt>
-            <dd>{timeFormatted} (New York)</dd>
+            <dd>
+              <span data-utc-datetime={match.datetime_utc} data-tz-format="time">{timeFormatted}</span>
+              {' ('}
+              <span data-tz-label>{defaultTimezone.split('/').pop()?.replace(/_/g, ' ')}</span>
+              {')'}
+            </dd>
           </div>
         )}
         {countdownText && (
