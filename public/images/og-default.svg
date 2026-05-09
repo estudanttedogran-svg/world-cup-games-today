@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a2540;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a4a7a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f5c518;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0a500;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Decorative circles -->
+  <circle cx="1050" cy="120" r="200" fill="none" stroke="#1e5a9e" stroke-width="2" opacity="0.4" />
+  <circle cx="1050" cy="120" r="150" fill="none" stroke="#1e5a9e" stroke-width="2" opacity="0.3" />
+  <circle cx="150" cy="510" r="160" fill="none" stroke="#1e5a9e" stroke-width="2" opacity="0.3" />
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="1200" height="8" fill="url(#accent)" />
+
+  <!-- Soccer ball icon (simplified) -->
+  <circle cx="120" cy="180" r="55" fill="none" stroke="#f5c518" stroke-width="3" opacity="0.9" />
+  <circle cx="120" cy="180" r="18" fill="#f5c518" opacity="0.9" />
+  <line x1="120" y1="125" x2="120" y2="145" stroke="#f5c518" stroke-width="2.5" opacity="0.7" />
+  <line x1="120" y1="215" x2="120" y2="235" stroke="#f5c518" stroke-width="2.5" opacity="0.7" />
+  <line x1="65" y1="180" x2="85" y2="180" stroke="#f5c518" stroke-width="2.5" opacity="0.7" />
+  <line x1="155" y1="180" x2="175" y2="180" stroke="#f5c518" stroke-width="2.5" opacity="0.7" />
+
+  <!-- Main title -->
+  <text x="200" y="210" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900" fill="#ffffff" letter-spacing="-1">World Cup</text>
+  <text x="200" y="295" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900" fill="#f5c518" letter-spacing="-1">Games Today</text>
+
+  <!-- Subtitle -->
+  <text x="200" y="370" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#a8c8e8" letter-spacing="0.5">World Cup 2026 matches in your local time</text>
+
+  <!-- Divider -->
+  <rect x="200" y="400" width="160" height="4" rx="2" fill="url(#accent)" />
+
+  <!-- Tag line -->
+  <text x="200" y="450" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#7aafd4">
+    <tspan>PT-BR</tspan>
+    <tspan dx="16" fill="#f5c518">·</tspan>
+    <tspan dx="16">EN</tspan>
+    <tspan dx="16" fill="#f5c518">·</tspan>
+    <tspan dx="16">ES</tspan>
+  </text>
+
+  <!-- Domain -->
+  <text x="200" y="520" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#4a8ab5" letter-spacing="1">worldcupgamestoday.com</text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="622" width="1200" height="8" fill="url(#accent)" />
+</svg>
