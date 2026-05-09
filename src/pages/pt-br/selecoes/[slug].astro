@@ -125,6 +125,28 @@ const alternates = [
       </p>
     </section>
 
+    <!-- OUTRAS SELEÇÕES DO GRUPO -->
+    {groupTeams.length > 0 && (
+      <section class="group-teams-section" aria-label={`Outras seleções do ${groupName}`}>
+        <h2>Outras Sele&ccedil;&otilde;es do {groupName}</h2>
+        <ul class="group-teams-list" role="list">
+          {groupTeams.map((t) => (
+            <li>
+              <a href={`/pt-br/selecoes/${t.slug}`}>
+                {t.flag && <span aria-hidden="true">{t.flag}</span>}
+                {t.name['pt-br'] ?? t.name['en'] ?? t.slug}
+              </a>
+            </li>
+          ))}
+        </ul>
+        {teamGroup && (
+          <a href={`/pt-br/grupos/${teamGroup.slug}`} class="group-link">
+            Ver classifica&ccedil;&atilde;o do {groupName} &rarr;
+          </a>
+        )}
+      </section>
+    )}
+
     <!-- LINKS INTERNOS -->
     <nav class="internal-links" aria-label="Navegação interna">
       <h2>Veja tamb&eacute;m</h2>
