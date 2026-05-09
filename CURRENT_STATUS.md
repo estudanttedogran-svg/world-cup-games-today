@@ -15,6 +15,8 @@
 **SEO Técnico:** APROVADO ✅ — robots.txt permite rastreamento, og:image presente em todas as 92 páginas
 **Correção acessibilidade/mobile — touch targets 44px (2026-05-09) ✅ APLICADA**
 **Checklist mobile:** APROVADO ✅ — todos os botões principais com min-height: 44px
+**Melhoria pós-auditoria estratégica — FAQ nas homes (2026-05-09) ✅ IMPLEMENTADA**
+**FAQ:** Presente nas homes /pt-br/, /en/, /es/ — 6 perguntas por idioma, FAQPage JSON-LD incluído
 **Status geral do projeto:** MVP MOCKADO COMPLETO — PRONTO PARA UPLOAD NA HOSTINGER
 **Verificação de upload (2026-05-09):** dist/ confirmado limpo e completo — 104 arquivos, sem .env, sem node_modules, sem src/
 **Próxima ação:** Fazer upload do conteúdo de dist/ para public_html/ na Hostinger
