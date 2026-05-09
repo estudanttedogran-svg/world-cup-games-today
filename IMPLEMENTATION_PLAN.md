@@ -537,7 +537,7 @@ Esta fase transiciona o site de dados fictícios (MOCK) para dados reais verific
 **Campos por seleção:**
 ```
 id          — slug único, ex: "brazil"
-name        — objeto com pt_br, en, es
+name        — LocalizedString: chaves 'pt-br', en, es
 slug        — usado nas rotas dinâmicas (/pt-br/selecoes/brazil)
 group       — grupo atribuído (ex: "A"), ou null se ainda não sorteado
 confederation — confederação (CONMEBOL, UEFA, etc.)
