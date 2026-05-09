@@ -21,6 +21,32 @@
 
 ---
 
+## Correção Acessibilidade/Mobile — Touch Targets 44px (2026-05-09) ✅
+
+### Problema
+Botões principais com altura entre 37–39px, abaixo do mínimo recomendado (44px) para toque em mobile.
+
+### Solução
+Adicionado `min-height: 44px` em todos os elementos interativos principais. Para os botões sem `display: flex`, adicionados também `display: inline-flex; align-items: center; justify-content: center;` para garantir centralização vertical correta.
+
+### Arquivos alterados
+
+| Arquivo | Elemento | Alteração |
+|---------|----------|-----------|
+| `src/components/TimezoneSelector.astro` | `.tz-selector__select` | `min-height: 44px` |
+| `src/components/TimezoneSelector.astro` | `.tz-selector__btn` | `display: inline-flex; align-items: center; justify-content: center; min-height: 44px` |
+| `src/components/TeamSelector.astro` | `.team-selector__select` | `min-height: 44px` |
+| `src/components/TeamSelector.astro` | `.team-selector__btn` | `display: inline-flex; align-items: center; justify-content: center; min-height: 44px` |
+| `src/components/ShareButtons.astro` | `.share-btn` | `min-height: 44px` |
+| `src/components/CalendarButtons.astro` | `.cal-btn` | `min-height: 44px` |
+
+### Build
+92 páginas geradas sem erros. Layout desktop não afetado.
+
+### Checklist mobile pós-correção: APROVADO ✅
+
+---
+
 ## Correção Pós-Auditoria SEO — robots.txt + og:image (2026-05-09) ✅
 
 ### Diagnóstico
