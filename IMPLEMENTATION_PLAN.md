@@ -406,7 +406,7 @@ Resultado: build passou com 92 páginas sem erros.
 ---
 
 ## Fase 13 — Documentação
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅ — 2026-05-09
 
 Entregas:
 - `README.md` em português com:
@@ -418,14 +418,18 @@ Entregas:
   - Como inserir código AdSense
   - Como editar `live-data.json`
   - Como atualizar placares/status
-  - Como trocar de domínio
+  - Regra de dados, idiomas, localStorage, SEO
 - `CHECKLIST_LANCAMENTO.md`:
-  - Configurar domínio
-  - Configurar Hostinger
-  - Configurar Google Analytics
-  - Configurar Search Console
-  - Enviar sitemap
-  - Solicitar AdSense futuramente
+  - Pré-lançamento (domínio, Hostinger, HTTPS, build)
+  - Upload e deploy
+  - Testes após deploy (20+ itens)
+  - Google Analytics
+  - Google Search Console + sitemap
+  - Dados reais
+  - Google AdSense (pós-lançamento)
+  - Revisão de conformidade legal
+
+Resultado: 2 arquivos criados, build passou com 92 páginas sem erros.
 
 ---
 
