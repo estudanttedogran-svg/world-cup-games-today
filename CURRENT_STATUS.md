@@ -13,6 +13,23 @@
 
 ---
 
+## Revisão QA — Fase 11 ✅ (2026-05-09)
+
+**Resultado:** APROVADA — nenhum problema bloqueante
+**Build:** 92 páginas geradas sem erros nem warnings
+
+### Problemas encontrados
+- Nenhum problema bloqueante
+- Aviso menor: política de privacidade PT-BR cita as funcionalidades do localStorage genericamente (idioma, fuso, time favorito) mas não lista os nomes das chaves (`wcgt_lang`, `wcgt_timezone`, `wcgt_team`). Não bloqueante para MVP.
+
+### Correções aplicadas
+- Nenhuma correção necessária
+
+### Riscos residuais
+- Chaves específicas de localStorage não nomeadas na Política de Privacidade (aviso menor, corrigível na Fase 13 — Documentação)
+
+---
+
 ## Fase 11 — Páginas Institucionais ✅ (2026-05-08)
 
 ### Arquivos criados
