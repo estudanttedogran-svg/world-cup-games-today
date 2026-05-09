@@ -6,10 +6,63 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 11 — Páginas Institucionais CONCLUÍDA ✅
-**Revisão QA da Fase 11:** APROVADA ✅ (2026-05-09) — nenhum problema bloqueante encontrado
-**Próxima fase:** Fase 12 — Analytics + AdSense (placeholders)
-**Aguardando:** Autorização do usuário para iniciar Fase 12
+**Fase concluída:** Fase 12 — Analytics + AdSense (Placeholders) CONCLUÍDA ✅
+**Próxima fase:** Fase 13 — Documentação
+**Aguardando:** Autorização do usuário para iniciar Fase 13
+
+---
+
+## Fase 12 — Analytics + AdSense (Placeholders) ✅ (2026-05-09)
+
+### Arquivos alterados
+
+| Arquivo | Ação |
+|---------|------|
+| `src/layouts/BaseLayout.astro` | Adicionado bloco condicional GA: só insere scripts se `PUBLIC_GA_MEASUREMENT_ID` não estiver vazio. Usa `anonymize_ip: true`. Fica após `<Footer />` antes de `</body>`. |
+| `src/components/AdPlaceholder.astro` | Melhorado com props `size` (`banner` / `rectangle` / `sidebar`) e `lang` (`pt-br` / `en` / `es`). Adicionado `data-ad-slot` attribute. Textos localizados. CSS responsivo para tamanhos IAB. |
+| `src/utils/analytics.ts` | Sem alterações — arquivo já estava completo com todos os eventos necessários. |
+
+### Verificações realizadas
+
+- **analytics.ts**: todos os eventos necessários presentes (`trackTimezoneChange`, `trackLocaleChange`, `trackTeamSelect`, `trackShareClick`, `trackMatchView`, `trackEvent`)
+- **AdPlaceholder posicionamento**: verificado em todas as páginas principais — todas em posições corretas (após conteúdo principal, nunca antes)
+- **Política de Privacidade**: já menciona Google Analytics e Google AdSense — sem alteração necessária
+- **Páginas institucionais**: não alteradas
+
+### Posicionamento de AdPlaceholder verificado
+
+| Página | Posição do AdPlaceholder | Conforme? |
+|--------|--------------------------|-----------|
+| `pt-br/index.astro` | Após NextMatchCard, antes dos jogos de hoje | Sim |
+| `pt-br/jogos-de-hoje-copa.astro` | Após lista de jogos de hoje | Sim |
+| `pt-br/tabela-copa-2026.astro` | Entre classificação e lista de jogos | Sim |
+| `pt-br/calendario-copa-2026.astro` | Após o calendário completo | Sim |
+
+### Validação
+
+- `npm run build`: **92 páginas** geradas sem erros nem warnings
+- Comportamento com `PUBLIC_GA_MEASUREMENT_ID` vazio: nenhum script GA adicionado ao HTML
+- Comportamento com `PUBLIC_GA_MEASUREMENT_ID` preenchido: scripts GA carregados com `anonymize_ip: true`
+
+### Como ativar Analytics futuramente
+
+Preencher `PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX` no arquivo `.env` (ou variável de ambiente na Hostinger) e fazer rebuild.
+
+### Como inserir AdSense futuramente
+
+Substituir o componente `AdPlaceholder.astro` por bloco `<ins class="adsbygoogle">` com o `ca-pub-XXXXXXXXXX` e `data-ad-slot` fornecidos pelo Google AdSense, usando o atributo `data-ad-slot` já presente no componente como referência de posição.
+
+### Riscos e pendências
+
+- Nenhum risco bloqueante
+- Chaves específicas de localStorage (`wcgt_lang`, `wcgt_timezone`, `wcgt_team`) ainda não nomeadas explicitamente na Política de Privacidade — pendência menor, recomendada para Fase 13
+
+---
+
+## Revisão QA — Fase 11 ✅ (2026-05-09)
+
+**Resultado:** APROVADA — nenhum problema bloqueante
+**Build:** 92 páginas geradas sem erros nem warnings
 
 ---
 
