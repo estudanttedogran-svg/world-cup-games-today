@@ -23,6 +23,45 @@
 
 ---
 
+## Melhoria Pós-Auditoria Estratégica — FAQ nas Homes (2026-05-09) ✅
+
+### Objetivo
+Adicionar FAQ nas homes dos três idiomas para aumentar potencial de cauda longa e featured snippets.
+
+### Implementação
+
+**Componente criado:** `src/components/FAQSection.astro`
+- Aceita `heading` (string) e `items` (array de `{ question, answer }`)
+- HTML semântico: `<section>`, `<h2>`, `<details>`, `<summary>`, `<p>`
+- Acessibilidade: `summary` clicável, `focus-visible`, `min-height: 44px`, `aria-label`
+- FAQPage JSON-LD schema embutido no componente — válido, refletindo exatamente o conteúdo visível
+- Indicador visual +/− no `::after` do summary (sem JS)
+- Mobile-first, sem dependências novas
+
+**Páginas atualizadas:**
+
+| Página | Idioma | Perguntas |
+|--------|--------|-----------|
+| `src/pages/pt-br/index.astro` | Português | 6 perguntas |
+| `src/pages/en/index.astro` | English | 6 questions |
+| `src/pages/es/index.astro` | Español | 6 preguntas |
+
+**Posição:** após `.seo-text`, antes do `</div>` de fechamento — sem interferir no conteúdo principal.
+
+### Validação
+
+| Critério | Resultado |
+|----------|-----------|
+| FAQ presente nas 3 homes | ✅ |
+| Nenhuma mistura de idiomas | ✅ |
+| 6 perguntas por idioma | ✅ |
+| FAQ após conteúdo principal | ✅ |
+| Site não afirma ser oficial | ✅ |
+| FAQPage JSON-LD válido | ✅ |
+| Build: 92 páginas, sem erros | ✅ |
+
+---
+
 ## Correção Acessibilidade/Mobile — Touch Targets 44px (2026-05-09) ✅
 
 ### Problema
