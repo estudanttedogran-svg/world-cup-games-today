@@ -85,7 +85,13 @@ const ui = labels[locale] ?? labels['pt-br'];
           prefs.timezone = chosen;
           localStorage.setItem('wcgt_prefs', JSON.stringify(prefs));
         } catch (_) {}
-        window.location.reload();
+        // Update selector display label
+        if (display) {
+          const opt = select.options[select.selectedIndex];
+          if (opt) display.textContent = opt.textContent.replace(/\s*—.*$/, '').trim();
+        }
+        // Dispatch event so the timezone updater script reformats all datetime elements
+        document.dispatchEvent(new CustomEvent('wcgt:timezone-change', { detail: { timezone: chosen } }));
       });
     }
   })();
