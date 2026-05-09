@@ -143,7 +143,12 @@ if (match) {
       </div>
 
       <div class="next-match-card__datetime">
-        <time datetime={match.datetime_utc} class="next-match-card__time-text">
+        <time
+          datetime={match.datetime_utc}
+          class="next-match-card__time-text"
+          data-utc-datetime={match.datetime_utc}
+          data-tz-format="full"
+        >
           {weekday}, {dateStr} &bull; {timeStr}
         </time>
       </div>
