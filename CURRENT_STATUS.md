@@ -16,6 +16,28 @@
 
 ---
 
+## Checklist 5 — Dados dos Jogos: APROVADO COM OBSERVAÇÃO (2026-05-09)
+
+### Resultado: APROVADO ✅ (com observação menor)
+
+| Item | Resultado |
+|------|-----------|
+| Bug crítico de fuso (Checklist 4) confirmado corrigido | ✅ UTC 18:00Z → São Paulo 15:00 / Paris 20:00 |
+| Conversão bidirecional de timezone | ✅ Funcionando |
+| Jogos mockados aparecem corretamente | ✅ |
+| Badge MOCK visível | ✅ |
+| Jogos `confirmed` exibem times | ✅ |
+| `simulation` não aparece como jogo real | ✅ |
+| Datas, fases, ordenação e status coerentes | ✅ |
+| Confrontos impossíveis | ✅ Nenhum encontrado |
+| Jogos `partial` com "A definir" | ⚠️ Não testáveis visualmente nesta rodada — mock atual nas páginas auditadas não apresentou mata-mata/parciais visíveis |
+| `/pt-br/selecoes/brasil` | ⚠️ Retorna 404 — esperado no MVP mockado (dados usam seleções fictícias). Revalidar quando dados reais forem inseridos |
+
+### Observação
+A rota `/pt-br/selecoes/brasil` (e análogos reais) retornam 404 por design: o MVP usa seleções fictícias (Northland, Eastoria, etc.). Não é bug — é limitação do escopo MOCK. Revalidar na fase de dados reais.
+
+---
+
 ## Correção Pós-QA — Bug Checklist 4: Horários Reativos ao Fuso ✅ (2026-05-09)
 
 ### Problema
