@@ -6,10 +6,32 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 12 — Analytics + AdSense (Placeholders) CONCLUÍDA ✅
-**Microcorreção pós-Fase 12:** Política de Privacidade atualizada com nomes técnicos das chaves localStorage ✅ (2026-05-09)
-**Próxima fase:** Fase 13 — Documentação
-**Aguardando:** Autorização do usuário para iniciar Fase 13
+**Fase concluída:** Fase 13 — Documentação CONCLUÍDA ✅
+**Próxima fase:** Fase 14 — Build + Validação Final
+**Aguardando:** Autorização do usuário para iniciar Fase 14
+
+---
+
+## Fase 13 — Documentação ✅ (2026-05-09)
+
+### Arquivos criados
+
+| Arquivo | Descrição |
+|---------|-----------|
+| `README.md` | Documentação completa em português para o mantenedor: instalação, build, deploy na Hostinger, variáveis de ambiente, Analytics, AdSense, dados, idiomas, localStorage, SEO |
+| `CHECKLIST_LANCAMENTO.md` | Lista de verificação para lançamento com 7 seções: pré-lançamento, upload, testes pós-deploy, Google Analytics, Google Search Console, dados reais e Google AdSense |
+
+### Validação
+
+- `npm run build`: **92 páginas** geradas sem erros
+- Nenhum arquivo de código alterado nesta fase
+
+### Riscos e pendências
+
+- Nenhum risco bloqueante
+- Fase 14 (Build + Validação Final) é a última fase antes do MVP completo
+
+---
 
 ---
 
