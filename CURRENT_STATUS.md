@@ -9,6 +9,7 @@
 **Fase concluída:** Fase 14 — Build + Validação Final CONCLUÍDA ✅
 **Correção pós-QA aplicada:** Bug Checklist 3 — Labels de fuso horário localizados (2026-05-09) ✅
 **Correção pós-QA aplicada:** Bug Checklist 4 — Horários client-side reativos ao fuso (2026-05-09) ✅
+**Checklist 5 — Dados dos Jogos: APROVADO COM OBSERVAÇÃO (2026-05-09)** ✅
 **Status geral do projeto:** MVP MOCKADO COMPLETO — PRONTO PARA UPLOAD NA HOSTINGER
 **Verificação de upload (2026-05-09):** dist/ confirmado limpo e completo — 104 arquivos, sem .env, sem node_modules, sem src/
 **Próxima ação:** Fazer upload do conteúdo de dist/ para public_html/ na Hostinger
