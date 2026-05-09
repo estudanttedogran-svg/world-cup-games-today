@@ -60,6 +60,121 @@
 
 ---
 
+## Fase 15B — Preparar Domínio e PUBLIC_SITE_URL — AGUARDANDO ⏳
+
+**Data de início do planejamento:** 2026-05-09
+**Status:** AGUARDANDO — requer ação externa (compra e configuração do domínio)
+
+### O que depende de PUBLIC_SITE_URL
+
+`PUBLIC_SITE_URL` é lido em tempo de build em **42 arquivos** do projeto. Ao mudar o valor e rodar `npm run build`, todos os itens abaixo são atualizados automaticamente:
+
+| Item | Onde é gerado |
+|------|--------------|
+| Meta tag `<link rel="canonical">` | `BaseLayout.astro` — todas as páginas |
+| `<meta property="og:url">` | `BaseLayout.astro` — todas as páginas |
+| `<meta property="og:image">` | `BaseLayout.astro` — `${siteUrl}/images/og-default.svg` |
+| Tags `<link rel="alternate" hreflang>` | Todas as páginas com `alternates` |
+| Todas as URLs em `/sitemap.xml` | `src/pages/sitemap.xml.ts` |
+| Linha `Sitemap:` em `/robots.txt` | `src/pages/robots.txt.ts` |
+| URLs absolutas nos schemas JSON-LD | Páginas de jogo (`confirmed`) |
+
+### Valor atual em .env
+
+```
+PUBLIC_SITE_URL=https://worldcupgamestoday.com
+PUBLIC_GA_MEASUREMENT_ID=
+```
+
+Este valor de placeholder já gera um build funcional. Alterar somente quando o domínio real estiver apontado e HTTPS ativo.
+
+### Passo a passo para você executar
+
+**Etapa 1 — Comprar e configurar o domínio na Hostinger**
+
+1. Acesse o painel da Hostinger e adquira o domínio desejado (ex: `worldcupgamestoday.com`).
+2. No painel de hospedagem, vá em **Domínios → Apontar domínio** e associe ao seu plano de hospedagem.
+3. Em **SSL/HTTPS**, ative o certificado SSL gratuito (Let's Encrypt). Aguarde propagar (pode levar minutos a horas).
+4. Confirme que `https://seudominio.com` abre sem erro de certificado antes de continuar.
+
+**Etapa 2 — Atualizar o .env local**
+
+Abra o arquivo `.env` na raiz do projeto e altere a linha:
+
+```
+PUBLIC_SITE_URL=https://seudominio.com
+```
+
+Substitua `seudominio.com` pelo domínio real comprado (ex: `worldcupgamestoday.com`).
+
+Não altere `PUBLIC_GA_MEASUREMENT_ID` agora — deixe vazio até a Fase 15K.
+
+**Etapa 3 — Rodar o build com o domínio real**
+
+No terminal, dentro da pasta do projeto:
+
+```bash
+npm run build
+```
+
+O build deve gerar **92 páginas sem erros** (dados ainda são MOCK).
+
+**Etapa 4 — Verificar o canonical e sitemap no dist/**
+
+Abra `dist/sitemap.xml` e confirme que todas as URLs começam com `https://seudominio.com/`.
+Abra `dist/robots.txt` e confirme que a linha `Sitemap:` usa o domínio real.
+Abra `dist/pt-br/index.html` e procure por `<link rel="canonical"` — deve ter o domínio real.
+
+**Etapa 5 — Upload para Hostinger**
+
+1. Acesse o **Gerenciador de Arquivos** no painel da Hostinger.
+2. Navegue até `public_html/` (raiz do seu domínio).
+3. Faça upload do **conteúdo** da pasta `dist/` — não a pasta `dist/` em si, mas tudo que está dentro dela:
+   - `index.html`
+   - `_astro/`
+   - `pt-br/`
+   - `en/`
+   - `es/`
+   - `sitemap.xml`
+   - `robots.txt`
+   - `data/`
+   - `images/`
+   - `fonts/`
+4. Confirme que **nenhum** destes arquivos foi enviado: `.env`, `node_modules/`, `src/`, `dist_mock_backup/`.
+
+### Checklist pós-domínio (executar após o upload)
+
+Marcar cada item após confirmação no navegador:
+
+| # | Verificação | URL de teste | Status |
+|---|-------------|-------------|--------|
+| B1 | Homepage raiz abre | `https://seudominio.com/` | PENDENTE |
+| B2 | Home pt-br abre | `https://seudominio.com/pt-br/` | PENDENTE |
+| B3 | Home en abre | `https://seudominio.com/en/` | PENDENTE |
+| B4 | Home es abre | `https://seudominio.com/es/` | PENDENTE |
+| B5 | HTTPS ativo (cadeado verde) | `https://seudominio.com/` | PENDENTE |
+| B6 | `sitemap.xml` usa domínio real | `https://seudominio.com/sitemap.xml` | PENDENTE |
+| B7 | `robots.txt` usa domínio real | `https://seudominio.com/robots.txt` | PENDENTE |
+| B8 | `canonical` usa domínio real | Inspecionar `<link rel="canonical">` em qualquer página | PENDENTE |
+| B9 | `hreflang` usa domínio real | Inspecionar `<link rel="alternate" hreflang>` | PENDENTE |
+| B10 | `og:url` usa domínio real | Inspecionar `<meta property="og:url">` | PENDENTE |
+| B11 | `og:image` usa domínio real | Inspecionar `<meta property="og:image">` | PENDENTE |
+| B12 | Página de jogo abre | `https://seudominio.com/pt-br/jogos/match-001/` | PENDENTE |
+| B13 | Página de seleção abre | `https://seudominio.com/pt-br/selecoes/northland/` | PENDENTE |
+| B14 | Página de grupo abre | `https://seudominio.com/pt-br/grupos/m/` | PENDENTE |
+| B15 | Footer com aviso FIFA presente | Inspecionar rodapé em qualquer página | PENDENTE |
+
+**Critério de conclusão da Fase 15B:** todos os 15 itens acima marcados.
+
+### O que fazer após confirmar domínio conectado
+
+Me informe aqui que o domínio está apontado e o HTTPS ativo. Então:
+1. Verificarei o checklist acima com você.
+2. Marcarei 15B como CONCLUÍDA no CURRENT_STATUS.md e IMPLEMENTATION_PLAN.md.
+3. A próxima fase será a 15D — Importar Seleções Reais.
+
+---
+
 ## Fase 15A — Congelar MVP Mockado Aprovado — 2026-05-09 ✅
 
 **Data:** 2026-05-09
