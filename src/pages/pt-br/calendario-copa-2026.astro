@@ -111,8 +111,8 @@ const canonicalUrl = `${siteUrl}/pt-br/calendario-copa-2026`;
               return (
                 <article class={`calendar-match-card${match.type === 'partial' ? ' partial' : ''}`}>
                   <div class="cal-match-time">
-                    <span class="cal-weekday">{weekday}</span>
-                    <span class="cal-time">{timeStr}</span>
+                    <span class="cal-weekday" data-utc-datetime={match.datetime_utc} data-tz-format="weekday">{weekday}</span>
+                    <span class="cal-time" data-utc-datetime={match.datetime_utc} data-tz-format="time">{timeStr}</span>
                   </div>
                   <div class="cal-match-info">
                     <div class="cal-teams">
