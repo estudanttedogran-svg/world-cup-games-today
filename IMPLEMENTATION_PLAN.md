@@ -485,7 +485,7 @@ Esta fase transiciona o site de dados fictícios (MOCK) para dados reais verific
 ---
 
 ### Fase 15B — Preparar Domínio e PUBLIC_SITE_URL
-**Status:** PENDENTE
+**Status:** AGUARDANDO DOMÍNIO ⏳ — infraestrutura documentada; aguardando compra/configuração do domínio pelo usuário
 **Depende de:** 15A
 
 **Objetivo:** configurar infraestrutura de hospedagem com domínio real antes de inserir dados reais.
