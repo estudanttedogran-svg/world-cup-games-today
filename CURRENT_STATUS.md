@@ -29,14 +29,14 @@
 
 ## Fase 15 — Dados Reais e Preparação para Produção (2026-05-09)
 
-**Status:** PLANEJADA — aguardando autorização para iniciar
+**Status:** EM ANDAMENTO — 15A concluída
 **Plano completo:** ver IMPLEMENTATION_PLAN.md, seção "Fase 15"
 
 ### Subfases e status
 
 | Subfase | Descrição | Status |
 |---------|-----------|--------|
-| 15A | Congelar MVP mockado aprovado (tag v1.0-mock + backup) | PENDENTE |
+| 15A | Congelar MVP mockado aprovado (tag v1.0-mock + backup) | CONCLUÍDA ✅ |
 | 15B | Preparar domínio e PUBLIC_SITE_URL | PENDENTE |
 | 15C | Definir processo de coleta de dados reais com fonte verificada | PENDENTE |
 | 15D | Importar seleções reais (48 times) | PENDENTE |
