@@ -25,6 +25,37 @@
 
 ---
 
+## Fase 15 — Dados Reais e Preparação para Produção (2026-05-09)
+
+**Status:** PLANEJADA — aguardando autorização para iniciar
+**Plano completo:** ver IMPLEMENTATION_PLAN.md, seção "Fase 15"
+
+### Subfases e status
+
+| Subfase | Descrição | Status |
+|---------|-----------|--------|
+| 15A | Congelar MVP mockado aprovado (tag v1.0-mock + backup) | PENDENTE |
+| 15B | Preparar domínio e PUBLIC_SITE_URL | PENDENTE |
+| 15C | Definir processo de coleta de dados reais com fonte verificada | PENDENTE |
+| 15D | Importar seleções reais (48 times) | PENDENTE |
+| 15E | Importar grupos reais (16 grupos) | PENDENTE |
+| 15F | Importar calendário real dos 104 jogos | PENDENTE |
+| 15G | Converter e validar horários UTC | PENDENTE |
+| 15H | QA dos dados reais | PENDENTE |
+| 15I | Remover/ajustar avisos MOCK | PENDENTE |
+| 15J | Rebuild e upload da versão real | PENDENTE |
+| 15K | Search Console, Analytics e AdSense | PENDENTE |
+
+### Regras absolutas (resumo)
+- Nenhum dado real sem fonte verificada e data de coleta registrada.
+- Nenhum confronto inventado ou deduzido.
+- `confirmed` exige os dois times definidos pela fonte oficial.
+- `SportsEvent` JSON-LD somente para `confirmed` com ambos os times.
+- Avisos MOCK removidos somente após QA (15H) aprovado — na 15I.
+- Site funciona sem Analytics e sem AdSense em qualquer estado.
+
+---
+
 ## MVP Mock Approved — 2026-05-09
 
 **Versão:** v1.0-mock
