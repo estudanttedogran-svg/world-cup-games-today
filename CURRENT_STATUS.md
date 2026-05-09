@@ -90,6 +90,47 @@
 
 ---
 
+## Fase 15C — Definir Processo de Coleta de Dados Reais — 2026-05-09 ✅
+
+**Data:** 2026-05-09
+**Status:** CONCLUÍDA
+
+### Entregas
+
+| Entrega | Status |
+|---------|--------|
+| `DATA_SOURCES.md` criado na raiz do projeto | ✅ |
+| Fontes primárias definidas (FIFA oficial como prioridade 1) | ✅ |
+| Fontes secundárias permitidas (somente conferência cruzada) | ✅ |
+| Fontes proibidas listadas (incluindo memória de IA) | ✅ |
+| Protocolo de coleta passo a passo | ✅ |
+| Protocolo de validação por campo | ✅ |
+| Mapeamento completo para `teams.json` (interface `Team`) | ✅ |
+| Mapeamento completo para `groups.json` (interface `Group`) | ✅ |
+| Mapeamento completo para `matches.json` (interface `Match`) | ✅ |
+| Mapeamento completo para `live-data.json` (interface `LiveData`) | ✅ |
+| Como lidar com dados ausentes | ✅ |
+| Como lidar com conflitos entre fontes | ✅ |
+| Checklist antes do build | ✅ |
+| Checklist antes de remover MOCK (Fase 15I) | ✅ |
+| Checklist antes de subir produção (Fase 15J) | ✅ |
+| Formato de registro de data, autor e fonte nos JSONs | ✅ |
+| Formato de mensagem de commit para dados reais | ✅ |
+| Valores válidos por campo (Apêndice B) | ✅ |
+| `npm run build` após criação: 92 páginas sem erros | ✅ |
+
+### Arquivos criados/alterados
+- `DATA_SOURCES.md` — criado (protocolo completo)
+- `IMPLEMENTATION_PLAN.md` — 15C marcada CONCLUÍDA; 15A marcada CONCLUÍDA na tabela de resumo
+- `CURRENT_STATUS.md` — este registro
+
+### Próximas subfases
+
+- **15D** — Importar seleções reais (48 times em `teams.json`) — requer: sorteio oficial FIFA realizado e seleções todas confirmadas
+- **15B** — Preparar domínio e PUBLIC_SITE_URL — pode rodar em paralelo com 15D (requer ação externa)
+
+---
+
 ## MVP Mock Approved — 2026-05-09
 
 **Versão:** v1.0-mock
