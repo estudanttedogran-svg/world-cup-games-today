@@ -17,6 +17,38 @@
 
 ---
 
+## Correção Pós-QA — Checklist Páginas Dinâmicas (2026-05-09) ✅
+
+### Correção 1 — Links entre seleções nas páginas de seleção
+
+**Problema:** Páginas de seleção (`/pt-br/selecoes/[slug]`) não exibiam links para as outras seleções do mesmo grupo.
+
+**Causa raiz:** A seção "Outras Seleções do Grupo" existia no template mas estava incompleta — faltavam os styles CSS para `.group-teams-section`, `.group-teams-list` e `.group-link`.
+
+**Solução:**
+- `src/pages/pt-br/selecoes/[slug].astro`: adicionados styles CSS para a seção de outras seleções do grupo (cards com pill buttons + link para página do grupo)
+
+### Correção 2 — Overflow horizontal no mobile nas páginas de grupo
+
+**Problema:** Em mobile (390px), a tabela de classificação com `min-width: 480px` podia propagar scroll horizontal para o body da página.
+
+**Causa raiz:** `.group-table-wrapper` em `GroupTable.astro` não tinha `max-width: 100%` — sem essa constraint, o wrapper podia crescer além da viewport em alguns contextos de layout, fazendo a tabela vazar para além da borda da tela.
+
+**Solução:**
+- `src/components/GroupTable.astro`: adicionado `max-width: 100%; box-sizing: border-box;` ao `.group-table-wrapper`. O `overflow: hidden` já existente + o inner `.table-wrapper { overflow-x: auto }` passam a funcionar corretamente dentro da constraint de largura.
+
+### Arquivos alterados
+
+| Arquivo | Alteração |
+|---------|-----------|
+| `src/pages/pt-br/selecoes/[slug].astro` | CSS para `.group-teams-section`, `.group-teams-list`, `.group-link` |
+| `src/components/GroupTable.astro` | `max-width: 100%; box-sizing: border-box;` no `.group-table-wrapper` |
+
+### Build
+92 páginas geradas sem erros.
+
+---
+
 ## Checklist 5 — Dados dos Jogos: APROVADO COM OBSERVAÇÃO (2026-05-09)
 
 ### Resultado: APROVADO ✅ (com observação menor)
