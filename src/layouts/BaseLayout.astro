@@ -95,13 +95,15 @@ const resolvedOgLocaleAlternates = ogLocaleAlternatesProp
     {resolvedOgLocaleAlternates?.map((alt) => (
       <meta property="og:locale:alternate" content={alt} />
     ))}
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content={twitterCard ?? 'summary'} />
+    <meta name="twitter:card" content={twitterCard ?? 'summary_large_image'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image" content={resolvedOgImage} />
 
     <!-- Slot para meta tags extras (ex: hreflang, JSON-LD) -->
     <slot name="head" />
