@@ -6,9 +6,49 @@
 
 ## Status atual
 
-**Fase concluída:** Fase 13 — Documentação CONCLUÍDA ✅
-**Próxima fase:** Fase 14 — Build + Validação Final
-**Aguardando:** Autorização do usuário para iniciar Fase 14
+**Fase concluída:** Fase 14 — Build + Validação Final CONCLUÍDA ✅
+**Status geral do projeto:** MVP MOCKADO COMPLETO — PRONTO PARA UPLOAD NA HOSTINGER
+**Próxima ação:** Upload na Hostinger (quando o usuário decidir)
+
+---
+
+## Fase 14 — Build + Validação Final ✅ (2026-05-09)
+
+### Resultado geral: APROVADO
+
+Build final: 92 páginas geradas sem erros.
+Única correção aplicada: sitemap.xml atualizado para incluir as 15 páginas institucionais.
+
+### Arquivo criado
+
+| Arquivo | Descrição |
+|---------|-----------|
+| `FINAL_QA_REPORT.md` | Relatório completo da revisão QA final com 9 verificações |
+
+### Arquivo alterado
+
+| Arquivo | Alteração |
+|---------|-----------|
+| `src/pages/sitemap.xml.ts` | Adicionadas 15 URLs institucionais ao `staticUrls` — sitemap passou de 77 para 92 entradas |
+
+### Verificações realizadas
+
+| # | Verificação | Status |
+|---|-------------|--------|
+| 1 | Build npm run build | OK — 92 páginas, sem erros |
+| 2 | Rotas principais em dist/ | OK — todas as 19+ rotas existem |
+| 3 | Links Header e Footer | OK — sem links quebrados ou # pendentes |
+| 4 | SEO técnico | OK — sitemap corrigido, robots, canonical, hreflang, OG presentes |
+| 5 | Regras de dados | OK — todos MOCK, sem dados reais |
+| 6 | Analytics e AdSense | OK — sem IDs reais, GA condicional |
+| 7 | Legal e conformidade | OK — aviso de independência em 3 idiomas |
+| 8 | live-data.json | OK — válido, copiado para dist/ |
+| 9 | Estrutura para Hostinger | OK — index.html na raiz, _astro/ presente |
+
+### Riscos residuais
+
+- Nenhum risco bloqueante para upload do MVP
+- Pendências para producão real: domínio, dados reais, GA, AdSense, og:image (documentadas em FINAL_QA_REPORT.md e CHECKLIST_LANCAMENTO.md)
 
 ---
 
