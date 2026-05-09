@@ -7,9 +7,41 @@
 ## Status atual
 
 **Fase concluída:** Fase 14 — Build + Validação Final CONCLUÍDA ✅
+**Correção pós-QA aplicada:** Bug Checklist 3 — Labels de fuso horário localizados (2026-05-09) ✅
 **Status geral do projeto:** MVP MOCKADO COMPLETO — PRONTO PARA UPLOAD NA HOSTINGER
 **Verificação de upload (2026-05-09):** dist/ confirmado limpo e completo — 104 arquivos, sem .env, sem node_modules, sem src/
 **Próxima ação:** Fazer upload do conteúdo de dist/ para public_html/ na Hostinger
+
+---
+
+## Correção Pós-QA — Bug Checklist 3: Timezone Labels i18n ✅ (2026-05-09)
+
+### Problema
+O seletor de fuso horário (`TimezoneSelector.astro`) exibia labels e regiões hardcoded em português em todas as versões do site (incluindo `/en/` e `/es/`).
+
+### Causa raiz
+`getPopularTimezones()` em `src/utils/timezone.ts` tinha um único array de dados com labels em PT-BR. O parâmetro `_locale` existia mas era ignorado (prefixado com `_`).
+
+### Solução
+Reestruturação de `timezone.ts`: cada timezone agora armazena um objeto `labels` com as três traduções (`pt-br`, `en`, `es`), e as regiões são resolvidas via mapa `regionLabels`. `getPopularTimezones(locale)` agora retorna o label/região correto para o idioma solicitado. O `TimezoneSelector.astro` foi atualizado para passar `locale` ao chamar a função.
+
+### Arquivos alterados
+
+| Arquivo | Alteração |
+|---------|-----------|
+| `src/utils/timezone.ts` | Substituído array único por estrutura com `labels` trilingue por timezone + mapa `regionLabels` |
+| `src/components/TimezoneSelector.astro` | `getPopularTimezones()` → `getPopularTimezones(locale)` |
+
+### Verificação no HTML gerado
+
+| Rota | America/New_York | America/Mexico_City | Região SA |
+|------|-----------------|--------------------|-----------| 
+| `/pt-br/` | Nova York — América do Norte | Cidade do México — América do Norte | América do Sul |
+| `/en/` | New York — North America | Mexico City — North America | South America |
+| `/es/` | Nueva York — América del Norte | Ciudad de México — América del Norte | América del Sur |
+
+### Build
+92 páginas geradas sem erros.
 
 ---
 
