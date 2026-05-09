@@ -805,7 +805,7 @@ away_label   — LocalizedString ou null
 | 13 | Documentação | CONCLUÍDA ✅ |
 | 14 | Build + Validação Final | CONCLUÍDA ✅ |
 | 15A | Dados Reais — Congelar MVP Mock | CONCLUÍDA ✅ |
-| 15B | Dados Reais — Domínio e PUBLIC_SITE_URL | PENDENTE |
+| 15B | Dados Reais — Domínio e PUBLIC_SITE_URL | AGUARDANDO DOMÍNIO ⏳ |
 | 15C | Dados Reais — Definir processo de coleta | CONCLUÍDA ✅ |
 | 15D | Dados Reais — Importar seleções reais | PENDENTE |
 | 15E | Dados Reais — Importar grupos reais | PENDENTE |
