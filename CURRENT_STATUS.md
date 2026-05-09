@@ -58,6 +58,36 @@
 
 ---
 
+## Fase 15A — Congelar MVP Mockado Aprovado — 2026-05-09 ✅
+
+**Data:** 2026-05-09
+**Status:** CONCLUÍDA
+
+### Checklist executado
+
+| Item | Resultado |
+|------|-----------|
+| `npm run build` executado | ✅ 92 páginas geradas sem erros |
+| Número de páginas confirmado | ✅ 92 páginas (igual ao QA da Fase 14) |
+| Estado Git verificado | ✅ Repositório limpo, branch master, up to date com origin |
+| Tag `v1.0-mock` criada | ✅ Commit `6b82b6c` — enviada para origin |
+| Backup `dist_mock_backup/` criado | ✅ 106 arquivos copiados |
+| `dist_mock_backup/` adicionado ao `.gitignore` | ✅ |
+
+### Referências do congelamento
+
+- **Commit:** `6b82b6c`
+- **Tag Git:** `v1.0-mock` (anotada, mensagem: "MVP mockado aprovado — 92 páginas, 3 idiomas, dados MOCK, build limpo")
+- **Tag no GitHub:** `https://github.com/estudanttedogran-svg/world-cup-games-today/releases/tag/v1.0-mock`
+- **Backup local:** `dist_mock_backup/` — 106 arquivos (não versionado)
+
+### Próximas subfases recomendadas
+
+- **15B** — Preparar domínio e PUBLIC_SITE_URL (depende de ação externa: compra de domínio)
+- **15C** — Definir processo de coleta de dados reais (independente de 15B, pode iniciar em paralelo)
+
+---
+
 ## MVP Mock Approved — 2026-05-09
 
 **Versão:** v1.0-mock
