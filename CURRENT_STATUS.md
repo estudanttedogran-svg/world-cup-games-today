@@ -38,7 +38,7 @@
 | 15B | Preparar domínio e PUBLIC_SITE_URL | PENDENTE |
 | 15C | Definir processo de coleta de dados reais com fonte verificada | PENDENTE |
 | 15D | Importar seleções reais (48 times) | PENDENTE |
-| 15E | Importar grupos reais (16 grupos) | PENDENTE |
+| 15E | Importar grupos reais (12 grupos) | PENDENTE |
 | 15F | Importar calendário real dos 104 jogos | PENDENTE |
 | 15G | Converter e validar horários UTC | PENDENTE |
 | 15H | QA dos dados reais | PENDENTE |
