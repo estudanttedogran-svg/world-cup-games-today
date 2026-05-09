@@ -13,7 +13,10 @@
       "Bash(grep -r \"G-[A-Z0-9]\\\\{5,\\\\}\" src/ public/ .env)",
       "Bash(grep -r \"ca-pub-\" src/ public/)",
       "Bash(grep -r \"adsbygoogle\" src/ public/)",
-      "Bash(grep -r \"pagead2.googlesyndication\" src/ public/)"
+      "Bash(grep -r \"pagead2.googlesyndication\" src/ public/)",
+      "Bash(exist dist_mock_backup rmdir /s /q dist_mock_backup)",
+      "Bash(xcopy dist *)",
+      "Bash(git tag *)"
     ]
   }
 }

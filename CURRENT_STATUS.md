@@ -1,12 +1,13 @@
 # CURRENT_STATUS.md — World Cup Games Today
 
-**Última atualização:** 2026-05-09 (Fase 15 planejada)
+**Última atualização:** 2026-05-09 (Fase 15A concluída)
 
 ---
 
 ## Status atual
 
-**Fase concluída:** Fase 14 — Build + Validação Final CONCLUÍDA ✅
+**Fase concluída:** Fase 15A — Congelar MVP Mockado Aprovado CONCLUÍDA ✅
+**Fase concluída anterior:** Fase 14 — Build + Validação Final CONCLUÍDA ✅
 **Correção pós-QA aplicada:** Bug Checklist 3 — Labels de fuso horário localizados (2026-05-09) ✅
 **Correção pós-QA aplicada:** Bug Checklist 4 — Horários client-side reativos ao fuso (2026-05-09) ✅
 **Checklist 5 — Dados dos Jogos: APROVADO COM OBSERVAÇÃO (2026-05-09)** ✅
@@ -17,11 +18,12 @@
 **Checklist mobile:** APROVADO ✅ — todos os botões principais com min-height: 44px
 **Melhoria pós-auditoria estratégica — FAQ nas homes (2026-05-09) ✅ IMPLEMENTADA**
 **FAQ:** Presente nas homes /pt-br/, /en/, /es/ — 6 perguntas por idioma, FAQPage JSON-LD incluído
-**Status geral do projeto:** MVP MOCKADO COMPLETO — PRONTO PARA UPLOAD NA HOSTINGER
+**Status geral do projeto:** MVP MOCKADO CONGELADO — TAG v1.0-mock CRIADA ✅
 **Verificação de upload (2026-05-09):** dist/ confirmado limpo e completo — 104 arquivos, sem .env, sem node_modules, sem src/
 **Marco de versão (2026-05-09):** MVP MOCK APROVADO — todos os checklists validados ✅
 **Fase 15 planejada (2026-05-09):** Dados Reais e Preparação para Produção — 11 subfases definidas em IMPLEMENTATION_PLAN.md
-**Próxima ação:** Aguardando autorização para iniciar Fase 15A (congelar MVP e criar tag v1.0-mock)
+**Fase 15A concluída (2026-05-09):** MVP congelado — tag v1.0-mock no commit 6b82b6c, backup dist_mock_backup/ criado
+**Próxima ação:** Aguardando autorização para iniciar Fase 15B (domínio e PUBLIC_SITE_URL) ou 15C (processo de coleta de dados)
 
 ---
 
