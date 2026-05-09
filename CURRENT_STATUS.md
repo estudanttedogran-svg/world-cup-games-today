@@ -7,6 +7,7 @@
 ## Status atual
 
 **Fase concluída:** Fase 12 — Analytics + AdSense (Placeholders) CONCLUÍDA ✅
+**Microcorreção pós-Fase 12:** Política de Privacidade atualizada com nomes técnicos das chaves localStorage ✅ (2026-05-09)
 **Próxima fase:** Fase 13 — Documentação
 **Aguardando:** Autorização do usuário para iniciar Fase 13
 
