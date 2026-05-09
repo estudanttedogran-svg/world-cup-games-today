@@ -24,7 +24,8 @@
 **Fase 15 planejada (2026-05-09):** Dados Reais e Preparação para Produção — 11 subfases definidas em IMPLEMENTATION_PLAN.md
 **Fase 15A concluída (2026-05-09):** MVP congelado — tag v1.0-mock no commit 6b82b6c, backup dist_mock_backup/ criado
 **Fase 15C concluída (2026-05-09):** DATA_SOURCES.md criado — protocolo completo de coleta, validação e registro de dados reais
-**Próxima ação:** Aguardando autorização para iniciar Fase 15D (importar seleções reais) — 15B pode rodar em paralelo (requer ação externa: compra de domínio)
+**Fase 15B em preparação (2026-05-09):** infraestrutura documentada — aguardando compra do domínio e conexão na Hostinger para marcar como concluída
+**Próxima ação:** Você precisa: comprar o domínio → configurar na Hostinger → confirmar aqui. Após confirmação, rodar build e upload.
 
 ---
 
