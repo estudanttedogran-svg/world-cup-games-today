@@ -24,6 +24,35 @@
 
 ---
 
+## MVP Mock Approved — 2026-05-09
+
+**Versão:** v1.0-mock
+**Data de aprovação:** 2026-05-09
+**Responsável:** qa-reviewer (Claude Code)
+
+### Checklists validados
+
+| Checklist | Status |
+|-----------|--------|
+| Build — 92 páginas sem erros | ✅ APROVADO |
+| Rotas principais em dist/ | ✅ APROVADO |
+| Links Header e Footer | ✅ APROVADO |
+| SEO técnico (sitemap, robots, canonical, hreflang, OG) | ✅ APROVADO |
+| Regras de dados (MOCK, sem dados reais) | ✅ APROVADO |
+| Analytics e AdSense (sem IDs reais) | ✅ APROVADO |
+| Legal e conformidade de marca | ✅ APROVADO |
+| live-data.json (estrutura e MOCK) | ✅ APROVADO |
+| Hostinger (estrutura dist/) | ✅ APROVADO |
+| Acessibilidade mobile (touch targets 44px) | ✅ APROVADO |
+| FAQ nas homes (3 idiomas + JSON-LD) | ✅ APROVADO |
+
+### Observações
+- Dados reais ainda não integrados — escopo pós-MVP.
+- Nenhum código funcional foi alterado neste marco.
+- Commit de referência: `chore: mark mock MVP as approved`
+
+---
+
 ## Melhoria Pós-Auditoria Estratégica — FAQ nas Homes (2026-05-09) ✅
 
 ### Objetivo
