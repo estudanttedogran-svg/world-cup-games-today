@@ -44,6 +44,11 @@ const nextMatch = getNextConfirmedMatch(allMatches, team.slug);
 // Grupo da seleção — groups.json usa team_ids (slugs)
 const teamGroup = allGroups.find((g) => g.team_ids.includes(team.slug));
 
+// Outras seleções do mesmo grupo (exclui a atual)
+const groupTeams = teamGroup
+  ? allTeams.filter((t) => teamGroup.team_ids.includes(t.id) && t.id !== team.id && t.slug !== team.slug)
+  : [];
+
 // Nome do grupo no locale
 const groupName = teamGroup
   ? (teamGroup.name['pt-br'] ?? teamGroup.name['en'] ?? `Grupo ${teamGroup.slug.toUpperCase()}`)
