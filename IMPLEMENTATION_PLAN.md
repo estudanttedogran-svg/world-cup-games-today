@@ -564,24 +564,24 @@ flag        — path para imagem em public/images/flags/ (a ser providenciado)
 
 **Objetivo:** substituir os 2 grupos fictícios de `src/data/groups.json` pelos 16 grupos reais da Copa 2026.
 
-**Escopo esperado:** 16 grupos (A a P), 3 seleções por grupo.
+**Escopo esperado:** 12 grupos (A a L), 4 seleções por grupo.
 
 **Campos por grupo:**
 ```
 id          — ex: "A"
 slug        — ex: "a" (usado na rota /pt-br/grupos/a)
-name        — objeto com pt_br, en, es (ex: "Grupo A")
-teams       — array de 3 team_ids
+name        — LocalizedString: chaves 'pt-br', en, es (ex: "Grupo A")
+team_ids    — array de 4 team_ids
 ```
 
 **Regras:**
 - Grupos só preenchidos com times após sorteio oficial confirmado.
-- Se o sorteio não tiver ocorrido, manter `teams: []` e `status: "pending_draw"`.
+- Se o sorteio não tiver ocorrido, manter `team_ids: []` e `status: "pending_draw"`.
 - Rotas dinâmicas geradas por slug: `/pt-br/grupos/[slug]`, `/en/groups/[group]`, `/es/grupos/[grupo]`.
 
 **Impacto no build:**
-- 16 grupos × 3 idiomas = 48 páginas de grupos (+42 em relação ao mock com 2 grupos).
-- Total estimado após 15D + 15E: ~220+ páginas.
+- 12 grupos × 3 idiomas = 36 páginas de grupos (+30 em relação ao mock com 2 grupos).
+- Total estimado após 15D + 15E: ~200+ páginas.
 
 **Critério de conclusão:** `groups.json` com 16 grupos reais, fonte registrada, build sem erros.
 
