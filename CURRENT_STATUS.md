@@ -31,10 +31,10 @@
 | Datas, fases, ordenação e status coerentes | ✅ |
 | Confrontos impossíveis | ✅ Nenhum encontrado |
 | Jogos `partial` com "A definir" | ⚠️ Não testáveis visualmente nesta rodada — mock atual nas páginas auditadas não apresentou mata-mata/parciais visíveis |
-| `/pt-br/selecoes/brasil` | ⚠️ Retorna 404 — esperado no MVP mockado (dados usam seleções fictícias). Revalidar quando dados reais forem inseridos |
+| `/pt-br/selecoes/brasil` | ⚠️ Retorna 404 — não é bug de código; é consequência do mock (ver observação) |
 
-### Observação
-A rota `/pt-br/selecoes/brasil` (e análogos reais) retornam 404 por design: o MVP usa seleções fictícias (Northland, Eastoria, etc.). Não é bug — é limitação do escopo MOCK. Revalidar na fase de dados reais.
+### Observação — `/pt-br/selecoes/brasil` e similares (não é bug de código)
+As rotas de seleções reais (Brasil, Argentina, México, etc.) não existem no build atual porque os dados usam equipes fictícias. O Astro gera as páginas dinamicamente a partir de `teams.json` — quando o arquivo contiver as 48 seleções reais com slugs corretos (`brasil`, `argentina`, etc.), rodar `npm run build` gerará automaticamente todas as páginas. **Não há hotfix possível: depende da substituição dos dados mock pelos dados reais, seguida de rebuild e re-upload do `dist/`.**
 
 ---
 
