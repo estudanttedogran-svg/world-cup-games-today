@@ -45,6 +45,8 @@ const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://worldcupgamestoday.c
 // canonicalUrlProp tem prioridade; depois canonical (legacy); depois pathname automático
 const canonicalUrl = canonicalUrlProp || canonical || `${siteUrl}${Astro.url.pathname}`;
 const ogUrl = canonicalUrl;
+const defaultOgImage = `${siteUrl}/images/og-default.svg`;
+const resolvedOgImage = ogImage || defaultOgImage;
 
 // Derivação automática de ogLocale a partir de locale
 const localeToOgLocale: Record<string, string> = {
