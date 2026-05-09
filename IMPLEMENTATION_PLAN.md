@@ -603,17 +603,21 @@ team_ids    — array de 4 team_ids
 - `partial`: data, hora (UTC), estádio, cidade, fase definidos — times dependem de classificação (ex: "Vencedor do Jogo 12").
 - Nenhuma partida marcada como `simulation`.
 
-**Campos obrigatórios:**
+**Campos obrigatórios** (alinhados com interface `Match` em `src/types/index.ts`):
 ```
-id           — ex: "match-001" (manter sequência)
+id           — ex: "match-001" (manter sequência atual)
 type         — "confirmed" | "partial"
-date         — ISO-8601 UTC ex: "2026-06-11T18:00:00Z"
-venue        — nome do estádio
-city         — cidade-sede
-stage        — "group" | "round_of_32" | "round_of_16" | "quarterfinal" | "semifinal" | "third_place" | "final"
-group        — letra do grupo (somente para stage: "group")
+phase        — "group_stage" | "round_of_32" | "round_of_16" | "quarterfinal" | "semifinal" | "third_place" | "final"
+group        — letra do grupo (somente para phase: "group_stage"), ou null
+match_number — número sequencial da partida
+datetime_utc — ISO-8601 UTC, ex: "2026-06-11T18:00:00Z"
+stadium      — LocalizedString: chaves 'pt-br', en, es
+city         — LocalizedString: chaves 'pt-br', en, es
+country      — LocalizedString: chaves 'pt-br', en, es
 home_team_id — team.id ou null (partial)
 away_team_id — team.id ou null (partial)
+home_label   — LocalizedString ou null (texto descritivo para partial, ex: "Vencedor Jogo 12")
+away_label   — LocalizedString ou null
 ```
 
 **Regras:**
