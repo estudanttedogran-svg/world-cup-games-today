@@ -505,7 +505,7 @@ Esta fase transiciona o site de dados fictícios (MOCK) para dados reais verific
 ---
 
 ### Fase 15C — Definir Processo de Coleta de Dados Reais
-**Status:** PENDENTE
+**Status:** CONCLUÍDA ✅ — 2026-05-09
 **Depende de:** nenhuma (planejamento puro)
 
 **Objetivo:** estabelecer protocolo de coleta, verificação e registro de dados antes de tocar em qualquer JSON.
