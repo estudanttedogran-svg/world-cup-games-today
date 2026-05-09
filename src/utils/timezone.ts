@@ -3,9 +3,11 @@
 
 export interface TimezoneOption {
   value: string;   // IANA timezone string, ex: "America/Sao_Paulo"
-  label: string;   // Label amigável, ex: "São Paulo"
-  region: string;  // Região, ex: "América do Sul"
+  label: string;   // Label amigável localizado, ex: "São Paulo"
+  region: string;  // Região localizada, ex: "América do Sul"
 }
+
+type SupportedLocale = 'pt-br' | 'en' | 'es';
 
 /**
  * Retorna true se o código estiver rodando no navegador.
@@ -47,7 +49,6 @@ export function getBrowserTimezone(): string {
 function getTimezoneOffsetMinutes(tz: string): number {
   try {
     const now = new Date();
-    // Formata a data em UTC e no fuso alvo para calcular a diferença
     const utcStr = now.toLocaleString('en-US', { timeZone: 'UTC' });
     const tzStr = now.toLocaleString('en-US', { timeZone: tz });
     const utcDate = new Date(utcStr);
@@ -77,7 +78,6 @@ function formatOffset(offsetMinutes: number): string {
 export function getTimezoneLabel(tz: string, _locale?: string): string {
   if (!isValidTimezone(tz)) return tz;
 
-  // Extrai a parte da cidade do identificador IANA (após a última "/")
   const parts = tz.split('/');
   const cityRaw = parts[parts.length - 1].replace(/_/g, ' ');
 
@@ -87,104 +87,123 @@ export function getTimezoneLabel(tz: string, _locale?: string): string {
   return `${cityRaw} (${offsetStr})`;
 }
 
+// Traduções de regiões por locale
+const regionLabels: Record<string, Record<SupportedLocale, string>> = {
+  'south-america': { 'pt-br': 'América do Sul',   en: 'South America',   es: 'América del Sur'   },
+  'north-america': { 'pt-br': 'América do Norte',  en: 'North America',   es: 'América del Norte'  },
+  'europe':        { 'pt-br': 'Europa',            en: 'Europe',          es: 'Europa'             },
+  'asia-oceania':  { 'pt-br': 'Ásia/Oceania',      en: 'Asia/Oceania',    es: 'Asia/Oceanía'       },
+  'africa':        { 'pt-br': 'África',            en: 'Africa',          es: 'África'             },
+  'utc':           { 'pt-br': 'UTC',               en: 'UTC',             es: 'UTC'                },
+};
+
+// Dados com labels localizados por locale
+interface TzEntry {
+  value: string;
+  labels: Record<SupportedLocale, string>;
+  regionKey: string;
+}
+
+const TIMEZONE_DATA: TzEntry[] = [
+  // América do Sul
+  { value: 'America/Sao_Paulo',    labels: { 'pt-br': 'São Paulo',          en: 'São Paulo',        es: 'São Paulo'          }, regionKey: 'south-america' },
+  { value: 'America/Manaus',       labels: { 'pt-br': 'Manaus',             en: 'Manaus',           es: 'Manaus'             }, regionKey: 'south-america' },
+  { value: 'America/Fortaleza',    labels: { 'pt-br': 'Fortaleza',          en: 'Fortaleza',        es: 'Fortaleza'          }, regionKey: 'south-america' },
+  { value: 'America/Recife',       labels: { 'pt-br': 'Recife',             en: 'Recife',           es: 'Recife'             }, regionKey: 'south-america' },
+  { value: 'America/Belem',        labels: { 'pt-br': 'Belém',              en: 'Belém',            es: 'Belém'              }, regionKey: 'south-america' },
+  { value: 'America/Porto_Velho',  labels: { 'pt-br': 'Porto Velho',        en: 'Porto Velho',      es: 'Porto Velho'        }, regionKey: 'south-america' },
+  { value: 'America/Boa_Vista',    labels: { 'pt-br': 'Boa Vista',          en: 'Boa Vista',        es: 'Boa Vista'          }, regionKey: 'south-america' },
+  { value: 'America/Rio_Branco',   labels: { 'pt-br': 'Rio Branco',         en: 'Rio Branco',       es: 'Rio Branco'         }, regionKey: 'south-america' },
+  { value: 'America/Noronha',      labels: { 'pt-br': 'Fernando de Noronha', en: 'Fernando de Noronha', es: 'Fernando de Noronha' }, regionKey: 'south-america' },
+  { value: 'America/Buenos_Aires', labels: { 'pt-br': 'Buenos Aires',       en: 'Buenos Aires',     es: 'Buenos Aires'       }, regionKey: 'south-america' },
+  { value: 'America/Santiago',     labels: { 'pt-br': 'Santiago',           en: 'Santiago',         es: 'Santiago'           }, regionKey: 'south-america' },
+  { value: 'America/Lima',         labels: { 'pt-br': 'Lima',               en: 'Lima',             es: 'Lima'               }, regionKey: 'south-america' },
+  { value: 'America/Bogota',       labels: { 'pt-br': 'Bogotá',             en: 'Bogotá',           es: 'Bogotá'             }, regionKey: 'south-america' },
+  { value: 'America/Caracas',      labels: { 'pt-br': 'Caracas',            en: 'Caracas',          es: 'Caracas'            }, regionKey: 'south-america' },
+  { value: 'America/Montevideo',   labels: { 'pt-br': 'Montevidéu',         en: 'Montevideo',       es: 'Montevideo'         }, regionKey: 'south-america' },
+  { value: 'America/Asuncion',     labels: { 'pt-br': 'Assunção',           en: 'Asunción',         es: 'Asunción'           }, regionKey: 'south-america' },
+  { value: 'America/La_Paz',       labels: { 'pt-br': 'La Paz',             en: 'La Paz',           es: 'La Paz'             }, regionKey: 'south-america' },
+  { value: 'America/Guayaquil',    labels: { 'pt-br': 'Guayaquil',          en: 'Guayaquil',        es: 'Guayaquil'          }, regionKey: 'south-america' },
+
+  // América do Norte
+  { value: 'America/New_York',     labels: { 'pt-br': 'Nova York',          en: 'New York',         es: 'Nueva York'         }, regionKey: 'north-america' },
+  { value: 'America/Chicago',      labels: { 'pt-br': 'Chicago',            en: 'Chicago',          es: 'Chicago'            }, regionKey: 'north-america' },
+  { value: 'America/Denver',       labels: { 'pt-br': 'Denver',             en: 'Denver',           es: 'Denver'             }, regionKey: 'north-america' },
+  { value: 'America/Los_Angeles',  labels: { 'pt-br': 'Los Angeles',        en: 'Los Angeles',      es: 'Los Ángeles'        }, regionKey: 'north-america' },
+  { value: 'America/Phoenix',      labels: { 'pt-br': 'Phoenix',            en: 'Phoenix',          es: 'Phoenix'            }, regionKey: 'north-america' },
+  { value: 'America/Anchorage',    labels: { 'pt-br': 'Anchorage',          en: 'Anchorage',        es: 'Anchorage'          }, regionKey: 'north-america' },
+  { value: 'Pacific/Honolulu',     labels: { 'pt-br': 'Honolulu',           en: 'Honolulu',         es: 'Honolulu'           }, regionKey: 'north-america' },
+  { value: 'America/Toronto',      labels: { 'pt-br': 'Toronto',            en: 'Toronto',          es: 'Toronto'            }, regionKey: 'north-america' },
+  { value: 'America/Vancouver',    labels: { 'pt-br': 'Vancouver',          en: 'Vancouver',        es: 'Vancouver'          }, regionKey: 'north-america' },
+  { value: 'America/Winnipeg',     labels: { 'pt-br': 'Winnipeg',           en: 'Winnipeg',         es: 'Winnipeg'           }, regionKey: 'north-america' },
+  { value: 'America/Halifax',      labels: { 'pt-br': 'Halifax',            en: 'Halifax',          es: 'Halifax'            }, regionKey: 'north-america' },
+  { value: 'America/St_Johns',     labels: { 'pt-br': "St. John's",         en: "St. John's",       es: "St. John's"         }, regionKey: 'north-america' },
+  { value: 'America/Mexico_City',  labels: { 'pt-br': 'Cidade do México',   en: 'Mexico City',      es: 'Ciudad de México'   }, regionKey: 'north-america' },
+  { value: 'America/Monterrey',    labels: { 'pt-br': 'Monterrey',          en: 'Monterrey',        es: 'Monterrey'          }, regionKey: 'north-america' },
+  { value: 'America/Tijuana',      labels: { 'pt-br': 'Tijuana',            en: 'Tijuana',          es: 'Tijuana'            }, regionKey: 'north-america' },
+  { value: 'America/Hermosillo',   labels: { 'pt-br': 'Hermosillo',         en: 'Hermosillo',       es: 'Hermosillo'         }, regionKey: 'north-america' },
+
+  // Europa
+  { value: 'Europe/London',        labels: { 'pt-br': 'Londres',            en: 'London',           es: 'Londres'            }, regionKey: 'europe' },
+  { value: 'Europe/Lisbon',        labels: { 'pt-br': 'Lisboa',             en: 'Lisbon',           es: 'Lisboa'             }, regionKey: 'europe' },
+  { value: 'Europe/Paris',         labels: { 'pt-br': 'Paris',              en: 'Paris',            es: 'París'              }, regionKey: 'europe' },
+  { value: 'Europe/Berlin',        labels: { 'pt-br': 'Berlim',             en: 'Berlin',           es: 'Berlín'             }, regionKey: 'europe' },
+  { value: 'Europe/Madrid',        labels: { 'pt-br': 'Madri',              en: 'Madrid',           es: 'Madrid'             }, regionKey: 'europe' },
+  { value: 'Europe/Rome',          labels: { 'pt-br': 'Roma',               en: 'Rome',             es: 'Roma'               }, regionKey: 'europe' },
+  { value: 'Europe/Amsterdam',     labels: { 'pt-br': 'Amsterdã',           en: 'Amsterdam',        es: 'Ámsterdam'          }, regionKey: 'europe' },
+  { value: 'Europe/Brussels',      labels: { 'pt-br': 'Bruxelas',           en: 'Brussels',         es: 'Bruselas'           }, regionKey: 'europe' },
+  { value: 'Europe/Warsaw',        labels: { 'pt-br': 'Varsóvia',           en: 'Warsaw',           es: 'Varsovia'           }, regionKey: 'europe' },
+  { value: 'Europe/Moscow',        labels: { 'pt-br': 'Moscou',             en: 'Moscow',           es: 'Moscú'              }, regionKey: 'europe' },
+  { value: 'Europe/Samara',        labels: { 'pt-br': 'Samara',             en: 'Samara',           es: 'Samara'             }, regionKey: 'europe' },
+  { value: 'Asia/Yekaterinburg',   labels: { 'pt-br': 'Ecaterimburgo',      en: 'Yekaterinburg',    es: 'Ekaterimburgo'      }, regionKey: 'europe' },
+  { value: 'Europe/Athens',        labels: { 'pt-br': 'Atenas',             en: 'Athens',           es: 'Atenas'             }, regionKey: 'europe' },
+  { value: 'Europe/Helsinki',      labels: { 'pt-br': 'Helsinque',          en: 'Helsinki',         es: 'Helsinki'           }, regionKey: 'europe' },
+  { value: 'Europe/Bucharest',     labels: { 'pt-br': 'Bucareste',          en: 'Bucharest',        es: 'Bucarest'           }, regionKey: 'europe' },
+  { value: 'Europe/Istanbul',      labels: { 'pt-br': 'Istambul',           en: 'Istanbul',         es: 'Estambul'           }, regionKey: 'europe' },
+
+  // Ásia e Oceania
+  { value: 'Asia/Dubai',           labels: { 'pt-br': 'Dubai',              en: 'Dubai',            es: 'Dubái'              }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Kolkata',         labels: { 'pt-br': 'Mumbai/Kolkata',     en: 'Mumbai/Kolkata',   es: 'Bombay/Calcuta'     }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Dhaka',           labels: { 'pt-br': 'Dhaka',              en: 'Dhaka',            es: 'Daca'               }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Bangkok',         labels: { 'pt-br': 'Bangkok',            en: 'Bangkok',          es: 'Bangkok'            }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Singapore',       labels: { 'pt-br': 'Singapura',          en: 'Singapore',        es: 'Singapur'           }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Shanghai',        labels: { 'pt-br': 'Xangai',             en: 'Shanghai',         es: 'Shanghái'           }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Tokyo',           labels: { 'pt-br': 'Tóquio',             en: 'Tokyo',            es: 'Tokio'              }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Seoul',           labels: { 'pt-br': 'Seul',               en: 'Seoul',            es: 'Seúl'               }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Novosibirsk',     labels: { 'pt-br': 'Novosibirsk',        en: 'Novosibirsk',      es: 'Novosibirsk'        }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Krasnoyarsk',     labels: { 'pt-br': 'Krasnoyarsk',        en: 'Krasnoyarsk',      es: 'Krasnoyarsk'        }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Irkutsk',         labels: { 'pt-br': 'Irkutsk',            en: 'Irkutsk',          es: 'Irkutsk'            }, regionKey: 'asia-oceania' },
+  { value: 'Asia/Vladivostok',     labels: { 'pt-br': 'Vladivostok',        en: 'Vladivostok',      es: 'Vladivostok'        }, regionKey: 'asia-oceania' },
+  { value: 'Australia/Sydney',     labels: { 'pt-br': 'Sydney',             en: 'Sydney',           es: 'Sídney'             }, regionKey: 'asia-oceania' },
+  { value: 'Australia/Melbourne',  labels: { 'pt-br': 'Melbourne',          en: 'Melbourne',        es: 'Melbourne'          }, regionKey: 'asia-oceania' },
+  { value: 'Australia/Brisbane',   labels: { 'pt-br': 'Brisbane',           en: 'Brisbane',         es: 'Brisbane'           }, regionKey: 'asia-oceania' },
+  { value: 'Australia/Perth',      labels: { 'pt-br': 'Perth',              en: 'Perth',            es: 'Perth'              }, regionKey: 'asia-oceania' },
+  { value: 'Pacific/Auckland',     labels: { 'pt-br': 'Auckland',           en: 'Auckland',         es: 'Auckland'           }, regionKey: 'asia-oceania' },
+
+  // África
+  { value: 'Africa/Cairo',         labels: { 'pt-br': 'Cairo',              en: 'Cairo',            es: 'El Cairo'           }, regionKey: 'africa' },
+  { value: 'Africa/Johannesburg',  labels: { 'pt-br': 'Joanesburgo',        en: 'Johannesburg',     es: 'Johannesburgo'      }, regionKey: 'africa' },
+  { value: 'Africa/Lagos',         labels: { 'pt-br': 'Lagos',              en: 'Lagos',            es: 'Lagos'              }, regionKey: 'africa' },
+  { value: 'Africa/Nairobi',       labels: { 'pt-br': 'Nairóbi',            en: 'Nairobi',          es: 'Nairobi'            }, regionKey: 'africa' },
+  { value: 'Africa/Casablanca',    labels: { 'pt-br': 'Casablanca',         en: 'Casablanca',       es: 'Casablanca'         }, regionKey: 'africa' },
+
+  // UTC
+  { value: 'UTC',                  labels: { 'pt-br': 'UTC',                en: 'UTC',              es: 'UTC'                }, regionKey: 'utc' },
+];
+
 /**
- * Lista de fusos populares agrupados por região.
- * Inclui cidades relevantes de países grandes com múltiplos fusos.
+ * Lista de fusos populares agrupados por região, com labels localizados.
+ * Aceita locale 'pt-br' | 'en' | 'es' (padrão: 'pt-br').
  */
-export function getPopularTimezones(_locale?: string): TimezoneOption[] {
-  const zonesData: Array<{ value: string; label: string; region: string }> = [
-    // América do Sul
-    { value: 'America/Sao_Paulo',      label: 'São Paulo',       region: 'América do Sul' },
-    { value: 'America/Manaus',         label: 'Manaus',          region: 'América do Sul' },
-    { value: 'America/Fortaleza',      label: 'Fortaleza',       region: 'América do Sul' },
-    { value: 'America/Recife',         label: 'Recife',          region: 'América do Sul' },
-    { value: 'America/Belem',          label: 'Belém',           region: 'América do Sul' },
-    { value: 'America/Porto_Velho',    label: 'Porto Velho',     region: 'América do Sul' },
-    { value: 'America/Boa_Vista',      label: 'Boa Vista',       region: 'América do Sul' },
-    { value: 'America/Rio_Branco',     label: 'Rio Branco',      region: 'América do Sul' },
-    { value: 'America/Noronha',        label: 'Fernando de Noronha', region: 'América do Sul' },
-    { value: 'America/Buenos_Aires',   label: 'Buenos Aires',    region: 'América do Sul' },
-    { value: 'America/Santiago',       label: 'Santiago',        region: 'América do Sul' },
-    { value: 'America/Lima',           label: 'Lima',            region: 'América do Sul' },
-    { value: 'America/Bogota',         label: 'Bogotá',          region: 'América do Sul' },
-    { value: 'America/Caracas',        label: 'Caracas',         region: 'América do Sul' },
-    { value: 'America/Montevideo',     label: 'Montevidéu',      region: 'América do Sul' },
-    { value: 'America/Asuncion',       label: 'Assunção',        region: 'América do Sul' },
-    { value: 'America/La_Paz',         label: 'La Paz',          region: 'América do Sul' },
-    { value: 'America/Guayaquil',      label: 'Guayaquil',       region: 'América do Sul' },
+export function getPopularTimezones(locale?: string): TimezoneOption[] {
+  const lang = (locale as SupportedLocale) ?? 'pt-br';
+  const safeLocale: SupportedLocale = ['pt-br', 'en', 'es'].includes(lang) ? lang : 'pt-br';
 
-    // América do Norte
-    { value: 'America/New_York',       label: 'Nova York',       region: 'América do Norte' },
-    { value: 'America/Chicago',        label: 'Chicago',         region: 'América do Norte' },
-    { value: 'America/Denver',         label: 'Denver',          region: 'América do Norte' },
-    { value: 'America/Los_Angeles',    label: 'Los Angeles',     region: 'América do Norte' },
-    { value: 'America/Phoenix',        label: 'Phoenix',         region: 'América do Norte' },
-    { value: 'America/Anchorage',      label: 'Anchorage',       region: 'América do Norte' },
-    { value: 'Pacific/Honolulu',       label: 'Honolulu',        region: 'América do Norte' },
-    { value: 'America/Toronto',        label: 'Toronto',         region: 'América do Norte' },
-    { value: 'America/Vancouver',      label: 'Vancouver',       region: 'América do Norte' },
-    { value: 'America/Winnipeg',       label: 'Winnipeg',        region: 'América do Norte' },
-    { value: 'America/Halifax',        label: 'Halifax',         region: 'América do Norte' },
-    { value: 'America/St_Johns',       label: 'St. John\'s',     region: 'América do Norte' },
-    { value: 'America/Mexico_City',    label: 'Cidade do México', region: 'América do Norte' },
-    { value: 'America/Monterrey',      label: 'Monterrey',       region: 'América do Norte' },
-    { value: 'America/Tijuana',        label: 'Tijuana',         region: 'América do Norte' },
-    { value: 'America/Hermosillo',     label: 'Hermosillo',      region: 'América do Norte' },
-
-    // Europa
-    { value: 'Europe/London',          label: 'Londres',         region: 'Europa' },
-    { value: 'Europe/Lisbon',          label: 'Lisboa',          region: 'Europa' },
-    { value: 'Europe/Paris',           label: 'Paris',           region: 'Europa' },
-    { value: 'Europe/Berlin',          label: 'Berlim',          region: 'Europa' },
-    { value: 'Europe/Madrid',          label: 'Madri',           region: 'Europa' },
-    { value: 'Europe/Rome',            label: 'Roma',            region: 'Europa' },
-    { value: 'Europe/Amsterdam',       label: 'Amsterdã',        region: 'Europa' },
-    { value: 'Europe/Brussels',        label: 'Bruxelas',        region: 'Europa' },
-    { value: 'Europe/Warsaw',          label: 'Varsóvia',        region: 'Europa' },
-    { value: 'Europe/Moscow',          label: 'Moscou',          region: 'Europa' },
-    { value: 'Europe/Samara',          label: 'Samara',          region: 'Europa' },
-    { value: 'Asia/Yekaterinburg',     label: 'Ecaterimburgo',   region: 'Europa' },
-    { value: 'Europe/Athens',          label: 'Atenas',          region: 'Europa' },
-    { value: 'Europe/Helsinki',        label: 'Helsinque',       region: 'Europa' },
-    { value: 'Europe/Bucharest',       label: 'Bucareste',       region: 'Europa' },
-    { value: 'Europe/Istanbul',        label: 'Istambul',        region: 'Europa' },
-
-    // Ásia e Oceania
-    { value: 'Asia/Dubai',             label: 'Dubai',           region: 'Ásia/Oceania' },
-    { value: 'Asia/Kolkata',           label: 'Mumbai/Kolkata',  region: 'Ásia/Oceania' },
-    { value: 'Asia/Dhaka',             label: 'Dhaka',           region: 'Ásia/Oceania' },
-    { value: 'Asia/Bangkok',           label: 'Bangkok',         region: 'Ásia/Oceania' },
-    { value: 'Asia/Singapore',         label: 'Singapura',       region: 'Ásia/Oceania' },
-    { value: 'Asia/Shanghai',          label: 'Xangai',          region: 'Ásia/Oceania' },
-    { value: 'Asia/Tokyo',             label: 'Tóquio',          region: 'Ásia/Oceania' },
-    { value: 'Asia/Seoul',             label: 'Seul',            region: 'Ásia/Oceania' },
-    { value: 'Asia/Novosibirsk',       label: 'Novosibirsk',     region: 'Ásia/Oceania' },
-    { value: 'Asia/Krasnoyarsk',       label: 'Krasnoyarsk',     region: 'Ásia/Oceania' },
-    { value: 'Asia/Irkutsk',           label: 'Irkutsk',         region: 'Ásia/Oceania' },
-    { value: 'Asia/Vladivostok',       label: 'Vladivostok',     region: 'Ásia/Oceania' },
-    { value: 'Australia/Sydney',       label: 'Sydney',          region: 'Ásia/Oceania' },
-    { value: 'Australia/Melbourne',    label: 'Melbourne',       region: 'Ásia/Oceania' },
-    { value: 'Australia/Brisbane',     label: 'Brisbane',        region: 'Ásia/Oceania' },
-    { value: 'Australia/Perth',        label: 'Perth',           region: 'Ásia/Oceania' },
-    { value: 'Pacific/Auckland',       label: 'Auckland',        region: 'Ásia/Oceania' },
-
-    // África
-    { value: 'Africa/Cairo',           label: 'Cairo',           region: 'África' },
-    { value: 'Africa/Johannesburg',    label: 'Joanesburgo',     region: 'África' },
-    { value: 'Africa/Lagos',           label: 'Lagos',           region: 'África' },
-    { value: 'Africa/Nairobi',         label: 'Nairóbi',         region: 'África' },
-    { value: 'Africa/Casablanca',      label: 'Casablanca',      region: 'África' },
-
-    // UTC
-    { value: 'UTC',                    label: 'UTC',             region: 'UTC' },
-  ];
-
-  // Filtra apenas os fusos que o ambiente suporta
-  return zonesData
+  return TIMEZONE_DATA
     .filter((z) => isValidTimezone(z.value))
     .map((z) => ({
       value: z.value,
-      label: z.label,
-      region: z.region,
+      label: z.labels[safeLocale],
+      region: regionLabels[z.regionKey][safeLocale],
     }));
 }
