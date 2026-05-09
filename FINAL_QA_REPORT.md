@@ -177,6 +177,35 @@ Nenhum link `#` pendente. Aviso legal obrigatório em 3 idiomas presente.
 - `dist/index.html` existe na raiz — OK para deploy
 - `dist/_astro/` existe com os assets do Astro (CSS e JS compilados)
 - `README.md` tem seção "Como subir na Hostinger" com instruções de upload
+
+---
+
+## MVP Mock Approved — 2026-05-09
+
+**Versão:** v1.0-mock
+**Status final:** APROVADO ✅
+**Data:** 2026-05-09
+
+Todos os 9 checklists de QA validados sem bloqueadores. O MVP mockado está formalmente aprovado para upload e teste em produção na Hostinger.
+
+### Resumo executivo
+
+| Área | Resultado |
+|------|-----------|
+| Build e geração estática | ✅ 92 páginas, sem erros |
+| Rotas e navegação | ✅ Todas as rotas verificadas |
+| SEO técnico | ✅ Sitemap, robots, canonical, hreflang, OG presentes |
+| Dados | ✅ 100% MOCK, sem dados reais ou nomes reais |
+| Analytics / AdSense | ✅ Sem IDs reais; código condicional |
+| Legal | ✅ Aviso de independência em 3 idiomas |
+| Acessibilidade mobile | ✅ Touch targets ≥ 44px |
+| FAQ / Conteúdo SEO | ✅ 6 perguntas por idioma + FAQPage JSON-LD |
+| Estrutura de deploy | ✅ dist/ limpo, 104 arquivos |
+
+### Próximos passos pós-aprovação
+1. Upload de `dist/` para `public_html/` na Hostinger
+2. Testar site ao vivo nos três idiomas
+3. Substituir dados MOCK por dados reais da Copa 2026 (escopo pós-MVP)
 - `CHECKLIST_LANCAMENTO.md` tem seção "Upload e deploy" com instruções específicas
 
 ---
