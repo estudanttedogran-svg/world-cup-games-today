@@ -35,6 +35,22 @@ export const GET: APIRoute = () => {
     `${siteUrl}/pt-br/selecoes`,
     `${siteUrl}/en/teams`,
     `${siteUrl}/es/equipos`,
+    // Páginas institucionais
+    `${siteUrl}/pt-br/sobre`,
+    `${siteUrl}/en/about`,
+    `${siteUrl}/es/sobre`,
+    `${siteUrl}/pt-br/contato`,
+    `${siteUrl}/en/contact`,
+    `${siteUrl}/es/contacto`,
+    `${siteUrl}/pt-br/politica-de-privacidade`,
+    `${siteUrl}/en/privacy-policy`,
+    `${siteUrl}/es/politica-de-privacidad`,
+    `${siteUrl}/pt-br/termos-de-uso`,
+    `${siteUrl}/en/terms-of-use`,
+    `${siteUrl}/es/terminos-de-uso`,
+    `${siteUrl}/pt-br/aviso-legal`,
+    `${siteUrl}/en/legal-notice`,
+    `${siteUrl}/es/aviso-legal`,
   ];
 
   // URLs de times (slug idêntico nos três idiomas)
