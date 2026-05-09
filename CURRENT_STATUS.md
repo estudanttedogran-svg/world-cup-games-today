@@ -20,7 +20,8 @@
 **Status geral do projeto:** MVP MOCKADO COMPLETO — PRONTO PARA UPLOAD NA HOSTINGER
 **Verificação de upload (2026-05-09):** dist/ confirmado limpo e completo — 104 arquivos, sem .env, sem node_modules, sem src/
 **Marco de versão (2026-05-09):** MVP MOCK APROVADO — todos os checklists validados ✅
-**Próxima ação:** Fazer upload do conteúdo de dist/ para public_html/ na Hostinger
+**Fase 15 planejada (2026-05-09):** Dados Reais e Preparação para Produção — 11 subfases definidas em IMPLEMENTATION_PLAN.md
+**Próxima ação:** Aguardando autorização para iniciar Fase 15A (congelar MVP e criar tag v1.0-mock)
 
 ---
 
