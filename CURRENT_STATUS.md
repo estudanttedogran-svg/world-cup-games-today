@@ -23,7 +23,8 @@
 **Marco de versão (2026-05-09):** MVP MOCK APROVADO — todos os checklists validados ✅
 **Fase 15 planejada (2026-05-09):** Dados Reais e Preparação para Produção — 11 subfases definidas em IMPLEMENTATION_PLAN.md
 **Fase 15A concluída (2026-05-09):** MVP congelado — tag v1.0-mock no commit 6b82b6c, backup dist_mock_backup/ criado
-**Próxima ação:** Aguardando autorização para iniciar Fase 15B (domínio e PUBLIC_SITE_URL) ou 15C (processo de coleta de dados)
+**Fase 15C concluída (2026-05-09):** DATA_SOURCES.md criado — protocolo completo de coleta, validação e registro de dados reais
+**Próxima ação:** Aguardando autorização para iniciar Fase 15D (importar seleções reais) — 15B pode rodar em paralelo (requer ação externa: compra de domínio)
 
 ---
 
