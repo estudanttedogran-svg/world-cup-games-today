@@ -115,5 +115,22 @@ const resolvedOgLocaleAlternates = ogLocaleAlternatesProp
 
     <!-- Slot para scripts inline -->
     <slot name="scripts" />
+
+    <!-- Google Analytics — carrega apenas se PUBLIC_GA_MEASUREMENT_ID estiver configurado -->
+    {import.meta.env.PUBLIC_GA_MEASUREMENT_ID && (
+      <Fragment>
+        <script
+          is:inline
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_MEASUREMENT_ID}`}
+        ></script>
+        <script is:inline define:vars={{ gaId: import.meta.env.PUBLIC_GA_MEASUREMENT_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        </script>
+      </Fragment>
+    )}
   </body>
 </html>
