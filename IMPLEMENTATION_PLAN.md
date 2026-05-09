@@ -468,7 +468,7 @@ Entregas:
 | 10B | SEO Técnico — Open Graph + Twitter Card | CONCLUÍDA ✅ |
 | 10C | SEO Técnico — SportsEvent JSON-LD | PENDENTE |
 | 11 | Páginas Institucionais | PENDENTE |
-| 12 | Analytics + AdSense (placeholders) | PENDENTE |
+| 12 | Analytics + AdSense (placeholders) | CONCLUÍDA ✅ |
 | 13 | Documentação | PENDENTE |
 | 14 | Build + Validação Final | PENDENTE |
 
