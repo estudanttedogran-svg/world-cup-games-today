@@ -39,9 +39,8 @@
 | Subfase | Descrição | Status |
 |---------|-----------|--------|
 | 15A | Congelar MVP mockado aprovado (tag v1.0-mock + backup) | CONCLUÍDA ✅ |
+| 15B | Preparar domínio e PUBLIC_SITE_URL | AGUARDANDO DOMÍNIO ⏳ |
 | 15C | Definir processo de coleta de dados reais com fonte verificada | CONCLUÍDA ✅ |
-| 15B | Preparar domínio e PUBLIC_SITE_URL | PENDENTE |
-| 15C | Definir processo de coleta de dados reais com fonte verificada | (ver acima) |
 | 15D | Importar seleções reais (48 times) | PENDENTE |
 | 15E | Importar grupos reais (12 grupos) | PENDENTE |
 | 15F | Importar calendário real dos 104 jogos | PENDENTE |
