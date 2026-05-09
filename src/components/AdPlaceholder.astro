@@ -2,17 +2,37 @@
 interface Props {
   slot?: 'top' | 'middle' | 'bottom' | 'sidebar';
   label?: string;
+  size?: 'banner' | 'rectangle' | 'sidebar';
+  lang?: 'pt-br' | 'en' | 'es';
 }
 
 const {
   slot: adSlot = 'middle',
-  label = 'Anúncio',
+  label,
+  size,
+  lang,
 } = Astro.props;
+
+// Texto localizado baseado na prop lang — sobrepõe label se lang for fornecido
+const localizedText: Record<string, string> = {
+  'pt-br': 'Espaço reservado para anúncio',
+  'en':    'Advertisement space',
+  'es':    'Espacio para publicidad',
+};
+
+const displayLabel = label ?? (lang ? localizedText[lang] : localizedText['pt-br']);
+
+// Mapeamento de size para classe CSS adicional
+const sizeClass = size ? `ad-placeholder--size-${size}` : '';
 ---
 
-<div class={`ad-placeholder ad-placeholder--${adSlot}`} aria-hidden="true" role="presentation">
-  <span class="ad-placeholder__label">{label}</span>
-  <span class="ad-placeholder__text">[ Espaço para anúncio ]</span>
+<div
+  class={`ad-placeholder ad-placeholder--${adSlot}${sizeClass ? ' ' + sizeClass : ''}`}
+  aria-hidden="true"
+  role="presentation"
+  data-ad-slot={adSlot}
+>
+  <span class="ad-placeholder__label">{displayLabel}</span>
 </div>
 
 <style>
@@ -23,26 +43,63 @@ const {
     justify-content: center;
     gap: var(--space-1);
     width: 100%;
-    min-height: 90px;
-    padding: var(--space-4);
+    min-height: 50px;
+    padding: var(--space-3) var(--space-4);
     background-color: #f8f9fb;
     border: 1px dashed #c8ced9;
     border-radius: var(--radius-md);
     text-align: center;
+    margin-block: var(--space-4);
   }
 
-  .ad-placeholder--sidebar {
-    min-height: 250px;
-  }
+  /* ===== Variantes por posição (slot) ===== */
 
   .ad-placeholder--top,
   .ad-placeholder--bottom {
-    min-height: 90px;
+    min-height: 50px;
   }
 
   .ad-placeholder--middle {
-    min-height: 90px;
+    min-height: 50px;
   }
+
+  .ad-placeholder--sidebar {
+    min-height: 300px;
+  }
+
+  /* ===== Variantes por tamanho IAB (size) ===== */
+
+  /* banner: 320x50 mobile → 728x90 desktop (leaderboard) */
+  .ad-placeholder--size-banner {
+    min-height: 50px;
+  }
+
+  /* rectangle: 300x250 */
+  .ad-placeholder--size-rectangle {
+    min-height: 250px;
+    max-width: 300px;
+    margin-inline: auto;
+  }
+
+  /* sidebar: 300x600 */
+  .ad-placeholder--size-sidebar {
+    min-height: 300px;
+    max-width: 300px;
+    margin-inline: auto;
+  }
+
+  /* No desktop, banner passa para leaderboard (728x90) */
+  @media (min-width: 768px) {
+    .ad-placeholder--size-banner {
+      min-height: 90px;
+    }
+
+    .ad-placeholder--size-sidebar {
+      min-height: 600px;
+    }
+  }
+
+  /* ===== Rótulo ===== */
 
   .ad-placeholder__label {
     font-size: var(--font-size-xs);
@@ -50,10 +107,5 @@ const {
     color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.06em;
-  }
-
-  .ad-placeholder__text {
-    font-size: var(--font-size-sm);
-    color: #b0b8c6;
   }
 </style>
