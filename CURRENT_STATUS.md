@@ -24,8 +24,8 @@
 **Fase 15 planejada (2026-05-09):** Dados Reais e Preparação para Produção — 11 subfases definidas em IMPLEMENTATION_PLAN.md
 **Fase 15A concluída (2026-05-09):** MVP congelado — tag v1.0-mock no commit 6b82b6c, backup dist_mock_backup/ criado
 **Fase 15C concluída (2026-05-09):** DATA_SOURCES.md criado — protocolo completo de coleta, validação e registro de dados reais
-**Fase 15B em preparação (2026-05-09):** infraestrutura documentada — aguardando compra do domínio e conexão na Hostinger para marcar como concluída
-**Próxima ação:** Você precisa: comprar o domínio → configurar na Hostinger → confirmar aqui. Após confirmação, rodar build e upload.
+**Fase 15B preparada localmente (2026-05-09):** domínio `worldcupgamestoday.com` confirmado — .env já configurado, build 92 páginas OK, dist/ gerado e verificado com domínio real em sitemap/robots/canonical/hreflang/og:url/og:image. Aguardando propagação de DNS e HTTPS ativo na Hostinger para upload final.
+**Próxima ação:** Quando `https://worldcupgamestoday.com` abrir sem erro de certificado → fazer upload do conteúdo de dist/ para public_html/ na Hostinger (ver instruções detalhadas na seção "Fase 15B" abaixo). Após upload e testes, marcar 15B como CONCLUÍDA.
 
 ---
 
