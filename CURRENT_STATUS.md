@@ -121,7 +121,7 @@ Este valor já está configurado com o domínio real: `https://worldcupgamestoda
 - `dist/robots.txt`: `Sitemap: https://worldcupgamestoday.com/sitemap.xml` ✅
 - `dist/pt-br/index.html`: `canonical`, `hreflang`, `og:url`, `og:image` com domínio real ✅
 
-**Etapa 5 — Upload para Hostinger**
+**Etapa 5 — Upload para Hostinger** — PENDENTE (aguardando propagação/HTTPS)
 
 1. Acesse o **Gerenciador de Arquivos** no painel da Hostinger.
 2. Navegue até `public_html/` (raiz do seu domínio).
