@@ -104,44 +104,22 @@ PUBLIC_SITE_URL=https://worldcupgamestoday.com
 PUBLIC_GA_MEASUREMENT_ID=
 ```
 
-Este valor de placeholder já gera um build funcional. Alterar somente quando o domínio real estiver apontado e HTTPS ativo.
+Este valor já está configurado com o domínio real: `https://worldcupgamestoday.com`. NÃO alterar.
 
-### Passo a passo para você executar
+### Status das etapas de preparação local
 
-**Etapa 1 — Comprar e configurar o domínio na Hostinger**
+**Etapa 1 — Comprar e configurar o domínio na Hostinger** — EM ANDAMENTO (propagação de DNS e HTTPS)
 
-1. Acesse o painel da Hostinger e adquira o domínio desejado (ex: `worldcupgamestoday.com`).
-2. No painel de hospedagem, vá em **Domínios → Apontar domínio** e associe ao seu plano de hospedagem.
-3. Em **SSL/HTTPS**, ative o certificado SSL gratuito (Let's Encrypt). Aguarde propagar (pode levar minutos a horas).
-4. Confirme que `https://seudominio.com` abre sem erro de certificado antes de continuar.
+**Etapa 2 — Atualizar o .env local** — CONCLUÍDA ✅
+`.env` contém `PUBLIC_SITE_URL=https://worldcupgamestoday.com`. Não alterar até a Fase 15K.
 
-**Etapa 2 — Atualizar o .env local**
+**Etapa 3 — Rodar o build com o domínio real** — CONCLUÍDA ✅
+`npm run build` gerou **92 páginas sem erros** em 2026-05-09.
 
-Abra o arquivo `.env` na raiz do projeto e altere a linha:
-
-```
-PUBLIC_SITE_URL=https://seudominio.com
-```
-
-Substitua `seudominio.com` pelo domínio real comprado (ex: `worldcupgamestoday.com`).
-
-Não altere `PUBLIC_GA_MEASUREMENT_ID` agora — deixe vazio até a Fase 15K.
-
-**Etapa 3 — Rodar o build com o domínio real**
-
-No terminal, dentro da pasta do projeto:
-
-```bash
-npm run build
-```
-
-O build deve gerar **92 páginas sem erros** (dados ainda são MOCK).
-
-**Etapa 4 — Verificar o canonical e sitemap no dist/**
-
-Abra `dist/sitemap.xml` e confirme que todas as URLs começam com `https://seudominio.com/`.
-Abra `dist/robots.txt` e confirme que a linha `Sitemap:` usa o domínio real.
-Abra `dist/pt-br/index.html` e procure por `<link rel="canonical"` — deve ter o domínio real.
+**Etapa 4 — Verificar o canonical e sitemap no dist/** — CONCLUÍDA ✅
+- `dist/sitemap.xml`: 92 URLs iniciando com `https://worldcupgamestoday.com/` ✅
+- `dist/robots.txt`: `Sitemap: https://worldcupgamestoday.com/sitemap.xml` ✅
+- `dist/pt-br/index.html`: `canonical`, `hreflang`, `og:url`, `og:image` com domínio real ✅
 
 **Etapa 5 — Upload para Hostinger**
 
