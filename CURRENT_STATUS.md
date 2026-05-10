@@ -60,10 +60,28 @@
 
 ---
 
-## Fase 15B — Preparar Domínio e PUBLIC_SITE_URL — AGUARDANDO ⏳
+## Fase 15B — Preparar Domínio e PUBLIC_SITE_URL — PREPARADA LOCALMENTE ⏳
 
 **Data de início do planejamento:** 2026-05-09
-**Status:** AGUARDANDO — requer ação externa (compra e configuração do domínio)
+**Preparação local concluída:** 2026-05-09
+**Status:** PREPARADA LOCALMENTE — aguardando propagação de DNS e HTTPS ativo na Hostinger para upload final
+
+### Resultado da preparação local (2026-05-09)
+
+| Verificação | Resultado |
+|-------------|-----------|
+| Domínio confirmado | `worldcupgamestoday.com` ✅ |
+| `.env` com domínio real | `PUBLIC_SITE_URL=https://worldcupgamestoday.com` ✅ |
+| `npm run build` | 92 páginas geradas sem erros ✅ |
+| `dist/sitemap.xml` usa domínio real | ✅ — 92 URLs com `https://worldcupgamestoday.com/` |
+| `dist/robots.txt` usa domínio real | ✅ — `Sitemap: https://worldcupgamestoday.com/sitemap.xml` |
+| `canonical` usa domínio real | ✅ — verificado em `dist/pt-br/index.html` |
+| `hreflang` usa domínio real | ✅ — pt-BR, en, es e x-default corretos |
+| `og:url` usa domínio real | ✅ — verificado em `dist/pt-br/index.html` |
+| `og:image` usa domínio real | ✅ — `https://worldcupgamestoday.com/images/og-default.svg` |
+| Dados MOCK preservados | ✅ — nenhum dado real inserido |
+| Avisos MOCK preservados | ✅ — nenhum aviso removido |
+| Analytics/AdSense reais | ✅ — nenhum inserido (`PUBLIC_GA_MEASUREMENT_ID` vazio) |
 
 ### O que depende de PUBLIC_SITE_URL
 
