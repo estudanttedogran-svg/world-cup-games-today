@@ -144,17 +144,17 @@ Marcar cada item após confirmação no navegador:
 
 | # | Verificação | URL de teste | Status |
 |---|-------------|-------------|--------|
-| B1 | Homepage raiz abre | `https://seudominio.com/` | PENDENTE |
-| B2 | Home pt-br abre | `https://seudominio.com/pt-br/` | PENDENTE |
-| B3 | Home en abre | `https://seudominio.com/en/` | PENDENTE |
-| B4 | Home es abre | `https://seudominio.com/es/` | PENDENTE |
-| B5 | HTTPS ativo (cadeado verde) | `https://seudominio.com/` | PENDENTE |
-| B6 | `sitemap.xml` usa domínio real | `https://seudominio.com/sitemap.xml` | PENDENTE |
-| B7 | `robots.txt` usa domínio real | `https://seudominio.com/robots.txt` | PENDENTE |
-| B8 | `canonical` usa domínio real | Inspecionar `<link rel="canonical">` em qualquer página | PENDENTE |
-| B9 | `hreflang` usa domínio real | Inspecionar `<link rel="alternate" hreflang>` | PENDENTE |
-| B10 | `og:url` usa domínio real | Inspecionar `<meta property="og:url">` | PENDENTE |
-| B11 | `og:image` usa domínio real | Inspecionar `<meta property="og:image">` | PENDENTE |
+| B1 | Homepage raiz abre | `https://worldcupgamestoday.com/` | PENDENTE — aguardar upload |
+| B2 | Home pt-br abre | `https://worldcupgamestoday.com/pt-br/` | PENDENTE — aguardar upload |
+| B3 | Home en abre | `https://worldcupgamestoday.com/en/` | PENDENTE — aguardar upload |
+| B4 | Home es abre | `https://worldcupgamestoday.com/es/` | PENDENTE — aguardar upload |
+| B5 | HTTPS ativo (cadeado verde) | `https://worldcupgamestoday.com/` | PENDENTE — aguardar propagação |
+| B6 | `sitemap.xml` usa domínio real | `https://worldcupgamestoday.com/sitemap.xml` | PENDENTE — aguardar upload |
+| B7 | `robots.txt` usa domínio real | `https://worldcupgamestoday.com/robots.txt` | PENDENTE — aguardar upload |
+| B8 | `canonical` usa domínio real | Inspecionar `<link rel="canonical">` em qualquer página | VERIFICADO LOCALMENTE ✅ |
+| B9 | `hreflang` usa domínio real | Inspecionar `<link rel="alternate" hreflang>` | VERIFICADO LOCALMENTE ✅ |
+| B10 | `og:url` usa domínio real | Inspecionar `<meta property="og:url">` | VERIFICADO LOCALMENTE ✅ |
+| B11 | `og:image` usa domínio real | Inspecionar `<meta property="og:image">` | VERIFICADO LOCALMENTE ✅ |
 | B12 | Página de jogo abre | `https://seudominio.com/pt-br/jogos/match-001/` | PENDENTE |
 | B13 | Página de seleção abre | `https://seudominio.com/pt-br/selecoes/northland/` | PENDENTE |
 | B14 | Página de grupo abre | `https://seudominio.com/pt-br/grupos/m/` | PENDENTE |
