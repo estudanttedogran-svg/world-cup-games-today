@@ -1,0 +1,67 @@
+{
+  "_draft": true,
+  "_notes": "Source registry for real-data drafts. These entries are not imported by the public app. Phase 15D-2 keeps all data in draft status and records manual normalization of flags and localized names.",
+  "sources": [
+    {
+      "id": "fifa-teams-2026",
+      "type": "teams",
+      "field_scope": [
+        "id",
+        "name.en",
+        "slug",
+        "group"
+      ],
+      "source_type": "primary",
+      "source_name": "FIFA official teams page",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams",
+      "accessed_at": "2026-05-12",
+      "collected_by": "Codex",
+      "status": "draft",
+      "notes": "Used for the official list of 48 teams and FIFA-listed group assignments in teams.real.draft.json."
+    },
+    {
+      "id": "fifa-qualified-teams-article-2026",
+      "type": "teams",
+      "field_scope": [
+        "qualification_status",
+        "confederation"
+      ],
+      "source_type": "primary",
+      "source_name": "FIFA qualified teams article",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/world-cup-2026-who-has-qualified",
+      "accessed_at": "2026-05-12",
+      "collected_by": "Codex",
+      "status": "draft",
+      "notes": "Used to verify all 48 qualified teams and confederation grouping. No model memory used."
+    },
+    {
+      "id": "manual-flag-emoji-normalization-15d2",
+      "type": "teams",
+      "field_scope": [
+        "flag"
+      ],
+      "source_type": "manual-normalization",
+      "source_name": "Phase 15D-2 draft normalization",
+      "url": null,
+      "accessed_at": "2026-05-12",
+      "collected_by": "Codex",
+      "status": "draft",
+      "notes": "Flags were changed from nonexistent SVG paths to emoji strings to keep Team.flag as string without creating assets or pointing to missing files. This is a draft representation and not promoted."
+    },
+    {
+      "id": "manual-localized-team-names-15d2",
+      "type": "teams",
+      "field_scope": [
+        "name.pt-br",
+        "name.es"
+      ],
+      "source_type": "manual-normalization",
+      "source_name": "Phase 15D-2 draft localization",
+      "url": null,
+      "accessed_at": "2026-05-12",
+      "collected_by": "Codex",
+      "status": "draft",
+      "notes": "Portuguese and Spanish names were localized in draft using common forms. These localized labels require later QA before any public promotion; FIFA English names remain the source basis for name.en."
+    }
+  ]
+}

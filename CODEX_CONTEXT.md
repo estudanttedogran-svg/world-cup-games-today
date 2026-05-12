@@ -38,11 +38,12 @@ Confirmed project phase:
 - Phase 15B: completed on 2026-05-12. `https://worldcupgamestoday.com/` is live on Hostinger with HTTPS. Routes `/`, `/pt-br/`, `/en/`, `/es/`, `/sitemap.xml`, `/robots.txt`, `/pt-br/jogos/match-001/`, `/pt-br/selecoes/northland/`, and `/pt-br/grupos/m/` returned HTTP 200. Sitemap, robots, canonical, hreflang, `og:url`, and `og:image` use `worldcupgamestoday.com`. Footer independence notice and MOCK notices remain visible. No real Analytics or AdSense was added.
 - Phase 15C: completed. `DATA_SOURCES.md` defines the official data collection and validation process.
 - Phase 15D-0: created. `REAL_DATA_MIGRATION_PLAN.md` defines safe draft-based migration and explicitly blocks replacing `teams.json` in isolation.
-- Phase 15D-1: pending. It is only collection and validation of real teams in draft files, not public JSON replacement.
+- Phase 15D-1: initiated. `src/data/real/teams.real.draft.json` and `src/data/real/sources.json` exist outside the public build. The draft currently contains 48 FIFA-listed teams with source metadata. No public data JSON has been changed.
+- Phase 15D-2: completed in draft. `src/data/real/teams.real.draft.json` was validated, flags were normalized from nonexistent SVG paths to emoji strings, and `name.pt-br`/`name.es` were localized in draft. `src/data/real/sources.json` records these manual draft normalizations. No public data JSON has been changed or promoted.
 
 Next allowed action depends on user authorization:
 
-- Phase 15D-1 is next, but only after explicit user authorization and only with verified primary sources and collection dates recorded in draft files.
+- The next recommended action is a read-only audit of 15D-2, followed by an explicit commit authorization if the audit passes.
 - Do not edit real data, remove MOCK notices, or add Analytics/AdSense before the authorized phase requires it.
 
 ## Non-Negotiable Continuity Rules
@@ -67,9 +68,11 @@ Next allowed action depends on user authorization:
 - `src/data/groups.json`: 2 fictional groups, `_mock: true`.
 - `src/data/matches.json`: 11 mock matches, 8 confirmed and 3 partial, `_mock: true`.
 - `public/data/live-data.json`: mock live scores/status/standings, `_mock: true`.
+- `src/data/real/teams.real.draft.json`: real teams draft only, not imported by the app. After 15D-2 it contains 48 teams, emoji string flags, and localized draft labels for `pt-br` and `es`.
+- `src/data/real/sources.json`: source registry for drafts only, not imported by the app. After 15D-2 it records FIFA source entries plus manual draft normalization entries for flags and localized names.
 - Do not replace `teams.json` in isolation. Real teams, groups, matches, and live-data references must be migrated as a coordinated set after draft validation and QA, because the current mock JSONs cross-reference ids such as `northland` and `eastoria`.
 - Real data drafts must stay outside the public build until QA approves coordinated promotion.
-- `Team.flag` remains a string in this phase; use an emoji string or path string, never `null`.
+- `Team.flag` remains a string in this phase; after 15D-2 the draft uses emoji strings, never `null` and never missing SVG paths.
 - Never insert real data from model memory.
 - Real data requires primary source verification, preferably FIFA official pages or FIFA media releases.
 - Secondary sources are only for cross-checking.

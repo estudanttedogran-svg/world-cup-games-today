@@ -29,13 +29,15 @@
 **Fase 15C concluída (2026-05-09):** DATA_SOURCES.md criado — protocolo completo de coleta, validação e registro de dados reais
 **Fase 15B concluída (2026-05-12):** domínio real `worldcupgamestoday.com` ativo em HTTPS; rotas principais, sitemap, robots, canonical, hreflang, og:url, og:image, footer legal e avisos MOCK validados em produção.
 **Fase 15D-0 criada (2026-05-12):** `REAL_DATA_MIGRATION_PLAN.md` define a estratégia segura de migração via drafts, sem substituir `teams.json` isoladamente e sem alterar JSONs públicos.
-**Próxima ação:** Parar e aguardar autorização explícita para a Fase 15D-1 — coleta/validação das seleções reais em draft. Nenhum dado real deve ser inserido sem fonte oficial/verificada e data de coleta registrada.
+**Fase 15D-1 iniciada (2026-05-12):** criados `src/data/real/teams.real.draft.json` e `src/data/real/sources.json` fora do build público. Draft contém 48 seleções coletadas de páginas oficiais FIFA, com `flag` string e grupos FIFA em estado draft; nenhum JSON público foi alterado.
+**Fase 15D-2 concluída (2026-05-12):** draft de seleções reais validado e corrigido fora do build público. `flag` foi normalizada para emoji string, nomes `pt-br`/`es` foram localizados em draft, fontes foram atualizadas e nenhum JSON público foi alterado ou promovido.
+**Próxima ação:** Parar e aguardar autorização explícita para auditoria somente-leitura/commit da 15D-2 ou para a próxima microfase. Nenhum dado real deve ser promovido para JSON público antes do QA coordenado.
 
 ---
 
 ## Fase 15 — Dados Reais e Preparação para Produção (2026-05-09)
 
-**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; aguardando autorização para 15D-1
+**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; 15D-1 iniciada em draft; 15D-2 concluída em draft; aguardando autorização para próxima ação
 **Plano completo:** ver IMPLEMENTATION_PLAN.md, seção "Fase 15"
 
 ### Subfases e status
@@ -46,6 +48,8 @@
 | 15B | Preparar domínio e PUBLIC_SITE_URL | CONCLUÍDA ✅ |
 | 15C | Definir processo de coleta de dados reais com fonte verificada | CONCLUÍDA ✅ |
 | 15D-0 | Estratégia segura de migração dos dados mock para dados reais | CRIADA |
+| 15D-1 | Coleta/validação das seleções reais em draft | CONCLUÍDA — 48 seleções em draft |
+| 15D-2 | Validação/correção do draft de seleções reais | CONCLUÍDA — flags emoji + nomes localizados em draft |
 | 15D | Importar seleções reais (48 times, primeiro em draft) | PENDENTE |
 | 15E | Importar grupos reais (12 grupos) | PENDENTE |
 | 15F | Importar calendário real dos 104 jogos | PENDENTE |
