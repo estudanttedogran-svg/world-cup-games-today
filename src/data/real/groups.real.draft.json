@@ -1,0 +1,130 @@
+{
+  "_draft": true,
+  "_source": "Derived from src/data/real/teams.real.draft.json group fields; original group assignments sourced from FIFA official teams page - https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams",
+  "_collected_at": "2026-05-12",
+  "_collected_by": "Codex",
+  "_verified_against": "src/data/real/sources.json entries fifa-teams-2026 and fifa-qualified-teams-article-2026",
+  "_notes": "Draft groups only. Generated from the already validated group field in teams.real.draft.json. Not imported by pages, components, sitemap, or public live data; not promoted to src/data/groups.json.",
+  "groups": [
+    {
+      "id": "A",
+      "name": {
+        "pt-br": "Grupo A",
+        "en": "Group A",
+        "es": "Grupo A"
+      },
+      "slug": "a",
+      "team_ids": ["mexico", "czechia", "korea-republic", "south-africa"]
+    },
+    {
+      "id": "B",
+      "name": {
+        "pt-br": "Grupo B",
+        "en": "Group B",
+        "es": "Grupo B"
+      },
+      "slug": "b",
+      "team_ids": ["canada", "bosnia-and-herzegovina", "qatar", "switzerland"]
+    },
+    {
+      "id": "C",
+      "name": {
+        "pt-br": "Grupo C",
+        "en": "Group C",
+        "es": "Grupo C"
+      },
+      "slug": "c",
+      "team_ids": ["brazil", "haiti", "morocco", "scotland"]
+    },
+    {
+      "id": "D",
+      "name": {
+        "pt-br": "Grupo D",
+        "en": "Group D",
+        "es": "Grupo D"
+      },
+      "slug": "d",
+      "team_ids": ["usa", "australia", "paraguay", "turkiye"]
+    },
+    {
+      "id": "E",
+      "name": {
+        "pt-br": "Grupo E",
+        "en": "Group E",
+        "es": "Grupo E"
+      },
+      "slug": "e",
+      "team_ids": ["cote-divoire", "curacao", "ecuador", "germany"]
+    },
+    {
+      "id": "F",
+      "name": {
+        "pt-br": "Grupo F",
+        "en": "Group F",
+        "es": "Grupo F"
+      },
+      "slug": "f",
+      "team_ids": ["japan", "netherlands", "sweden", "tunisia"]
+    },
+    {
+      "id": "G",
+      "name": {
+        "pt-br": "Grupo G",
+        "en": "Group G",
+        "es": "Grupo G"
+      },
+      "slug": "g",
+      "team_ids": ["belgium", "egypt", "ir-iran", "new-zealand"]
+    },
+    {
+      "id": "H",
+      "name": {
+        "pt-br": "Grupo H",
+        "en": "Group H",
+        "es": "Grupo H"
+      },
+      "slug": "h",
+      "team_ids": ["cabo-verde", "saudi-arabia", "spain", "uruguay"]
+    },
+    {
+      "id": "I",
+      "name": {
+        "pt-br": "Grupo I",
+        "en": "Group I",
+        "es": "Grupo I"
+      },
+      "slug": "i",
+      "team_ids": ["france", "iraq", "norway", "senegal"]
+    },
+    {
+      "id": "J",
+      "name": {
+        "pt-br": "Grupo J",
+        "en": "Group J",
+        "es": "Grupo J"
+      },
+      "slug": "j",
+      "team_ids": ["algeria", "argentina", "austria", "jordan"]
+    },
+    {
+      "id": "K",
+      "name": {
+        "pt-br": "Grupo K",
+        "en": "Group K",
+        "es": "Grupo K"
+      },
+      "slug": "k",
+      "team_ids": ["colombia", "congo-dr", "portugal", "uzbekistan"]
+    },
+    {
+      "id": "L",
+      "name": {
+        "pt-br": "Grupo L",
+        "en": "Group L",
+        "es": "Grupo L"
+      },
+      "slug": "l",
+      "team_ids": ["croatia", "england", "ghana", "panama"]
+    }
+  ]
+}

@@ -40,10 +40,11 @@ Confirmed project phase:
 - Phase 15D-0: created. `REAL_DATA_MIGRATION_PLAN.md` defines safe draft-based migration and explicitly blocks replacing `teams.json` in isolation.
 - Phase 15D-1: initiated. `src/data/real/teams.real.draft.json` and `src/data/real/sources.json` exist outside the public build. The draft currently contains 48 FIFA-listed teams with source metadata. No public data JSON has been changed.
 - Phase 15D-2: completed in draft. `src/data/real/teams.real.draft.json` was validated, flags were normalized from nonexistent SVG paths to emoji strings, and `name.pt-br`/`name.es` were localized in draft. `src/data/real/sources.json` records these manual draft normalizations. No public data JSON has been changed or promoted.
+- Phase 15E-1: completed in draft on 2026-05-12. `src/data/real/groups.real.draft.json` was created from the existing `group` fields in `teams.real.draft.json`, producing 12 groups A-L with 4 teams each. The draft remains outside the public build and has not been promoted to `src/data/groups.json`.
 
 Next allowed action depends on user authorization:
 
-- The next recommended action is a read-only audit of 15D-2, followed by an explicit commit authorization if the audit passes.
+- The next recommended action is a read-only audit of 15E-1, followed by an explicit commit authorization if the audit passes.
 - Do not edit real data, remove MOCK notices, or add Analytics/AdSense before the authorized phase requires it.
 
 ## Non-Negotiable Continuity Rules
@@ -69,7 +70,8 @@ Next allowed action depends on user authorization:
 - `src/data/matches.json`: 11 mock matches, 8 confirmed and 3 partial, `_mock: true`.
 - `public/data/live-data.json`: mock live scores/status/standings, `_mock: true`.
 - `src/data/real/teams.real.draft.json`: real teams draft only, not imported by the app. After 15D-2 it contains 48 teams, emoji string flags, and localized draft labels for `pt-br` and `es`.
-- `src/data/real/sources.json`: source registry for drafts only, not imported by the app. After 15D-2 it records FIFA source entries plus manual draft normalization entries for flags and localized names.
+- `src/data/real/groups.real.draft.json`: real groups draft only, not imported by the app. After 15E-1 it contains 12 groups A-L derived from `teams.real.draft.json`; it has not been promoted to `src/data/groups.json`.
+- `src/data/real/sources.json`: source registry for drafts only, not imported by the app. After 15E-1 it records FIFA source entries, manual draft normalization entries for teams, and the derived groups draft entry.
 - Do not replace `teams.json` in isolation. Real teams, groups, matches, and live-data references must be migrated as a coordinated set after draft validation and QA, because the current mock JSONs cross-reference ids such as `northland` and `eastoria`.
 - Real data drafts must stay outside the public build until QA approves coordinated promotion.
 - `Team.flag` remains a string in this phase; after 15D-2 the draft uses emoji strings, never `null` and never missing SVG paths.

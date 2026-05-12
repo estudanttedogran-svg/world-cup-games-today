@@ -62,6 +62,23 @@
       "collected_by": "Codex",
       "status": "draft",
       "notes": "Portuguese and Spanish names were localized in draft using common forms. These localized labels require later QA before any public promotion; FIFA English names remain the source basis for name.en."
+    },
+    {
+      "id": "derived-groups-from-teams-draft-15e1",
+      "type": "groups",
+      "field_scope": [
+        "id",
+        "name",
+        "slug",
+        "team_ids"
+      ],
+      "source_type": "derived-draft",
+      "source_name": "Phase 15E-1 derived groups draft",
+      "url": "src/data/real/teams.real.draft.json",
+      "accessed_at": "2026-05-12",
+      "collected_by": "Codex",
+      "status": "draft",
+      "notes": "groups.real.draft.json was generated from the existing group values in teams.real.draft.json. The original group assignments are covered by fifa-teams-2026; no new external data was collected."
     }
   ]
 }
