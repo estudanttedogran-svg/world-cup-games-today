@@ -118,7 +118,7 @@ id            — slug único em inglês, sem acentos, sem espaços (ex: "saudi-
 name          — LocalizedString: { 'pt-br': '...', en: '...', es: '...' }
 slug          — igual ao id; usado nas rotas /pt-br/selecoes/[slug]
 group         — letra do grupo ("A"–"L"), ou null se sorteio ainda não ocorreu
-flag          — caminho relativo: "flags/[slug].svg" (ou null temporariamente)
+flag          — string obrigatória: emoji ou caminho relativo, ex. "flags/[slug].svg" (não usar null nesta fase)
 confederation — "CONMEBOL" | "UEFA" | "CAF" | "AFC" | "CONCACAF" | "OFC"
 ```
 
@@ -135,7 +135,7 @@ confederation — "CONMEBOL" | "UEFA" | "CAF" | "AFC" | "CONCACAF" | "OFC"
 **Regras:**
 - Nenhuma seleção entra sem classificação confirmada pela fonte oficial.
 - `group` só recebe valor após sorteio oficial publicado pela FIFA.
-- `flag` pode ser `null` até que as imagens estejam disponíveis em `public/images/flags/`.
+- `flag` deve permanecer string; usar emoji string ou path string, nunca `null` nesta fase.
 - Slugs derivados do nome em inglês: minúsculas, hífens no lugar de espaços, sem acentos.
 
 **Impacto no build:** 48 seleções × 3 idiomas = 144 páginas de seleção.
@@ -274,7 +274,7 @@ Este arquivo é o único lugar onde placares, status ao vivo e classificação e
 | Times de mata-mata ainda indefinidos | Usar `type: "partial"`, `home_team_id: null`, `away_team_id: null`; preencher `home_label`/`away_label` com descritor (ex: "Vencedor Jogo 49") |
 | Horário divulgado mas aguardando confirmação final | Não inserir como `confirmed` — aguardar publicação oficial |
 | Estádio anunciado mas cidade ou país em dúvida | Não inserir como `confirmed` — verificar na fonte primária |
-| Seleção classificada mas grupo não sorteado | Inserir a seleção em `teams.json` com `group: null` |
+| Seleção classificada mas grupo não sorteado | Inserir primeiro em `src/data/real/teams.real.draft.json` com `group: null`; promover para `teams.json` somente na migração coordenada após QA |
 | Nome da seleção em idioma sem tradução oficial | Usar o nome em inglês também para pt-br e es até obter tradução confirmada |
 
 ---

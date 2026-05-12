@@ -466,6 +466,7 @@ Esta fase transiciona o site de dados fictícios (MOCK) para dados reais verific
 5. `live-data.json` mantém structure atual — apenas scores/status/classificação em tempo real.
 6. O site deve funcionar sem Analytics e sem AdSense em qualquer estado da fase.
 7. Avisos MOCK são removidos somente na Subfase 15I, após QA dos dados (15H) aprovado.
+8. `teams.json` não deve ser substituído isoladamente; seleções, grupos, partidas e live-data devem ser migrados como conjunto coordenado após validação em draft e QA.
 
 ---
 
@@ -485,7 +486,7 @@ Esta fase transiciona o site de dados fictícios (MOCK) para dados reais verific
 ---
 
 ### Fase 15B — Preparar Domínio e PUBLIC_SITE_URL
-**Status:** AGUARDANDO DOMÍNIO ⏳ — infraestrutura documentada; aguardando compra/configuração do domínio pelo usuário
+**Status:** CONCLUÍDA ✅ — domínio real ativo em HTTPS e checklist B1-B15 aprovado em 2026-05-12
 **Depende de:** 15A
 
 **Objetivo:** configurar infraestrutura de hospedagem com domínio real antes de inserir dados reais.
@@ -526,11 +527,38 @@ Esta fase transiciona o site de dados fictícios (MOCK) para dados reais verific
 
 ---
 
-### Fase 15D — Importar Seleções Reais
-**Status:** PENDENTE
+### Fase 15D-0 — Estratégia Segura de Migração dos Dados Mock para Dados Reais
+**Status:** CRIADA — 2026-05-12
 **Depende de:** 15C aprovado
 
-**Objetivo:** substituir os 8 times fictícios de `src/data/teams.json` pelos times reais classificados para a Copa 2026.
+**Objetivo:** definir o plano seguro para migrar dados mockados para dados reais sem quebrar o build e sem publicar dados incompletos.
+
+**Entregas:**
+- `REAL_DATA_MIGRATION_PLAN.md` criado na raiz do projeto.
+- Regra documentada: `teams.json` não pode ser substituído isoladamente, porque `groups.json`, `matches.json` e `live-data.json` referenciam os IDs mockados.
+- Estratégia de arquivos draft fora do build público definida:
+  - `src/data/real/teams.real.draft.json`
+  - `src/data/real/groups.real.draft.json`
+  - `src/data/real/matches.real.draft.json`
+  - `src/data/real/sources.json`
+- Decisão registrada: `Team.flag` permanece `string`; não usar `null` nesta fase.
+- Sequência segura definida: 15D-1, 15D-2, 15E-1, 15F-1, 15G, 15H e migração coordenada após QA.
+- Rollback documentado com tag `v1.0-mock`, `dist_mock_backup/` e restauração seletiva via Git apenas com autorização.
+
+**Regras:**
+- Nenhum JSON público deve ser alterado nesta microfase.
+- Nenhum dado real deve ser importado nesta microfase.
+- Nenhum build é necessário quando apenas documentação for alterada.
+
+**Critério de conclusão:** plano de migração criado, documentos de continuidade atualizados e pausa para autorização antes da 15D-1.
+
+---
+
+### Fase 15D — Importar Seleções Reais
+**Status:** PENDENTE
+**Depende de:** 15D-0 criada e 15C aprovado
+
+**Objetivo:** preparar a importação das seleções reais classificadas para a Copa 2026 inicialmente em draft, sem substituir `src/data/teams.json` de forma isolada.
 
 **Escopo esperado:** 48 seleções (formato Copa 2026).
 
@@ -548,13 +576,13 @@ flag        — path para imagem em public/images/flags/ (a ser providenciado)
 - Nenhum nome inventado.
 - Nenhuma seleção marcada em grupo sem sorteio oficial confirmado.
 - Slug derivado do nome em inglês, sem acentos, sem espaços (ex: `saudi-arabia`).
-- `flag` pode ser `null` temporariamente enquanto as imagens não estiverem disponíveis.
+- `flag` deve permanecer `string` nesta fase; usar emoji string ou path string, nunca `null`.
 
 **Impacto no build:**
 - Rotas dinâmicas `/pt-br/selecoes/[slug]`, `/en/teams/[slug]`, `/es/equipos/[slug]` gerarão 48 páginas cada (144 páginas de seleções, +120 em relação ao mock com 8 times).
 - `npm run build` deve completar sem erros com os novos slugs.
 
-**Critério de conclusão:** `teams.json` com 48 seleções reais, fonte registrada, build sem erros.
+**Critério de conclusão:** seleções reais validadas em draft, fontes registradas e prontas para QA; promoção para `teams.json` somente na migração coordenada após 15H.
 
 ---
 
@@ -805,8 +833,9 @@ away_label   — LocalizedString ou null
 | 13 | Documentação | CONCLUÍDA ✅ |
 | 14 | Build + Validação Final | CONCLUÍDA ✅ |
 | 15A | Dados Reais — Congelar MVP Mock | CONCLUÍDA ✅ |
-| 15B | Dados Reais — Domínio e PUBLIC_SITE_URL | AGUARDANDO DOMÍNIO ⏳ |
+| 15B | Dados Reais — Domínio e PUBLIC_SITE_URL | CONCLUÍDA ✅ |
 | 15C | Dados Reais — Definir processo de coleta | CONCLUÍDA ✅ |
+| 15D-0 | Dados Reais — Estratégia segura de migração mock para real | CRIADA |
 | 15D | Dados Reais — Importar seleções reais | PENDENTE |
 | 15E | Dados Reais — Importar grupos reais | PENDENTE |
 | 15F | Dados Reais — Importar calendário 104 jogos | PENDENTE |
@@ -818,5 +847,5 @@ away_label   — LocalizedString ou null
 
 Ordem obrigatória dentro da Fase 6: 6A → 6B → 6C → 6D → 6E
 
-Ordem obrigatória dentro da Fase 15: 15A → 15B (paralelo com 15C) → 15C → 15D → 15E → 15F → 15G → 15H → 15I → 15J → 15K
+Ordem obrigatória dentro da Fase 15: 15A → 15B (paralelo com 15C) → 15C → 15D-0 → 15D-1/15D-2 → 15E-1 → 15F-1 → 15G → 15H → migração coordenada dos JSONs → 15I → 15J → 15K
 (6D depende de 6B; 6E pode rodar após 6C em paralelo com 6D, mas recomenda-se sequencial)

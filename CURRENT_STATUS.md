@@ -1,12 +1,15 @@
 # CURRENT_STATUS.md — World Cup Games Today
 
-**Última atualização:** 2026-05-09 (Fase 15B — preparada localmente; aguardando propagação/HTTPS do domínio)
+**Última atualização:** 2026-05-12 (Fase 15B — domínio real validado em HTTPS; checklist B1-B15 aprovado)
 
 ---
 
 ## Status atual
 
+**Atualização Codex (2026-05-12):** Fase 15B CONCLUÍDA ✅. Domínio real `https://worldcupgamestoday.com` validado em HTTPS no servidor Hostinger. Rotas B1-B15 testadas com sucesso, sitemap/robots/canonical/hreflang/og:url/og:image usam `worldcupgamestoday.com`, footer mantém aviso de independência, avisos MOCK continuam visíveis, e nenhum Analytics/AdSense real foi inserido.
+
 **Fase concluída:** Fase 15A — Congelar MVP Mockado Aprovado CONCLUÍDA ✅
+**Fase concluída:** Fase 15B — Preparar Domínio e PUBLIC_SITE_URL CONCLUÍDA ✅
 **Fase concluída anterior:** Fase 14 — Build + Validação Final CONCLUÍDA ✅
 **Correção pós-QA aplicada:** Bug Checklist 3 — Labels de fuso horário localizados (2026-05-09) ✅
 **Correção pós-QA aplicada:** Bug Checklist 4 — Horários client-side reativos ao fuso (2026-05-09) ✅
@@ -24,14 +27,15 @@
 **Fase 15 planejada (2026-05-09):** Dados Reais e Preparação para Produção — 11 subfases definidas em IMPLEMENTATION_PLAN.md
 **Fase 15A concluída (2026-05-09):** MVP congelado — tag v1.0-mock no commit 6b82b6c, backup dist_mock_backup/ criado
 **Fase 15C concluída (2026-05-09):** DATA_SOURCES.md criado — protocolo completo de coleta, validação e registro de dados reais
-**Fase 15B preparada localmente (2026-05-09):** domínio `worldcupgamestoday.com` confirmado — .env já configurado, build 92 páginas OK, dist/ gerado e verificado com domínio real em sitemap/robots/canonical/hreflang/og:url/og:image. Aguardando propagação de DNS e HTTPS ativo na Hostinger para upload final.
-**Próxima ação:** Quando `https://worldcupgamestoday.com` abrir sem erro de certificado → fazer upload do conteúdo de dist/ para public_html/ na Hostinger (ver instruções detalhadas na seção "Fase 15B" abaixo). Após upload e testes, marcar 15B como CONCLUÍDA.
+**Fase 15B concluída (2026-05-12):** domínio real `worldcupgamestoday.com` ativo em HTTPS; rotas principais, sitemap, robots, canonical, hreflang, og:url, og:image, footer legal e avisos MOCK validados em produção.
+**Fase 15D-0 criada (2026-05-12):** `REAL_DATA_MIGRATION_PLAN.md` define a estratégia segura de migração via drafts, sem substituir `teams.json` isoladamente e sem alterar JSONs públicos.
+**Próxima ação:** Parar e aguardar autorização explícita para a Fase 15D-1 — coleta/validação das seleções reais em draft. Nenhum dado real deve ser inserido sem fonte oficial/verificada e data de coleta registrada.
 
 ---
 
 ## Fase 15 — Dados Reais e Preparação para Produção (2026-05-09)
 
-**Status:** EM ANDAMENTO — 15A concluída
+**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; aguardando autorização para 15D-1
 **Plano completo:** ver IMPLEMENTATION_PLAN.md, seção "Fase 15"
 
 ### Subfases e status
@@ -39,9 +43,10 @@
 | Subfase | Descrição | Status |
 |---------|-----------|--------|
 | 15A | Congelar MVP mockado aprovado (tag v1.0-mock + backup) | CONCLUÍDA ✅ |
-| 15B | Preparar domínio e PUBLIC_SITE_URL | PREPARADA LOCALMENTE — aguardando propagação/HTTPS ⏳ |
+| 15B | Preparar domínio e PUBLIC_SITE_URL | CONCLUÍDA ✅ |
 | 15C | Definir processo de coleta de dados reais com fonte verificada | CONCLUÍDA ✅ |
-| 15D | Importar seleções reais (48 times) | PENDENTE |
+| 15D-0 | Estratégia segura de migração dos dados mock para dados reais | CRIADA |
+| 15D | Importar seleções reais (48 times, primeiro em draft) | PENDENTE |
 | 15E | Importar grupos reais (12 grupos) | PENDENTE |
 | 15F | Importar calendário real dos 104 jogos | PENDENTE |
 | 15G | Converter e validar horários UTC | PENDENTE |
@@ -55,16 +60,17 @@
 - Nenhum confronto inventado ou deduzido.
 - `confirmed` exige os dois times definidos pela fonte oficial.
 - `SportsEvent` JSON-LD somente para `confirmed` com ambos os times.
+- `teams.json` não deve ser substituído isoladamente; a migração final deve coordenar seleções, grupos, partidas e live-data após QA.
 - Avisos MOCK removidos somente após QA (15H) aprovado — na 15I.
 - Site funciona sem Analytics e sem AdSense em qualquer estado.
 
 ---
 
-## Fase 15B — Preparar Domínio e PUBLIC_SITE_URL — PREPARADA LOCALMENTE ⏳
+## Fase 15B — Preparar Domínio e PUBLIC_SITE_URL — CONCLUÍDA ✅
 
 **Data de início do planejamento:** 2026-05-09
 **Preparação local concluída:** 2026-05-09
-**Status:** PREPARADA LOCALMENTE — aguardando propagação de DNS e HTTPS ativo na Hostinger para upload final
+**Status:** CONCLUÍDA — domínio real ativo em HTTPS e checklist B1-B15 aprovado
 
 ### Resultado da preparação local (2026-05-09)
 
@@ -108,7 +114,7 @@ Este valor já está configurado com o domínio real: `https://worldcupgamestoda
 
 ### Status das etapas de preparação local
 
-**Etapa 1 — Comprar e configurar o domínio na Hostinger** — EM ANDAMENTO (propagação de DNS e HTTPS)
+**Etapa 1 — Comprar e configurar o domínio na Hostinger** — CONCLUÍDA ✅
 
 **Etapa 2 — Atualizar o .env local** — CONCLUÍDA ✅
 `.env` contém `PUBLIC_SITE_URL=https://worldcupgamestoday.com`. Não alterar até a Fase 15K.
@@ -121,7 +127,7 @@ Este valor já está configurado com o domínio real: `https://worldcupgamestoda
 - `dist/robots.txt`: `Sitemap: https://worldcupgamestoday.com/sitemap.xml` ✅
 - `dist/pt-br/index.html`: `canonical`, `hreflang`, `og:url`, `og:image` com domínio real ✅
 
-**Etapa 5 — Upload para Hostinger** — PENDENTE (aguardando propagação/HTTPS)
+**Etapa 5 — Upload para Hostinger** — CONCLUÍDA ✅
 
 1. Acesse o **Gerenciador de Arquivos** no painel da Hostinger.
 2. Navegue até `public_html/` (raiz do seu domínio).
@@ -144,30 +150,29 @@ Marcar cada item após confirmação no navegador:
 
 | # | Verificação | URL de teste | Status |
 |---|-------------|-------------|--------|
-| B1 | Homepage raiz abre | `https://worldcupgamestoday.com/` | PENDENTE — aguardar upload |
-| B2 | Home pt-br abre | `https://worldcupgamestoday.com/pt-br/` | PENDENTE — aguardar upload |
-| B3 | Home en abre | `https://worldcupgamestoday.com/en/` | PENDENTE — aguardar upload |
-| B4 | Home es abre | `https://worldcupgamestoday.com/es/` | PENDENTE — aguardar upload |
-| B5 | HTTPS ativo (cadeado verde) | `https://worldcupgamestoday.com/` | PENDENTE — aguardar propagação |
-| B6 | `sitemap.xml` usa domínio real | `https://worldcupgamestoday.com/sitemap.xml` | PENDENTE — aguardar upload |
-| B7 | `robots.txt` usa domínio real | `https://worldcupgamestoday.com/robots.txt` | PENDENTE — aguardar upload |
-| B8 | `canonical` usa domínio real | Inspecionar `<link rel="canonical">` em qualquer página | VERIFICADO LOCALMENTE ✅ |
-| B9 | `hreflang` usa domínio real | Inspecionar `<link rel="alternate" hreflang>` | VERIFICADO LOCALMENTE ✅ |
-| B10 | `og:url` usa domínio real | Inspecionar `<meta property="og:url">` | VERIFICADO LOCALMENTE ✅ |
-| B11 | `og:image` usa domínio real | Inspecionar `<meta property="og:image">` | VERIFICADO LOCALMENTE ✅ |
-| B12 | Página de jogo abre | `https://seudominio.com/pt-br/jogos/match-001/` | PENDENTE |
-| B13 | Página de seleção abre | `https://seudominio.com/pt-br/selecoes/northland/` | PENDENTE |
-| B14 | Página de grupo abre | `https://seudominio.com/pt-br/grupos/m/` | PENDENTE |
-| B15 | Footer com aviso FIFA presente | Inspecionar rodapé em qualquer página | PENDENTE |
+| B1 | Homepage raiz abre | `https://worldcupgamestoday.com/` | APROVADO ✅ — HTTP 200 |
+| B2 | Home pt-br abre | `https://worldcupgamestoday.com/pt-br/` | APROVADO ✅ — HTTP 200 |
+| B3 | Home en abre | `https://worldcupgamestoday.com/en/` | APROVADO ✅ — HTTP 200 |
+| B4 | Home es abre | `https://worldcupgamestoday.com/es/` | APROVADO ✅ — HTTP 200 |
+| B5 | HTTPS ativo (cadeado verde) | `https://worldcupgamestoday.com/` | APROVADO ✅ — HTTPS ativo |
+| B6 | `sitemap.xml` usa domínio real | `https://worldcupgamestoday.com/sitemap.xml` | APROVADO ✅ |
+| B7 | `robots.txt` usa domínio real | `https://worldcupgamestoday.com/robots.txt` | APROVADO ✅ |
+| B8 | `canonical` usa domínio real | Inspecionar `<link rel="canonical">` em qualquer página | APROVADO ✅ |
+| B9 | `hreflang` usa domínio real | Inspecionar `<link rel="alternate" hreflang>` | APROVADO ✅ |
+| B10 | `og:url` usa domínio real | Inspecionar `<meta property="og:url">` | APROVADO ✅ |
+| B11 | `og:image` usa domínio real | Inspecionar `<meta property="og:image">` | APROVADO ✅ |
+| B12 | Página de jogo abre | `https://worldcupgamestoday.com/pt-br/jogos/match-001/` | APROVADO ✅ — HTTP 200 |
+| B13 | Página de seleção abre | `https://worldcupgamestoday.com/pt-br/selecoes/northland/` | APROVADO ✅ — HTTP 200 |
+| B14 | Página de grupo abre | `https://worldcupgamestoday.com/pt-br/grupos/m/` | APROVADO ✅ — HTTP 200 |
+| B15 | Footer com aviso FIFA presente | Inspecionar rodapé em qualquer página | APROVADO ✅ |
 
-**Critério de conclusão da Fase 15B:** todos os 15 itens acima marcados.
+**Critério de conclusão da Fase 15B:** todos os 15 itens acima marcados. CONCLUÍDO em 2026-05-12 ✅
 
 ### O que fazer após confirmar domínio conectado
 
-Me informe aqui que o domínio está apontado e o HTTPS ativo. Então:
-1. Verificarei o checklist acima com você.
-2. Marcarei 15B como CONCLUÍDA no CURRENT_STATUS.md e IMPLEMENTATION_PLAN.md.
-3. A próxima fase será a 15D — Importar Seleções Reais.
+Domínio apontado, HTTPS ativo e checklist B1-B15 aprovado em 2026-05-12.
+
+Próxima fase: 15D-1 — Coleta/validação das seleções reais em draft. Aguardar autorização explícita antes de iniciar.
 
 ---
 
@@ -237,7 +242,7 @@ Me informe aqui que o domínio está apontado e o HTTPS ativo. Então:
 
 ### Próximas subfases
 
-- **15D** — Importar seleções reais (48 times em `teams.json`) — requer: sorteio oficial FIFA realizado e seleções todas confirmadas
+- **15D-1** — Coleta/validação das seleções reais em draft — requer fonte oficial/verificada e data de coleta registrada
 - **15B** — Preparar domínio e PUBLIC_SITE_URL — pode rodar em paralelo com 15D (requer ação externa)
 
 ---
