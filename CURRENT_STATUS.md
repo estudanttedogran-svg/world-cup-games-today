@@ -1,6 +1,6 @@
 # CURRENT_STATUS.md — World Cup Games Today
 
-**Última atualização:** 2026-05-13 (Fase 15F-3 — regra ET para UTC corrigida após auditoria, sem draft)
+**Última atualização:** 2026-05-13 (Fase 15F-4 — amostra pequena de conversão UTC criada, sem promoção)
 
 ---
 
@@ -36,13 +36,14 @@
 **Fase 15F-2 concluída em auditoria (2026-05-12):** PDF oficial FIFA revisado como fonte de calendário. O PDF é oficial e mostra 104 partidas, datas, horários, nota `All times are Eastern Time (ET)`, cidades-sede, fases, grupos e labels de mata-mata, mas a camada de texto não é segura para extração automática e estádio/país por partida ainda exigem validação separada. Correção documental aplicada em `src/data/real/sources.json` para não tratar `stadium`/`country` como escopo confiável do PDF. `MATCH_SCHEDULE_PDF_REVIEW.md` registra a auditoria; `src/data/real/matches.real.draft.json` não foi criado.
 **Fase 15F-3 concluída em documentação (2026-05-12):** criada regra auditável de conversão ET para UTC em `MATCH_TIMEZONE_CONVERSION_RULE.md`. Horários do PDF FIFA devem ser interpretados como `America/New_York`, nunca como horário local do estádio, e convertidos com runtime/biblioteca timezone-aware. NIST e IANA/tzdb foram registrados em `src/data/real/sources.json`; `DATA_SOURCES.md` foi atualizado para permitir timezone-base comum quando declarada por fonte oficial. `src/data/real/matches.real.draft.json` continua inexistente.
 **Correção pós-auditoria 15F-3 aplicada (2026-05-13):** `REAL_DATA_MIGRATION_PLAN.md` foi sincronizado com a regra ET para UTC. Na 15G, quando uma fonte oficial declarar timezone-base comum, a conversão deve usar essa timezone declarada; para o PDF FIFA, `Eastern Time (ET)` deve ser interpretado como `America/New_York`, sem usar o horário local da cidade-sede como base de conversão.
-**Próxima ação:** 15F-4 deve ser uma amostra pequena de conversão UTC antes de qualquer extração das 104 partidas. Nenhum dado real deve ser promovido para JSON público antes do QA coordenado.
+**Fase 15F-4 criada em amostra (2026-05-13):** `src/data/real/matches.sample.draft.json` contém uma amostra auditável de 5 partidas reais, com 3 jogos de fase de grupos `confirmed` e 2 jogos de mata-mata `partial`. Horários do PDF FIFA foram convertidos de ET (`America/New_York`) para `datetime_utc`, registrando `original_date`, `original_time_et`, `conversion_timezone`, `conversion_offset` e notas por partida. `src/data/real/matches.real.draft.json` continua inexistente; nenhum JSON público foi alterado ou promovido.
+**Próxima ação:** auditoria somente-leitura da amostra 15F-4 antes de qualquer extração das 104 partidas. Nenhum dado real deve ser promovido para JSON público antes do QA coordenado.
 
 ---
 
 ## Fase 15 — Dados Reais e Preparação para Produção (2026-05-09)
 
-**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; 15D-1 iniciada em draft; 15D-2 concluída em draft; 15E-1 concluída em draft; 15F-1 bloqueada por fonte incompleta; 15F-2 auditoria do PDF concluída sem draft; 15F-3 regra ET para UTC documentada e sincronizada após auditoria
+**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; 15D-1 iniciada em draft; 15D-2 concluída em draft; 15E-1 concluída em draft; 15F-1 bloqueada por fonte incompleta; 15F-2 auditoria do PDF concluída sem draft; 15F-3 regra ET para UTC documentada e sincronizada após auditoria; 15F-4 amostra UTC criada sem promoção
 **Plano completo:** ver IMPLEMENTATION_PLAN.md, seção "Fase 15"
 
 ### Subfases e status
@@ -61,6 +62,7 @@
 | 15F-1 | Criar draft do calendário real fora do build público | BLOQUEADA — artigo FIFA não fornece horários/timezone/datetime_utc |
 | 15F-2 | Auditar PDF oficial FIFA do calendário | CONCLUÍDA — PDF oficial revisado, extração ainda requer validação linha a linha |
 | 15F-3 | Definir regra oficial de conversão ET para UTC | CONCLUÍDA — usar America/New_York, DST auditado por NIST/IANA, sem draft |
+| 15F-4 | Criar amostra pequena de conversão UTC | CRIADA — 5 partidas em `matches.sample.draft.json`, sem promoção |
 | 15F | Importar calendário real dos 104 jogos | BLOQUEADA — requer PDF oficial ou fonte estruturada completa |
 | 15G | Converter e validar horários UTC | PENDENTE |
 | 15H | QA dos dados reais | PENDENTE |

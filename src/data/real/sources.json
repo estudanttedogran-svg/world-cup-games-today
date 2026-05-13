@@ -150,6 +150,27 @@
       "collected_by": "Codex",
       "status": "reviewed",
       "notes": "Used in Phase 15F-3 to justify America/New_York as the technical IANA timezone for interpreting FIFA PDF times declared as Eastern Time (ET). Future conversion must use timezone-aware runtime/library behavior backed by IANA data or an equivalent audited method."
+    },
+    {
+      "id": "fifa-match-schedule-sample-15f4",
+      "type": "matches",
+      "field_scope": [
+        "sample_fixture_date",
+        "sample_kickoff_time_et",
+        "sample_datetime_utc",
+        "sample_conversion_offset",
+        "sample_team_or_label_text",
+        "sample_stadium",
+        "sample_city",
+        "sample_country"
+      ],
+      "source_type": "sample-draft",
+      "source_name": "Phase 15F-4 small UTC conversion sample",
+      "url": "src/data/real/matches.sample.draft.json",
+      "accessed_at": "2026-05-13",
+      "collected_by": "Codex",
+      "status": "sample-draft",
+      "notes": "Small 5-match sample extracted from the official FIFA schedule PDF and verified against the official FIFA schedule article/API for fixtures and venues. ET times were interpreted as America/New_York and converted with a timezone-aware Intl check. This is not the full 104-match draft and is not imported by the app or promoted to public JSONs."
     }
   ]
 }
