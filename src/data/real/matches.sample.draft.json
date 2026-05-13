@@ -5,7 +5,7 @@
   "_collected_at": "2026-05-13",
   "_collected_by": "Codex",
   "_verified_against": "FIFA official match schedule article/API for fixtures and venues; NIST DST rules; IANA tzdb America/New_York",
-  "_notes": "Phase 15F-4 sample only; Phase 15F-6b removed status fields if present to keep drafts aligned with the current Match schema. Not imported by the public app, not used by sitemap, and not promoted to src/data/matches.json. This is a small UTC conversion audit sample, not the complete 104-match schedule. The FIFA PDF declares all times as Eastern Time (ET), interpreted here as America/New_York. Stadium/city/country values are present for this sample only and still require read-only audit before any larger draft.",
+  "_notes": "Phase 15F-4 sample only; Phase 15F-6b removed status fields if present to keep drafts aligned with the current Match schema; Phase 15F-7b added boolean utc_date_shift to all 5 conversion_audit entries. Not imported by the public app, not used by sitemap, and not promoted to src/data/matches.json. This is a small UTC conversion audit sample, not the complete 104-match schedule. The FIFA PDF declares all times as Eastern Time (ET), interpreted here as America/New_York. Stadium/city/country values are present for this sample only and still require read-only audit before any larger draft.",
   "matches": [
     {
       "id": "match-001",
@@ -38,7 +38,8 @@
         "original_time_et": "15:00",
         "conversion_timezone": "America/New_York",
         "conversion_offset": "-04:00",
-        "conversion_note": "PDF row: Mexico City, match 1, MEX v RSA, 15:00 ET. Converted with timezone-aware Intl check; UTC date unchanged."
+        "conversion_note": "PDF row: Mexico City, match 1, MEX v RSA, 15:00 ET. Converted with timezone-aware Intl check; UTC date unchanged.",
+        "utc_date_shift": false
       }
     },
     {
@@ -72,7 +73,8 @@
         "original_time_et": "22:00",
         "conversion_timezone": "America/New_York",
         "conversion_offset": "-04:00",
-        "conversion_note": "PDF row: Guadalajara, match 2, KOR v CZE, 22:00 ET. Converted with timezone-aware Intl check; UTC date changes to 2026-06-12."
+        "conversion_note": "PDF row: Guadalajara, match 2, KOR v CZE, 22:00 ET. Converted with timezone-aware Intl check; UTC date changes to 2026-06-12.",
+        "utc_date_shift": true
       }
     },
     {
@@ -106,7 +108,8 @@
         "original_time_et": "00:00",
         "conversion_timezone": "America/New_York",
         "conversion_offset": "-04:00",
-        "conversion_note": "PDF row: Vancouver, match 6, AUS v TUR, 00:00 ET. Converted with timezone-aware Intl check; midnight ET case reviewed."
+        "conversion_note": "PDF row: Vancouver, match 6, AUS v TUR, 00:00 ET. Converted with timezone-aware Intl check; midnight ET case reviewed.",
+        "utc_date_shift": false
       }
     },
     {
@@ -148,7 +151,8 @@
         "original_time_et": "15:00",
         "conversion_timezone": "America/New_York",
         "conversion_offset": "-04:00",
-        "conversion_note": "PDF row: Los Angeles, match 73, 2A v 2B, 15:00 ET. Labels kept as partial; no team IDs invented."
+        "conversion_note": "PDF row: Los Angeles, match 73, 2A v 2B, 15:00 ET. Labels kept as partial; no team IDs invented.",
+        "utc_date_shift": false
       }
     },
     {
@@ -190,7 +194,8 @@
         "original_time_et": "23:00",
         "conversion_timezone": "America/New_York",
         "conversion_offset": "-04:00",
-        "conversion_note": "PDF row: Vancouver, match 85, 1B v 3 E/F/G/I/J, 23:00 ET. Converted with timezone-aware Intl check; UTC date changes to 2026-07-03."
+        "conversion_note": "PDF row: Vancouver, match 85, 1B v 3 E/F/G/I/J, 23:00 ET. Converted with timezone-aware Intl check; UTC date changes to 2026-07-03.",
+        "utc_date_shift": true
       }
     }
   ]

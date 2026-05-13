@@ -4,7 +4,7 @@
   "_collected_at": "2026-05-13",
   "_collected_by": "Codex",
   "_verified_against": "FIFA official match schedule article/API for fixture dates and stadiums; NIST DST rules; IANA tzdb America/New_York; src/data/real/teams.real.draft.json; src/data/real/groups.real.draft.json; Phase 15F-4 and 15F-5 samples",
-  "_notes": "Phase 15F-6 full draft only; Phase 15F-6b pre-commit corrections applied for Match 75 and schema-compatible status removal. Contains 104 matches outside the public build and is not imported by the app or promoted to src/data/matches.json. Group-stage fixtures are marked confirmed because both teams are present in the official FIFA schedule and in teams.real.draft.json. Knockout fixtures are partial because teams depend on tournament results. Kickoff times come from the official FIFA PDF, which declares all times as Eastern Time (ET), interpreted as America/New_York. Fixture dates and stadium names were cross-checked against the official FIFA article/API. City/country values use the audited host-city/stadium mapping and require heavy 15F-7 audit before any promotion.",
+  "_notes": "Phase 15F-6 full draft only; Phase 15F-6b pre-commit corrections applied for Match 75 and schema-compatible status removal; Phase 15F-7b normalized the match-078 English label to match the FIFA article/API wording. Contains 104 matches outside the public build and is not imported by the app or promoted to src/data/matches.json. Group-stage fixtures are marked confirmed because both teams are present in the official FIFA schedule and in teams.real.draft.json. Knockout fixtures are partial because teams depend on tournament results. Kickoff times come from the official FIFA PDF, which declares all times as Eastern Time (ET), interpreted as America/New_York. Fixture dates and stadium names were cross-checked against the official FIFA article/API. City/country values use the audited host-city/stadium mapping and require heavy 15F-7 audit before any promotion.",
   "matches": [
     {
       "id": "match-001",
@@ -2905,7 +2905,7 @@
       "away_team_id": null,
       "home_label": {
         "pt-br": "2o do Grupo E",
-        "en": "Group E runners-up",
+        "en": "Group E runners up",
         "es": "Segundo del Grupo E"
       },
       "away_label": {
