@@ -80,6 +80,7 @@ Seguir esta sequência para cada dado que for inserido:
 
 - [ ] Copiar o dado diretamente da fonte — não resumir, não interpretar.
 - [ ] Para horários: anotar o horário **local** da cidade-sede e o **offset UTC** naquela data (verificar DST).
+- [ ] Se a fonte oficial declarar uma timezone-base comum para todo o calendário (ex: `All times are Eastern Time (ET)`), interpretar os horários nessa timezone declarada, não no horário local da cidade-sede; registrar a timezone técnica usada, o horário original, o offset aplicado e o UTC final.
 - [ ] Para nomes de seleções: usar o nome oficial em inglês como base; traduzir apenas para pt-br e es se necessário.
 - [ ] Para estádios: usar o nome oficial publicado pela FIFA; incluir cidade e país corretos.
 
@@ -98,7 +99,7 @@ Antes de marcar qualquer dado como `confirmed`, validar todos os campos:
 | Campo | Critério de confirmação |
 |-------|------------------------|
 | `home_team_id` e `away_team_id` | Ambos os times publicados pela fonte oficial, identificados por slug |
-| `datetime_utc` | Horário local da cidade-sede convertido para UTC com verificação de DST |
+| `datetime_utc` | Horário local da cidade-sede convertido para UTC com verificação de DST; se a fonte oficial declarar uma timezone-base comum, converter a partir dessa timezone declarada e documentada |
 | `stadium` | Nome oficial FIFA, não apelido popular |
 | `city` | Cidade oficial — não inferir a partir do estádio |
 | `country` | País-sede do jogo (EUA, Canadá ou México) |

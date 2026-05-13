@@ -117,6 +117,39 @@
       "collected_by": "Codex",
       "status": "reviewed",
       "notes": "Phase 15F-2 PDF audit completed. The official PDF visually shows the full match schedule with match numbers 1-104, dates, kickoff times, ET timezone note, host-city rows, phase bands, group/team cells, and knockout labels. It is not marked ready-for-extraction or ready-for-production because the PDF text layer is not table-safe; stadium/city/country require separate line-by-line validation before extraction, and ET-to-UTC conversion requires a dedicated audit before any matches draft."
+    },
+    {
+      "id": "nist-us-dst-rules-2026-reviewed",
+      "type": "timezone",
+      "field_scope": [
+        "dst_start_2026",
+        "dst_end_2026",
+        "us_dst_rule"
+      ],
+      "source_type": "primary-reference",
+      "source_name": "NIST Daylight Saving Time Rules",
+      "url": "https://www.nist.gov/pml/time-and-frequency-division/popular-links/daylight-saving-time-dst",
+      "accessed_at": "2026-05-12",
+      "collected_by": "Codex",
+      "status": "reviewed",
+      "notes": "Used in Phase 15F-3 to document that US daylight saving time in 2026 is in effect from March 8 at 2 a.m. local time to November 1 at 2 a.m. local time. Supports validating that FIFA World Cup 2026 June/July ET times fall inside the DST period before UTC conversion."
+    },
+    {
+      "id": "iana-tzdb-america-new-york-reviewed",
+      "type": "timezone",
+      "field_scope": [
+        "iana_timezone",
+        "america_new_york",
+        "timezone_offsets",
+        "dst_rules"
+      ],
+      "source_type": "technical-reference",
+      "source_name": "IANA Time Zone Database",
+      "url": "https://data.iana.org/time-zones/tzdb/tz-link.html",
+      "accessed_at": "2026-05-12",
+      "collected_by": "Codex",
+      "status": "reviewed",
+      "notes": "Used in Phase 15F-3 to justify America/New_York as the technical IANA timezone for interpreting FIFA PDF times declared as Eastern Time (ET). Future conversion must use timezone-aware runtime/library behavior backed by IANA data or an equivalent audited method."
     }
   ]
 }

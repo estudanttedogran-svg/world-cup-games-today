@@ -96,8 +96,12 @@ Os JSONs publicos atuais continuam sendo a fonte do site ate a aprovacao da Fase
 
 ### 15G - Validacao UTC
 
-- Validar cada `datetime_utc` contra data/hora local da cidade-sede.
-- Registrar offset UTC e observacoes de DST quando aplicavel.
+- Validar cada `datetime_utc` contra a base de horario declarada pela fonte oficial.
+- Se a fonte oficial declarar uma timezone-base comum para o calendario, validar e converter a partir dessa timezone declarada, nao a partir do horario local da cidade-sede.
+- Para o PDF oficial FIFA revisado na 15F-2, interpretar `Eastern Time (ET)` como `America/New_York` conforme a regra da 15F-3.
+- Nao usar o horario local do estadio/cidade-sede como base de conversao quando a fonte declarar ET como base.
+- A cidade-sede ainda deve ser validada para localizacao, estadio e pais, mas nao define a base de conversao de horario nesse caso.
+- Registrar offset UTC, timezone tecnica usada e observacoes de DST quando aplicavel.
 - Corrigir apenas os drafts ate a aprovacao.
 
 ### 15H - QA completo dos dados reais
