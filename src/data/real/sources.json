@@ -99,24 +99,24 @@
       "notes": "Article/API has 104 match-centre links but lacks structured kickoff time, timezone, datetime_utc, city, and country for a safe Match draft. matches.real.draft.json was not created."
     },
     {
-      "id": "fifa-match-schedule-pdf-2026-pending-review",
+      "id": "fifa-match-schedule-pdf-2026-reviewed",
       "type": "matches",
       "field_scope": [
         "fixture_date",
         "kickoff_time",
         "timezone",
-        "stadium",
-        "city",
-        "country",
-        "match_number"
+        "match_number",
+        "team_or_label_text",
+        "group_or_phase",
+        "host_city_row"
       ],
       "source_type": "primary",
       "source_name": "FIFA official match schedule PDF",
       "url": "https://digitalhub.fifa.com/asset/4b5d4417-3343-4732-9cdf-14b6662af407/FWC26-Match-Schedule_English.pdf",
       "accessed_at": "2026-05-12",
       "collected_by": "Codex",
-      "status": "pending-review",
-      "notes": "Next priority source; appears to declare all times in Eastern Time (ET), but requires dedicated PDF audit before any draft extraction or UTC conversion."
+      "status": "reviewed",
+      "notes": "Phase 15F-2 PDF audit completed. The official PDF visually shows the full match schedule with match numbers 1-104, dates, kickoff times, ET timezone note, host-city rows, phase bands, group/team cells, and knockout labels. It is not marked ready-for-extraction or ready-for-production because the PDF text layer is not table-safe; stadium/city/country require separate line-by-line validation before extraction, and ET-to-UTC conversion requires a dedicated audit before any matches draft."
     }
   ]
 }

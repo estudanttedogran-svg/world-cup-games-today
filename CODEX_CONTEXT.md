@@ -42,10 +42,11 @@ Confirmed project phase:
 - Phase 15D-2: completed in draft. `src/data/real/teams.real.draft.json` was validated, flags were normalized from nonexistent SVG paths to emoji strings, and `name.pt-br`/`name.es` were localized in draft. `src/data/real/sources.json` records these manual draft normalizations. No public data JSON has been changed or promoted.
 - Phase 15E-1: completed in draft on 2026-05-12. `src/data/real/groups.real.draft.json` was created from the existing `group` fields in `teams.real.draft.json`, producing 12 groups A-L with 4 teams each. The draft remains outside the public build and has not been promoted to `src/data/groups.json`.
 - Phase 15F-1: blocked on 2026-05-12 after reviewing the official FIFA match-schedule article and its public content response. The article contains 104 unique match-centre links and fixture prose, but it does not expose kickoff times, source timezone/local time, `datetime_utc`, or city/country per match in a form sufficient for the current `Match` type. `MATCH_SCHEDULE_SOURCE_REVIEW.md` records the review. `src/data/real/matches.real.draft.json` was not created.
+- Phase 15F-2: completed as a PDF source audit on 2026-05-12. `MATCH_SCHEDULE_PDF_REVIEW.md` records that the official FIFA PDF visually contains the full 104-match schedule, dates, kickoff times, an `All times are Eastern Time (ET)` note, host-city rows, phase bands, group/team cells, and knockout labels. The PDF text layer is not table-safe, stadium/country per match still need separate validation, and no `matches.real.draft.json` was created.
 
 Next allowed action depends on user authorization:
 
-- The next recommended action is a read-only audit of the 15F-1 source review, or explicit authorization to review the official FIFA PDF/another official structured schedule source.
+- The next recommended action after the 15F-2 commit is Phase 15F-3: define the official ET-to-UTC conversion rule using a real timezone identifier before any match draft. Only after that should the project consider an official structured schedule source search or assisted PDF extraction with line-by-line validation.
 - Do not edit real data, remove MOCK notices, or add Analytics/AdSense before the authorized phase requires it.
 
 ## Non-Negotiable Continuity Rules
@@ -72,8 +73,8 @@ Next allowed action depends on user authorization:
 - `public/data/live-data.json`: mock live scores/status/standings, `_mock: true`.
 - `src/data/real/teams.real.draft.json`: real teams draft only, not imported by the app. After 15D-2 it contains 48 teams, emoji string flags, and localized draft labels for `pt-br` and `es`.
 - `src/data/real/groups.real.draft.json`: real groups draft only, not imported by the app. After 15E-1 it contains 12 groups A-L derived from `teams.real.draft.json`; it has not been promoted to `src/data/groups.json`.
-- `src/data/real/matches.real.draft.json`: does not exist yet. Phase 15F-1 is blocked until an official source provides all required match fields, especially kickoff time/timezone and `datetime_utc`.
-- `src/data/real/sources.json`: source registry for drafts only, not imported by the app. After 15E-1 it records FIFA source entries, manual draft normalization entries for teams, and the derived groups draft entry.
+- `src/data/real/matches.real.draft.json`: does not exist yet. Phase 15F-2 reviewed the official FIFA PDF but did not create a draft because extraction still requires line-by-line validation, stadium/country verification, and audited ET-to-UTC conversion. The PDF source entry was corrected so `stadium` and `country` are not treated as trusted `field_scope` values.
+- `src/data/real/sources.json`: source registry for drafts only, not imported by the app. It records FIFA source entries, manual draft normalization entries for teams, the derived groups draft entry, the blocked article source, and the reviewed official PDF source.
 - Do not replace `teams.json` in isolation. Real teams, groups, matches, and live-data references must be migrated as a coordinated set after draft validation and QA, because the current mock JSONs cross-reference ids such as `northland` and `eastoria`.
 - Real data drafts must stay outside the public build until QA approves coordinated promotion.
 - `Team.flag` remains a string in this phase; after 15D-2 the draft uses emoji strings, never `null` and never missing SVG paths.
