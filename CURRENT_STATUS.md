@@ -1,6 +1,6 @@
 # CURRENT_STATUS.md — World Cup Games Today
 
-**Última atualização:** 2026-05-13 (Fase 15F-7b — correções pequenas pós-auditoria aplicadas, sem promoção)
+**Última atualização:** 2026-05-13 (Fase 15G-0 — plano de promoção coordenada dos dados reais criado, sem promoção)
 
 ---
 
@@ -42,13 +42,14 @@
 **Fase 15F-6b aplicada (2026-05-13):** correções pré-commit aplicadas nos drafts de partidas. `match-075` em `matches.real.draft.json` foi corrigido para 2026-06-29 21:00 ET, `datetime_utc` `2026-06-30T01:00:00Z`, com mudança de data UTC. `match-103` em `matches.expanded-sample.draft.json` foi corrigido para 2026-07-18 17:00 ET, `datetime_utc` `2026-07-18T21:00:00Z`, sem mudança de data UTC. O campo `status` foi removido dos drafts de partidas por não pertencer à interface `Match` atual. O draft completo ainda não foi commitado e ainda requer nova auditoria curta antes de commit.
 **Fase 15F-6c aplicada (2026-05-13):** `conversion_audit.utc_date_shift` foi adicionado/alinhado nas 16 partidas de `src/data/real/matches.expanded-sample.draft.json`, calculado pela comparação entre `original_date` em ET e a data de `datetime_utc`. A amostra expandida agora tem exatamente 3 mudanças de data UTC e `match-103` permanece com `utc_date_shift: false`. O draft completo ainda aguarda nova auditoria curta antes de commit.
 **Fase 15F-7b aplicada (2026-05-13):** correções pequenas pós-auditoria aplicadas. `conversion_audit.utc_date_shift` foi adicionado às 5 partidas de `src/data/real/matches.sample.draft.json`, e o label textual em inglês do `match-078` no draft completo foi normalizado de `Group E runners-up` para `Group E runners up`, alinhando com o artigo/API FIFA. Os dados continuam em draft e fora do build público.
-**Próxima ação:** auditoria curta 15F-7b antes de commit. Nenhum dado real deve ser promovido para JSON público antes do QA coordenado.
+**Fase 15G-0 criada (2026-05-13):** `REAL_DATA_PROMOTION_PLAN.md` define o plano seguro para promover os drafts reais de forma coordenada para os JSONs públicos, incluindo limpeza de campos internos, estratégia temporária de `_mock`, geração planejada de `live-data.json` com 104 partidas `scheduled`, riscos e checklist de aceite da futura 15G-1. Nenhum JSON público foi alterado, nenhum dado real foi promovido, nenhum import de `src/data/real` foi criado e nenhum build foi executado.
+**Próxima ação:** auditoria somente-leitura da 15G-0 antes de commit; depois, aguardar autorização explícita para a promoção coordenada futura. Nenhum dado real deve ser promovido para JSON público antes da fase autorizada.
 
 ---
 
 ## Fase 15 — Dados Reais e Preparação para Produção (2026-05-09)
 
-**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; 15D-1 iniciada em draft; 15D-2 concluída em draft; 15E-1 concluída em draft; 15F-1 bloqueada por fonte incompleta; 15F-2 auditoria do PDF concluída sem draft; 15F-3 regra ET para UTC documentada e sincronizada após auditoria; 15F-4 amostra UTC criada sem promoção; 15F-5 amostra ampliada criada sem promoção; 15F-6 draft completo criado sem promoção; 15F-6b correções pré-commit aplicadas; 15F-6c utc_date_shift alinhado na amostra expandida; 15F-7b correções pequenas pós-auditoria aplicadas
+**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; 15D-1 iniciada em draft; 15D-2 concluída em draft; 15E-1 concluída em draft; 15F-1 bloqueada por fonte incompleta; 15F-2 auditoria do PDF concluída sem draft; 15F-3 regra ET para UTC documentada e sincronizada após auditoria; 15F-4 amostra UTC criada sem promoção; 15F-5 amostra ampliada criada sem promoção; 15F-6 draft completo criado sem promoção; 15F-6b correções pré-commit aplicadas; 15F-6c utc_date_shift alinhado na amostra expandida; 15F-7b correções pequenas pós-auditoria aplicadas; 15G-0 plano de promoção coordenada criado sem promoção
 **Plano completo:** ver IMPLEMENTATION_PLAN.md, seção "Fase 15"
 
 ### Subfases e status
@@ -74,6 +75,7 @@
 | 15F-6c | Corrigir `utc_date_shift` na amostra expandida | APLICADA — 16 entradas alinhadas, 3 mudanças UTC, match-103 false |
 | 15F-7b | Correções pequenas pós-auditoria | APLICADA — `utc_date_shift` na amostra pequena e label do match-078 normalizado |
 | 15F | Importar calendário real dos 104 jogos | EM DRAFT — 104 partidas em `matches.real.draft.json`, aguardando auditoria pesada |
+| 15G-0 | Plano de promoção coordenada dos dados reais | CRIADA — `REAL_DATA_PROMOTION_PLAN.md`, sem alterar JSONs públicos |
 | 15G | Converter e validar horários UTC | PENDENTE |
 | 15H | QA dos dados reais | PENDENTE |
 | 15I | Remover/ajustar avisos MOCK | PENDENTE |
