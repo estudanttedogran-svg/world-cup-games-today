@@ -192,6 +192,31 @@
       "collected_by": "Codex",
       "status": "expanded-sample-draft",
       "notes": "Expanded 16-match sample extracted from the official FIFA schedule PDF and verified against the official FIFA schedule article/API for fixtures and venues. ET times were interpreted as America/New_York and converted with timezone-aware checks. This is not the full 104-match draft and is not imported by the app or promoted to public JSONs."
+    },
+    {
+      "id": "fifa-match-schedule-full-draft-15f6",
+      "type": "matches",
+      "field_scope": [
+        "match_number",
+        "fixture_date",
+        "kickoff_time_et",
+        "datetime_utc",
+        "conversion_audit",
+        "team_or_label_text",
+        "group_or_phase",
+        "stadium",
+        "city",
+        "country"
+      ],
+      "source_type": "full-draft",
+      "source_name": "Phase 15F-6 full match schedule draft",
+      "url": "src/data/real/matches.real.draft.json",
+      "primary_source_url": "https://digitalhub.fifa.com/asset/4b5d4417-3343-4732-9cdf-14b6662af407/FWC26-Match-Schedule_English.pdf",
+      "verification_url": "https://cxm-api.fifa.com/fifaplusweb/api/sections/article/S9YG2JmeGYaMUCBbm0CcD?locale=en",
+      "accessed_at": "2026-05-13",
+      "collected_by": "Codex",
+      "status": "full-draft",
+      "notes": "Full 104-match draft created outside the public build. Not promoted to src/data/matches.json. Requires heavy Phase 15F-7 audit before commit/promotion decisions; city/country are based on audited host-city/stadium mapping and should be rechecked line by line."
     }
   ]
 }

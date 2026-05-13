@@ -1,6 +1,6 @@
 # CURRENT_STATUS.md — World Cup Games Today
 
-**Última atualização:** 2026-05-13 (Fase 15F-5 — amostra ampliada de 16 partidas criada, sem promoção)
+**Última atualização:** 2026-05-13 (Fase 15F-6c — utc_date_shift alinhado na amostra expandida, sem promoção)
 
 ---
 
@@ -38,13 +38,16 @@
 **Correção pós-auditoria 15F-3 aplicada (2026-05-13):** `REAL_DATA_MIGRATION_PLAN.md` foi sincronizado com a regra ET para UTC. Na 15G, quando uma fonte oficial declarar timezone-base comum, a conversão deve usar essa timezone declarada; para o PDF FIFA, `Eastern Time (ET)` deve ser interpretado como `America/New_York`, sem usar o horário local da cidade-sede como base de conversão.
 **Fase 15F-4 criada em amostra (2026-05-13):** `src/data/real/matches.sample.draft.json` contém uma amostra auditável de 5 partidas reais, com 3 jogos de fase de grupos `confirmed` e 2 jogos de mata-mata `partial`. Horários do PDF FIFA foram convertidos de ET (`America/New_York`) para `datetime_utc`, registrando `original_date`, `original_time_et`, `conversion_timezone`, `conversion_offset` e notas por partida. `src/data/real/matches.real.draft.json` continua inexistente; nenhum JSON público foi alterado ou promovido.
 **Fase 15F-5 criada em amostra ampliada (2026-05-13):** `src/data/real/matches.expanded-sample.draft.json` contém 16 partidas reais de amostra, com 10 jogos de fase de grupos `confirmed` e 6 jogos de mata-mata `partial`, incluindo round of 32, round of 16, quartas, terceiro lugar e final. A amostra amplia a validação de extração do PDF FIFA e conversão ET (`America/New_York`) para `datetime_utc`, sem criar `matches.real.draft.json` e sem promoção para JSONs públicos.
-**Próxima ação:** auditoria somente-leitura da amostra ampliada 15F-5 antes de qualquer extração das 104 partidas. Nenhum dado real deve ser promovido para JSON público antes do QA coordenado.
+**Fase 15F-6 criada em draft completo (2026-05-13):** `src/data/real/matches.real.draft.json` foi criado com 104 partidas reais em draft, fora do build público: 72 jogos de fase de grupos `confirmed` e 32 jogos de mata-mata `partial`. Horários do PDF oficial FIFA foram interpretados como Eastern Time (`America/New_York`) e convertidos para `datetime_utc`, com `conversion_audit` por partida. `src/data/real/sources.json` registra o draft com status `full-draft`. Nenhum JSON público foi alterado, nenhum dado foi promovido e nenhum build foi executado.
+**Fase 15F-6b aplicada (2026-05-13):** correções pré-commit aplicadas nos drafts de partidas. `match-075` em `matches.real.draft.json` foi corrigido para 2026-06-29 21:00 ET, `datetime_utc` `2026-06-30T01:00:00Z`, com mudança de data UTC. `match-103` em `matches.expanded-sample.draft.json` foi corrigido para 2026-07-18 17:00 ET, `datetime_utc` `2026-07-18T21:00:00Z`, sem mudança de data UTC. O campo `status` foi removido dos drafts de partidas por não pertencer à interface `Match` atual. O draft completo ainda não foi commitado e ainda requer nova auditoria curta antes de commit.
+**Fase 15F-6c aplicada (2026-05-13):** `conversion_audit.utc_date_shift` foi adicionado/alinhado nas 16 partidas de `src/data/real/matches.expanded-sample.draft.json`, calculado pela comparação entre `original_date` em ET e a data de `datetime_utc`. A amostra expandida agora tem exatamente 3 mudanças de data UTC e `match-103` permanece com `utc_date_shift: false`. O draft completo ainda aguarda nova auditoria curta antes de commit.
+**Próxima ação:** auditoria curta 15F-6c antes de commit; depois decidir commit do draft corrigido. Nenhum dado real deve ser promovido para JSON público antes do QA coordenado.
 
 ---
 
 ## Fase 15 — Dados Reais e Preparação para Produção (2026-05-09)
 
-**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; 15D-1 iniciada em draft; 15D-2 concluída em draft; 15E-1 concluída em draft; 15F-1 bloqueada por fonte incompleta; 15F-2 auditoria do PDF concluída sem draft; 15F-3 regra ET para UTC documentada e sincronizada após auditoria; 15F-4 amostra UTC criada sem promoção; 15F-5 amostra ampliada criada sem promoção
+**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; 15D-1 iniciada em draft; 15D-2 concluída em draft; 15E-1 concluída em draft; 15F-1 bloqueada por fonte incompleta; 15F-2 auditoria do PDF concluída sem draft; 15F-3 regra ET para UTC documentada e sincronizada após auditoria; 15F-4 amostra UTC criada sem promoção; 15F-5 amostra ampliada criada sem promoção; 15F-6 draft completo criado sem promoção; 15F-6b correções pré-commit aplicadas; 15F-6c utc_date_shift alinhado na amostra expandida
 **Plano completo:** ver IMPLEMENTATION_PLAN.md, seção "Fase 15"
 
 ### Subfases e status
@@ -65,7 +68,10 @@
 | 15F-3 | Definir regra oficial de conversão ET para UTC | CONCLUÍDA — usar America/New_York, DST auditado por NIST/IANA, sem draft |
 | 15F-4 | Criar amostra pequena de conversão UTC | CRIADA — 5 partidas em `matches.sample.draft.json`, sem promoção |
 | 15F-5 | Criar amostra ampliada de 16 partidas | CRIADA — 16 partidas em `matches.expanded-sample.draft.json`, sem promoção |
-| 15F | Importar calendário real dos 104 jogos | BLOQUEADA — requer PDF oficial ou fonte estruturada completa |
+| 15F-6 | Criar draft completo de 104 partidas | CRIADA — 104 partidas em `matches.real.draft.json`, sem promoção; requer auditoria pesada |
+| 15F-6b | Correções pré-commit do draft completo | APLICADA — match-075 corrigido, match-103 da amostra corrigido, `status` removido dos drafts |
+| 15F-6c | Corrigir `utc_date_shift` na amostra expandida | APLICADA — 16 entradas alinhadas, 3 mudanças UTC, match-103 false |
+| 15F | Importar calendário real dos 104 jogos | EM DRAFT — 104 partidas em `matches.real.draft.json`, aguardando auditoria pesada |
 | 15G | Converter e validar horários UTC | PENDENTE |
 | 15H | QA dos dados reais | PENDENTE |
 | 15I | Remover/ajustar avisos MOCK | PENDENTE |

@@ -5,7 +5,7 @@
   "_collected_at": "2026-05-13",
   "_collected_by": "Codex",
   "_verified_against": "FIFA official match schedule article/API for fixtures and venues; NIST DST rules; IANA tzdb America/New_York",
-  "_notes": "Phase 15F-4 sample only. Not imported by the public app, not used by sitemap, and not promoted to src/data/matches.json. This is a small UTC conversion audit sample, not the complete 104-match schedule. The FIFA PDF declares all times as Eastern Time (ET), interpreted here as America/New_York. Stadium/city/country values are present for this sample only and still require read-only audit before any larger draft.",
+  "_notes": "Phase 15F-4 sample only; Phase 15F-6b removed status fields if present to keep drafts aligned with the current Match schema. Not imported by the public app, not used by sitemap, and not promoted to src/data/matches.json. This is a small UTC conversion audit sample, not the complete 104-match schedule. The FIFA PDF declares all times as Eastern Time (ET), interpreted here as America/New_York. Stadium/city/country values are present for this sample only and still require read-only audit before any larger draft.",
   "matches": [
     {
       "id": "match-001",

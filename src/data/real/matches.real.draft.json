@@ -1,0 +1,4114 @@
+{
+  "_draft": true,
+  "_source": "FIFA official match schedule PDF - https://digitalhub.fifa.com/asset/4b5d4417-3343-4732-9cdf-14b6662af407/FWC26-Match-Schedule_English.pdf",
+  "_collected_at": "2026-05-13",
+  "_collected_by": "Codex",
+  "_verified_against": "FIFA official match schedule article/API for fixture dates and stadiums; NIST DST rules; IANA tzdb America/New_York; src/data/real/teams.real.draft.json; src/data/real/groups.real.draft.json; Phase 15F-4 and 15F-5 samples",
+  "_notes": "Phase 15F-6 full draft only; Phase 15F-6b pre-commit corrections applied for Match 75 and schema-compatible status removal. Contains 104 matches outside the public build and is not imported by the app or promoted to src/data/matches.json. Group-stage fixtures are marked confirmed because both teams are present in the official FIFA schedule and in teams.real.draft.json. Knockout fixtures are partial because teams depend on tournament results. Kickoff times come from the official FIFA PDF, which declares all times as Eastern Time (ET), interpreted as America/New_York. Fixture dates and stadium names were cross-checked against the official FIFA article/API. City/country values use the audited host-city/stadium mapping and require heavy 15F-7 audit before any promotion.",
+  "matches": [
+    {
+      "id": "match-001",
+      "match_number": 1,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "A",
+      "home_team_id": "mexico",
+      "away_team_id": "south-africa",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-11T19:00:00Z",
+      "stadium": {
+        "pt-br": "Mexico City Stadium",
+        "en": "Mexico City Stadium",
+        "es": "Mexico City Stadium"
+      },
+      "city": {
+        "pt-br": "Mexico City",
+        "en": "Mexico City",
+        "es": "Mexico City"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-11",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 1 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Mexico City Stadium."
+      }
+    },
+    {
+      "id": "match-002",
+      "match_number": 2,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "A",
+      "home_team_id": "korea-republic",
+      "away_team_id": "czechia",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-12T02:00:00Z",
+      "stadium": {
+        "pt-br": "Estadio Guadalajara",
+        "en": "Estadio Guadalajara",
+        "es": "Estadio Guadalajara"
+      },
+      "city": {
+        "pt-br": "Guadalajara",
+        "en": "Guadalajara",
+        "es": "Guadalajara"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-11",
+        "original_time_et": "22:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 2 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Estadio Guadalajara."
+      }
+    },
+    {
+      "id": "match-003",
+      "match_number": 3,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "B",
+      "home_team_id": "canada",
+      "away_team_id": "bosnia-and-herzegovina",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-12T19:00:00Z",
+      "stadium": {
+        "pt-br": "Toronto Stadium",
+        "en": "Toronto Stadium",
+        "es": "Toronto Stadium"
+      },
+      "city": {
+        "pt-br": "Toronto",
+        "en": "Toronto",
+        "es": "Toronto"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-12",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 3 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Toronto Stadium."
+      }
+    },
+    {
+      "id": "match-004",
+      "match_number": 4,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "D",
+      "home_team_id": "usa",
+      "away_team_id": "paraguay",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-13T01:00:00Z",
+      "stadium": {
+        "pt-br": "Los Angeles Stadium",
+        "en": "Los Angeles Stadium",
+        "es": "Los Angeles Stadium"
+      },
+      "city": {
+        "pt-br": "Los Angeles",
+        "en": "Los Angeles",
+        "es": "Los Angeles"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-12",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 4 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Los Angeles Stadium."
+      }
+    },
+    {
+      "id": "match-005",
+      "match_number": 5,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "C",
+      "home_team_id": "haiti",
+      "away_team_id": "scotland",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-14T01:00:00Z",
+      "stadium": {
+        "pt-br": "Boston Stadium",
+        "en": "Boston Stadium",
+        "es": "Boston Stadium"
+      },
+      "city": {
+        "pt-br": "Boston",
+        "en": "Boston",
+        "es": "Boston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-13",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 5 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Boston Stadium."
+      }
+    },
+    {
+      "id": "match-006",
+      "match_number": 6,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "D",
+      "home_team_id": "australia",
+      "away_team_id": "turkiye",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-13T04:00:00Z",
+      "stadium": {
+        "pt-br": "BC Place Vancouver",
+        "en": "BC Place Vancouver",
+        "es": "BC Place Vancouver"
+      },
+      "city": {
+        "pt-br": "Vancouver",
+        "en": "Vancouver",
+        "es": "Vancouver"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-13",
+        "original_time_et": "00:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 6 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for BC Place Vancouver."
+      }
+    },
+    {
+      "id": "match-007",
+      "match_number": 7,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "C",
+      "home_team_id": "brazil",
+      "away_team_id": "morocco",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-13T22:00:00Z",
+      "stadium": {
+        "pt-br": "New York New Jersey Stadium",
+        "en": "New York New Jersey Stadium",
+        "es": "New York New Jersey Stadium"
+      },
+      "city": {
+        "pt-br": "New York New Jersey",
+        "en": "New York New Jersey",
+        "es": "New York New Jersey"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-13",
+        "original_time_et": "18:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 7 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for New York New Jersey Stadium."
+      }
+    },
+    {
+      "id": "match-008",
+      "match_number": 8,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "B",
+      "home_team_id": "qatar",
+      "away_team_id": "switzerland",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-13T19:00:00Z",
+      "stadium": {
+        "pt-br": "San Francisco Bay Area Stadium",
+        "en": "San Francisco Bay Area Stadium",
+        "es": "San Francisco Bay Area Stadium"
+      },
+      "city": {
+        "pt-br": "San Francisco Bay Area",
+        "en": "San Francisco Bay Area",
+        "es": "San Francisco Bay Area"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-13",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 8 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for San Francisco Bay Area Stadium."
+      }
+    },
+    {
+      "id": "match-009",
+      "match_number": 9,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "E",
+      "home_team_id": "cote-divoire",
+      "away_team_id": "ecuador",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-14T23:00:00Z",
+      "stadium": {
+        "pt-br": "Philadelphia Stadium",
+        "en": "Philadelphia Stadium",
+        "es": "Philadelphia Stadium"
+      },
+      "city": {
+        "pt-br": "Philadelphia",
+        "en": "Philadelphia",
+        "es": "Philadelphia"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-14",
+        "original_time_et": "19:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 9 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Philadelphia Stadium."
+      }
+    },
+    {
+      "id": "match-010",
+      "match_number": 10,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "E",
+      "home_team_id": "germany",
+      "away_team_id": "curacao",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-14T17:00:00Z",
+      "stadium": {
+        "pt-br": "Houston Stadium",
+        "en": "Houston Stadium",
+        "es": "Houston Stadium"
+      },
+      "city": {
+        "pt-br": "Houston",
+        "en": "Houston",
+        "es": "Houston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-14",
+        "original_time_et": "13:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 10 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Houston Stadium."
+      }
+    },
+    {
+      "id": "match-011",
+      "match_number": 11,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "F",
+      "home_team_id": "netherlands",
+      "away_team_id": "japan",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-14T20:00:00Z",
+      "stadium": {
+        "pt-br": "Dallas Stadium",
+        "en": "Dallas Stadium",
+        "es": "Dallas Stadium"
+      },
+      "city": {
+        "pt-br": "Dallas",
+        "en": "Dallas",
+        "es": "Dallas"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-14",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 11 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Dallas Stadium."
+      }
+    },
+    {
+      "id": "match-012",
+      "match_number": 12,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "F",
+      "home_team_id": "sweden",
+      "away_team_id": "tunisia",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-15T02:00:00Z",
+      "stadium": {
+        "pt-br": "Estadio Monterrey",
+        "en": "Estadio Monterrey",
+        "es": "Estadio Monterrey"
+      },
+      "city": {
+        "pt-br": "Monterrey",
+        "en": "Monterrey",
+        "es": "Monterrey"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-14",
+        "original_time_et": "22:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 12 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Estadio Monterrey."
+      }
+    },
+    {
+      "id": "match-013",
+      "match_number": 13,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "H",
+      "home_team_id": "saudi-arabia",
+      "away_team_id": "uruguay",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-15T22:00:00Z",
+      "stadium": {
+        "pt-br": "Miami Stadium",
+        "en": "Miami Stadium",
+        "es": "Miami Stadium"
+      },
+      "city": {
+        "pt-br": "Miami",
+        "en": "Miami",
+        "es": "Miami"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-15",
+        "original_time_et": "18:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 13 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Miami Stadium."
+      }
+    },
+    {
+      "id": "match-014",
+      "match_number": 14,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "H",
+      "home_team_id": "spain",
+      "away_team_id": "cabo-verde",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-15T16:00:00Z",
+      "stadium": {
+        "pt-br": "Atlanta Stadium",
+        "en": "Atlanta Stadium",
+        "es": "Atlanta Stadium"
+      },
+      "city": {
+        "pt-br": "Atlanta",
+        "en": "Atlanta",
+        "es": "Atlanta"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-15",
+        "original_time_et": "12:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 14 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Atlanta Stadium."
+      }
+    },
+    {
+      "id": "match-015",
+      "match_number": 15,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "G",
+      "home_team_id": "ir-iran",
+      "away_team_id": "new-zealand",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-16T01:00:00Z",
+      "stadium": {
+        "pt-br": "Los Angeles Stadium",
+        "en": "Los Angeles Stadium",
+        "es": "Los Angeles Stadium"
+      },
+      "city": {
+        "pt-br": "Los Angeles",
+        "en": "Los Angeles",
+        "es": "Los Angeles"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-15",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 15 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Los Angeles Stadium."
+      }
+    },
+    {
+      "id": "match-016",
+      "match_number": 16,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "G",
+      "home_team_id": "belgium",
+      "away_team_id": "egypt",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-15T19:00:00Z",
+      "stadium": {
+        "pt-br": "Seattle Stadium",
+        "en": "Seattle Stadium",
+        "es": "Seattle Stadium"
+      },
+      "city": {
+        "pt-br": "Seattle",
+        "en": "Seattle",
+        "es": "Seattle"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-15",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 16 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Seattle Stadium."
+      }
+    },
+    {
+      "id": "match-017",
+      "match_number": 17,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "I",
+      "home_team_id": "france",
+      "away_team_id": "senegal",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-16T19:00:00Z",
+      "stadium": {
+        "pt-br": "New York New Jersey Stadium",
+        "en": "New York New Jersey Stadium",
+        "es": "New York New Jersey Stadium"
+      },
+      "city": {
+        "pt-br": "New York New Jersey",
+        "en": "New York New Jersey",
+        "es": "New York New Jersey"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-16",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 17 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for New York New Jersey Stadium."
+      }
+    },
+    {
+      "id": "match-018",
+      "match_number": 18,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "I",
+      "home_team_id": "iraq",
+      "away_team_id": "norway",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-16T22:00:00Z",
+      "stadium": {
+        "pt-br": "Boston Stadium",
+        "en": "Boston Stadium",
+        "es": "Boston Stadium"
+      },
+      "city": {
+        "pt-br": "Boston",
+        "en": "Boston",
+        "es": "Boston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-16",
+        "original_time_et": "18:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 18 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Boston Stadium."
+      }
+    },
+    {
+      "id": "match-019",
+      "match_number": 19,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "J",
+      "home_team_id": "argentina",
+      "away_team_id": "algeria",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-17T01:00:00Z",
+      "stadium": {
+        "pt-br": "Kansas City Stadium",
+        "en": "Kansas City Stadium",
+        "es": "Kansas City Stadium"
+      },
+      "city": {
+        "pt-br": "Kansas City",
+        "en": "Kansas City",
+        "es": "Kansas City"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-16",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 19 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Kansas City Stadium."
+      }
+    },
+    {
+      "id": "match-020",
+      "match_number": 20,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "J",
+      "home_team_id": "austria",
+      "away_team_id": "jordan",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-16T04:00:00Z",
+      "stadium": {
+        "pt-br": "San Francisco Bay Area Stadium",
+        "en": "San Francisco Bay Area Stadium",
+        "es": "San Francisco Bay Area Stadium"
+      },
+      "city": {
+        "pt-br": "San Francisco Bay Area",
+        "en": "San Francisco Bay Area",
+        "es": "San Francisco Bay Area"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-16",
+        "original_time_et": "00:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 20 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for San Francisco Bay Area Stadium."
+      }
+    },
+    {
+      "id": "match-021",
+      "match_number": 21,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "L",
+      "home_team_id": "ghana",
+      "away_team_id": "panama",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-17T23:00:00Z",
+      "stadium": {
+        "pt-br": "Toronto Stadium",
+        "en": "Toronto Stadium",
+        "es": "Toronto Stadium"
+      },
+      "city": {
+        "pt-br": "Toronto",
+        "en": "Toronto",
+        "es": "Toronto"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-17",
+        "original_time_et": "19:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 21 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Toronto Stadium."
+      }
+    },
+    {
+      "id": "match-022",
+      "match_number": 22,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "L",
+      "home_team_id": "england",
+      "away_team_id": "croatia",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-17T20:00:00Z",
+      "stadium": {
+        "pt-br": "Dallas Stadium",
+        "en": "Dallas Stadium",
+        "es": "Dallas Stadium"
+      },
+      "city": {
+        "pt-br": "Dallas",
+        "en": "Dallas",
+        "es": "Dallas"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-17",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 22 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Dallas Stadium."
+      }
+    },
+    {
+      "id": "match-023",
+      "match_number": 23,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "K",
+      "home_team_id": "portugal",
+      "away_team_id": "congo-dr",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-17T17:00:00Z",
+      "stadium": {
+        "pt-br": "Houston Stadium",
+        "en": "Houston Stadium",
+        "es": "Houston Stadium"
+      },
+      "city": {
+        "pt-br": "Houston",
+        "en": "Houston",
+        "es": "Houston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-17",
+        "original_time_et": "13:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 23 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Houston Stadium."
+      }
+    },
+    {
+      "id": "match-024",
+      "match_number": 24,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "K",
+      "home_team_id": "uzbekistan",
+      "away_team_id": "colombia",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-18T02:00:00Z",
+      "stadium": {
+        "pt-br": "Mexico City Stadium",
+        "en": "Mexico City Stadium",
+        "es": "Mexico City Stadium"
+      },
+      "city": {
+        "pt-br": "Mexico City",
+        "en": "Mexico City",
+        "es": "Mexico City"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-17",
+        "original_time_et": "22:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 24 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Mexico City Stadium."
+      }
+    },
+    {
+      "id": "match-025",
+      "match_number": 25,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "A",
+      "home_team_id": "czechia",
+      "away_team_id": "south-africa",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-18T16:00:00Z",
+      "stadium": {
+        "pt-br": "Atlanta Stadium",
+        "en": "Atlanta Stadium",
+        "es": "Atlanta Stadium"
+      },
+      "city": {
+        "pt-br": "Atlanta",
+        "en": "Atlanta",
+        "es": "Atlanta"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-18",
+        "original_time_et": "12:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 25 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Atlanta Stadium."
+      }
+    },
+    {
+      "id": "match-026",
+      "match_number": 26,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "B",
+      "home_team_id": "switzerland",
+      "away_team_id": "bosnia-and-herzegovina",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-18T19:00:00Z",
+      "stadium": {
+        "pt-br": "Los Angeles Stadium",
+        "en": "Los Angeles Stadium",
+        "es": "Los Angeles Stadium"
+      },
+      "city": {
+        "pt-br": "Los Angeles",
+        "en": "Los Angeles",
+        "es": "Los Angeles"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-18",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 26 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Los Angeles Stadium."
+      }
+    },
+    {
+      "id": "match-027",
+      "match_number": 27,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "B",
+      "home_team_id": "canada",
+      "away_team_id": "qatar",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-18T22:00:00Z",
+      "stadium": {
+        "pt-br": "BC Place Vancouver",
+        "en": "BC Place Vancouver",
+        "es": "BC Place Vancouver"
+      },
+      "city": {
+        "pt-br": "Vancouver",
+        "en": "Vancouver",
+        "es": "Vancouver"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-18",
+        "original_time_et": "18:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 27 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for BC Place Vancouver."
+      }
+    },
+    {
+      "id": "match-028",
+      "match_number": 28,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "A",
+      "home_team_id": "mexico",
+      "away_team_id": "korea-republic",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-19T01:00:00Z",
+      "stadium": {
+        "pt-br": "Estadio Guadalajara",
+        "en": "Estadio Guadalajara",
+        "es": "Estadio Guadalajara"
+      },
+      "city": {
+        "pt-br": "Guadalajara",
+        "en": "Guadalajara",
+        "es": "Guadalajara"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-18",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 28 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Estadio Guadalajara."
+      }
+    },
+    {
+      "id": "match-029",
+      "match_number": 29,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "C",
+      "home_team_id": "brazil",
+      "away_team_id": "haiti",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-20T00:30:00Z",
+      "stadium": {
+        "pt-br": "Philadelphia Stadium",
+        "en": "Philadelphia Stadium",
+        "es": "Philadelphia Stadium"
+      },
+      "city": {
+        "pt-br": "Philadelphia",
+        "en": "Philadelphia",
+        "es": "Philadelphia"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-19",
+        "original_time_et": "20:30",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 29 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Philadelphia Stadium."
+      }
+    },
+    {
+      "id": "match-030",
+      "match_number": 30,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "C",
+      "home_team_id": "scotland",
+      "away_team_id": "morocco",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-19T22:00:00Z",
+      "stadium": {
+        "pt-br": "Boston Stadium",
+        "en": "Boston Stadium",
+        "es": "Boston Stadium"
+      },
+      "city": {
+        "pt-br": "Boston",
+        "en": "Boston",
+        "es": "Boston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-19",
+        "original_time_et": "18:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 30 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Boston Stadium."
+      }
+    },
+    {
+      "id": "match-031",
+      "match_number": 31,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "D",
+      "home_team_id": "turkiye",
+      "away_team_id": "paraguay",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-20T03:00:00Z",
+      "stadium": {
+        "pt-br": "San Francisco Bay Area Stadium",
+        "en": "San Francisco Bay Area Stadium",
+        "es": "San Francisco Bay Area Stadium"
+      },
+      "city": {
+        "pt-br": "San Francisco Bay Area",
+        "en": "San Francisco Bay Area",
+        "es": "San Francisco Bay Area"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-19",
+        "original_time_et": "23:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 31 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for San Francisco Bay Area Stadium."
+      }
+    },
+    {
+      "id": "match-032",
+      "match_number": 32,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "D",
+      "home_team_id": "usa",
+      "away_team_id": "australia",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-19T19:00:00Z",
+      "stadium": {
+        "pt-br": "Seattle Stadium",
+        "en": "Seattle Stadium",
+        "es": "Seattle Stadium"
+      },
+      "city": {
+        "pt-br": "Seattle",
+        "en": "Seattle",
+        "es": "Seattle"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-19",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 32 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Seattle Stadium."
+      }
+    },
+    {
+      "id": "match-033",
+      "match_number": 33,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "E",
+      "home_team_id": "germany",
+      "away_team_id": "cote-divoire",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-20T20:00:00Z",
+      "stadium": {
+        "pt-br": "Toronto Stadium",
+        "en": "Toronto Stadium",
+        "es": "Toronto Stadium"
+      },
+      "city": {
+        "pt-br": "Toronto",
+        "en": "Toronto",
+        "es": "Toronto"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-20",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 33 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Toronto Stadium."
+      }
+    },
+    {
+      "id": "match-034",
+      "match_number": 34,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "E",
+      "home_team_id": "ecuador",
+      "away_team_id": "curacao",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-21T00:00:00Z",
+      "stadium": {
+        "pt-br": "Kansas City Stadium",
+        "en": "Kansas City Stadium",
+        "es": "Kansas City Stadium"
+      },
+      "city": {
+        "pt-br": "Kansas City",
+        "en": "Kansas City",
+        "es": "Kansas City"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-20",
+        "original_time_et": "20:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 34 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Kansas City Stadium."
+      }
+    },
+    {
+      "id": "match-035",
+      "match_number": 35,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "F",
+      "home_team_id": "netherlands",
+      "away_team_id": "sweden",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-20T17:00:00Z",
+      "stadium": {
+        "pt-br": "Houston Stadium",
+        "en": "Houston Stadium",
+        "es": "Houston Stadium"
+      },
+      "city": {
+        "pt-br": "Houston",
+        "en": "Houston",
+        "es": "Houston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-20",
+        "original_time_et": "13:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 35 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Houston Stadium."
+      }
+    },
+    {
+      "id": "match-036",
+      "match_number": 36,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "F",
+      "home_team_id": "tunisia",
+      "away_team_id": "japan",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-20T04:00:00Z",
+      "stadium": {
+        "pt-br": "Estadio Monterrey",
+        "en": "Estadio Monterrey",
+        "es": "Estadio Monterrey"
+      },
+      "city": {
+        "pt-br": "Monterrey",
+        "en": "Monterrey",
+        "es": "Monterrey"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-20",
+        "original_time_et": "00:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 36 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Estadio Monterrey."
+      }
+    },
+    {
+      "id": "match-037",
+      "match_number": 37,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "H",
+      "home_team_id": "uruguay",
+      "away_team_id": "cabo-verde",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-21T22:00:00Z",
+      "stadium": {
+        "pt-br": "Miami Stadium",
+        "en": "Miami Stadium",
+        "es": "Miami Stadium"
+      },
+      "city": {
+        "pt-br": "Miami",
+        "en": "Miami",
+        "es": "Miami"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-21",
+        "original_time_et": "18:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 37 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Miami Stadium."
+      }
+    },
+    {
+      "id": "match-038",
+      "match_number": 38,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "H",
+      "home_team_id": "spain",
+      "away_team_id": "saudi-arabia",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-21T16:00:00Z",
+      "stadium": {
+        "pt-br": "Atlanta Stadium",
+        "en": "Atlanta Stadium",
+        "es": "Atlanta Stadium"
+      },
+      "city": {
+        "pt-br": "Atlanta",
+        "en": "Atlanta",
+        "es": "Atlanta"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-21",
+        "original_time_et": "12:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 38 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Atlanta Stadium."
+      }
+    },
+    {
+      "id": "match-039",
+      "match_number": 39,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "G",
+      "home_team_id": "belgium",
+      "away_team_id": "ir-iran",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-21T19:00:00Z",
+      "stadium": {
+        "pt-br": "Los Angeles Stadium",
+        "en": "Los Angeles Stadium",
+        "es": "Los Angeles Stadium"
+      },
+      "city": {
+        "pt-br": "Los Angeles",
+        "en": "Los Angeles",
+        "es": "Los Angeles"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-21",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 39 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Los Angeles Stadium."
+      }
+    },
+    {
+      "id": "match-040",
+      "match_number": 40,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "G",
+      "home_team_id": "new-zealand",
+      "away_team_id": "egypt",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-22T01:00:00Z",
+      "stadium": {
+        "pt-br": "BC Place Vancouver",
+        "en": "BC Place Vancouver",
+        "es": "BC Place Vancouver"
+      },
+      "city": {
+        "pt-br": "Vancouver",
+        "en": "Vancouver",
+        "es": "Vancouver"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-21",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 40 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for BC Place Vancouver."
+      }
+    },
+    {
+      "id": "match-041",
+      "match_number": 41,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "I",
+      "home_team_id": "norway",
+      "away_team_id": "senegal",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-23T00:00:00Z",
+      "stadium": {
+        "pt-br": "New York New Jersey Stadium",
+        "en": "New York New Jersey Stadium",
+        "es": "New York New Jersey Stadium"
+      },
+      "city": {
+        "pt-br": "New York New Jersey",
+        "en": "New York New Jersey",
+        "es": "New York New Jersey"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-22",
+        "original_time_et": "20:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 41 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for New York New Jersey Stadium."
+      }
+    },
+    {
+      "id": "match-042",
+      "match_number": 42,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "I",
+      "home_team_id": "france",
+      "away_team_id": "iraq",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-22T21:00:00Z",
+      "stadium": {
+        "pt-br": "Philadelphia Stadium",
+        "en": "Philadelphia Stadium",
+        "es": "Philadelphia Stadium"
+      },
+      "city": {
+        "pt-br": "Philadelphia",
+        "en": "Philadelphia",
+        "es": "Philadelphia"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-22",
+        "original_time_et": "17:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 42 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Philadelphia Stadium."
+      }
+    },
+    {
+      "id": "match-043",
+      "match_number": 43,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "J",
+      "home_team_id": "argentina",
+      "away_team_id": "austria",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-22T17:00:00Z",
+      "stadium": {
+        "pt-br": "Dallas Stadium",
+        "en": "Dallas Stadium",
+        "es": "Dallas Stadium"
+      },
+      "city": {
+        "pt-br": "Dallas",
+        "en": "Dallas",
+        "es": "Dallas"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-22",
+        "original_time_et": "13:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 43 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Dallas Stadium."
+      }
+    },
+    {
+      "id": "match-044",
+      "match_number": 44,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "J",
+      "home_team_id": "jordan",
+      "away_team_id": "algeria",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-23T03:00:00Z",
+      "stadium": {
+        "pt-br": "San Francisco Bay Area Stadium",
+        "en": "San Francisco Bay Area Stadium",
+        "es": "San Francisco Bay Area Stadium"
+      },
+      "city": {
+        "pt-br": "San Francisco Bay Area",
+        "en": "San Francisco Bay Area",
+        "es": "San Francisco Bay Area"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-22",
+        "original_time_et": "23:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 44 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for San Francisco Bay Area Stadium."
+      }
+    },
+    {
+      "id": "match-045",
+      "match_number": 45,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "L",
+      "home_team_id": "england",
+      "away_team_id": "ghana",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-23T20:00:00Z",
+      "stadium": {
+        "pt-br": "Boston Stadium",
+        "en": "Boston Stadium",
+        "es": "Boston Stadium"
+      },
+      "city": {
+        "pt-br": "Boston",
+        "en": "Boston",
+        "es": "Boston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-23",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 45 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Boston Stadium."
+      }
+    },
+    {
+      "id": "match-046",
+      "match_number": 46,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "L",
+      "home_team_id": "panama",
+      "away_team_id": "croatia",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-23T23:00:00Z",
+      "stadium": {
+        "pt-br": "Toronto Stadium",
+        "en": "Toronto Stadium",
+        "es": "Toronto Stadium"
+      },
+      "city": {
+        "pt-br": "Toronto",
+        "en": "Toronto",
+        "es": "Toronto"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-23",
+        "original_time_et": "19:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 46 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Toronto Stadium."
+      }
+    },
+    {
+      "id": "match-047",
+      "match_number": 47,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "K",
+      "home_team_id": "portugal",
+      "away_team_id": "uzbekistan",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-23T17:00:00Z",
+      "stadium": {
+        "pt-br": "Houston Stadium",
+        "en": "Houston Stadium",
+        "es": "Houston Stadium"
+      },
+      "city": {
+        "pt-br": "Houston",
+        "en": "Houston",
+        "es": "Houston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-23",
+        "original_time_et": "13:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 47 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Houston Stadium."
+      }
+    },
+    {
+      "id": "match-048",
+      "match_number": 48,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "K",
+      "home_team_id": "colombia",
+      "away_team_id": "congo-dr",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-24T02:00:00Z",
+      "stadium": {
+        "pt-br": "Estadio Guadalajara",
+        "en": "Estadio Guadalajara",
+        "es": "Estadio Guadalajara"
+      },
+      "city": {
+        "pt-br": "Guadalajara",
+        "en": "Guadalajara",
+        "es": "Guadalajara"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-23",
+        "original_time_et": "22:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 48 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Estadio Guadalajara."
+      }
+    },
+    {
+      "id": "match-049",
+      "match_number": 49,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "C",
+      "home_team_id": "scotland",
+      "away_team_id": "brazil",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-24T22:00:00Z",
+      "stadium": {
+        "pt-br": "Miami Stadium",
+        "en": "Miami Stadium",
+        "es": "Miami Stadium"
+      },
+      "city": {
+        "pt-br": "Miami",
+        "en": "Miami",
+        "es": "Miami"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-24",
+        "original_time_et": "18:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 49 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Miami Stadium."
+      }
+    },
+    {
+      "id": "match-050",
+      "match_number": 50,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "C",
+      "home_team_id": "morocco",
+      "away_team_id": "haiti",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-24T22:00:00Z",
+      "stadium": {
+        "pt-br": "Atlanta Stadium",
+        "en": "Atlanta Stadium",
+        "es": "Atlanta Stadium"
+      },
+      "city": {
+        "pt-br": "Atlanta",
+        "en": "Atlanta",
+        "es": "Atlanta"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-24",
+        "original_time_et": "18:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 50 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Atlanta Stadium."
+      }
+    },
+    {
+      "id": "match-051",
+      "match_number": 51,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "B",
+      "home_team_id": "switzerland",
+      "away_team_id": "canada",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-24T19:00:00Z",
+      "stadium": {
+        "pt-br": "BC Place Vancouver",
+        "en": "BC Place Vancouver",
+        "es": "BC Place Vancouver"
+      },
+      "city": {
+        "pt-br": "Vancouver",
+        "en": "Vancouver",
+        "es": "Vancouver"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-24",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 51 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for BC Place Vancouver."
+      }
+    },
+    {
+      "id": "match-052",
+      "match_number": 52,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "B",
+      "home_team_id": "bosnia-and-herzegovina",
+      "away_team_id": "qatar",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-24T19:00:00Z",
+      "stadium": {
+        "pt-br": "Seattle Stadium",
+        "en": "Seattle Stadium",
+        "es": "Seattle Stadium"
+      },
+      "city": {
+        "pt-br": "Seattle",
+        "en": "Seattle",
+        "es": "Seattle"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-24",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 52 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Seattle Stadium."
+      }
+    },
+    {
+      "id": "match-053",
+      "match_number": 53,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "A",
+      "home_team_id": "czechia",
+      "away_team_id": "mexico",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-25T01:00:00Z",
+      "stadium": {
+        "pt-br": "Mexico City Stadium",
+        "en": "Mexico City Stadium",
+        "es": "Mexico City Stadium"
+      },
+      "city": {
+        "pt-br": "Mexico City",
+        "en": "Mexico City",
+        "es": "Mexico City"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-24",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 53 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Mexico City Stadium."
+      }
+    },
+    {
+      "id": "match-054",
+      "match_number": 54,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "A",
+      "home_team_id": "south-africa",
+      "away_team_id": "korea-republic",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-25T01:00:00Z",
+      "stadium": {
+        "pt-br": "Estadio Monterrey",
+        "en": "Estadio Monterrey",
+        "es": "Estadio Monterrey"
+      },
+      "city": {
+        "pt-br": "Monterrey",
+        "en": "Monterrey",
+        "es": "Monterrey"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-24",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 54 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Estadio Monterrey."
+      }
+    },
+    {
+      "id": "match-055",
+      "match_number": 55,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "E",
+      "home_team_id": "curacao",
+      "away_team_id": "cote-divoire",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-25T20:00:00Z",
+      "stadium": {
+        "pt-br": "Philadelphia Stadium",
+        "en": "Philadelphia Stadium",
+        "es": "Philadelphia Stadium"
+      },
+      "city": {
+        "pt-br": "Philadelphia",
+        "en": "Philadelphia",
+        "es": "Philadelphia"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-25",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 55 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Philadelphia Stadium."
+      }
+    },
+    {
+      "id": "match-056",
+      "match_number": 56,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "E",
+      "home_team_id": "ecuador",
+      "away_team_id": "germany",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-25T20:00:00Z",
+      "stadium": {
+        "pt-br": "New York New Jersey Stadium",
+        "en": "New York New Jersey Stadium",
+        "es": "New York New Jersey Stadium"
+      },
+      "city": {
+        "pt-br": "New York New Jersey",
+        "en": "New York New Jersey",
+        "es": "New York New Jersey"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-25",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 56 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for New York New Jersey Stadium."
+      }
+    },
+    {
+      "id": "match-057",
+      "match_number": 57,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "F",
+      "home_team_id": "japan",
+      "away_team_id": "sweden",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-25T23:00:00Z",
+      "stadium": {
+        "pt-br": "Dallas Stadium",
+        "en": "Dallas Stadium",
+        "es": "Dallas Stadium"
+      },
+      "city": {
+        "pt-br": "Dallas",
+        "en": "Dallas",
+        "es": "Dallas"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-25",
+        "original_time_et": "19:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 57 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Dallas Stadium."
+      }
+    },
+    {
+      "id": "match-058",
+      "match_number": 58,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "F",
+      "home_team_id": "tunisia",
+      "away_team_id": "netherlands",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-25T23:00:00Z",
+      "stadium": {
+        "pt-br": "Kansas City Stadium",
+        "en": "Kansas City Stadium",
+        "es": "Kansas City Stadium"
+      },
+      "city": {
+        "pt-br": "Kansas City",
+        "en": "Kansas City",
+        "es": "Kansas City"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-25",
+        "original_time_et": "19:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 58 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Kansas City Stadium."
+      }
+    },
+    {
+      "id": "match-059",
+      "match_number": 59,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "D",
+      "home_team_id": "turkiye",
+      "away_team_id": "usa",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-26T02:00:00Z",
+      "stadium": {
+        "pt-br": "Los Angeles Stadium",
+        "en": "Los Angeles Stadium",
+        "es": "Los Angeles Stadium"
+      },
+      "city": {
+        "pt-br": "Los Angeles",
+        "en": "Los Angeles",
+        "es": "Los Angeles"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-25",
+        "original_time_et": "22:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 59 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Los Angeles Stadium."
+      }
+    },
+    {
+      "id": "match-060",
+      "match_number": 60,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "D",
+      "home_team_id": "paraguay",
+      "away_team_id": "australia",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-26T02:00:00Z",
+      "stadium": {
+        "pt-br": "San Francisco Bay Area Stadium",
+        "en": "San Francisco Bay Area Stadium",
+        "es": "San Francisco Bay Area Stadium"
+      },
+      "city": {
+        "pt-br": "San Francisco Bay Area",
+        "en": "San Francisco Bay Area",
+        "es": "San Francisco Bay Area"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-25",
+        "original_time_et": "22:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 60 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for San Francisco Bay Area Stadium."
+      }
+    },
+    {
+      "id": "match-061",
+      "match_number": 61,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "I",
+      "home_team_id": "norway",
+      "away_team_id": "france",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-26T19:00:00Z",
+      "stadium": {
+        "pt-br": "Boston Stadium",
+        "en": "Boston Stadium",
+        "es": "Boston Stadium"
+      },
+      "city": {
+        "pt-br": "Boston",
+        "en": "Boston",
+        "es": "Boston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-26",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 61 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Boston Stadium."
+      }
+    },
+    {
+      "id": "match-062",
+      "match_number": 62,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "I",
+      "home_team_id": "senegal",
+      "away_team_id": "iraq",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-26T19:00:00Z",
+      "stadium": {
+        "pt-br": "Toronto Stadium",
+        "en": "Toronto Stadium",
+        "es": "Toronto Stadium"
+      },
+      "city": {
+        "pt-br": "Toronto",
+        "en": "Toronto",
+        "es": "Toronto"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-26",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 62 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Toronto Stadium."
+      }
+    },
+    {
+      "id": "match-063",
+      "match_number": 63,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "G",
+      "home_team_id": "egypt",
+      "away_team_id": "ir-iran",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-27T03:00:00Z",
+      "stadium": {
+        "pt-br": "Seattle Stadium",
+        "en": "Seattle Stadium",
+        "es": "Seattle Stadium"
+      },
+      "city": {
+        "pt-br": "Seattle",
+        "en": "Seattle",
+        "es": "Seattle"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-26",
+        "original_time_et": "23:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 63 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Seattle Stadium."
+      }
+    },
+    {
+      "id": "match-064",
+      "match_number": 64,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "G",
+      "home_team_id": "new-zealand",
+      "away_team_id": "belgium",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-27T03:00:00Z",
+      "stadium": {
+        "pt-br": "BC Place Vancouver",
+        "en": "BC Place Vancouver",
+        "es": "BC Place Vancouver"
+      },
+      "city": {
+        "pt-br": "Vancouver",
+        "en": "Vancouver",
+        "es": "Vancouver"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-26",
+        "original_time_et": "23:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 64 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for BC Place Vancouver."
+      }
+    },
+    {
+      "id": "match-065",
+      "match_number": 65,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "H",
+      "home_team_id": "cabo-verde",
+      "away_team_id": "saudi-arabia",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-27T00:00:00Z",
+      "stadium": {
+        "pt-br": "Houston Stadium",
+        "en": "Houston Stadium",
+        "es": "Houston Stadium"
+      },
+      "city": {
+        "pt-br": "Houston",
+        "en": "Houston",
+        "es": "Houston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-26",
+        "original_time_et": "20:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 65 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Houston Stadium."
+      }
+    },
+    {
+      "id": "match-066",
+      "match_number": 66,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "H",
+      "home_team_id": "uruguay",
+      "away_team_id": "spain",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-27T00:00:00Z",
+      "stadium": {
+        "pt-br": "Estadio Guadalajara",
+        "en": "Estadio Guadalajara",
+        "es": "Estadio Guadalajara"
+      },
+      "city": {
+        "pt-br": "Guadalajara",
+        "en": "Guadalajara",
+        "es": "Guadalajara"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-26",
+        "original_time_et": "20:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 66 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Estadio Guadalajara."
+      }
+    },
+    {
+      "id": "match-067",
+      "match_number": 67,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "L",
+      "home_team_id": "panama",
+      "away_team_id": "england",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-27T21:00:00Z",
+      "stadium": {
+        "pt-br": "New York New Jersey Stadium",
+        "en": "New York New Jersey Stadium",
+        "es": "New York New Jersey Stadium"
+      },
+      "city": {
+        "pt-br": "New York New Jersey",
+        "en": "New York New Jersey",
+        "es": "New York New Jersey"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-27",
+        "original_time_et": "17:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 67 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for New York New Jersey Stadium."
+      }
+    },
+    {
+      "id": "match-068",
+      "match_number": 68,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "L",
+      "home_team_id": "croatia",
+      "away_team_id": "ghana",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-27T21:00:00Z",
+      "stadium": {
+        "pt-br": "Philadelphia Stadium",
+        "en": "Philadelphia Stadium",
+        "es": "Philadelphia Stadium"
+      },
+      "city": {
+        "pt-br": "Philadelphia",
+        "en": "Philadelphia",
+        "es": "Philadelphia"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-27",
+        "original_time_et": "17:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 68 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Philadelphia Stadium."
+      }
+    },
+    {
+      "id": "match-069",
+      "match_number": 69,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "J",
+      "home_team_id": "algeria",
+      "away_team_id": "austria",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-28T02:00:00Z",
+      "stadium": {
+        "pt-br": "Kansas City Stadium",
+        "en": "Kansas City Stadium",
+        "es": "Kansas City Stadium"
+      },
+      "city": {
+        "pt-br": "Kansas City",
+        "en": "Kansas City",
+        "es": "Kansas City"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-27",
+        "original_time_et": "22:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 69 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Kansas City Stadium."
+      }
+    },
+    {
+      "id": "match-070",
+      "match_number": 70,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "J",
+      "home_team_id": "jordan",
+      "away_team_id": "argentina",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-28T02:00:00Z",
+      "stadium": {
+        "pt-br": "Dallas Stadium",
+        "en": "Dallas Stadium",
+        "es": "Dallas Stadium"
+      },
+      "city": {
+        "pt-br": "Dallas",
+        "en": "Dallas",
+        "es": "Dallas"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-27",
+        "original_time_et": "22:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 70 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Dallas Stadium."
+      }
+    },
+    {
+      "id": "match-071",
+      "match_number": 71,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "K",
+      "home_team_id": "colombia",
+      "away_team_id": "portugal",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-27T23:30:00Z",
+      "stadium": {
+        "pt-br": "Miami Stadium",
+        "en": "Miami Stadium",
+        "es": "Miami Stadium"
+      },
+      "city": {
+        "pt-br": "Miami",
+        "en": "Miami",
+        "es": "Miami"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-27",
+        "original_time_et": "19:30",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 71 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Miami Stadium."
+      }
+    },
+    {
+      "id": "match-072",
+      "match_number": 72,
+      "type": "confirmed",
+      "phase": "group_stage",
+      "group": "K",
+      "home_team_id": "congo-dr",
+      "away_team_id": "uzbekistan",
+      "home_label": null,
+      "away_label": null,
+      "datetime_utc": "2026-06-27T23:30:00Z",
+      "stadium": {
+        "pt-br": "Atlanta Stadium",
+        "en": "Atlanta Stadium",
+        "es": "Atlanta Stadium"
+      },
+      "city": {
+        "pt-br": "Atlanta",
+        "en": "Atlanta",
+        "es": "Atlanta"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-27",
+        "original_time_et": "19:30",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 72 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Atlanta Stadium."
+      }
+    },
+    {
+      "id": "match-073",
+      "match_number": 73,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "2o do Grupo A",
+        "en": "Group A runners-up",
+        "es": "Segundo del Grupo A"
+      },
+      "away_label": {
+        "pt-br": "2o do Grupo B",
+        "en": "Group B runners-up",
+        "es": "Segundo del Grupo B"
+      },
+      "datetime_utc": "2026-06-28T19:00:00Z",
+      "stadium": {
+        "pt-br": "Los Angeles Stadium",
+        "en": "Los Angeles Stadium",
+        "es": "Los Angeles Stadium"
+      },
+      "city": {
+        "pt-br": "Los Angeles",
+        "en": "Los Angeles",
+        "es": "Los Angeles"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-28",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 73 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Los Angeles Stadium."
+      }
+    },
+    {
+      "id": "match-074",
+      "match_number": 74,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo E",
+        "en": "Group E winners",
+        "es": "Primero del Grupo E"
+      },
+      "away_label": {
+        "pt-br": "3o dos Grupos A/B/C/D/F",
+        "en": "Group A/B/C/D/F third place",
+        "es": "Tercero de los Grupos A/B/C/D/F"
+      },
+      "datetime_utc": "2026-06-29T20:30:00Z",
+      "stadium": {
+        "pt-br": "Boston Stadium",
+        "en": "Boston Stadium",
+        "es": "Boston Stadium"
+      },
+      "city": {
+        "pt-br": "Boston",
+        "en": "Boston",
+        "es": "Boston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-29",
+        "original_time_et": "16:30",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 74 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Boston Stadium."
+      }
+    },
+    {
+      "id": "match-075",
+      "match_number": 75,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo F",
+        "en": "Group F winners",
+        "es": "Primero del Grupo F"
+      },
+      "away_label": {
+        "pt-br": "2o do Grupo C",
+        "en": "Group C runners-up",
+        "es": "Segundo del Grupo C"
+      },
+      "datetime_utc": "2026-06-30T01:00:00Z",
+      "stadium": {
+        "pt-br": "Estadio Monterrey",
+        "en": "Estadio Monterrey",
+        "es": "Estadio Monterrey"
+      },
+      "city": {
+        "pt-br": "Monterrey",
+        "en": "Monterrey",
+        "es": "Monterrey"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-29",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 75 kickoff time corrected in Phase 15F-6b after audit: official FIFA PDF shows 21:00 ET. Fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Estadio Monterrey."
+      }
+    },
+    {
+      "id": "match-076",
+      "match_number": 76,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo C",
+        "en": "Group C winners",
+        "es": "Primero del Grupo C"
+      },
+      "away_label": {
+        "pt-br": "2o do Grupo F",
+        "en": "Group F runners-up",
+        "es": "Segundo del Grupo F"
+      },
+      "datetime_utc": "2026-06-29T17:00:00Z",
+      "stadium": {
+        "pt-br": "Houston Stadium",
+        "en": "Houston Stadium",
+        "es": "Houston Stadium"
+      },
+      "city": {
+        "pt-br": "Houston",
+        "en": "Houston",
+        "es": "Houston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-29",
+        "original_time_et": "13:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 76 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Houston Stadium."
+      }
+    },
+    {
+      "id": "match-077",
+      "match_number": 77,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo I",
+        "en": "Group I winners",
+        "es": "Primero del Grupo I"
+      },
+      "away_label": {
+        "pt-br": "3o dos Grupos C/D/F/G/H",
+        "en": "Group C/D/F/G/H third place",
+        "es": "Tercero de los Grupos C/D/F/G/H"
+      },
+      "datetime_utc": "2026-06-30T21:00:00Z",
+      "stadium": {
+        "pt-br": "New York New Jersey Stadium",
+        "en": "New York New Jersey Stadium",
+        "es": "New York New Jersey Stadium"
+      },
+      "city": {
+        "pt-br": "New York New Jersey",
+        "en": "New York New Jersey",
+        "es": "New York New Jersey"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-30",
+        "original_time_et": "17:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 77 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for New York New Jersey Stadium."
+      }
+    },
+    {
+      "id": "match-078",
+      "match_number": 78,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "2o do Grupo E",
+        "en": "Group E runners-up",
+        "es": "Segundo del Grupo E"
+      },
+      "away_label": {
+        "pt-br": "2o do Grupo I",
+        "en": "Group I runners-up",
+        "es": "Segundo del Grupo I"
+      },
+      "datetime_utc": "2026-06-30T17:00:00Z",
+      "stadium": {
+        "pt-br": "Dallas Stadium",
+        "en": "Dallas Stadium",
+        "es": "Dallas Stadium"
+      },
+      "city": {
+        "pt-br": "Dallas",
+        "en": "Dallas",
+        "es": "Dallas"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-30",
+        "original_time_et": "13:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 78 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Dallas Stadium."
+      }
+    },
+    {
+      "id": "match-079",
+      "match_number": 79,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo A",
+        "en": "Group A winners",
+        "es": "Primero del Grupo A"
+      },
+      "away_label": {
+        "pt-br": "3o dos Grupos C/E/F/H/I",
+        "en": "Group C/E/F/H/I third place",
+        "es": "Tercero de los Grupos C/E/F/H/I"
+      },
+      "datetime_utc": "2026-07-01T01:00:00Z",
+      "stadium": {
+        "pt-br": "Mexico City Stadium",
+        "en": "Mexico City Stadium",
+        "es": "Mexico City Stadium"
+      },
+      "city": {
+        "pt-br": "Mexico City",
+        "en": "Mexico City",
+        "es": "Mexico City"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-06-30",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 79 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Mexico City Stadium."
+      }
+    },
+    {
+      "id": "match-080",
+      "match_number": 80,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo L",
+        "en": "Group L winners",
+        "es": "Primero del Grupo L"
+      },
+      "away_label": {
+        "pt-br": "3o dos Grupos E/H/I/J/K",
+        "en": "Group E/H/I/J/K third place",
+        "es": "Tercero de los Grupos E/H/I/J/K"
+      },
+      "datetime_utc": "2026-07-01T16:00:00Z",
+      "stadium": {
+        "pt-br": "Atlanta Stadium",
+        "en": "Atlanta Stadium",
+        "es": "Atlanta Stadium"
+      },
+      "city": {
+        "pt-br": "Atlanta",
+        "en": "Atlanta",
+        "es": "Atlanta"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-01",
+        "original_time_et": "12:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 80 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Atlanta Stadium."
+      }
+    },
+    {
+      "id": "match-081",
+      "match_number": 81,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo D",
+        "en": "Group D winners",
+        "es": "Primero del Grupo D"
+      },
+      "away_label": {
+        "pt-br": "3o dos Grupos B/E/F/I/J",
+        "en": "Group B/E/F/I/J third place",
+        "es": "Tercero de los Grupos B/E/F/I/J"
+      },
+      "datetime_utc": "2026-07-02T00:00:00Z",
+      "stadium": {
+        "pt-br": "San Francisco Bay Area Stadium",
+        "en": "San Francisco Bay Area Stadium",
+        "es": "San Francisco Bay Area Stadium"
+      },
+      "city": {
+        "pt-br": "San Francisco Bay Area",
+        "en": "San Francisco Bay Area",
+        "es": "San Francisco Bay Area"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-01",
+        "original_time_et": "20:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 81 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for San Francisco Bay Area Stadium."
+      }
+    },
+    {
+      "id": "match-082",
+      "match_number": 82,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo G",
+        "en": "Group G winners",
+        "es": "Primero del Grupo G"
+      },
+      "away_label": {
+        "pt-br": "3o dos Grupos A/E/H/I/J",
+        "en": "Group A/E/H/I/J third place",
+        "es": "Tercero de los Grupos A/E/H/I/J"
+      },
+      "datetime_utc": "2026-07-01T20:00:00Z",
+      "stadium": {
+        "pt-br": "Seattle Stadium",
+        "en": "Seattle Stadium",
+        "es": "Seattle Stadium"
+      },
+      "city": {
+        "pt-br": "Seattle",
+        "en": "Seattle",
+        "es": "Seattle"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-01",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 82 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Seattle Stadium."
+      }
+    },
+    {
+      "id": "match-083",
+      "match_number": 83,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "2o do Grupo K",
+        "en": "Group K runners-up",
+        "es": "Segundo del Grupo K"
+      },
+      "away_label": {
+        "pt-br": "2o do Grupo L",
+        "en": "Group L runners-up",
+        "es": "Segundo del Grupo L"
+      },
+      "datetime_utc": "2026-07-02T23:00:00Z",
+      "stadium": {
+        "pt-br": "Toronto Stadium",
+        "en": "Toronto Stadium",
+        "es": "Toronto Stadium"
+      },
+      "city": {
+        "pt-br": "Toronto",
+        "en": "Toronto",
+        "es": "Toronto"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-02",
+        "original_time_et": "19:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 83 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Toronto Stadium."
+      }
+    },
+    {
+      "id": "match-084",
+      "match_number": 84,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo H",
+        "en": "Group H winners",
+        "es": "Primero del Grupo H"
+      },
+      "away_label": {
+        "pt-br": "2o do Grupo J",
+        "en": "Group J runners-up",
+        "es": "Segundo del Grupo J"
+      },
+      "datetime_utc": "2026-07-02T19:00:00Z",
+      "stadium": {
+        "pt-br": "Los Angeles Stadium",
+        "en": "Los Angeles Stadium",
+        "es": "Los Angeles Stadium"
+      },
+      "city": {
+        "pt-br": "Los Angeles",
+        "en": "Los Angeles",
+        "es": "Los Angeles"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-02",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 84 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Los Angeles Stadium."
+      }
+    },
+    {
+      "id": "match-085",
+      "match_number": 85,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo B",
+        "en": "Group B winners",
+        "es": "Primero del Grupo B"
+      },
+      "away_label": {
+        "pt-br": "3o dos Grupos E/F/G/I/J",
+        "en": "Group E/F/G/I/J third place",
+        "es": "Tercero de los Grupos E/F/G/I/J"
+      },
+      "datetime_utc": "2026-07-03T03:00:00Z",
+      "stadium": {
+        "pt-br": "BC Place Vancouver",
+        "en": "BC Place Vancouver",
+        "es": "BC Place Vancouver"
+      },
+      "city": {
+        "pt-br": "Vancouver",
+        "en": "Vancouver",
+        "es": "Vancouver"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-02",
+        "original_time_et": "23:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 85 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for BC Place Vancouver."
+      }
+    },
+    {
+      "id": "match-086",
+      "match_number": 86,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo J",
+        "en": "Group J winners",
+        "es": "Primero del Grupo J"
+      },
+      "away_label": {
+        "pt-br": "2o do Grupo H",
+        "en": "Group H runners-up",
+        "es": "Segundo del Grupo H"
+      },
+      "datetime_utc": "2026-07-03T22:00:00Z",
+      "stadium": {
+        "pt-br": "Miami Stadium",
+        "en": "Miami Stadium",
+        "es": "Miami Stadium"
+      },
+      "city": {
+        "pt-br": "Miami",
+        "en": "Miami",
+        "es": "Miami"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-03",
+        "original_time_et": "18:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 86 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Miami Stadium."
+      }
+    },
+    {
+      "id": "match-087",
+      "match_number": 87,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "1o do Grupo K",
+        "en": "Group K winners",
+        "es": "Primero del Grupo K"
+      },
+      "away_label": {
+        "pt-br": "3o dos Grupos D/E/I/J/L",
+        "en": "Group D/E/I/J/L third place",
+        "es": "Tercero de los Grupos D/E/I/J/L"
+      },
+      "datetime_utc": "2026-07-04T01:30:00Z",
+      "stadium": {
+        "pt-br": "Kansas City Stadium",
+        "en": "Kansas City Stadium",
+        "es": "Kansas City Stadium"
+      },
+      "city": {
+        "pt-br": "Kansas City",
+        "en": "Kansas City",
+        "es": "Kansas City"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-03",
+        "original_time_et": "21:30",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 87 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Kansas City Stadium."
+      }
+    },
+    {
+      "id": "match-088",
+      "match_number": 88,
+      "type": "partial",
+      "phase": "round_of_32",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "2o do Grupo D",
+        "en": "Group D runners-up",
+        "es": "Segundo del Grupo D"
+      },
+      "away_label": {
+        "pt-br": "2o do Grupo G",
+        "en": "Group G runners-up",
+        "es": "Segundo del Grupo G"
+      },
+      "datetime_utc": "2026-07-03T18:00:00Z",
+      "stadium": {
+        "pt-br": "Dallas Stadium",
+        "en": "Dallas Stadium",
+        "es": "Dallas Stadium"
+      },
+      "city": {
+        "pt-br": "Dallas",
+        "en": "Dallas",
+        "es": "Dallas"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-03",
+        "original_time_et": "14:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 88 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Dallas Stadium."
+      }
+    },
+    {
+      "id": "match-089",
+      "match_number": 89,
+      "type": "partial",
+      "phase": "round_of_16",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 74",
+        "en": "Winner match 74",
+        "es": "Ganador partido 74"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 77",
+        "en": "Winner match 77",
+        "es": "Ganador partido 77"
+      },
+      "datetime_utc": "2026-07-04T21:00:00Z",
+      "stadium": {
+        "pt-br": "Philadelphia Stadium",
+        "en": "Philadelphia Stadium",
+        "es": "Philadelphia Stadium"
+      },
+      "city": {
+        "pt-br": "Philadelphia",
+        "en": "Philadelphia",
+        "es": "Philadelphia"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-04",
+        "original_time_et": "17:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 89 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Philadelphia Stadium."
+      }
+    },
+    {
+      "id": "match-090",
+      "match_number": 90,
+      "type": "partial",
+      "phase": "round_of_16",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 73",
+        "en": "Winner match 73",
+        "es": "Ganador partido 73"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 75",
+        "en": "Winner match 75",
+        "es": "Ganador partido 75"
+      },
+      "datetime_utc": "2026-07-04T17:00:00Z",
+      "stadium": {
+        "pt-br": "Houston Stadium",
+        "en": "Houston Stadium",
+        "es": "Houston Stadium"
+      },
+      "city": {
+        "pt-br": "Houston",
+        "en": "Houston",
+        "es": "Houston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-04",
+        "original_time_et": "13:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 90 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Houston Stadium."
+      }
+    },
+    {
+      "id": "match-091",
+      "match_number": 91,
+      "type": "partial",
+      "phase": "round_of_16",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 76",
+        "en": "Winner match 76",
+        "es": "Ganador partido 76"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 78",
+        "en": "Winner match 78",
+        "es": "Ganador partido 78"
+      },
+      "datetime_utc": "2026-07-05T20:00:00Z",
+      "stadium": {
+        "pt-br": "New York New Jersey Stadium",
+        "en": "New York New Jersey Stadium",
+        "es": "New York New Jersey Stadium"
+      },
+      "city": {
+        "pt-br": "New York New Jersey",
+        "en": "New York New Jersey",
+        "es": "New York New Jersey"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-05",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 91 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for New York New Jersey Stadium."
+      }
+    },
+    {
+      "id": "match-092",
+      "match_number": 92,
+      "type": "partial",
+      "phase": "round_of_16",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 79",
+        "en": "Winner match 79",
+        "es": "Ganador partido 79"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 80",
+        "en": "Winner match 80",
+        "es": "Ganador partido 80"
+      },
+      "datetime_utc": "2026-07-06T00:00:00Z",
+      "stadium": {
+        "pt-br": "Mexico City Stadium",
+        "en": "Mexico City Stadium",
+        "es": "Mexico City Stadium"
+      },
+      "city": {
+        "pt-br": "Mexico City",
+        "en": "Mexico City",
+        "es": "Mexico City"
+      },
+      "country": {
+        "pt-br": "Mexico",
+        "en": "Mexico",
+        "es": "Mexico"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-05",
+        "original_time_et": "20:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 92 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Mexico City Stadium."
+      }
+    },
+    {
+      "id": "match-093",
+      "match_number": 93,
+      "type": "partial",
+      "phase": "round_of_16",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 83",
+        "en": "Winner match 83",
+        "es": "Ganador partido 83"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 84",
+        "en": "Winner match 84",
+        "es": "Ganador partido 84"
+      },
+      "datetime_utc": "2026-07-06T19:00:00Z",
+      "stadium": {
+        "pt-br": "Dallas Stadium",
+        "en": "Dallas Stadium",
+        "es": "Dallas Stadium"
+      },
+      "city": {
+        "pt-br": "Dallas",
+        "en": "Dallas",
+        "es": "Dallas"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-06",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 93 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Dallas Stadium."
+      }
+    },
+    {
+      "id": "match-094",
+      "match_number": 94,
+      "type": "partial",
+      "phase": "round_of_16",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 81",
+        "en": "Winner match 81",
+        "es": "Ganador partido 81"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 82",
+        "en": "Winner match 82",
+        "es": "Ganador partido 82"
+      },
+      "datetime_utc": "2026-07-07T00:00:00Z",
+      "stadium": {
+        "pt-br": "Seattle Stadium",
+        "en": "Seattle Stadium",
+        "es": "Seattle Stadium"
+      },
+      "city": {
+        "pt-br": "Seattle",
+        "en": "Seattle",
+        "es": "Seattle"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-06",
+        "original_time_et": "20:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 94 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Seattle Stadium."
+      }
+    },
+    {
+      "id": "match-095",
+      "match_number": 95,
+      "type": "partial",
+      "phase": "round_of_16",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 86",
+        "en": "Winner match 86",
+        "es": "Ganador partido 86"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 88",
+        "en": "Winner match 88",
+        "es": "Ganador partido 88"
+      },
+      "datetime_utc": "2026-07-07T16:00:00Z",
+      "stadium": {
+        "pt-br": "Atlanta Stadium",
+        "en": "Atlanta Stadium",
+        "es": "Atlanta Stadium"
+      },
+      "city": {
+        "pt-br": "Atlanta",
+        "en": "Atlanta",
+        "es": "Atlanta"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-07",
+        "original_time_et": "12:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 95 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Atlanta Stadium."
+      }
+    },
+    {
+      "id": "match-096",
+      "match_number": 96,
+      "type": "partial",
+      "phase": "round_of_16",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 85",
+        "en": "Winner match 85",
+        "es": "Ganador partido 85"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 87",
+        "en": "Winner match 87",
+        "es": "Ganador partido 87"
+      },
+      "datetime_utc": "2026-07-07T20:00:00Z",
+      "stadium": {
+        "pt-br": "BC Place Vancouver",
+        "en": "BC Place Vancouver",
+        "es": "BC Place Vancouver"
+      },
+      "city": {
+        "pt-br": "Vancouver",
+        "en": "Vancouver",
+        "es": "Vancouver"
+      },
+      "country": {
+        "pt-br": "Canada",
+        "en": "Canada",
+        "es": "Canada"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-07",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 96 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for BC Place Vancouver."
+      }
+    },
+    {
+      "id": "match-097",
+      "match_number": 97,
+      "type": "partial",
+      "phase": "quarterfinal",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 89",
+        "en": "Winner match 89",
+        "es": "Ganador partido 89"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 90",
+        "en": "Winner match 90",
+        "es": "Ganador partido 90"
+      },
+      "datetime_utc": "2026-07-09T20:00:00Z",
+      "stadium": {
+        "pt-br": "Boston Stadium",
+        "en": "Boston Stadium",
+        "es": "Boston Stadium"
+      },
+      "city": {
+        "pt-br": "Boston",
+        "en": "Boston",
+        "es": "Boston"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-09",
+        "original_time_et": "16:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 97 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Boston Stadium."
+      }
+    },
+    {
+      "id": "match-098",
+      "match_number": 98,
+      "type": "partial",
+      "phase": "quarterfinal",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 93",
+        "en": "Winner match 93",
+        "es": "Ganador partido 93"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 94",
+        "en": "Winner match 94",
+        "es": "Ganador partido 94"
+      },
+      "datetime_utc": "2026-07-10T19:00:00Z",
+      "stadium": {
+        "pt-br": "Los Angeles Stadium",
+        "en": "Los Angeles Stadium",
+        "es": "Los Angeles Stadium"
+      },
+      "city": {
+        "pt-br": "Los Angeles",
+        "en": "Los Angeles",
+        "es": "Los Angeles"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-10",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 98 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Los Angeles Stadium."
+      }
+    },
+    {
+      "id": "match-099",
+      "match_number": 99,
+      "type": "partial",
+      "phase": "quarterfinal",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 91",
+        "en": "Winner match 91",
+        "es": "Ganador partido 91"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 92",
+        "en": "Winner match 92",
+        "es": "Ganador partido 92"
+      },
+      "datetime_utc": "2026-07-11T21:00:00Z",
+      "stadium": {
+        "pt-br": "Miami Stadium",
+        "en": "Miami Stadium",
+        "es": "Miami Stadium"
+      },
+      "city": {
+        "pt-br": "Miami",
+        "en": "Miami",
+        "es": "Miami"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-11",
+        "original_time_et": "17:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 99 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Miami Stadium."
+      }
+    },
+    {
+      "id": "match-100",
+      "match_number": 100,
+      "type": "partial",
+      "phase": "quarterfinal",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 95",
+        "en": "Winner match 95",
+        "es": "Ganador partido 95"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 96",
+        "en": "Winner match 96",
+        "es": "Ganador partido 96"
+      },
+      "datetime_utc": "2026-07-12T01:00:00Z",
+      "stadium": {
+        "pt-br": "Kansas City Stadium",
+        "en": "Kansas City Stadium",
+        "es": "Kansas City Stadium"
+      },
+      "city": {
+        "pt-br": "Kansas City",
+        "en": "Kansas City",
+        "es": "Kansas City"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-11",
+        "original_time_et": "21:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": true,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 100 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Kansas City Stadium."
+      }
+    },
+    {
+      "id": "match-101",
+      "match_number": 101,
+      "type": "partial",
+      "phase": "semifinal",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 97",
+        "en": "Winner match 97",
+        "es": "Ganador partido 97"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 98",
+        "en": "Winner match 98",
+        "es": "Ganador partido 98"
+      },
+      "datetime_utc": "2026-07-14T19:00:00Z",
+      "stadium": {
+        "pt-br": "Dallas Stadium",
+        "en": "Dallas Stadium",
+        "es": "Dallas Stadium"
+      },
+      "city": {
+        "pt-br": "Dallas",
+        "en": "Dallas",
+        "es": "Dallas"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-14",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 101 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Dallas Stadium."
+      }
+    },
+    {
+      "id": "match-102",
+      "match_number": 102,
+      "type": "partial",
+      "phase": "semifinal",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 99",
+        "en": "Winner match 99",
+        "es": "Ganador partido 99"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 100",
+        "en": "Winner match 100",
+        "es": "Ganador partido 100"
+      },
+      "datetime_utc": "2026-07-15T19:00:00Z",
+      "stadium": {
+        "pt-br": "Atlanta Stadium",
+        "en": "Atlanta Stadium",
+        "es": "Atlanta Stadium"
+      },
+      "city": {
+        "pt-br": "Atlanta",
+        "en": "Atlanta",
+        "es": "Atlanta"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-15",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 102 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Atlanta Stadium."
+      }
+    },
+    {
+      "id": "match-103",
+      "match_number": 103,
+      "type": "partial",
+      "phase": "third_place",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Perdedor do jogo 101",
+        "en": "Runner-up match 101",
+        "es": "Perdedor partido 101"
+      },
+      "away_label": {
+        "pt-br": "Perdedor do jogo 102",
+        "en": "Runner-up match 102",
+        "es": "Perdedor partido 102"
+      },
+      "datetime_utc": "2026-07-18T21:00:00Z",
+      "stadium": {
+        "pt-br": "Miami Stadium",
+        "en": "Miami Stadium",
+        "es": "Miami Stadium"
+      },
+      "city": {
+        "pt-br": "Miami",
+        "en": "Miami",
+        "es": "Miami"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-18",
+        "original_time_et": "17:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 103 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for Miami Stadium."
+      }
+    },
+    {
+      "id": "match-104",
+      "match_number": 104,
+      "type": "partial",
+      "phase": "final",
+      "group": null,
+      "home_team_id": null,
+      "away_team_id": null,
+      "home_label": {
+        "pt-br": "Vencedor do jogo 101",
+        "en": "Winner match 101",
+        "es": "Ganador partido 101"
+      },
+      "away_label": {
+        "pt-br": "Vencedor do jogo 102",
+        "en": "Winner match 102",
+        "es": "Ganador partido 102"
+      },
+      "datetime_utc": "2026-07-19T19:00:00Z",
+      "stadium": {
+        "pt-br": "New York New Jersey Stadium",
+        "en": "New York New Jersey Stadium",
+        "es": "New York New Jersey Stadium"
+      },
+      "city": {
+        "pt-br": "New York New Jersey",
+        "en": "New York New Jersey",
+        "es": "New York New Jersey"
+      },
+      "country": {
+        "pt-br": "Estados Unidos",
+        "en": "United States",
+        "es": "Estados Unidos"
+      },
+      "conversion_audit": {
+        "original_date": "2026-07-19",
+        "original_time_et": "15:00",
+        "conversion_timezone": "America/New_York",
+        "conversion_offset": "-04:00",
+        "source_timezone_label": "Eastern Time (ET)",
+        "utc_date_shift": false,
+        "source_reference": "FIFA official PDF",
+        "extraction_note": "Match 104 kickoff time and ET label from FIFA official PDF; fixture date and stadium from FIFA official article/API; city/country derived from the audited FIFA host-city/stadium mapping for New York New Jersey Stadium."
+      }
+    }
+  ]
+}
