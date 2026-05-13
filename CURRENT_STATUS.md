@@ -1,6 +1,6 @@
 # CURRENT_STATUS.md — World Cup Games Today
 
-**Última atualização:** 2026-05-12 (Fase 15E-1 — draft de grupos reais criado e auditado)
+**Última atualização:** 2026-05-12 (Fase 15F-1 — calendário real bloqueado por fonte incompleta)
 
 ---
 
@@ -32,13 +32,14 @@
 **Fase 15D-1 iniciada (2026-05-12):** criados `src/data/real/teams.real.draft.json` e `src/data/real/sources.json` fora do build público. Draft contém 48 seleções coletadas de páginas oficiais FIFA, com `flag` string e grupos FIFA em estado draft; nenhum JSON público foi alterado.
 **Fase 15D-2 concluída (2026-05-12):** draft de seleções reais validado e corrigido fora do build público. `flag` foi normalizada para emoji string, nomes `pt-br`/`es` foram localizados em draft, fontes foram atualizadas e nenhum JSON público foi alterado ou promovido.
 **Fase 15E-1 iniciada/concluída em draft (2026-05-12):** criado `src/data/real/groups.real.draft.json` a partir dos campos `group` já existentes em `teams.real.draft.json`. O draft contém 12 grupos A-L, 4 seleções por grupo e 48 `team_ids` únicos; segue fora do build público e não foi promovido para `src/data/groups.json`.
-**Próxima ação:** Parar e aguardar auditoria somente-leitura da 15E-1 antes de commit ou qualquer promoção. Nenhum dado real deve ser promovido para JSON público antes do QA coordenado.
+**Fase 15F-1 bloqueada (2026-05-12):** fonte oficial FIFA do artigo de calendário revisada. A resposta pública contém 104 links únicos de match-centre e texto de fixtures, mas não fornece horários de início, timezone/base de horário local, `datetime_utc`, cidade e país por partida em formato confiável para o tipo `Match`. `MATCH_SCHEDULE_SOURCE_REVIEW.md` registra a revisão; `src/data/real/matches.real.draft.json` não foi criado.
+**Próxima ação:** Parar e aguardar auditoria somente-leitura da revisão 15F-1 ou autorização explícita para revisar o PDF oficial FIFA/uma fonte oficial estruturada. Nenhum dado real deve ser promovido para JSON público antes do QA coordenado.
 
 ---
 
 ## Fase 15 — Dados Reais e Preparação para Produção (2026-05-09)
 
-**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; 15D-1 iniciada em draft; 15D-2 concluída em draft; 15E-1 concluída em draft; aguardando auditoria
+**Status:** EM ANDAMENTO — 15A, 15B e 15C concluídas; 15D-0 criada; 15D-1 iniciada em draft; 15D-2 concluída em draft; 15E-1 concluída em draft; 15F-1 bloqueada por fonte incompleta
 **Plano completo:** ver IMPLEMENTATION_PLAN.md, seção "Fase 15"
 
 ### Subfases e status
@@ -54,7 +55,8 @@
 | 15E-1 | Criar draft de grupos reais fora do build público | CONCLUÍDA — 12 grupos A-L em draft, sem promoção |
 | 15D | Importar seleções reais (48 times, primeiro em draft) | PENDENTE |
 | 15E | Importar grupos reais (12 grupos) | EM DRAFT — sem promoção para JSON público |
-| 15F | Importar calendário real dos 104 jogos | PENDENTE |
+| 15F-1 | Criar draft do calendário real fora do build público | BLOQUEADA — artigo FIFA não fornece horários/timezone/datetime_utc |
+| 15F | Importar calendário real dos 104 jogos | BLOQUEADA — requer PDF oficial ou fonte estruturada completa |
 | 15G | Converter e validar horários UTC | PENDENTE |
 | 15H | QA dos dados reais | PENDENTE |
 | 15I | Remover/ajustar avisos MOCK | PENDENTE |
